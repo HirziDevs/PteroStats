@@ -42,7 +42,7 @@ const msg = ch.messages.cache.get('860438916275240971')
 
 if(status === 'offline') {
 ch.send(`Node is online\nTime : ${Date.now()}`).then(m => { m.delete({timeout: 5000}) })
-} else if(status !=== 'offline') {
+} else {
 ch.send(`Node is offline\nTime : ${Date.now()}`).then(m => { m.delete({timeout: 5000}) })
 }
 
