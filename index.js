@@ -25,7 +25,7 @@ fs.readdir('./commands/', (err, files) => {
 		client.commands.set(commandName, props);
 	});
 });
-
+a
 client.login("ODU5MzA0NzQyOTcwODUxMzI5.YNqv5w.3ZqRw_qTN6seZt_Ue5K9BYJJzs4");
 
 setInterval(() => {
