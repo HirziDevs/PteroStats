@@ -28,6 +28,7 @@ fs.readdir('./commands/', (err, files) => {
 client.login("ODU5MzA0NzQyOTcwODUxMzI5.YNqv5w.3ZqRw_qTN6seZt_Ue5K9BYJJzs4");
 
 setInterval(() => {
+a
 let hosturl = "https://host.itzy-store.net"
 let id = "6154c1cc"
 let apikey = "hgQGH3wpNVP98FTxl2PDOmjQLLmz4WBHsDft1HQPcosqPevS"
