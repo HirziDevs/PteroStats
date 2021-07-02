@@ -38,7 +38,7 @@ const stats = Client.getServerUsages(id);
 const status = (stats.current_state);
 
 const ch = client.channels.cache.get('837238494765645834')
-const msg = channel.messages.cache.get('860438916275240971')
+const msg = ch.messages.cache.get('860438916275240971')
 
 if(status === 'offline') {
 msg.edit(`Node is online\nTime : ${Date.now()}`)
