@@ -41,9 +41,9 @@ const ch = client.channels.cache.get('837238494765645834')
 const msg = ch.messages.cache.get('860438916275240971')
 
 if(status === 'offline') {
-msg.edit(`Node is online\nTime : ${Date.now()}`)
+ch.send(`Node is online\nTime : ${Date.now()}`).then(m => { m.delete({timeout: 5000}) })
 } else if(status !== 'offline') {
-msg.edit(`Node is offline\nTime : ${Date.now()}`)
+ch.send(`Node is offline\nTime : ${Date.now()}`).then(m => { m.delete({timeout: 5000}) })
 }
 
 }, 20000)
