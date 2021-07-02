@@ -2,6 +2,7 @@ const { Client, Collection } = require('discord.js');
 const fs = require('fs');
 const client = new Client();
 const axios = require('axios')
+const node = require('nodeactyl')
 require("discord-buttons")(client);
 
 fs.readdir('./events/', (err, files) => {
@@ -28,26 +29,21 @@ fs.readdir('./commands/', (err, files) => {
 client.login("ODU5MzA0NzQyOTcwODUxMzI5.YNqv5w.3ZqRw_qTN6seZt_Ue5K9BYJJzs4");
 
 setInterval(() => {
-a
 let hosturl = "https://host.itzy-store.net"
 let id = "6154c1cc"
 let apikey = "hgQGH3wpNVP98FTxl2PDOmjQLLmz4WBHsDft1HQPcosqPevS"
-axios({
-        url: hosturl + "/api/client/servers/" + id + "/resources",
-        method: 'GET',
-        followRedirect: true,
-        maxRedirects: 5,
-        headers: {
-            'Authorization': 'Bearer ' + apikey,
-            'Content-Type': 'application/json',
-            'Accept': 'Application/vnd.pterodactyl.v1+json',
-        }
-    }).then(response => {
-        let status = "true"
-        client.channels.cache.get("837238494765645834").send(status);
-    }).catch(error => {
-        let status = "false"
-        client.channels.cache.get("837238494765645834").send(status);
-    })
 
-}, 10000)
+let Client = new node.NodeactylClient(hosturl, apikey);
+const stats = await Client.getServerUsages(id);
+const status = (stats.current_state);
+
+const ch = client.channels.cache.get('837238494765645834')
+const msg = channel.messages.cache.get('860438916275240971')
+
+if(status === 'offline') {
+msg.edit(`Node is online\nTime : ${Date.now()}`)
+} else if(status !== 'offline') {
+msg.edit(`Node is offline\nTime : ${Date.now()}`)
+}
+
+}, 20000)
