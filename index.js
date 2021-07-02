@@ -34,7 +34,7 @@ let id = "6154c1cc"
 let apikey = "hgQGH3wpNVP98FTxl2PDOmjQLLmz4WBHsDft1HQPcosqPevS"
 
 let Client = new node.NodeactylClient(hosturl, apikey);
-const stats = await Client.getServerUsages(id);
+const stats = Client.getServerUsages(id);
 const status = (stats.current_state);
 
 const ch = client.channels.cache.get('837238494765645834')
