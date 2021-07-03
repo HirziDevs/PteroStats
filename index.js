@@ -28,7 +28,7 @@ fs.readdir('./commands/', (err, files) => {
 client.login("ODU5MzA0NzQyOTcwODUxMzI5.YNqv5w.3ZqRw_qTN6seZt_Ue5K9BYJJzs4");
 
 setInterval(() => {
-let hosturl = "https://host.itzy-store.net"
+let hosturl = "https://host.itzystore.xyz"
 let id = "6154c1cc"
 let apikey = "hgQGH3wpNVP98FTxl2PDOmjQLLmz4WBHsDft1HQPcosqPevS"
 
@@ -40,7 +40,7 @@ const ch = client.channels.cache.get('837238494765645834')
 //const msg = ch.messages.cache.get('860438916275240971')
 
 //if(status === 'offline') {
-axios(`${hosturl} /api/client/servers/${id}/resources`, {
+axios(`${hosturl}/api/client/servers/${id}/resources`, {
   "method": "GET",
   "headers": {
     "Accept": "application/json",
