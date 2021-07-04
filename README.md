@@ -26,7 +26,7 @@ Installation
 Screenshot
 --------------------
 
-[img](https://media.discordapp.net/attachments/861112767174803466/861194338687385610/IMG_20210704_173809.jpg)
+![img](https://media.discordapp.net/attachments/861112767174803466/861194338687385610/IMG_20210704_173809.jpg)
 
 Need Help Setuping?
 --------------------
