@@ -1,3 +1,3 @@
 ## Nodes Status
 
-a Discord Bot that checking panel, nodes and databases status 
+a Discord Bot that check panel, nodes and databases status 
