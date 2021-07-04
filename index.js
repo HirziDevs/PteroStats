@@ -35,19 +35,22 @@ let apikey = "hgQGH3wpNVP98FTxl2PDOmjQLLmz4WBHsDft1HQPcosqPevS"
 let ch = client.channels.cache.find(cn => cn.id === '837238424628363294')
 
 let id1 = "6154c1cc"
-let name1 = "is-a6"
+let name1 = "**Node is-a6**"
 let id2 = "1151dae7"
-let name2 = "is-b1"
+let name2 = "**Node is-b1**"
 let id3 = "6fcc4ff0"
-let name3 = "is-b2"
+let name3 = "**Node is-b2**"
 let id4 = "e165f6ba"
-let name4 = "is-b3"
+let name4 = "**Node is-b3**"
 let id5 = "899c59c4"
-let name5 = "vectorcraft"
+let name5 = "**vectorcraft**"
 let id6 = "0482c8db"
-let name6 = "is-ss1"
+let name6 = "**Node is-ss1**"
 let id7 = "cfc4c6d4"
-let name7 = "is-c1"
+let name7 = "**Node is-c1**"
+
+let statusonline = ":green_circle: Online"
+let statusoffline = ":red_circle: Offline"
 
 axios(`${hosturl}/api/client/servers/${id1}/resources`, {
   "method": "GET",
@@ -58,10 +61,10 @@ axios(`${hosturl}/api/client/servers/${id1}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn1 ",`node ${name1} is :green_circle: online`)
+  db.set("mn1 ",`${name1}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn1 ",`node ${name1} is :red_circle: offline`)
+  db.set("mn1 ",`${name1}: ${statusoffline}`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id2}/resources`, {
@@ -73,10 +76,10 @@ axios(`${hosturl}/api/client/servers/${id2}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn2 ",`node ${name2} is :green_circle: online`)
+  db.set("mn2 ",`${name2}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn2 ",`node ${name2} is :red_circle: offline`)
+  db.set("mn2 ",`${name2}: ${statusoffline}`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id3}/resources`, {
@@ -88,10 +91,10 @@ axios(`${hosturl}/api/client/servers/${id3}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn3 ",`node ${name3} is :green_circle: online`)
+  db.set("mn3 ",`${name3}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn3 ",`node ${name3} is :red_circle: offline`)
+  db.set("mn3 ",`${name3}: ${statusoffline}`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id4}/resources`, {
@@ -103,10 +106,10 @@ axios(`${hosturl}/api/client/servers/${id4}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn4 ",`node ${name4} is :green_circle: online`)
+  db.set("mn4 ",`${name4}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn4 ",`node ${name4} is :red_circle: offline`)
+  db.set("mn4 ",`${name4}: ${statusoffline}`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id5}/resources`, {
@@ -118,10 +121,10 @@ axios(`${hosturl}/api/client/servers/${id5}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn5 ",`node ${name5} is :green_circle: online`)
+  db.set("mn5 ",`${name5}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn5 ",`node ${name5} is :red_circle: offline`)
+  db.set("mn5 ",`${name5}: ${statusoffline}`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id6}/resources`, {
@@ -133,10 +136,10 @@ axios(`${hosturl}/api/client/servers/${id6}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn6 ",`node ${name6} is :green_circle: online`)
+  db.set("mn6 ",`${name6}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn6 ",`node ${name6} is :red_circle: offline`)
+  db.set("mn6 ",`${name6}: ${statusoffline}`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id7}/resources`, {
@@ -148,10 +151,10 @@ axios(`${hosturl}/api/client/servers/${id7}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn7 ",`node ${name7} is :green_circle: online`)
+  db.set("mn7 ",`${name7}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn7 ",`node ${name7} is :red_circle: offline`)
+  db.set("mn7 ",`${name7}: ${statusoffline}`)
   });
   
   let mn1 = db.get("mn1 ")
@@ -164,8 +167,11 @@ axios(`${hosturl}/api/client/servers/${id7}/resources`, {
   
   let nodemessage = `${mn1}\n${mn2}\n${mn3}\n${mn4}\n${mn5}\n${mn6}\n${mn7}`
   let embed = new MessageEmbed()
-  .setTitle('Node List')
+  .setTitle('ItzStore Node List')
+  .setColor("E5BE11")
   .setDescription(nodemessage)
+  .setTimestamp()
+  .setFooter("Created by Hirzi")
 
   ch.send(embed).then(msg => { msg.delete({timeout: 60000}) })
 }, 60000)
