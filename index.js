@@ -36,25 +36,25 @@ let apikey = "hgQGH3wpNVP98FTxl2PDOmjQLLmz4WBHsDft1HQPcosqPevS"
 let ch = client.channels.cache.find(cn => cn.id === '837238424628363294')
 
 let id1 = "6154c1cc"
-let name1 = "**Node is-a6**"
+let name1 = "**Node IS-A6**"
 let id2 = "1151dae7"
-let name2 = "**Node is-b1**"
+let name2 = "**Node IS-B1**"
 let id3 = "6fcc4ff0"
-let name3 = "**Node is-b2**"
+let name3 = "**Node IS-B2**"
 let id4 = "e165f6ba"
-let name4 = "**Node is-b5**"
+let name4 = "**Node IS-B5**"
 let id5 = "899c59c4"
 let name5 = "**Node VectorCraft**"
 let id6 = "0482c8db"
-let name6 = "**Node is-ss1**"
+let name6 = "**Node IS-SS1**"
 let id7 = "cfc4c6d4"
-let name7 = "**Node is-c1**"
+let name7 = "**Node IS-C1**"
 let id8 = "3e96a95b"
-let name8 = "**Node is-c2**"
+let name8 = "**Node IS-C2**"
 
 let dbip1 = "47.241.176.6"
 let dbport1 = "3306"
-let dbname1 = "**MongoDB**"
+let dbname1 = "**MariaDB**"
 
 let statusonline = ":green_circle: Online"
 let statusoffline = ":red_circle: Offline"
@@ -217,6 +217,10 @@ ping.ping(dbip1, dbport1)
   .setDescription(nodemessage)
   .setTimestamp()
   .setFooter("Updated every 1 minutes | By Hirzi#8701")
-
-  ch.send(embed).then(msg => { msg.delete({timeout: 60000}) })
+  .setThumbnail(client.user.avatarURL());
+ 
+   let messages = ch.messages.fetch({limit: 10})
+   messages = messages.filter(x => x.author.id === client.user.id).last();
+   if (messages == null) ch.send(embed)
+   else messages.edit(embed)
 }, 60000)
