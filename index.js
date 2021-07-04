@@ -181,7 +181,7 @@ axios(`${hosturl}/api/client/servers/${id8}/resources`, {
   let mn5 = db.get("mn5 ")
   let mn6 = db.get("mn6 ")
   let mn7 = db.get("mn7 ")
-  ler mn8 = db.get("mn8 ")
+  let mn8 = db.get("mn8 ")
   
   let nodemessage = `__**Node List**__\n${mn1}\n${mn2}\n${mn3}\n${mn4}\n${mn5}\n${mn6}\n${mn7}\n\n__**DataBases**__\n**MariaDB**: NA`
   let embed = new MessageEmbed()
