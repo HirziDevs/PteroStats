@@ -60,25 +60,43 @@ module.exports = client => {
 
     //Panel Status Checker
     ping
-      .ping(hosturl, 80)
+      .ping({ hosturl })
       .then(() => {
         db.set("panel", `Panel: ${statusonline}`);
       })
       .catch(err => {
         db.set("panel", `Panel: ${statusoffline}`);
       });
-    let servers = axios.get(hosturl + '/api/application/servers', {
-                headers: {
-                    'authorization': 'Bearer ' + adminapikey
-                }
-            });
-    let serverCount = servers.total
-    let users = axios.get(hosturl + '/api/application/users', {
-                headers: {
-                    'authorization': 'Bearer ' + adminapikey
-                }
-            });
-    let userCount = users.total
+    axios(`${hosturl}/api/application/servers`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${adminapikey}`
+      }
+    })
+      .then(response => {
+        let res = response.data.meta.pagination.total;
+        db.set("serverCount", res);
+      })
+      .catch(err => {
+        db.set("serverCount", "N/A");
+      });
+    axios(`${hosturl}/api/application/users`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${adminapikey}`
+      }
+    })
+      .then(response => {
+        let res = response.data.meta.pagination.total;
+        db.set("userCount", res);
+      })
+      .catch(err => {
+        db.set("userCount", "N/A");
+      });
 
     //Embed Message
     let mn1 = db.get("mn1");
@@ -86,9 +104,12 @@ module.exports = client => {
 
     let db1 = db.get("db1");
     if (db1 === null) db1 = `${dbname1}: checking status`;
-   
-    let panel = `${db.get("panel")}\n\nUsers: ${userCount}\nServers: ${serverCount}`
-    if (panel === null) panel = `Panel: checking status\n\nUsers: ${userCount}\nServers: ${serverCount}`;
+
+    let panel = `${db.get(
+      "panel"
+    )}\n\nUsers: ${userCount}\nServers: ${serverCount}`;
+    if (panel === null)
+      panel = `Panel: checking status\n\nUsers: ${userCount}\nServers: ${serverCount}`;
 
     let nodemessage = `__**Nodes Stats**__\n${mn1}\n\n__**DataBases Stats**__\n${db1}\n\n__**Panel Stats**__\n${panel}`;
     let embed = new MessageEmbed()
