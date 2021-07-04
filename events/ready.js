@@ -62,10 +62,10 @@ module.exports = client => {
     ping
       .ping({ hosturl })
       .then(() => {
-        db.set("panel", `Panel: ${statusonline}`);
+        db.set("panel", `**Panel**: ${statusonline}`);
       })
       .catch(err => {
-        db.set("panel", `Panel: ${statusoffline}`);
+        db.set("panel", `**Panel**: ${statusoffline}`);
       });
     axios(`${hosturl}/api/application/servers`, {
       method: "GET",
@@ -106,7 +106,7 @@ module.exports = client => {
     if (db1 === null) db1 = `${dbname1}: checking status`;
 
     let panel = `${db.get("panel")}\n\nUsers: ${userCount}\nServers: ${serverCount}`;
-    if (panel === null) panel = `Panel: checking status\n\nUsers: ${userCount}\nServers: ${serverCount}`;
+    if (panel === null) panel = `**Panel**: checking status\n\nUsers: ${userCount}\nServers: ${serverCount}`;
 
     let nodemessage = `__**Nodes Stats**__\n${mn1}\n\n__**DataBases Stats**__\n${db1}\n\n__**Panel Stats**__\n${panel}`;
     let embed = new MessageEmbed()
