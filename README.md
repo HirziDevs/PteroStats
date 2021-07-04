@@ -4,7 +4,7 @@
 
 ## Introduction
 
-PteroStata is a bot designed to check Panel, Nodes, and Databases status and post it to discord server
+PteroStats is a bot designed to check Panel, Nodes, and Databases status and post it to discord server
 
 * Written in Javascript, CloudServer is faster and more stable.
 * PteroControl can be used with any server on Pterodactyl, irregardless of whether it's on shared hosting or your own hosted panel
