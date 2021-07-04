@@ -3,7 +3,8 @@ const { MessageEmbed } = require('discord.js')
 const fs = require('fs');
 const client = new Client();
 const axios = require('axios')
-const db = require("quick.db")
+const db = require('quick.db')
+conts ping = require('ping-tcp-js')
 const node = require('nodeactyl')
 require("discord-buttons")(client);
 
@@ -51,9 +52,14 @@ let name7 = "**Node is-c1**"
 let id8 = "3e96a95b"
 let name8 = "**Node is-c2**"
 
+let dbip1 = "47.241.176.6"
+let dbport1 = "3306"
+let dbname1 = "**MongoDB**"
+
 let statusonline = ":green_circle: Online"
 let statusoffline = ":red_circle: Offline"
 
+//Node Status Checker
 axios(`${hosturl}/api/client/servers/${id1}/resources`, {
   "method": "GET",
   "headers": {
@@ -63,10 +69,10 @@ axios(`${hosturl}/api/client/servers/${id1}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn1 ",`${name1}: ${statusonline}`)
+  db.set("mn1",`${name1}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn1 ",`${name1}: ${statusoffline}`)
+  db.set("mn1",`${name1}: ${statusoffline}`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id2}/resources`, {
@@ -78,10 +84,10 @@ axios(`${hosturl}/api/client/servers/${id2}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn2 ",`${name2}: ${statusonline}`)
+  db.set("mn2",`${name2}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn2 ",`${name2}: ${statusoffline}`)
+  db.set("mn2",`${name2}: ${statusoffline}`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id3}/resources`, {
@@ -93,10 +99,10 @@ axios(`${hosturl}/api/client/servers/${id3}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn3 ",`${name3}: ${statusonline}`)
+  db.set("mn3",`${name3}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn3 ",`${name3}: ${statusoffline}`)
+  db.set("mn3",`${name3}: ${statusoffline}`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id4}/resources`, {
@@ -108,10 +114,10 @@ axios(`${hosturl}/api/client/servers/${id4}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn4 ",`${name4}: ${statusonline}`)
+  db.set("mn4",`${name4}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn4 ",`${name4}: ${statusoffline}`)
+  db.set("mn4",`${name4}: ${statusoffline}`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id5}/resources`, {
@@ -123,10 +129,10 @@ axios(`${hosturl}/api/client/servers/${id5}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn5 ",`${name5}: ${statusonline}`)
+  db.set("mn5",`${name5}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn5 ",`${name5}: ${statusoffline}`)
+  db.set("mn5",`${name5}: ${statusoffline}`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id6}/resources`, {
@@ -138,10 +144,10 @@ axios(`${hosturl}/api/client/servers/${id6}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn6 ",`${name6}: ${statusonline}`)
+  db.set("mn6",`${name6}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn6 ",`${name6}: ${statusoffline}`)
+  db.set("mn6",`${name6}: ${statusoffline}`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id7}/resources`, {
@@ -153,10 +159,10 @@ axios(`${hosturl}/api/client/servers/${id7}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn7 ",`${name7}: ${statusonline}`)
+  db.set("mn7",`${name7}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn7 ",`${name7}: ${statusoffline}`)
+  db.set("mn7",`${name7}: ${statusoffline}`)
   });
 
 axios(`${hosturl}/api/client/servers/${id8}/resources`, {
@@ -168,28 +174,49 @@ axios(`${hosturl}/api/client/servers/${id8}/resources`, {
   }
 })
   .then(response => {
-  db.set("mn8 ",`${name8}: ${statusonline}`)
+  db.set("mn8",`${name8}: ${statusonline}`)
   })
   .catch(err => {
-  db.set("mn8 ",`${name8}: ${statusoffline}`)
+  db.set("mn8",`${name8}: ${statusoffline}`)
+  });
+
+//Database Status Checker
+ping.ping(dbip1, dbport1)
+  .then(() => {
+  db.set("db1",`${dbname1}: ${statusonline}`)
+  })
+  .catch(err => {
+  db.set(db1",`${dbname1}: ${statusoffline}`)
   });
   
-  let mn1 = db.get("mn1 ")
-  let mn2 = db.get("mn2 ")
-  let mn3 = db.get("mn3 ")
-  let mn4 = db.get("mn4 ")
-  let mn5 = db.get("mn5 ")
-  let mn6 = db.get("mn6 ")
-  let mn7 = db.get("mn7 ")
-  let mn8 = db.get("mn8 ")
+//Embed Message
+  let mn1 = db.get("mn1")
+  if(mn1 === null) mn1 = `${name1}: checking status`
+  let mn2 = db.get("mn2")
+  if(mn2 === null) mn2 = `${name2}: checking status`
+  let mn3 = db.get("mn3")
+  if(mn3 === null) mn3 = `${name3}: checking status`
+  let mn4 = db.get("mn4")
+  if(mn4 === null) mn4 = `${name4}: checking status`
+  let mn5 = db.get("mn5")
+  if(mn5 === null) mn5 = `${name5}: checking status`
+  let mn6 = db.get("mn6")
+  if(mn6 === null) mn6 = `${name6}: checking status`
+  let mn7 = db.get("mn7")
+  if(mn7 === null) mn7 = `${name7}: checking status`
+  let mn8 = db.get("mn8")
+  if(mn8 === null) mn8 = `${name8}: checking status`
+
+  let db1 = db.get("db1")
+  if(db1 === null) db1 = `${dbname1}: checking status`
   
-  let nodemessage = `__**Node List**__\n${mn1}\n${mn2}\n${mn3}\n${mn4}\n${mn5}\n${mn6}\n${mn7}\n${mn8}\n\n__**DataBases**__\n**MariaDB**: NA`
+  let nodemessage = `__**Nodes List**__\n${mn1}\n${mn2}\n${mn3}\n${mn4}\n${mn5}\n${mn6}\n${mn7}\n${mn8}\n\n__**DataBases List**__\n${db1}`
   let embed = new MessageEmbed()
-  .setTitle('ItzStore Status')
+  .setTitle('ItzStore Uptime')
   .setColor("E5BE11")
   .setDescription(nodemessage)
   .setTimestamp()
-  .setFooter("Updated every 1 minutes")
+  .setFooter("Updated every 1 minutes | By Hirzi#8701")
 
   ch.send(embed).then(msg => { msg.delete({timeout: 60000}) })
 }, 60000)
