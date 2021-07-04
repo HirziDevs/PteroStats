@@ -1,3 +1,3 @@
-##PteroManager
+## Nodes Status
 
-ItzyManager original bot
+a Discord Bot that checking panel, nodes and databases status 
