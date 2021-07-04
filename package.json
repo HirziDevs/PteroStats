@@ -1,5 +1,5 @@
 {
-  "name": "Pterodactyl Status",
+  "name": "PteroStats",
   "version": "1.0.0",
   "scripts": {
     "start": "node index.js"
