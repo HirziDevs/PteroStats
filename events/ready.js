@@ -3,6 +3,7 @@ module.exports = client => {
   const axios = require("axios");
   const db = require("quick.db");
   const ping = require("ping-tcp-js");
+  const pterostatus = require("pterostatus");
   const chalk = require("chalk");
   const config = require("../config.json");
 
@@ -57,14 +58,39 @@ module.exports = client => {
         db.set("db1", `${dbname1}: ${statusoffline}`);
       });
 
+    //Panel Status Checker
+    ping
+      .ping(hosturl, 80)
+      .then(() => {
+        db.set("panel", `Panel: ${statusonline}`);
+      })
+      .catch(err => {
+        db.set("panel", `Panel: ${statusoffline}`);
+      });
+    let servers = axios.get(this.panel + '/api/application/servers', {
+                headers: {
+                    'authorization': 'Bearer ' + adminapikey
+                }
+            });
+    let serverCount = servers['data']['meta']['pagination']['total'];
+    let users = axios.get(this.panel + '/api/application/users', {
+                headers: {
+                    'authorization': 'Bearer ' + adminapikey
+                }
+            });
+    let userCount = users['data']['meta']['pagination']['total'];
+
     //Embed Message
     let mn1 = db.get("mn1");
     if (mn1 === null) mn1 = `${name1}: checking status`;
 
     let db1 = db.get("db1");
     if (db1 === null) db1 = `${dbname1}: checking status`;
+   
+    let panel = `${db.get("panel")}\n\nUsers: ${userCount}\nServers: ${serverCount}`
+    if (panel === null) panel = `Panel: checking status\n\nUsers: ${userCount}\nServers: ${serverCount}`;
 
-    let nodemessage = `__**Nodes List**__\n${mn1}\n\n__**DataBases List**__\n${db1}`;
+    let nodemessage = `__**Nodes Stats**__\n${mn1}\n\n__**DataBases Stats**__\n${db1}\n\n__**Panel Stats**__\n${panel}`;
     let embed = new MessageEmbed()
       .setTitle(`${hostname} Uptime`)
       .setColor(config.embedcolor)
@@ -79,7 +105,7 @@ module.exports = client => {
     console.log(
       chalk.blue("[PteroStats Nodes Checker] ") + chalk.green("Posted Stats")
     );
-    if (mn1 !== null)
+    if (panel !== null)
       console.log(
         chalk.blue("[PteroStats Nodes Checker] ") + chalk.green("Stats Updated")
       );
