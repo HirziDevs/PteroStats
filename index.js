@@ -1,4 +1,5 @@
-const { Client, Collection, Discord } = require('discord.js');
+const { Client, Collection } = require('discord.js');
+const { MessageEmbed } = require('discord.js')
 const fs = require('fs');
 const client = new Client();
 const axios = require('axios')
@@ -162,7 +163,7 @@ axios(`${hosturl}/api/client/servers/${id7}/resources`, {
   let mn7 = db.get("mn7")
   
   let nodemessage = `${mn1}\n${mn2}\n${mn3}\n${mn4}\n${mn5}\n${mn6}\n${mn7}`
-  let embed = new Discord.MessageEmbed()
+  let embed = new MessageEmbed()
   .setTitle('Node List')
   .setDescription(nodemessage)
 
