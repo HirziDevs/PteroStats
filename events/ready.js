@@ -105,11 +105,8 @@ module.exports = client => {
     let db1 = db.get("db1");
     if (db1 === null) db1 = `${dbname1}: checking status`;
 
-    let panel = `${db.get(
-      "panel"
-    )}\n\nUsers: ${userCount}\nServers: ${serverCount}`;
-    if (panel === null)
-      panel = `Panel: checking status\n\nUsers: ${userCount}\nServers: ${serverCount}`;
+    let panel = `${db.get("panel")}\n\nUsers: ${userCount}\nServers: ${serverCount}`;
+    if (panel === null) panel = `Panel: checking status\n\nUsers: ${userCount}\nServers: ${serverCount}`;
 
     let nodemessage = `__**Nodes Stats**__\n${mn1}\n\n__**DataBases Stats**__\n${db1}\n\n__**Panel Stats**__\n${panel}`;
     let embed = new MessageEmbed()
