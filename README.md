@@ -1,5 +1,7 @@
 ## PteroStats (1.0)
 
+![img](https://media.discordapp.net/attachments/796259732683227157/861126504246411264/20210704_130856.jpg)
+
 ## Introduction
 
 PteroStata is a bot designed to check Panel, Nodes, and Databases status and post it to discord server
