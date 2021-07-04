@@ -3,7 +3,6 @@ module.exports = client => {
   const axios = require("axios");
   const db = require("quick.db");
   const ping = require("ping-tcp-js");
-  const pterostatus = require("pterostatus");
   const chalk = require("chalk");
   const config = require("../config.json");
 
