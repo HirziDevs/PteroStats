@@ -2,6 +2,7 @@ const { Client, Collection } = require('discord.js');
 const fs = require('fs');
 const client = new Client();
 const axios = require('axios')
+const db = require("quick.db")
 const node = require('nodeactyl')
 require("discord-buttons")(client);
 
@@ -56,10 +57,10 @@ axios(`${hosturl}/api/client/servers/${id1}/resources`, {
   }
 })
   .then(response => {
-  let mn1 = `Node ${name1} is :green_circle: online`
+  db.set("mn1 ",`node ${name1} is :green_circle: online`)
   })
   .catch(err => {
-  let mn1 = `Node ${name1} is :red_circle: offline`
+  db.set("mn1 ",`node ${name1} is :red_circle: offline`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id2}/resources`, {
@@ -71,10 +72,10 @@ axios(`${hosturl}/api/client/servers/${id2}/resources`, {
   }
 })
   .then(response => {
-  let mn2 = `Node ${name2} is :green_circle: online`
+  db.set("mn2 ",`node ${name2} is :green_circle: online`)
   })
   .catch(err => {
-  let mn2 = `Node ${name2} is :red_circle: offline`
+  db.set("mn2 ",`node ${name2} is :red_circle: offline`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id3}/resources`, {
@@ -86,10 +87,10 @@ axios(`${hosturl}/api/client/servers/${id3}/resources`, {
   }
 })
   .then(response => {
-  let mn3 = `Node ${name3} is :green_circle: online`
+  db.set("mn3 ",`node ${name3} is :green_circle: online`)
   })
   .catch(err => {
-  let mn3 = `Node ${name3} is :red_circle: offline`
+  db.set("mn3 ",`node ${name3} is :red_circle: offline`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id4}/resources`, {
@@ -101,10 +102,10 @@ axios(`${hosturl}/api/client/servers/${id4}/resources`, {
   }
 })
   .then(response => {
-  let mn4 = `Node ${name4} is :green_circle: online`
+  db.set("mn4 ",`node ${name4} is :green_circle: online`)
   })
   .catch(err => {
-  let mn4 = `Node ${name4} is :red_circle: offline`
+  db.set("mn4 ",`node ${name4} is :red_circle: offline`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id5}/resources`, {
@@ -116,10 +117,10 @@ axios(`${hosturl}/api/client/servers/${id5}/resources`, {
   }
 })
   .then(response => {
-  let mn5 = `Node ${name5} is :green_circle: online`
+  db.set("mn5 ",`node ${name5} is :green_circle: online`)
   })
   .catch(err => {
-  let mn5 = `Node ${name5} is :red_circle: offline`
+  db.set("mn5 ",`node ${name5} is :red_circle: offline`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id6}/resources`, {
@@ -131,10 +132,10 @@ axios(`${hosturl}/api/client/servers/${id6}/resources`, {
   }
 })
   .then(response => {
-  let mn6 = `Node ${name6} is :green_circle: online`
+  db.set("mn6 ",`node ${name6} is :green_circle: online`)
   })
   .catch(err => {
-  let mn6 = `Node ${name6} is :red_circle: offline`
+  db.set("mn6 ",`node ${name6} is :red_circle: offline`)
   });
 	
 axios(`${hosturl}/api/client/servers/${id7}/resources`, {
@@ -146,11 +147,19 @@ axios(`${hosturl}/api/client/servers/${id7}/resources`, {
   }
 })
   .then(response => {
-  let mn7 = `Node ${name7} is :green_circle: online`
+  db.set("mn7 ",`node ${name7} is :green_circle: online`)
   })
   .catch(err => {
-  let mn7 = `Node ${name7} is :red_circle: offline`
+  db.set("mn7 ",`node ${name7} is :red_circle: offline`)
   });
+  
+  let mn1 = db.get("mn1")
+  let mn2 = db.get("mn2")
+  let mn3 = db.get("mn3")
+  let mn4 = db.get("mn4")
+  let mn5 = db.get("mn5")
+  let mn6 = db.get("mn6")
+  let mn7 = db.get("mn7")
   
   let nodemessage = `${mn1}\n${mn2}\n${mn3}\n${mn4}\n${mn5}\n${mn6}\n${mn7}`
   let embed = new Discord.MessageEmbed()
