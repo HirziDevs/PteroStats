@@ -9,6 +9,7 @@
     "ping-tcp-js": "^1.4.0",
     "quick.db": "^7.1.3",
     "nodeactyl": "^3.1.3",
+    "pterostatus": "^1.1.2",
     "discord-buttons": "^4.0.0",
     "discord-slider": "^1.1.6"
   },
