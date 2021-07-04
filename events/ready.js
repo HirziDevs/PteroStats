@@ -206,8 +206,10 @@ ping.ping(dbip1, dbport1)
   .setTimestamp()
   .setFooter("Updated every 1 minutes | By Hirzi#8701")
   .setThumbnail(client.user.avatarURL());
- 
+   
    ch.send(embed).then(msg => { msg.delete({timeout: 60000}) })
-   console.log(chalk.magenta('[Hirzi Nodes Checker] ') + chalk.green("Posted Stats"));
+   console.log(chalk.blue('[Hirzi Nodes Checker] ') + chalk.green("Posted Stats"));
+   if(mn1 !== null) console.log(chalk.blue('[Hirzi Nodes Checker] ') + chalk.green("Stats Updated"));
+   console.log(chalk.blue('[Hirzi Nodes Checker] ') + chalk.green("Next Stats in 60 Seconds"));
 }, 60000)
 }
