@@ -43,11 +43,11 @@ let name3 = "**Node is-b2**"
 let id4 = "e165f6ba"
 let name4 = "**Node is-b3**"
 let id5 = "899c59c4"
-let name5 = "**vectorcraft**"
+let name5 = "**Node VectorCraft**"
 let id6 = "0482c8db"
 let name6 = "**Node is-ss1**"
 let id7 = "cfc4c6d4"
-let name7 = "**Node is-c1**"
+let name7 = "**Node is-c2**"
 
 let statusonline = ":green_circle: Online"
 let statusoffline = ":red_circle: Offline"
@@ -165,13 +165,13 @@ axios(`${hosturl}/api/client/servers/${id7}/resources`, {
   let mn6 = db.get("mn6 ")
   let mn7 = db.get("mn7 ")
   
-  let nodemessage = `${mn1}\n${mn2}\n${mn3}\n${mn4}\n${mn5}\n${mn6}\n${mn7}`
+  let nodemessage = `__**Node List**__\n${mn1}\n${mn2}\n${mn3}\n${mn4}\n${mn5}\n${mn6}\n${mn7}\n\n**__**DataBases**__\n**MongoDB**: NA`
   let embed = new MessageEmbed()
-  .setTitle('ItzStore Node List')
+  .setTitle('ItzStore Status')
   .setColor("E5BE11")
   .setDescription(nodemessage)
   .setTimestamp()
-  .setFooter("Created by Hirzi")
+  .setFooter("Updated every 1 minutes")
 
   ch.send(embed).then(msg => { msg.delete({timeout: 60000}) })
 }, 60000)
