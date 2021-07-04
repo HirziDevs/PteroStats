@@ -28,7 +28,7 @@ Screenshot
 
 ![img](https://media.discordapp.net/attachments/861112767174803466/861194338687385610/IMG_20210704_173809.jpg)
 
-Need Help Setuping?
+Adding more nodes and databases
 --------------------
 
-Contact me at discord server or dm Hirzi#8701
+Please dm Hirzi#8701 on discord or join our [discord servers](https://discord.gg/9Z7zpdwATZ)
