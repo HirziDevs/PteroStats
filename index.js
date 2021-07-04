@@ -186,7 +186,7 @@ ping.ping(dbip1, dbport1)
   db.set("db1",`${dbname1}: ${statusonline}`)
   })
   .catch(err => {
-  db.set(db1",`${dbname1}: ${statusoffline}`)
+  db.set("db1",`${dbname1}: ${statusoffline}`)
   });
   
 //Embed Message
