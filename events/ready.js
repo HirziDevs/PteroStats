@@ -67,18 +67,18 @@ module.exports = client => {
       .catch(err => {
         db.set("panel", `Panel: ${statusoffline}`);
       });
-    let servers = axios.get(this.panel + '/api/application/servers', {
+    let servers = axios.get(hosturl + '/api/application/servers', {
                 headers: {
                     'authorization': 'Bearer ' + adminapikey
                 }
             });
-    let serverCount = servers['data']['meta']['pagination']['total'];
-    let users = axios.get(this.panel + '/api/application/users', {
+    let serverCount = servers.total
+    let users = axios.get(hosturl + '/api/application/users', {
                 headers: {
                     'authorization': 'Bearer ' + adminapikey
                 }
             });
-    let userCount = users['data']['meta']['pagination']['total'];
+    let userCount = users.total
 
     //Embed Message
     let mn1 = db.get("mn1");
