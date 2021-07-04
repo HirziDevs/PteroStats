@@ -1,25 +1,29 @@
 module.exports = (client) => {
 
-const { MessageEmbed } = require("discord.js")
-const axios = require('axios')
-const db = require('quick.db')
-const ping = require('ping-tcp-js')
-const chalk = require('chalk')
-const node = require('nodeactyl')
-const config = require('../config.json')
+const { MessageEmbed } = require("discord.js");
+const axios = require('axios');
+const db = require('quick.db');
+const ping = require('ping-tcp-js');
+const chalk = require('chalk');
+const node = require('nodeactyl');
+const config = require('../config.json');
 
   setInterval(() => {
   client.user.setActivity(`Hosting Nodes`,{ type: "WATCHING" });
   },10000);
   console.log("=+=+=+=+=+=+=+=+=+=+=+=");
-  console.log("Name: PteroManager");
-  console.log("Version: Beta");
+  console.log("Name: NodeStatus");
+  console.log("Version: Alpha");
   console.log("=+=+=+=+=+=+=+=+=+=+=+=");
 
 setInterval(() => {
 let hosturl = config.panelurl
-let apikey = config.client
-let ch = client.channels.cache.find(cn => cn.id === '837238424628363294')
+let apikey = config.clientapikey
+let ch = client.channels.cache.find(cn => cn.id === config.channel)
+let statusonline = config.monline
+let statusoffline = config.monline
+let adminapikey = config.adminapikey
+let hostname = config.hostname
 
 let id1 = "6154c1cc"
 let name1 = "**Node IS-A6**"
@@ -42,8 +46,6 @@ let dbip1 = "47.241.176.6"
 let dbport1 = "3306"
 let dbname1 = "**MariaDB**"
 
-let statusonline = ":green_circle: Online"
-let statusoffline = ":red_circle: Offline"
 
 //Node Status Checker
 axios(`${hosturl}/api/client/servers/${id1}/resources`, {
@@ -198,8 +200,8 @@ ping.ping(dbip1, dbport1)
   
   let nodemessage = `__**Nodes List**__\n${mn1}\n${mn2}\n${mn3}\n${mn4}\n${mn5}\n${mn6}\n${mn7}\n${mn8}\n\n__**DataBases List**__\n${db1}`
   let embed = new MessageEmbed()
-  .setTitle('ItzStore Uptime')
-  .setColor("E5BE11")
+  .setTitle(`${hostname} Uptime`)
+  .setColor(config.embedcolor)
   .setDescription(nodemessage)
   .setTimestamp()
   .setFooter("Updated every 1 minutes | By Hirzi#8701")
