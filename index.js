@@ -41,13 +41,15 @@ let name2 = "**Node is-b1**"
 let id3 = "6fcc4ff0"
 let name3 = "**Node is-b2**"
 let id4 = "e165f6ba"
-let name4 = "**Node is-b3**"
+let name4 = "**Node is-b5**"
 let id5 = "899c59c4"
 let name5 = "**Node VectorCraft**"
 let id6 = "0482c8db"
 let name6 = "**Node is-ss1**"
 let id7 = "cfc4c6d4"
-let name7 = "**Node is-c2**"
+let name7 = "**Node is-c1**"
+let id8 = "3e96a95b"
+let name8 = "**Node is-c2**"
 
 let statusonline = ":green_circle: Online"
 let statusoffline = ":red_circle: Offline"
@@ -156,6 +158,21 @@ axios(`${hosturl}/api/client/servers/${id7}/resources`, {
   .catch(err => {
   db.set("mn7 ",`${name7}: ${statusoffline}`)
   });
+
+axios(`${hosturl}/api/client/servers/${id8}/resources`, {
+  "method": "GET",
+  "headers": {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${apikey}`,
+  }
+})
+  .then(response => {
+  db.set("mn8 ",`${name8}: ${statusonline}`)
+  })
+  .catch(err => {
+  db.set("mn8 ",`${name8}: ${statusoffline}`)
+  });
   
   let mn1 = db.get("mn1 ")
   let mn2 = db.get("mn2 ")
@@ -164,6 +181,7 @@ axios(`${hosturl}/api/client/servers/${id7}/resources`, {
   let mn5 = db.get("mn5 ")
   let mn6 = db.get("mn6 ")
   let mn7 = db.get("mn7 ")
+  ler mn8 = db.get("mn8 ")
   
   let nodemessage = `__**Node List**__\n${mn1}\n${mn2}\n${mn3}\n${mn4}\n${mn5}\n${mn6}\n${mn7}\n\n__**DataBases**__\n**MariaDB**: NA`
   let embed = new MessageEmbed()
