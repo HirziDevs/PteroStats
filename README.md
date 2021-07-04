@@ -23,6 +23,11 @@ Installation
 - `Run npm install in the root directory of the bot files`
 - `Run node index.js and you are done`
 
+Screenshot
+--------------------
+
+[img](https://media.discordapp.net/attachments/861112767174803466/861194338687385610/IMG_20210704_173809.jpg)
+
 Need Help Setuping?
 --------------------
 
