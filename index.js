@@ -4,7 +4,7 @@ const fs = require('fs');
 const client = new Client();
 const axios = require('axios')
 const db = require('quick.db')
-conts ping = require('ping-tcp-js')
+const ping = require('ping-tcp-js')
 const node = require('nodeactyl')
 require("discord-buttons")(client);
 
