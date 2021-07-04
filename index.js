@@ -154,13 +154,13 @@ axios(`${hosturl}/api/client/servers/${id7}/resources`, {
   db.set("mn7 ",`node ${name7} is :red_circle: offline`)
   });
   
-  let mn1 = db.get("mn1")
-  let mn2 = db.get("mn2")
-  let mn3 = db.get("mn3")
-  let mn4 = db.get("mn4")
-  let mn5 = db.get("mn5")
-  let mn6 = db.get("mn6")
-  let mn7 = db.get("mn7")
+  let mn1 = db.get("mn1 ")
+  let mn2 = db.get("mn2 ")
+  let mn3 = db.get("mn3 ")
+  let mn4 = db.get("mn4 ")
+  let mn5 = db.get("mn5 ")
+  let mn6 = db.get("mn6 ")
+  let mn7 = db.get("mn7 ")
   
   let nodemessage = `${mn1}\n${mn2}\n${mn3}\n${mn4}\n${mn5}\n${mn6}\n${mn7}`
   let embed = new MessageEmbed()
