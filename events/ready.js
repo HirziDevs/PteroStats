@@ -20,7 +20,7 @@ module.exports = client => {
     let apikey = config.clientapikey;
     let ch = client.channels.cache.find(cn => cn.id === config.channel);
     let statusonline = config.monline;
-    let statusoffline = config.monline;
+    let statusoffline = config.moffline;
     let adminapikey = config.adminapikey;
     let hostname = config.hostname;
 
@@ -58,14 +58,6 @@ module.exports = client => {
       });
 
     //Panel Status Checker
-    ping
-      .ping({ hosturl })
-      .then(() => {
-        db.set("panel", `**Panel**: ${statusonline}`);
-      })
-      .catch(err => {
-        db.set("panel", `**Panel**: ${statusoffline}`);
-      });
     axios(`${hosturl}/api/application/servers`, {
       method: "GET",
       headers: {
@@ -96,6 +88,12 @@ module.exports = client => {
       .catch(err => {
         db.set("userCount", "N/A");
       });
+    let userCount = db.get("userCount")
+    let serverCount = db.get("serverCount")
+
+    if(userCount !== "N/A") db.set("panel", `**Panel**: ${statusonline}`);
+    if(userCounf === "N/A") db.set("panel", `**Panel**: ${statusoffline}`);
+
 
     //Embed Message
     let mn1 = db.get("mn1");
@@ -104,8 +102,7 @@ module.exports = client => {
     let db1 = db.get("db1");
     if (db1 === null) db1 = `${dbname1}: checking status`;
 
-    let userCount = db.get("userCount")
-    let serverCoubt = db.get("serverCount")
+    
     let panel = `${db.get("panel")}\n\nUsers: ${userCount}\nServers: ${serverCount}`;
     if (panel === null) panel = `**Panel**: checking status\n\nUsers: ${userCount}\nServers: ${serverCount}`;
 
