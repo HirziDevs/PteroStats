@@ -34,7 +34,7 @@ Screenshot
 Adding more nodes
 --------------------
 
-Add more arrays like bellow to `nodelist` at [ready.js line 2](https://github.com/HirziDevs/PteroStats/blob/main/events/ready.js)
+Add more items like bellow to `nodelist` array at [ready.js line 2](https://github.com/HirziDevs/PteroStats/blob/main/events/ready.js)
 ```
 {
     id: "Server ID",
@@ -42,3 +42,5 @@ Add more arrays like bellow to `nodelist` at [ready.js line 2](https://github.co
     nameid: "Node1"
 },
 ```
+
+if you needing help contact me on discord `Hirzi#8701` or join [our discord here](https://discord.gg/9Z7zpdwATZ)
