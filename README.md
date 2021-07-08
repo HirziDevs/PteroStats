@@ -26,10 +26,25 @@ Installation
 - `Run node index.js and you are done`
 - `To add more nodes go to this link` [LINK](https://github.com/HirziDevs/PteroStats#adding-more-nodes-and-databases)
 
-Screenshot
+Config
 --------------------
 
-![img](https://media.discordapp.net/attachments/861112767174803466/861194338687385610/IMG_20210704_173809.jpg)
+[Jump to the file](https://github.com/HirziDevs/PteroStats/blob/main/config.json)
+```
+{
+  "token": "BOT TOKEN", //Your Discord Bot Token
+  "panelurl": "HOST PANEL LINK", //Your Hosting Panel Url/Link
+  "clientapikey": "CLIENT APIKEY", //Your Hosting Client Apikey
+  "adminapikey": "ADMIN APIKEY", //Your Hosting Admin/Application Apikey
+  "channel": "CHANNEL ID", //Your Discord Channel Id For The Embed
+  "hostname": "HOSTING NAME", //Your Hosting Name
+  "embedcolor": "E5BE11", //Embed Color
+  "monline": ":green_circle: Online", //Status Online Message
+  "moffline": ":red_circle: Offline", //Status Offline Message
+  "mcheck": ":orange_circle: Checking", //Status Checking Message
+  "time": "60" //How Much Seconds The Embed Will Be Refreshes
+}
+```
 
 Adding more nodes
 --------------------
@@ -44,3 +59,8 @@ Add more items like bellow to `nodelist` array at [ready.js line 2](https://gith
 ```
 
 if you needing help contact me on discord `Hirzi#8701` or join [our discord here](https://discord.gg/9Z7zpdwATZ)
+
+Screenshot
+--------------------
+
+![img](https://media.discordapp.net/attachments/861112767174803466/861194338687385610/IMG_20210704_173809.jpg)
