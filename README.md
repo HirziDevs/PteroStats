@@ -11,11 +11,6 @@ PteroStats is a bot designed to check Panel, Nodes, and Databases status and pos
 
 PteroStats is still **under development** and we welcome contributions. 
 
-Links
---------------------
-
-* __[Discord](https://discord.gg/9Z7zpdwATZ)__
-
 Installation
 --------------------
 
@@ -58,9 +53,14 @@ Add more items like bellow to `nodelist` array at [ready.js line 2](https://gith
 },
 ```
 
-if you needing help contact me on discord `Hirzi#8701` or join [our discord here](https://discord.gg/9Z7zpdwATZ)
+if you needing help contact me on discord `Hirzi#8701` or join [our discord server here](https://discord.gg/9Z7zpdwATZ)
 
 Screenshot
 --------------------
 
 ![img](https://media.discordapp.net/attachments/861112767174803466/861194338687385610/IMG_20210704_173809.jpg)
+
+Links
+--------------------
+
+* __[Discord](https://discord.gg/9Z7zpdwATZ)__
