@@ -92,7 +92,7 @@ module.exports = client => {
     let serverCount = db.get("serverCount")
 
     if(userCount !== "N/A") db.set("panel", `**Panel**: ${statusonline}`);
-    if(userCounf === "N/A") db.set("panel", `**Panel**: ${statusoffline}`);
+    if(userCount === "N/A") db.set("panel", `**Panel**: ${statusoffline}`);
 
 
     //Embed Message
