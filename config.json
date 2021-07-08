@@ -4,8 +4,9 @@
   "clientapikey": "CLIENT APIKEY",
   "adminapikey": "ADMIN APIKEY",
   "channel": "CHANNEL ID",
+  "hostname": "HOSTING NAME",
+  "embedcolor": "E5BE11",
   "monline": ":green_circle: Online",
   "moffline": ":red_circle: Offline",
-  "hostname": "HOSTING NAME",
-  "embedcolor": "E5BE11"
+  "mcheck": ":orange_circle: Checking"
 }
