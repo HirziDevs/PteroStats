@@ -15,16 +15,16 @@ Installation
 --------------------
 
 - `Create server at your pterodactyl panel and copy the server id`
-- `Paste the server id at nodelist array` [Jump to the file](https://github.com/HirziDevs/PteroStats/blob/main/events/ready.js)
+- `Paste the server id at nodelist array` [ready.js line 2](https://github.com/HirziDevs/PteroStats/blob/main/events/ready.js)
 - `fill in the required informations in the config.json file`
 - `Run npm install in the root directory of the bot files`
 - `Run node index.js and you are done`
-- `To add more nodes go to this link` [LINK](https://github.com/HirziDevs/PteroStats#adding-more-nodes-and-databases)
+- `To add more nodes go to this link` [This Link](https://github.com/HirziDevs/PteroStats#adding-more-nodes-and-databases)
 
 Config
 --------------------
 
-[Jump to the file](https://github.com/HirziDevs/PteroStats/blob/main/config.json)
+[config.json](https://github.com/HirziDevs/PteroStats/blob/main/config.json)
 ```
 {
   "token": "BOT TOKEN", //Your Discord Bot Token
