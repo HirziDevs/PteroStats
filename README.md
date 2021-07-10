@@ -45,7 +45,7 @@ Config
 Adding more nodes
 --------------------
 
-Add more items like bellow to `nodelist` array at [ready.js line 2](https://github.com/HirziDevs/PteroStats/blob/main/events/ready.js)
+Add more items like bellow to `nodelist` array at [index.js line 17](https://github.com/HirziDevs/PteroStats/blob/main/index.js)
 ```
 {
     id: "Server ID",
