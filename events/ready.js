@@ -1,5 +1,6 @@
 module.exports = client => {
     let nodelist = client.nodelist
+    //nodelist was moved to index.js file
     
     const { MessageEmbed } = require("discord.js");
     const axios = require("axios");
