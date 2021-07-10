@@ -125,7 +125,7 @@ module.exports = client => {
         .setColor(config.embedcolor)
         .setDescription(nodemessage)
         .setTimestamp()
-        .setFooter("Updated every 1 minutes | By Hirzi#8701")
+        .setFooter("Updated every " + time + " seconds | By Hirzi#8701")
         .setThumbnail(client.user.avatarURL());
   
       ch.send(embed).then(msg => {msg.delete({ timeout: time + "000" });});
