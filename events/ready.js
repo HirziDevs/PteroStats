@@ -12,7 +12,7 @@ module.exports = client => {
     let ch = client.channels.cache.find(cn => cn.id === config.channel);
     let statusonline = config.monline;
     let statusoffline = config.moffline;
-    let footer = config.mfooter
+    let footer = config.footer
     let checking = config.mcheck
     let adminapikey = config.adminapikey;
     let hostname = config.hostname;
