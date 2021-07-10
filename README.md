@@ -37,6 +37,7 @@ Config
   "monline": ":green_circle: Online", //Status Online Message
   "moffline": ":red_circle: Offline", //Status Offline Message
   "mcheck": ":orange_circle: Checking", //Status Checking Message
+  "mfooter": "By Hirzi#8701",
   "time": "60" //How Much Seconds The Embed Will Be Refreshes
 }
 ```
