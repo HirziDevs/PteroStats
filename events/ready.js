@@ -34,11 +34,12 @@ module.exports = client => {
     console.log("=+=+=+=+=+=+=+=+=+=+=+=");
     console.log("Name: PteroStats");
     console.log("Version: Alpha");
+    console.log("Stats will update every " + time + " Seconds")
     console.log("=+=+=+=+=+=+=+=+=+=+=+=");
   
     //PteroStats Checker
     setInterval(() => {
-    if(isNaN(time)) return console.log(chalk.blue("[PteroStats Checker] ") + chalk.red(time + "is not a number!"))
+    if(isNaN(time)) return console.log(chalk.blue("[PteroStats Checker] ") + chalk.red(time + " is not a number!"))
     
       //Node Status Checker
       let list = []
