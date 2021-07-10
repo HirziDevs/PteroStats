@@ -1,16 +1,5 @@
 module.exports = client => {
-    let nodelist = [
-{
-    id: "Server ID",
-    name: "**Example Server 1**",
-    nameid: "Node1"
-},
-{
-    id: "Server ID",
-    name: "**Example Server 2**",
-    nameid: "Node2"
-},
-]
+    let nodelist = client.nodelist
     
     const { MessageEmbed } = require("discord.js");
     const axios = require("axios");
@@ -117,10 +106,7 @@ module.exports = client => {
       if (panel === null) panel = `**Panel**: checking status\n\nUsers: ${userCount}\nServers: ${serverCount}`;
   	  let nodes
       list.forEach((message) => {
-          if(!nodes) {
-              nodes = message
-              return
-          }
+          if(!nodes) return nodes = message
           nodes = nodes + message
       })
       let nodemessage = `__**Nodes Stats**__\n${nodes}\n\n__**Panel Stats**__\n${panel}`;
