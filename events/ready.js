@@ -22,6 +22,7 @@ module.exports = client => {
     let ch = client.channels.cache.find(cn => cn.id === config.channel);
     let statusonline = config.monline;
     let statusoffline = config.moffline;
+    let footer = config.mfooter
     let checking = config.mcheck
     let adminapikey = config.adminapikey;
     let hostname = config.hostname;
@@ -126,7 +127,7 @@ module.exports = client => {
         .setColor(config.embedcolor)
         .setDescription(nodemessage)
         .setTimestamp()
-        .setFooter("Updated every " + time + " seconds | " + mfooter)
+        .setFooter("Updated every " + time + " seconds | " + footer)
         .setThumbnail(client.user.avatarURL());
   
       ch.send(embed).then(msg => {msg.delete({ timeout: time + "000" });});
