@@ -22,11 +22,12 @@ module.exports = client => {
       client.user.setActivity(hostname + " Panel Stats", { type: "WATCHING" });
     }, 10000);
 
-    console.log("=+=+=+=+=+=+=+=+=+=+=+=");
-    console.log("Name: PteroStats");
-    console.log("Version: Alpha");
-    console.log("Stats will update every " + time + " Seconds")
-    console.log("=+=+=+=+=+=+=+=+=+=+=+=");
+    console.log(chalk.red("=+=+=+=+=+=+=+=+=+=+=+="));
+    console.log(chalk.greem("Name: PteroStats"));
+    console.log(chalk.green("Version: Alpha"));
+    console.log(chalk.green("Stats will update every " + time + " Seconds"));
+    console.log(chalk.green("Bot is online"));
+    console.log(chalk.red("=+=+=+=+=+=+=+=+=+=+=+="));
   
     //PteroStats Checker
     setInterval(() => {
