@@ -117,7 +117,10 @@ module.exports = client => {
       if (panel === null) panel = `**Panel**: checking status\n\nUsers: ${userCount}\nServers: ${serverCount}`;
   	  let nodes
       list.forEach((message) => {
-          if(!nodes) nodes = message
+          if(!nodes) {
+              nodes = message
+              return
+          }
           nodes = nodes + message
       })
       let nodemessage = `__**Nodes Stats**__\n${nodes}\n\n__**Panel Stats**__\n${panel}`;
