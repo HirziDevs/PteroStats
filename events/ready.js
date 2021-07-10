@@ -28,6 +28,7 @@ module.exports = client => {
     console.log(chalk.green("Stats will update every " + time + " Seconds"));
     console.log(chalk.green("Bot is online"));
     console.log(chalk.red("=+=+=+=+=+=+=+=+=+=+=+="));
+    console.log(chalk.blue("If you need help to setuping this bot contact me at discord ") + chalk.green("https://discord.gg/9Z7zpdwATZ"))
   
     //PteroStats Checker
     setInterval(() => {
