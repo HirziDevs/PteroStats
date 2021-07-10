@@ -15,7 +15,6 @@ module.exports = client => {
     const { MessageEmbed } = require("discord.js");
     const axios = require("axios");
     const db = require("quick.db");
-    const ping = require("ping-tcp-js");
     const chalk = require("chalk");
     const config = require("../config.json");
     let hosturl = config.panelurl;
