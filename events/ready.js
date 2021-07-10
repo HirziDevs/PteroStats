@@ -28,7 +28,7 @@ module.exports = client => {
     let time = config.time
     
     setInterval(() => {
-      client.user.setActivity(hostname + `Panel Stats`, { type: "WATCHING" });
+      client.user.setActivity(hostname + " Panel Stats", { type: "WATCHING" });
     }, 10000);
 
     console.log("=+=+=+=+=+=+=+=+=+=+=+=");
