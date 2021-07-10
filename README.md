@@ -59,7 +59,11 @@ if you need help contact me on discord `Hirzi#8701` or join [our discord server 
 Screenshot
 --------------------
 
-![img](https://media.discordapp.net/attachments/861112767174803466/861194338687385610/IMG_20210704_173809.jpg)
+[**ItzyStore**](https://discord.gg/PS4Mf6DBzt)
+![img](https://media.discordapp.net/attachments/796259732683227157/863359897210060820/IMG_20210710_164939.jpg)
+
+[**SpaceCloud**](https://discord.gg/28z8CYmPEY)
+![img](https://media.discordapp.net/attachments/796259732683227157/863359896912658472/IMG_20210710_170313.jpg)
 
 Links
 --------------------
