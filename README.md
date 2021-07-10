@@ -1,4 +1,4 @@
-## PteroStats (1.0)
+## PteroStats
 
 ![img](https://media.discordapp.net/attachments/796259732683227157/861126504246411264/20210704_130856.jpg)
 
