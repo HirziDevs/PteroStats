@@ -122,11 +122,11 @@ module.exports = client => {
       let nodemessage = `__**Nodes Stats**__\n${nodes}\n\n__**Panel Stats**__\n${panel}`;
 
       let embed = new MessageEmbed()
-        .setTitle(`${hostname} Uptime`)
+        .setTitle(hostname + " Stats")
         .setColor(config.embedcolor)
         .setDescription(nodemessage)
         .setTimestamp()
-        .setFooter("Updated every " + time + " seconds | By Hirzi#8701")
+        .setFooter("Updated every " + time + " seconds | " + mfooter)
         .setThumbnail(client.user.avatarURL());
   
       ch.send(embed).then(msg => {msg.delete({ timeout: time + "000" });});
