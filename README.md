@@ -54,7 +54,7 @@ Add more items like bellow to `nodelist` array at [index.js line 17](https://git
 },
 ```
 
-if you needing help contact me on discord `Hirzi#8701` or join [our discord server here](https://discord.gg/9Z7zpdwATZ)
+if you need help contact me on discord `Hirzi#8701` or join [our discord server here](https://discord.gg/9Z7zpdwATZ)
 
 Screenshot
 --------------------
