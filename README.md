@@ -24,7 +24,7 @@ Installation
 Config
 --------------------
 
-[config.json](https://github.com/HirziDevs/PteroStats/blob/main/config.json)
+You need to put right config to make the bot work at [config.json](https://github.com/HirziDevs/PteroStats/blob/main/config.json) file
 ```
 {
   "token": "BOT TOKEN", //Your Discord Bot Token
