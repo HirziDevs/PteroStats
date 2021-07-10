@@ -37,7 +37,7 @@ You need to put right config to make the bot work at [config.json](https://githu
   "monline": ":green_circle: Online", //Status Online Message
   "moffline": ":red_circle: Offline", //Status Offline Message
   "mcheck": ":orange_circle: Checking", //Status Checking Message
-  "mfooter": "By Hirzi#8701", //Footer for the embed
+  "footer": "By Hirzi#8701", //Footer for the embed
   "time": "60" //How Much Seconds The Embed Will Be Refreshes
 }
 ```
