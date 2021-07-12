@@ -1,4 +1,4 @@
-## PteroStats
+# PteroStats
 
 ![img](https://media.discordapp.net/attachments/796259732683227157/861126504246411264/20210704_130856.jpg)
 
@@ -32,7 +32,7 @@ PteroStats checks [pterodactyl](https://pterodactyl.io) server(s) [resource api]
 - `Run node index.js and you are done`
 - `To add more nodes go to this link` [This Link](https://github.com/HirziDevs/PteroStats#adding-more-nodes-and-databases)
 
-## Setuping Config
+### Setuping Config
 
 You need to put right config to make the bot work at [config.json](https://github.com/HirziDevs/PteroStats/blob/main/config.json) file
 ```
@@ -53,7 +53,7 @@ You need to put right config to make the bot work at [config.json](https://githu
 }
 ```
 
-## Adding more nodes
+### Adding more nodes
 
 Add more items like bellow to `nodelist` array at [index.js line 17](https://github.com/HirziDevs/PteroStats/blob/main/index.js)
 ```
@@ -98,4 +98,6 @@ A: You can join our [discord server](https://discord.gg/9Z7zpdwATZ)
 
 ## Links
 
-* __[Discord](https://discord.gg/9Z7zpdwATZ)__
+* __[PteroBot Discord](https://discord.gg/9Z7zpdwATZ)__
+* __[Pterodactyl Panel](https://pterodactyl.io)__
+* __[Pterodactyl API](https://dashflo.net/docs/api/pterodactyl/v1)__
