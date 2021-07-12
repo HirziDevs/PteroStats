@@ -1,5 +1,8 @@
 # PteroStats
 
+![GitHub](https://img.shields.io/github/package-json/v/HirziDevs/PteroStats?style=flat-square)
+![GitHub](https://img.shields.io/github/license/HirziDevs/PteroStats?style=flat-square)
+
 ![img](https://media.discordapp.net/attachments/796259732683227157/861126504246411264/20210704_130856.jpg)
 
 ## Introduction
