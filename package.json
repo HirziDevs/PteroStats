@@ -1,9 +1,14 @@
 {
-  "name": "PteroStats",
-  "version": "1.1.0",
+  "name": "pterostats",
+  "version": "v1.1.7",
   "description": "PteroStats is a bot designed to check Panel, Nodes, and Databases status and post it to discord server",
-  "license": "Apache",
+  "license": "Apache-2.0",
   "repository": "HirziDevs/PteroStats",
+  "homepage": "https://pterostats.hirzidevs.net",
+  "bugs": {
+    "email": "hirzigamingyt@gmail.com",
+    "url": "https://github.com/HirziDevs/PteroStats"
+  },
   "scripts": {
     "start": "node index.js"
   },
