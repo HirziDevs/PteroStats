@@ -48,6 +48,7 @@ You need to put right config to make the bot work at [config.json](https://githu
   "moffline": ":red_circle: Offline", //Status Offline Message
   "mcheck": ":orange_circle: Checking", //Status Checking Message
   "footer": "By Hirzi#8701", //Footer for the embed
+  "enabletimestamp": "yes", //Enable/Disable Timestampbon embed footer
   "time": "60" //How Much Seconds The Embed Will Be Refreshes
 }
 ```
