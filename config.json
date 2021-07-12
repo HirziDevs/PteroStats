@@ -9,6 +9,7 @@
   "monline": ":green_circle: Online",
   "moffline": ":red_circle: Offline",
   "mcheck": ":orange_circle: Checking",
-  "mfooter": "By Hirzi#8701",
+  "footer": "By Hirzi#8701",
+  "enabletimestamp":"yes",
   "time": "60"
 }
