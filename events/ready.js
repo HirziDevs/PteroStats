@@ -1,138 +1,152 @@
 module.exports = client => {
-  let nodelist = client.nodelist
-  //nodelist was moved to index.js file
+  const { MessageEmbed } = require('discord.js')
+  const axios = require('axios')
+  const db = require('quick.db')
+  const chalk = require('chalk')
+  const config = client.config
+  const nodelist = client.nodelist
 
-  const { MessageEmbed } = require("discord.js");
-  const axios = require("axios");
-  const db = require("quick.db");
-  const chalk = require("chalk");
-  const config = require("../config.json");
-  let hosturl = config.panelurl;
-  let apikey = config.clientapikey;
-  let ch = client.channels.cache.find(cn => cn.id === config.channel);
-  let statusonline = config.monline;
-  let statusoffline = config.moffline;
-  let footer = config.footer;
-  let enablets = config.enabletimestamp;
-  let checking = config.mcheck;
-  let adminapikey = config.adminapikey;
-  let hostname = config.hostname;
-  let time = config.time;
+  let enablecs = config.botstatus.enable
+  let cs = config.botstatus.text
+  let stype = config.botstatus.type
+  let ch = client.channels.cache.find(cn => cn.id === config.channel)
+  let time = config.refreshtime
 
-  client.user.setActivity(hostname + " Panel Stats", { type: "WATCHING" });
+  let hosturl = config.panel.url
+  let apikey = config.panel.clientkey
+  let adminapikey = config.panel.adminkey
 
-  console.log(chalk.red("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+="));
-  console.log(chalk.green("Name: ") + chalk.blue("PteroStats"));
-  console.log(chalk.green("Version: ") + chalk.blue("Stable v1.1.7"));
-  console.log(chalk.green("Refresh Time: ") + chalk.blue(time + " Seconds"));
-  console.log(chalk.green("Bot Status: ") + chalk.blue("Online"));
-  console.log(chalk.green("Support Server: ") + chalk.blue("https://discord.gg/9Z7zpdwATZ"));
-  console.log(chalk.red("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+="));
+  let statusonline = config.status.online
+  let statusoffline = config.status.offline
+  let checking = config.status.check
 
-  //PteroStats Checker
+  let hostname = config.embed.title
+  let color = config.embed.color
+  let desc = config.embed.description.text
+  let footer = config.embed.footer.text
+  let enablets = config.embed.timestamp
+  let enabledesc = config.embed.description.enable
+  let enablef = config.embed.footer.enable
+
+  if (!hosturl.includes('http')) hosturl = 'http://' + hosturl
+  let unapi = hosturl + '/api'
+  let api = unapi.replace('//api', '/api')
+
+  if (enablecs === true) {
+    client.user.setActivity(cs, { type: stype })
+  } else {
+    client.user.setActivity(hostname + ' Panel Stats', { type: 'WATCHING' })
+  }
+
+  console.log(chalk.red('=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+='))
+  console.log(chalk.green('Name: ') + chalk.cyan('PteroStats'))
+  console.log(chalk.green('Version: ') + chalk.cyan('Stable v1.1.8'))
+  console.log(chalk.green('Refresh Time: ') + chalk.cyan(time + ' Seconds'))
+  console.log(chalk.green('Bot Status: ') + chalk.cyan('Online'))
+  console.log(chalk.green('Support: ') + chalk.cyan('https://discord.gg/9Z7zpdwATZ'))
+  console.log(chalk.red('=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+='))
+
   setInterval(() => {
-    if (isNaN(time)) return console.log(chalk.blue("[PteroStats Checker] ") + chalk.red(time + " is not a number!"))
+    if (isNaN(time)) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(time + ' is not a number!'))
+    if (!hosturl.includes('.')) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(hosturl + ' is invalid url!'))
+    if (apikey.length < 48) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid Client Apikey!!'))
+    if (adminapikey.length < 48) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid Admin Apikey!!'))
 
-    //Node Status Checker
     let list = []
     nodelist.forEach(data => {
-      if (data.id === "Server ID") return console.log(chalk.blue("[PteroStats Checker] ") + chalk.red("You need to use a valid server"))
-      let id = data.id.replace(/\,/g)
-      axios(`${hosturl}/api/client/servers/${data.id}/resources`, {
-        method: "GET",
+      if (data.id === 'Server ID') return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('You need to use a valid server'))
+      axios(api + '/client/servers/' + data.id + '/resources', {
+        method: 'GET',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apikey}`
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + apikey
         }
       }).then((response) => {
-        db.set(data.nameid, `${data.name}: ${statusonline}`);
+        db.set(data.nameid, '**' + data.name + '**' + ': ' + statusonline)
       }).catch(() => {
-        db.set(data.nameid, `${data.name}: ${statusoffline}`);
-        console.log(chalk.blue("[PteroStats Checker] ") + chalk.red(data.name + " is down!"))
-      });
+        db.set(data.nameid, '**' + data.name + '**' + ': ' + statusoffline)
+        console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(data.name + ' is down!'))
+      })
 
       let msgStats = db.get(data.nameid) + '\n'
-      if(msgStats === "null\n") msgStats = data.name + ":" + mcheck
+      if (db.get(data.nameid) === null) msgStats = data.name + ' : ' + mcheck
       list.push(msgStats)
     })
 
-    //Panel Status Checker
-    //ServerList
-    axios(`${hosturl}/api/application/servers`, {
-      method: "GET",
+    axios(api + '/application/servers', {
+      method: 'GET',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${adminapikey}`
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + adminapikey
       }
     }).then(response => {
-      let res = response.data.meta.pagination.total;
-      db.set("serverCount", res);
+      let res = response.data.meta.pagination.total
+      db.set('serverCount', res)
     }).catch(err => {
-      db.set("serverCount", "N/A");
-      console.log(chalk.blue("[PteroStats Checker] ") + chalk.red("Panel is down"))
-    });
+      db.set('serverCount', 'N/A')
+      console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Panel is down'))
+    })
 
-    //Userlist
-    axios(`${hosturl}/api/application/users`, {
-      method: "GET",
+    axios(api + '/application/users', {
+      method: 'GET',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${adminapikey}`
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + adminapikey
       }
     }).then(response => {
-      let res = response.data.meta.pagination.total;
-      db.set("userCount", res);
+      let res = response.data.meta.pagination.total
+      db.set('userCount', res)
     }).catch(err => {
-      db.set("userCount", "N/A");
-      console.log(chalk.blue("[PteroStats Checker] ") + chalk.red("Panel is down!"))
-    });
+      db.set('userCount', 'N/A')
+      console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Panel is down!'))
+    })
 
-    let userCount = db.get("userCount")
-    let serverCount = db.get("serverCount")
+    let userCount = db.get('userCount')
+    let serverCount = db.get('serverCount')
 
-    //embed
-    if (userCount === null) userCount = checking;
-    if (serverCount === null) serverCount = checking;
+    if (userCount === null) userCount = checking
+    if (serverCount === null) serverCount = checking
 
-    if (userCount !== "N/A") db.set("panel", `**Panel**: ${statusonline}`);
-    if (userCount === "N/A") {
-      db.set("panel", `**Panel**: ${statusoffline}`);
-      console.log(chalk.blue("[PteroStats Checker] ") + chalk.red("panel is down!"))
+    if (userCount !== 'N/A') db.set('panel', '**Panel**: ' + statusonline)
+    if (userCount === 'N/A') {
+      db.set('panel', '**Panel**: ' + statusoffline)
+      console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('panel is down!'))
     }
-    if (userCount === checking) db.set("panel", `**Panel**: ${checking}`);
-    let panel = `${db.get("panel")}\n\nUsers: ${userCount}\nServers: ${serverCount}`;
+    if (userCount === checking) db.set('panel', '**Panel**: ' + checking)
+    let panel = db.get('panel') + '\n\nUsers: ' + userCount + '\nServers: ' + serverCount
 
-    if (panel === null) panel = `**Panel**: checking status\n\nUsers: ${userCount}\nServers: ${serverCount}`;
+    if (panel === null) panel = '**Panel**: ' + checking + '\n\nUsers: ' + userCount + '\nServers: ' + serverCount
 
     let nodes
-    list.forEach((message) => {
-      if (!nodes) return nodes = message
-      nodes = nodes + message
+    list.forEach((d) => {
+      if (!nodes) return nodes = d
+      nodes = nodes + d
     })
-    let nodeCount = '[Nodes ' + list.length + ']'
+    let nodeCount = '[Total ' + list.length + ']'
 
-    let nodemessage = '__**Nodes Stats ' + nodeCount + '**__\n' + nodes + '\n\n__**Panel Stats**__\n' + panel;
-
+    let embedfooter = 'Updated every ' + time + ' seconds'
+    if (enablef === true) embedfooter = 'Updated every ' + time + ' seconds | ' + footer
     let embed = new MessageEmbed()
-      .setTitle(hostname + " Stats")
-      .setColor(config.embedcolor)
-      .setDescription(nodemessage)
-      .setTimestamp()
-      .setFooter("Updated every " + time + " seconds | " + footer)
-      .setThumbnail(client.user.avatarURL());
-    if(enablets === "yes") {
+      .setTitle(hostname + ' Stats')
+      .setColor(color)
+      .addField('Nodes Stats' + nodeCount, nodes)
+      .addField('Panel Stats', panel)
+      .setFooter(embedfooter)
+      .setThumbnail(client.user.avatarURL())
+    if (enablets === true) {
       embed.setTimestamp()
     }
+    if (enabledesc === true) {
+      embed.setDescription(desc)
+    }
 
-    ch.send(embed).then(msg => { msg.delete({ timeout: time + "000" }); });
+    ch.send(embed).then(msg => { msg.delete({ timeout: time + '000' }) })
 
-    console.log(chalk.blue("[PteroStats Checker] ") + chalk.green("Posted Stats"));
-    if (panel !== null)
-      console.log(chalk.blue("[PteroStats Checker] ") + chalk.green("Stats Updated")
-      );
-    console.log(chalk.blue("[PteroStats Checker] ") + chalk.green("Updating Stats in " + time + " Seconds"));
-  }, time + "000");
-};
+    console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Posted Stats'))
+    if (panel !== null) console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Stats Updated'))
+    console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Updating Stats in ' + time + ' Seconds'))
+  }, time + '000')
+}
