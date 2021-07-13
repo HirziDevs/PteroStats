@@ -70,7 +70,7 @@ module.exports = client => {
       })
 
       let msgStats = db.get(data.nameid) + '\n'
-      if (db.get(data.nameid) === null) msgStats = data.name + ' : ' + mcheck
+      if (db.get(data.nameid) === null) msgStats = data.name + ' : ' + checking
       list.push(msgStats)
     })
 
