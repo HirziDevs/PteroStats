@@ -38,3 +38,4 @@ status:
 
 # Developers feature
 debug: false # Enable and Disable debug log to console
+debugaxios: false #Enable and Disable axios error logs
