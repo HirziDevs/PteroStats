@@ -91,7 +91,8 @@ Add more items like bellow to `nodelist` array at [index.js line 17](https://git
 
 if you need help contact me on discord `Hirzi#8701` or join [our discord server here](https://discord.gg/9Z7zpdwATZ)
 
-## FAQ
+## Other
+### FAQ
 
 Q: The node is online but the bot said offline
 
@@ -121,7 +122,7 @@ Q: How i can get support?
 
 A: You can join our [discord server](https://discord.gg/9Z7zpdwATZ)
 
-## Links
+### Links
 
 * __[PteroBot Discord](https://discord.gg/9Z7zpdwATZ)__
 * __[Pterodactyl Panel](https://pterodactyl.io)__
