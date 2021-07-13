@@ -15,8 +15,8 @@ refreshtime: 60 # Time when the embed edited/refreshed (MUST BE A SECONDS)
 # Panel Info's
 panel:
   url: 'HOST PANEL LINK' # Put panel url here. Example: https://panel.purenodes.net
-  clientkey: 'CLIENT APIKEY' # Put Client ApiKey here. check https://your.host.url/account/api (your.host.urrl is an example link)to get the Client Apikey
-  adminkey: 'ADMIN APIKEY' # Put Admin Apikey here. check https://your.host.url/admin/api (your.host.urrl is an example link) to get the Admin ApiKey
+  clientkey: 'CLIENT APIKEY' # Put Client ApiKey here. check https://your.host.url/account/api (your.host.url is an example link)to get the Client Apikey
+  adminkey: 'ADMIN APIKEY' # Put Admin Apikey here. check https://your.host.url/admin/api (your.host.url is an example link) to get the Admin ApiKey
 
 # Embed Configuration
 embed: 
