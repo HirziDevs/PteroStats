@@ -28,7 +28,7 @@ PteroStats checks [pterodactyl](https://pterodactyl.io) server(s) [resource api]
 
 ## Installation
 
-- `Create server at your pterodactyl panel and copy the server id`
+- `Create server for each nodes at your pterodactyl panel and copy the server id`
 - `Paste the server id at nodelist array` [index.js line 17](https://github.com/HirziDevs/PteroStats/blob/main/index.js)
 - `fill in the required informations in the config.yml file`
 - `Run npm install in the root directory of the bot files`
@@ -84,6 +84,10 @@ status:
   online: ':green_circle: Online' # Message if the status is Online
   offline: ':red_circle: Offline' # Message if the status is Offline
   check: ':orange_circle: Checking' # Message if the status is Checking
+
+# Developers feature
+debug: false # Enable and Disable debug log to console
+debugaxios: false # Enable and Disbale axios error logs
 ```
 
 ### Adding more nodes
