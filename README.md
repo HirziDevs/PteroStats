@@ -35,6 +35,14 @@ PteroStats checks [pterodactyl](https://pterodactyl.io) server(s) [resource api]
 - `Run node index.js and you are done`
 - `To add more nodes go to this link` [This Link](https://github.com/HirziDevs/PteroStats#adding-more-nodes-and-databases)
 
+### Getting ServerID
+
+- `Go to your pterodactyl panel`
+- `And then select server you want to use`
+- `Go to settings tab`
+- `Scroll, go to debug information and you will find server id`
+- `Copy the first word like on this image`
+![img](https://media.discordapp.net/attachments/626755594526916629/864446387387367424/20210713_165459.jpg)
 ### Setuping Config
 
 You need to put right config to make the bot work at [config.yml](https://github.com/HirziDevs/PteroStats/blob/main/config.yml) file
