@@ -2,7 +2,7 @@ const { Client, Collection, MessageEmbed } = require('discord.js')
 const fs = require('fs')
 const client = new Client()
 const yaml = require("js-yaml")
-const config = yaml.load(fs.readFileSync('./test.yml', 'utf8'))
+const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'))
 client.config = config
 
 let nodelist = [
