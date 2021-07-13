@@ -20,13 +20,26 @@ module.exports = client => {
   let statusoffline = config.status.offline
   let checking = config.status.check
 
-  let hostname = config.embed.title
+  let title = config.embed.title
   let color = config.embed.color
   let desc = config.embed.description.text
   let footer = config.embed.footer.text
   let enablets = config.embed.timestamp
   let enabledesc = config.embed.description.enable
   let enablef = config.embed.footer.enable
+
+  let debug = config.debug
+  let debugerror = config.debugaxios
+
+  if (debug === true) {
+    console.log(chalk.red('=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+='))
+    console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Debug Mode: ') + chalk.cyan('true'))
+    console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Debug Axios Mode: ') + chalk.cyan(debugerror))
+    console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Custom Status: ') + chalk.cyan(enablecs))
+    console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Enable Timestamp: ') + chalk.cyan(enablets))
+    console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Enable Description: ') + chalk.cyan(enabledesc))
+    console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Enable Footer: ') + chalk.cyan(enablef))
+  }
 
   if (!hosturl.includes('http')) hosturl = 'http://' + hosturl
   let unapi = hosturl + '/api'
@@ -35,12 +48,12 @@ module.exports = client => {
   if (enablecs === true) {
     client.user.setActivity(cs, { type: stype })
   } else {
-    client.user.setActivity(hostname + ' Panel Stats', { type: 'WATCHING' })
+    client.user.setActivity(title + ' Panel Stats', { type: 'WATCHING' })
   }
 
   console.log(chalk.red('=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+='))
   console.log(chalk.green('Name: ') + chalk.cyan('PteroStats'))
-  console.log(chalk.green('Version: ') + chalk.cyan('Stable v1.1.8'))
+  console.log(chalk.green('Version: ') + chalk.cyan('Stable v1.2.0'))
   console.log(chalk.green('Refresh Time: ') + chalk.cyan(time + ' Seconds'))
   console.log(chalk.green('Bot Status: ') + chalk.cyan('Online'))
   console.log(chalk.green('Support: ') + chalk.cyan('https://discord.gg/9Z7zpdwATZ'))
@@ -64,13 +77,15 @@ module.exports = client => {
         }
       }).then((response) => {
         db.set(data.nameid, '**' + data.name + '**' + ': ' + statusonline)
-      }).catch(() => {
+      }).catch((err) => {
         db.set(data.nameid, '**' + data.name + '**' + ': ' + statusoffline)
         console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(data.name + ' is down!'))
+        if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] ') + err)
       })
 
       let msgStats = db.get(data.nameid) + '\n'
       if (db.get(data.nameid) === null) msgStats = data.name + ' : ' + checking
+      if (debug === true) console.log(chalk.magenta('[PteroStats Debug] ') + chalk.blue(msgStats))
       list.push(msgStats)
     })
 
@@ -87,6 +102,7 @@ module.exports = client => {
     }).catch(err => {
       db.set('serverCount', 'N/A')
       console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Panel is down'))
+      if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] ') + err)
     })
 
     axios(api + '/application/users', {
@@ -102,6 +118,7 @@ module.exports = client => {
     }).catch(err => {
       db.set('userCount', 'N/A')
       console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Panel is down!'))
+      if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] ') + err)
     })
 
     let userCount = db.get('userCount')
@@ -130,7 +147,7 @@ module.exports = client => {
     let embedfooter = 'Updated every ' + time + ' seconds'
     if (enablef === true) embedfooter = 'Updated every ' + time + ' seconds | ' + footer
     let embed = new MessageEmbed()
-      .setTitle(hostname + ' Stats')
+      .setTitle(title)
       .setColor(color)
       .addField('Nodes Stats' + nodeCount, nodes)
       .addField('Panel Stats', panel)
@@ -145,6 +162,7 @@ module.exports = client => {
 
     ch.send(embed).then(msg => { msg.delete({ timeout: time + '000' }) })
 
+    if (nodes.includes(['null', 'undefined]'])) console.log(chalk.magenta('[PteroStats Debug] ') + chalk.red('Nodes list has null/undefined on it'))
     console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Posted Stats'))
     if (panel !== null) console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Stats Updated'))
     console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Updating Stats in ' + time + ' Seconds'))
