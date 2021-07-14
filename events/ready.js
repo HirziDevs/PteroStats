@@ -77,6 +77,7 @@ module.exports = client => {
         }
       }).then((response) => {
         db.set(data.nameid, '**' + data.name + '**' + ': ' + statusonline)
+        if(db.get(data.nameid) === null) console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Added Node ' + data.name + ' to databases'))
       }).catch((err) => {
         db.set(data.nameid, '**' + data.name + '**' + ': ' + statusoffline)
         console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(data.name + ' is down!'))
@@ -84,7 +85,7 @@ module.exports = client => {
       })
 
       let msgStats = db.get(data.nameid) + '\n'
-      if (db.get(data.nameid) === null) msgStats = data.name + ' : ' + checking
+      if (db.get(data.nameid) === null) msgStats = '**' + data.name + '** : ' + checking + '\n'
       if (debug === true) console.log(chalk.magenta('[PteroStats Debug] ') + chalk.blue(msgStats))
       list.push(msgStats)
     })
