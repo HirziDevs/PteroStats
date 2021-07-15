@@ -29,11 +29,12 @@ PteroStats checks [pterodactyl](https://pterodactyl.io) server(s) [resource api]
 ## Installation
 
 - `Create server for each nodes at your pterodactyl panel and copy the server id`
-- `Paste the server id at nodelist array` [index.js line 17](https://github.com/HirziDevs/PteroStats/blob/main/index.js)
+- `Go to your node list at admin panel, the go to the node you want to get id, and then look the web link, the last number after nodes/ is your node id`
+- `Paste the server id and node id at nodelist array` [index.js line 17](https://github.com/HirziDevs/PteroStats/blob/main/index.js)
 - `fill in the required informations in the config.yml file`
 - `Run npm install in the root directory of the bot files`
 - `Run node index.js and you are done`
-- `To add more nodes go to this link` [This Link](https://github.com/HirziDevs/PteroStats#adding-more-nodes-and-databases)
+- `To add more nodes go to this link` [This Link](https://github.com/HirziDevs/PteroStats###adding-more-nodes)
 
 ### Getting ServerID
 
@@ -43,6 +44,14 @@ PteroStats checks [pterodactyl](https://pterodactyl.io) server(s) [resource api]
 - `Scroll, go to debug information and you will find server id`
 - `Copy the first word like on this image`
 ![img](https://media.discordapp.net/attachments/626755594526916629/864446387387367424/20210713_165459.jpg)
+
+### Getting NodeID
+
+- `Go to your nodes page at your pterodactyl admin panel`
+- `Go to the nodes you want to get the id`
+- `Look at the website link`
+- `The node id will be after the nodes/`
+
 ### Setuping Config
 
 You need to put right config to make the bot work at [config.yml](https://github.com/HirziDevs/PteroStats/blob/main/config.yml) file
@@ -53,7 +62,7 @@ You need to put right config to make the bot work at [config.yml](https://github
 # Bot Info's
 token: 'BOT TOKEN' # Put bot token here, check https://discord.dev to create and get bot token
 botstatus:
-  enable: false # Enable Custom Status (MUST BE "TRUE" OR "FALSE")
+  enable: false # Enable Custom Status (MUST BE "true" OR "false")
   text: 'Hosting Panel' # Bot Status Message
   type: 'WATCHING' # Bot Status Type. Ex: PLAYING, WATCHING, LISTENING, STREAMING
 
@@ -64,20 +73,20 @@ refreshtime: 60 # Time when the embed edited/refreshed (MUST BE A SECONDS)
 # Panel Info's
 panel:
   url: 'HOST PANEL LINK' # Put panel url here. Example: https://panel.purenodes.net
-  clientkey: 'CLIENT APIKEY' # Put Client ApiKey here. check https://your.host.url/account/api (your.host.urrl is an example link)to get the Client Apikey
-  adminkey: 'ADMIN APIKEY' # Put Admin Apikey here. check https://your.host.url/admin/api (your.host.urrl is an example link) to get the Admin ApiKey
+  clientkey: 'CLIENT APIKEY' # Put Client ApiKey here. check https://your.host.url/account/api (your.host.url is an example link)to get the Client Apikey
+  adminkey: 'ADMIN APIKEY' # Put Admin Apikey here. check https://your.host.url/admin/api (your.host.url is an example link) to get the Admin ApiKey
 
 # Embed Configuration
 embed: 
   title: 'EMBED TITLE' # Embed Title here. Ex: PureNodes Stats
   color: 'E5BE11' # Embed Hex color here.
   description: 
-    enable: false # Enable Embed Description (MUST BE "TRUE" OR "FALSE")
+    enable: false # Enable Embed Description (MUST BE "true" OR "false")
     text: 'EMBED DESCRIPTION' # Embed Description
   footer: 
-    enable: true # Enable Embed Footer (MUST BE "TRUE" OR "FALSE")
+    enable: true # Enable Embed Footer (MUST BE "true" OR "false")
     text: 'By Hirzi#8701' # Embed Footer
-  timestamp: true # Enable Embed TimeStamp (MUST BE "TRUE" OR "FALSE")
+  timestamp: true # Enable Embed TimeStamp (MUST BE "true" OR "false")
 
 # Status Message Configuration
 status:
@@ -85,19 +94,24 @@ status:
   offline: ':red_circle: Offline' # Message if the status is Offline
   check: ':orange_circle: Checking' # Message if the status is Checking
 
+# Node Resource
+resource: true # Enable resource option ex [Ram: 2gb/5gb] bellow node name (MUST BE "true" OR "false")
+unit: 'gb' # Must be 'mb', 'gb', or 'percent'
+
 # Developers feature
 debug: false # Enable and Disable debug log to console
-debugaxios: false # Enable and Disbale axios error logs
+debugaxios: false #Enable and Disable axios error logs
 ```
 
 ### Adding more nodes
 
-Add more items like bellow to `nodelist` array at [index.js line 17](https://github.com/HirziDevs/PteroStats/blob/main/index.js)
+Add more items like bellow per each node to `nodelist` array at [index.js line 17](https://github.com/HirziDevs/PteroStats/blob/main/index.js)
 ```
 {
     id: "Server ID",
     name: "**Example Server**",
-    nameid: "Node1"
+    nameid: "Node1",
+    nodeid: "1"
 },
 ```
 
