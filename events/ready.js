@@ -2,6 +2,7 @@ module.exports = client => {
   const { MessageEmbed } = require('discord.js')
   const axios = require('axios')
   const db = require('quick.db')
+  const nodetable = new db.table('nodetable')
   const chalk = require('chalk')
   const config = client.config
   const nodelist = client.nodelist
@@ -19,6 +20,8 @@ module.exports = client => {
   let statusonline = config.status.online
   let statusoffline = config.status.offline
   let checking = config.status.check
+  let resource = config.resource
+  let unit = config.unit
 
   let title = config.embed.title
   let color = config.embed.color
@@ -35,6 +38,7 @@ module.exports = client => {
     console.log(chalk.red('=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+='))
     console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Debug Mode: ') + chalk.cyan('true'))
     console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Debug Axios Mode: ') + chalk.cyan(debugerror))
+    console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Resource: ') + chalk.cyan(resource))
     console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Custom Status: ') + chalk.cyan(enablecs))
     console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Enable Timestamp: ') + chalk.cyan(enablets))
     console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Enable Description: ') + chalk.cyan(enabledesc))
@@ -53,7 +57,7 @@ module.exports = client => {
 
   console.log(chalk.red('=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+='))
   console.log(chalk.green('Name: ') + chalk.cyan('PteroStats'))
-  console.log(chalk.green('Version: ') + chalk.cyan('Stable v1.2.0'))
+  console.log(chalk.green('Version: ') + chalk.cyan('Stable v1.3.0'))
   console.log(chalk.green('Refresh Time: ') + chalk.cyan(time + ' Seconds'))
   console.log(chalk.green('Bot Status: ') + chalk.cyan('Online'))
   console.log(chalk.green('Support: ') + chalk.cyan('https://discord.gg/9Z7zpdwATZ'))
@@ -76,16 +80,152 @@ module.exports = client => {
           Authorization: 'Bearer ' + apikey
         }
       }).then((response) => {
-        db.set(data.nameid, '**' + data.name + '**' + ': ' + statusonline)
-        if(db.get(data.nameid) === null) console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Added Node ' + data.name + ' to databases'))
+        if (resource === true) {
+          axios(api + '/application/nodes/' + data.nodeid, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + adminapikey
+            }
+          }).then(response => {
+
+            let ram = 'temp'
+            let disk = 'temp'
+
+            const rampercent = '[Ram: ' + Math.floor(response.data.attributes.allocated_resources.memory / response.data.attributes.memory * 100) + '%/100%]'
+            const diskpercent = '[Disk: ' + Math.floor(response.data.attributes.allocated_resources.disk / response.data.attributes.disk * 100) + '%/100%]'
+            const rammega = '[Ram: ' + response.data.attributes.allocated_resources.memory + 'MB/' + response.data.attributes.memory + 'MB]'
+            const diskmega = '[Disk: ' + response.data.attributes.allocated_resources.disk + 'MB/' + response.data.attributes.disk + 'MB]'
+            const ramgiga = '[Ram: ' + Math.floor(response.data.attributes.allocated_resources.memory / 1000) + 'GB/' + Math.floor(response.data.attributes.memory / 1000) + 'GB]'
+            const diskgiga = '[Disk: ' + Math.floor(response.data.attributes.allocated_resources.disk / 1000) + 'GB/' + Math.floor(response.data.attributes.disk / 1000) + 'GB]'
+            if (unit === 'mb') {
+              disk = diskmega
+              ram = rammega
+            }
+            if (unit === 'gb') {
+              disk = diskgiga
+              ram = ramgiga
+            }
+            if (unit === 'percent') {
+              disk = diskpercent
+              ram = rampercent
+            }
+
+            let status = '**' + data.name + '**: ' + statusonline
+
+            nodetable.set(data.nameid, {
+              ram: ram,
+              disk: disk,
+              status: status,
+              res: true
+            })
+          }).catch(err => {
+            let status = '**' + data.name + '**: ' + statusonline
+            let ram = '[Ram: N/A]'
+            let disk = '[Disk: N/A]'
+
+            console.log(chalk.cyan('[PteroStats Checker] [Node  Resource] ') + chalk.red(data.name + ' node resource is down, make sure you put right id or vaild node id!'))
+            if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] [Node  Resource] ') + chalk.red(err))
+
+            nodetable.set(data.nameid, {
+              ram: ram,
+              disk: disk,
+              status: status,
+              res: true
+            })
+          })
+        }
+        if (resource === false) {
+          nodetable.set(data.nameid, {
+            ram: '',
+            disk: '',
+            status: status,
+            res: false
+          })
+        }
       }).catch((err) => {
-        db.set(data.nameid, '**' + data.name + '**' + ': ' + statusoffline)
         console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(data.name + ' is down!'))
-        if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] ') + err)
+        if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] [Node Status] ') + err)
+        if (resource === true) {
+          axios(api + '/application/nodes/' + data.nodeid, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + adminapikey
+            }
+          }).then(response => {
+
+            let ram = 'temp'
+            let disk = 'temp'
+
+            const rampercent = '[Ram: ' + Math.floor(response.data.attributes.allocated_resources.memory / response.data.attributes.memory * 100) + '%/100%]'
+            const diskpercent = '[Disk: ' + Math.floor(response.data.attributes.allocated_resources.disk / response.data.attributes.disk * 100) + '%/100%]'
+            const rammega = '[Ram: ' + response.data.attributes.allocated_resources.memory + 'MB/' + response.data.attributes.memory + 'MB]'
+            const diskmega = '[Disk: ' + response.data.attributes.allocated_resources.disk + 'MB/' + response.data.attributes.disk + 'MB]'
+            const ramgiga = '[Ram: ' + Math.floor(response.data.attributes.allocated_resources.memory / 1000) + 'GB/' + Math.floor(response.data.attributes.memory / 1000) + 'GB]'
+            const diskgiga = '[Disk: ' + Math.floor(response.data.attributes.allocated_resources.disk / 1000) + 'GB/' + Math.floor(response.data.attributes.disk / 1000) + 'GB]'
+            if (unit === 'mb') {
+              disk = diskmega
+              ram = rammega
+            }
+            if (unit === 'gb') {
+              disk = diskgiga
+              ram = ramgiga
+            }
+            if (unit === 'percent') {
+              disk = diskpercent
+              ram = rampercent
+            }
+
+            let status = '**' + data.name + '**: ' + statusoffline
+
+            nodetable.set(data.nameid, {
+              ram: ram,
+              disk: disk,
+              status: status,
+              res: true
+            })
+
+          }).catch(err => {
+            let status = '**' + data.name + '**: ' + statusoffline
+            let ram = '[Ram: N/A]'
+            let disk = '[Disk: N/A]'
+
+            console.log(chalk.cyan('[PteroStats Checker] [Node  Resource] ') + chalk.red(data.name + ' node resource is down, make sure you put right id or vaild node id!'))
+            if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] [Node  Resource] ') + chalk.red(err))
+
+            nodetable.set(data.nameid, {
+              ram: ram,
+              disk: disk,
+              status: status,
+              res: true
+            })
+          })
+        }
+        if (resource === false) {
+          nodetable.set(data.nameid, {
+            ram: '',
+            disk: '',
+            status: status,
+            res: false
+          })
+        }
       })
 
-      let msgStats = db.get(data.nameid) + '\n'
-      if (db.get(data.nameid) === null) msgStats = '**' + data.name + '** : ' + checking + '\n'
+      let stats = nodetable.get(data.nameid)
+      let msgStats = ''
+
+      if (stats === null) {
+        msgStats = '**' + data.name + '** : ' + checking + '\n'
+      } else {
+        let restrue = stats.status + '\n```\n' + stats.ram + '\n' + stats.disk + '\n```\n'
+        let resfalse = stats.status
+        msgStats = resfalse
+        if (stats.res === true) msgStats = restrue
+      }
+
       if (debug === true) console.log(chalk.magenta('[PteroStats Debug] ') + chalk.blue(msgStats))
       list.push(msgStats)
     })
@@ -145,6 +285,8 @@ module.exports = client => {
     })
     let nodeCount = '[Total ' + list.length + ']'
 
+    if (nodes === 'undefined') nodes = checking + ' Please wait ' + time + ' seconds'
+
     let embedfooter = 'Updated every ' + time + ' seconds'
     if (enablef === true) embedfooter = 'Updated every ' + time + ' seconds | ' + footer
     let embed = new MessageEmbed()
@@ -163,7 +305,6 @@ module.exports = client => {
 
     ch.send(embed).then(msg => { msg.delete({ timeout: time + '000' }) })
 
-    if (nodes.includes(['null', 'undefined]'])) console.log(chalk.magenta('[PteroStats Debug] ') + chalk.red('Nodes list has null/undefined on it'))
     console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Posted Stats'))
     if (panel !== null) console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Stats Updated'))
     console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Updating Stats in ' + time + ' Seconds'))
