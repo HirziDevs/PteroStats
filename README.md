@@ -20,11 +20,10 @@ PteroStats checks [pterodactyl](https://pterodactyl.io) server(s) [resource api]
 
 ### Screenshot
 
-- [**ItzyStore**](https://discord.gg/PS4Mf6DBzt)
+- [**ItzyStore**](https://discord.gg/PS4Mf6DBzt) (No screenshot for resource becouse it will be long image)
 ![img](https://media.discordapp.net/attachments/796259732683227157/863359897210060820/IMG_20210710_164939.jpg)
-
 - [**SpaceCloud**](https://discord.gg/28z8CYmPEY)
-![img](https://media.discordapp.net/attachments/796259732683227157/863359896912658472/IMG_20210710_170313.jpg)
+![img](https://media.discordapp.net/attachments/586738538448420881/866624597171372032/IMG_20210719_171633.jpg)
 
 ## Installation
 
@@ -49,7 +48,8 @@ PteroStats checks [pterodactyl](https://pterodactyl.io) server(s) [resource api]
 
 - `Go to your location page at your pterodactyl admin panel`
 - `Look at before your nodes name`
-- `The nodes id will be there`
+- `The nodes id will be there like on this image`
+![img](https://media.discordapp.net/attachments/586738538448420881/866623684121591838/Screenshot_2021-07-19-17-12-42-90.jpg)
 
 ### Setuping Config
 
