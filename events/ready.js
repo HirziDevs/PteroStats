@@ -152,7 +152,7 @@ module.exports = client => {
         })
 
       }).catch((err) => {
-        console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(data.name + ' is down!'))
+        console.log(chalk.cyan('[PteroStats Checker] [Node Status]') + chalk.red(data.name + ' is down!'))
         if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] [Node Status] ') + err)
         axios(api + '/application/nodes/' + data.nodeid + '?include=servers,location,allocations', {
           method: 'GET',
@@ -209,7 +209,7 @@ module.exports = client => {
           let ram = '[Ram: N/A]'
           let disk = '[Disk: N/A]'
 
-          console.log(chalk.cyan('[PteroStats Checker] [Node  Resource] ') + chalk.red(data.name + ' node resource is down, make sure you put right id or vaild node id!'))
+          console.log(chalk.cyan('[PteroStats Checker] [Node Resource] ') + chalk.red(data.name + ' node resource is down, make sure you put right id or vaild node id!'))
           if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] [Node  Resource] ') + chalk.red(err))
 
           nodetable.set(data.nameid, {
