@@ -30,7 +30,7 @@ PteroStats checks [pterodactyl](https://pterodactyl.io) server(s) [resource api]
 
 - `Create server for each nodes at your pterodactyl panel and copy the server id`
 - `Go to your node list at admin panel, the go to the node you want to get id, and then look the web link, the last number after nodes/ is your node id`
-- `Paste the server id and node id at nodelist array` [index.js line 17](https://github.com/HirziDevs/PteroStats/blob/main/index.js)
+- `Paste the server id and node id at nodelist array` [nodes.js](https://github.com/HirziDevs/PteroStats/blob/main/nodes.js)
 - `fill in the required informations in the config.yml file`
 - `Run npm install in the root directory of the bot files`
 - `Run node index.js and you are done`
@@ -47,17 +47,16 @@ PteroStats checks [pterodactyl](https://pterodactyl.io) server(s) [resource api]
 
 ### Getting NodeID
 
-- `Go to your nodes page at your pterodactyl admin panel`
-- `Go to the nodes you want to get the id`
-- `Look at the website link`
-- `The node id will be after the nodes/`
+- `Go to your location page at your pterodactyl admin panel`
+- `Look at before your nodes name`
+- `The nodes id will be there`
 
 ### Setuping Config
 
 You need to put right config to make the bot work at [config.yml](https://github.com/HirziDevs/PteroStats/blob/main/config.yml) file
 ```
 # PteroStats config
-# If you need help, join our discord server: https://discord.gg/9Z7zpdwATZ
+# If you need help, join our discord server: https://discord.gg/zv6maQRah3
 
 # Bot Info's
 token: 'BOT TOKEN' # Put bot token here, check https://discord.dev to create and get bot token
@@ -68,7 +67,7 @@ botstatus:
 
 # Channel and RefreshTime Configuration
 channel: 'CHANNEL ID' # Put channel id here where the embed will be sended
-refreshtime: 60 # Time when the embed edited/refreshed (MUST BE A SECONDS)
+refreshtime: 60 # Time when the embed edited/refreshed (MUST BE A SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
 
 # Panel Info's
 panel:
@@ -95,8 +94,12 @@ status:
   check: ':orange_circle: Checking' # Message if the status is Checking
 
 # Node Resource
-resource: true # Enable resource option ex [Ram: 2gb/5gb] bellow node name (MUST BE "true" OR "false")
-unit: 'gb' # Must be 'mb', 'gb', or 'percent'
+resource:
+  enable: false # Enable resource option ex [Ram: 2gb/5gb] bellow node name (MUST BE "true" OR "false")
+  servers: true # Enable Total server on the node to resource text (MUST BE "true" OR "false")
+  allocations: true # Enable Total Allocation on the node to resource text (MUST BE "true" OR "false")
+  location: true # Enable location short name on the node to resource text (MUST BE "true" OR "false")
+  unit: 'gb' # Must be 'mb', 'gb', or 'percent'
 
 # Developers feature
 debug: false # Enable and Disable debug log to console
@@ -105,7 +108,7 @@ debugaxios: false #Enable and Disable axios error logs
 
 ### Adding more nodes
 
-Add more items like bellow per each node to `nodelist` array at [index.js line 17](https://github.com/HirziDevs/PteroStats/blob/main/index.js)
+Add more items like bellow per each node to `nodelist` array at [nodes.js](https://github.com/HirziDevs/PteroStats/blob/main/nodes.js)
 ```
 {
     id: "Server ID",
@@ -115,7 +118,7 @@ Add more items like bellow per each node to `nodelist` array at [index.js line 1
 },
 ```
 
-if you need help contact me on discord `Hirzi#8701` or join [our discord server here](https://discord.gg/9Z7zpdwATZ)
+if you need help contact me on discord `Hirzi#8701` or join [our discord server here](https://discord.gg/zv6maQRah3)
 
 ## Other
 ### FAQ
@@ -146,10 +149,10 @@ A: You can add as much your panel have
 
 Q: How i can get support?
 
-A: You can join our [discord server](https://discord.gg/9Z7zpdwATZ)
+A: You can join our [discord server](https://discord.gg/zv6maQRah3)
 
 ### Links
 
-* __[PteroBot Discord](https://discord.gg/9Z7zpdwATZ)__
+* __[PteroBot Discord](https://discord.gg/zv6maQRah3)__
 * __[Pterodactyl Panel](https://pterodactyl.io)__
 * __[Pterodactyl API](https://dashflo.net/docs/api/pterodactyl/v1)__
