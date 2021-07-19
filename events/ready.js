@@ -20,8 +20,11 @@ module.exports = client => {
   let statusonline = config.status.online
   let statusoffline = config.status.offline
   let checking = config.status.check
-  let resource = config.resource
-  let unit = config.unit
+  let resource = config.resource.enable
+  let serverres = config.resource.servers
+  let serverport = config.resource.allocations
+  let serverloc = config.resource.location
+  let unit = config.resource.unit
 
   let title = config.embed.title
   let color = config.embed.color
@@ -80,150 +83,162 @@ module.exports = client => {
           Authorization: 'Bearer ' + apikey
         }
       }).then((response) => {
-        if (resource === true) {
-          axios(api + '/application/nodes/' + data.nodeid, {
-            method: 'GET',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + adminapikey
-            }
-          }).then(response => {
+        axios(api + '/application/nodes/' + data.nodeid + '?include=servers,location,allocations', {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + adminapikey
+          }
+        }).then(response => {
 
-            let ram = 'temp'
-            let disk = 'temp'
+          let ram = 'temp'
+          let disk = 'temp'
 
-            const rampercent = '[Ram: ' + Math.floor(response.data.attributes.allocated_resources.memory / response.data.attributes.memory * 100) + '%/100%]'
-            const diskpercent = '[Disk: ' + Math.floor(response.data.attributes.allocated_resources.disk / response.data.attributes.disk * 100) + '%/100%]'
-            const rammega = '[Ram: ' + response.data.attributes.allocated_resources.memory + 'MB/' + response.data.attributes.memory + 'MB]'
-            const diskmega = '[Disk: ' + response.data.attributes.allocated_resources.disk + 'MB/' + response.data.attributes.disk + 'MB]'
-            const ramgiga = '[Ram: ' + Math.floor(response.data.attributes.allocated_resources.memory / 1000) + 'GB/' + Math.floor(response.data.attributes.memory / 1000) + 'GB]'
-            const diskgiga = '[Disk: ' + Math.floor(response.data.attributes.allocated_resources.disk / 1000) + 'GB/' + Math.floor(response.data.attributes.disk / 1000) + 'GB]'
-            if (unit === 'mb') {
-              disk = diskmega
-              ram = rammega
-            }
-            if (unit === 'gb') {
-              disk = diskgiga
-              ram = ramgiga
-            }
-            if (unit === 'percent') {
-              disk = diskpercent
-              ram = rampercent
-            }
+          const mode = response.data.attributes.maintenance_mode
+          const loc = '[Locations: ' + response.data.attributes.relationships.location.attributes.short + ']'
+          const port = '[Allocations: ' + response.data.attributes.relationships.allocations.data.length + ']'
+          const servers = '[Servers: ' + response.data.attributes.relationships.servers.data.length + ']'
+          const rampercent = '[Ram: ' + Math.floor(response.data.attributes.allocated_resources.memory / response.data.attributes.memory * 100) + '%/100%]'
+          const diskpercent = '[Disk: ' + Math.floor(response.data.attributes.allocated_resources.disk / response.data.attributes.disk * 100) + '%/100%]'
+          const rammega = '[Ram: ' + response.data.attributes.allocated_resources.memory + 'MB/' + response.data.attributes.memory + 'MB]'
+          const diskmega = '[Disk: ' + response.data.attributes.allocated_resources.disk + 'MB/' + response.data.attributes.disk + 'MB]'
+          const ramgiga = '[Ram: ' + Math.floor(response.data.attributes.allocated_resources.memory / 1000) + 'GB/' + Math.floor(response.data.attributes.memory / 1000) + 'GB]'
+          const diskgiga = '[Disk: ' + Math.floor(response.data.attributes.allocated_resources.disk / 1000) + 'GB/' + Math.floor(response.data.attributes.disk / 1000) + 'GB]'
+          if (unit === 'mb') {
+            disk = diskmega
+            ram = rammega
+          }
+          if (unit === 'gb') {
+            disk = diskgiga
+            ram = ramgiga
+          }
+          if (unit === 'percent') {
+            disk = diskpercent
+            ram = rampercent
+          }
 
-            let status = '**' + data.name + '**: ' + statusonline
+          let status = '**' + data.name + '**: ' + statusonline
 
-            nodetable.set(data.nameid, {
-              ram: ram,
-              disk: disk,
-              status: status,
-              res: true
-            })
-          }).catch(err => {
-            let status = '**' + data.name + '**: ' + statusonline
-            let ram = '[Ram: N/A]'
-            let disk = '[Disk: N/A]'
-
-            console.log(chalk.cyan('[PteroStats Checker] [Node  Resource] ') + chalk.red(data.name + ' node resource is down, make sure you put right id or vaild node id!'))
-            if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] [Node  Resource] ') + chalk.red(err))
-
-            nodetable.set(data.nameid, {
-              ram: ram,
-              disk: disk,
-              status: status,
-              res: true
-            })
-          })
-        }
-        if (resource === false) {
           nodetable.set(data.nameid, {
-            ram: '',
-            disk: '',
+            ram: ram,
+            disk: disk,
             status: status,
-            res: false
+            servers: servers,
+            location: loc,
+            port: port,
+            mode: mode
           })
-        }
+        }).catch(err => {
+          let status = '**' + data.name + '**: ' + statusonline
+          let servers = '[Servers: N/A]'
+          let loc = '[Location: N/A]'
+          let port = '[Allocations: N/A]'
+          let ram = '[Ram: N/A]'
+          let disk = '[Disk: N/A]'
+
+          console.log(chalk.cyan('[PteroStats Checker] [Node  Resource] ') + chalk.red(data.name + ' node resource is down, make sure you put right id or vaild node id!'))
+          if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] [Node  Resource] ') + chalk.red(err))
+
+          nodetable.set(data.nameid, {
+            ram: ram,
+            disk: disk,
+            status: status,
+            servers: servers,
+            location: loc,
+            port: port,
+            mode: false
+          })
+        })
+
       }).catch((err) => {
         console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(data.name + ' is down!'))
         if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] [Node Status] ') + err)
-        if (resource === true) {
-          axios(api + '/application/nodes/' + data.nodeid, {
-            method: 'GET',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + adminapikey
-            }
-          }).then(response => {
+        axios(api + '/application/nodes/' + data.nodeid + '?include=servers,location,allocations', {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + adminapikey
+          }
+        }).then(response => {
 
-            let ram = 'temp'
-            let disk = 'temp'
+          let ram = 'temp'
+          let disk = 'temp'
 
-            const rampercent = '[Ram: ' + Math.floor(response.data.attributes.allocated_resources.memory / response.data.attributes.memory * 100) + '%/100%]'
-            const diskpercent = '[Disk: ' + Math.floor(response.data.attributes.allocated_resources.disk / response.data.attributes.disk * 100) + '%/100%]'
-            const rammega = '[Ram: ' + response.data.attributes.allocated_resources.memory + 'MB/' + response.data.attributes.memory + 'MB]'
-            const diskmega = '[Disk: ' + response.data.attributes.allocated_resources.disk + 'MB/' + response.data.attributes.disk + 'MB]'
-            const ramgiga = '[Ram: ' + Math.floor(response.data.attributes.allocated_resources.memory / 1000) + 'GB/' + Math.floor(response.data.attributes.memory / 1000) + 'GB]'
-            const diskgiga = '[Disk: ' + Math.floor(response.data.attributes.allocated_resources.disk / 1000) + 'GB/' + Math.floor(response.data.attributes.disk / 1000) + 'GB]'
-            if (unit === 'mb') {
-              disk = diskmega
-              ram = rammega
-            }
-            if (unit === 'gb') {
-              disk = diskgiga
-              ram = ramgiga
-            }
-            if (unit === 'percent') {
-              disk = diskpercent
-              ram = rampercent
-            }
+          const mode = response.data.attributes.maintenance_mode
+          const loc = '[Locations: ' + response.data.attributes.relationships.location.attributes.short + ']'
+          const port = '[Allocations: ' + response.data.attributes.relationships.allocations.data.length + ']'
+          const servers = '[Servers: ' + response.data.attributes.relationships.servers.data.length + ']'
+          const rampercent = '[Ram: ' + Math.floor(response.data.attributes.allocated_resources.memory / response.data.attributes.memory * 100) + '%/100%]'
+          const diskpercent = '[Disk: ' + Math.floor(response.data.attributes.allocated_resources.disk / response.data.attributes.disk * 100) + '%/100%]'
+          const rammega = '[Ram: ' + response.data.attributes.allocated_resources.memory + 'MB/' + response.data.attributes.memory + 'MB]'
+          const diskmega = '[Disk: ' + response.data.attributes.allocated_resources.disk + 'MB/' + response.data.attributes.disk + 'MB]'
+          const ramgiga = '[Ram: ' + Math.floor(response.data.attributes.allocated_resources.memory / 1000) + 'GB/' + Math.floor(response.data.attributes.memory / 1000) + 'GB]'
+          const diskgiga = '[Disk: ' + Math.floor(response.data.attributes.allocated_resources.disk / 1000) + 'GB/' + Math.floor(response.data.attributes.disk / 1000) + 'GB]'
+          if (unit === 'mb') {
+            disk = diskmega
+            ram = rammega
+          }
+          if (unit === 'gb') {
+            disk = diskgiga
+            ram = ramgiga
+          }
+          if (unit === 'percent') {
+            disk = diskpercent
+            ram = rampercent
+          }
 
-            let status = '**' + data.name + '**: ' + statusoffline
+          let status = '**' + data.name + '**: ' + statusoffline
 
-            nodetable.set(data.nameid, {
-              ram: ram,
-              disk: disk,
-              status: status,
-              res: true
-            })
-
-          }).catch(err => {
-            let status = '**' + data.name + '**: ' + statusoffline
-            let ram = '[Ram: N/A]'
-            let disk = '[Disk: N/A]'
-
-            console.log(chalk.cyan('[PteroStats Checker] [Node  Resource] ') + chalk.red(data.name + ' node resource is down, make sure you put right id or vaild node id!'))
-            if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] [Node  Resource] ') + chalk.red(err))
-
-            nodetable.set(data.nameid, {
-              ram: ram,
-              disk: disk,
-              status: status,
-              res: true
-            })
-          })
-        }
-        if (resource === false) {
           nodetable.set(data.nameid, {
-            ram: '',
-            disk: '',
+            ram: ram,
+            disk: disk,
             status: status,
-            res: false
+            servers: servers,
+            location: loc,
+            port: port,
+            mode: mode
           })
-        }
+
+        }).catch(err => {
+          let status = '**' + data.name + '**: ' + statusoffline
+          let servers = '[Servers: N/A]'
+          let port = '[Allocations: N/A]'
+          let loc = '[Location: N/A]'
+          let ram = '[Ram: N/A]'
+          let disk = '[Disk: N/A]'
+
+          console.log(chalk.cyan('[PteroStats Checker] [Node  Resource] ') + chalk.red(data.name + ' node resource is down, make sure you put right id or vaild node id!'))
+          if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] [Node  Resource] ') + chalk.red(err))
+
+          nodetable.set(data.nameid, {
+            ram: ram,
+            disk: disk,
+            status: status,
+            servers: servers,
+            location: loc,
+            port: port,
+            mode: false
+          })
+        })
       })
 
       let stats = nodetable.get(data.nameid)
       let msgStats = ''
+      if (!stats) msgStats = '**' + data.name + '**: ' + checking
+      if (stats) {
+        let statsname = stats.status
 
-      if (stats === null) {
-        msgStats = '**' + data.name + '** : ' + checking + '\n'
-      } else {
-        let restrue = stats.status + '\n```\n' + stats.ram + '\n' + stats.disk + '\n```\n'
-        let resfalse = stats.status
-        msgStats = resfalse
-        if (stats.res === true) msgStats = restrue
+        if (stats.mode === true) statsname = stats.status + " [Maintance]"
+
+        if (resource === true) statsname = statsname + '\n```\n' + stats.ram + '\n' + stats.disk
+        if (serverloc === true) statsname = statsname + '\n' + stats.location
+        if (serverport === true) statsname = statsname + '\n' + stats.port
+        if (serverres === true) statsname = statsname + '\n' + stats.servers
+        if (resource === false) statsname = statsname + '\n'
+
+        if (resource === true) msgStats = statsname + '```\n'
       }
 
       if (debug === true) console.log(chalk.magenta('[PteroStats Debug] ') + chalk.blue(msgStats))
@@ -285,14 +300,13 @@ module.exports = client => {
     })
     let nodeCount = '[Total ' + list.length + ']'
 
-    if (nodes === 'undefined') nodes = checking + ' Please wait ' + time + ' seconds'
+    if (nodes === undefined) nodes = checking + 'Please wait ' + time + 'seconds'
 
     let embedfooter = 'Updated every ' + time + ' seconds'
     if (enablef === true) embedfooter = 'Updated every ' + time + ' seconds | ' + footer
     let embed = new MessageEmbed()
       .setTitle(title)
       .setColor(color)
-      .addField('Nodes Stats' + nodeCount, nodes)
       .addField('Panel Stats', panel)
       .setFooter(embedfooter)
       .setThumbnail(client.user.avatarURL())
@@ -300,7 +314,9 @@ module.exports = client => {
       embed.setTimestamp()
     }
     if (enabledesc === true) {
-      embed.setDescription(desc)
+      embed.setDescription(desc + '\n**Nodes Stats' + nodeCount + '**\n' + nodes)
+    } else {
+      embed.setDescription('\n**Nodes Stats' + nodeCount + '**\n' + nodes)
     }
 
     ch.send(embed).then(msg => { msg.delete({ timeout: time + '000' }) })
