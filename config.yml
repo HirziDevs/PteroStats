@@ -10,7 +10,7 @@ botstatus:
 
 # Channel and RefreshTime Configuration
 channel: 'CHANNEL ID' # Put channel id here where the embed will be sended
-refreshtime: 60 # Time when the embed edited/refreshed (MUST BE A SECONDS)
+refreshtime: 60 # Time when the embed edited/refreshed (MUST BE A SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
 
 # Panel Info's
 panel:
@@ -37,8 +37,12 @@ status:
   check: ':orange_circle: Checking' # Message if the status is Checking
 
 # Node Resource
-resource: true # Enable resource option ex [Ram: 2gb/5gb] bellow node name (MUST BE "true" OR "false")
-unit: 'gb' # Must be 'mb', 'gb', or 'percent'
+resource:
+  enable: true # Enable resource option ex [Ram: 2gb/5gb] bellow node name (MUST BE "true" OR "false")
+  servers: true # Enable Total server on the node to resource text (MUST BE "true" OR "false")
+  allocations: true # Enable Total Allocation on the node to resource text (MUST BE "true" OR "false")
+  location: true # Enable location short name on the node to resource text (MUST BE "true" OR "false")
+  unit: 'gb' # Must be 'mb', 'gb', or 'percent'
 
 # Developers feature
 debug: false # Enable and Disable debug log to console
