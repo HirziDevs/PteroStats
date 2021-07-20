@@ -16,7 +16,7 @@ PteroStats is still **under development** and we welcome contributions.
 
 ### How it works?
 
-PteroStats checks [pterodactyl](https://pterodactyl.io) server(s) [resource api](https://dashflo.net/docs/api/pterodactyl/v1/#req_a8875d2840c64cbdb40e9bdb6cba4f75) with [axios](https://www.npmjs.com/package/axios) to get server resource, if the api didn't reply that mean the node of the server is getting [wings/daemon](https://pterodactyl.io/wings/1.0/installing.html) down and mark the node as offline
+PteroStats checks [pterodactyl](https://pterodactyl.io) nodes wings with [axios](https://www.npmjs.com/package/axios) to get nodes wings status, if the api didn't reply that mean the node is having [wings/daemon](https://pterodactyl.io/wings/1.0/installing.html) down and mark the node as offline
 
 ### Screenshot
 
@@ -27,29 +27,11 @@ PteroStats checks [pterodactyl](https://pterodactyl.io) server(s) [resource api]
 
 ## Installation
 
-- `Create server for each nodes at your pterodactyl panel and copy the server id`
-- `Go to your node list at admin panel, the go to the node you want to get id, and then look the web link, the last number after nodes/ is your node id`
-- `Paste the server id and node id at nodelist array` [nodes.js](https://github.com/HirziDevs/PteroStats/blob/main/nodes.js)
 - `fill in the required informations in the config.yml file`
 - `Run npm install in the root directory of the bot files`
 - `Run node index.js and you are done`
-- `To add more nodes go to this link` [This Link](https://github.com/HirziDevs/PteroStats###adding-more-nodes)
 
-### Getting ServerID
-
-- `Go to your pterodactyl panel`
-- `And then select server you want to use`
-- `Go to settings tab`
-- `Scroll, go to debug information and you will find server id`
-- `Copy the first word like on this image`
-![img](https://media.discordapp.net/attachments/626755594526916629/864446387387367424/20210713_165459.jpg)
-
-### Getting NodeID
-
-- `Go to your location page at your pterodactyl admin panel`
-- `Look at before your nodes name`
-- `The nodes id will be there like on this image`
-![img](https://media.discordapp.net/attachments/586738538448420881/866623684121591838/Screenshot_2021-07-19-17-12-42-90.jpg)
+if you need help contact me on discord `Hirzi#8701` or join [our discord server here](https://discord.gg/zv6maQRah3)
 
 ### Setuping Config
 
@@ -72,7 +54,6 @@ refreshtime: 60 # Time when the embed edited/refreshed (MUST BE A SECONDS) (RECO
 # Panel Info's
 panel:
   url: 'HOST PANEL LINK' # Put panel url here. Example: https://panel.purenodes.net
-  clientkey: 'CLIENT APIKEY' # Put Client ApiKey here. check https://your.host.url/account/api (your.host.url is an example link)to get the Client Apikey
   adminkey: 'ADMIN APIKEY' # Put Admin Apikey here. check https://your.host.url/admin/api (your.host.url is an example link) to get the Admin ApiKey
 
 # Embed Configuration
@@ -106,34 +87,8 @@ debug: false # Enable and Disable debug log to console
 debugaxios: false #Enable and Disable axios error logs
 ```
 
-### Adding more nodes
-
-Add more items like bellow per each node to `nodelist` array at [nodes.js](https://github.com/HirziDevs/PteroStats/blob/main/nodes.js)
-```
-{
-    id: "Server ID",
-    name: "**Example Server**",
-    nameid: "Node1",
-    nodeid: "1"
-},
-```
-
-if you need help contact me on discord `Hirzi#8701` or join [our discord server here](https://discord.gg/zv6maQRah3)
-
 ## Other
 ### FAQ
-
-Q: The node is online but the bot said offline
-
-A: Make sure the serverid is correct and the server is not on installation progress
-
--
-
-Q: Do the server must be online?
-
-A: No, the bot can still checks server while it online or offline
-
--
 
 Q: Can i use pterodactyl v0.7?
 
