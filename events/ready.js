@@ -5,7 +5,8 @@ module.exports = client => {
   const { MessageEmbed } = require('discord.js')
   const axios = require('axios')
   const db = require('quick.db')
-  const nodetable = new db.table('nodetable')
+  const nodetable = new db.table('node')
+  const paneltable = new db.table('panel')
   const chalk = require('chalk')
   const config = client.config
 
@@ -66,6 +67,11 @@ module.exports = client => {
   console.log(chalk.green('Bot Status: ') + chalk.cyan('Online'))
   console.log(chalk.green('Support: ') + chalk.cyan('https://discord.gg/zv6maQRah3'))
   console.log(chalk.red('=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+='))
+  console.log(chalk.red('You are using dev build, something not wanted might be happen!'))
+
+  if(paneltable.get('URL') === null) console.log(chalk.cyan('It seems you are using our bot for first time, thank you for choosing our bot, if you need help you can join our support server!'))
+  if(paneltable.get('URL') !== api) console.log(chalk.cyan('Panel url changed, please allow the bot to check the nodes status for ' + time + ' seconds'))
+  paneltable.set('URL',api)
 
   setInterval(() => {
     if (isNaN(time)) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(time + ' is not a number!'))
@@ -173,14 +179,14 @@ module.exports = client => {
 
         let stats = nodetable.get('node' + id)
         let msgStats = ''
-        if (!stats) msgStats = '**' + nodes.attributes.name + '**: ' + checking
+        if (stats === null) msgStats = '**' + nodes.attributes.name + '**: ' + checking
         if (stats) {
           let statsname = '**' + nodes.attributes.name + '**: '
 
           if (stats.status === true) statsname = statsname + statusonline
           if (stats.status === false) statsname = statsname + statusoffline
 
-          if (stats.mode === true) statsname = stats.status + " [Maintance]"
+          if (stats.mode === true) statsname = statsname + ' [Maintance]'
 
           if (resource === true) statsname = statsname + '\n```\n' + stats.ram + '\n' + stats.disk
           if (serverloc === true) statsname = statsname + '\n' + stats.location
@@ -204,9 +210,9 @@ module.exports = client => {
         }
       }).then(ser => {
         let res = ser.data.meta.pagination.total
-        db.set('serverCount', res)
+        paneltable.set('serverCount', res)
       }).catch((err) => {
-        db.set('serverCount', 'N/A')
+        paneltable.set('serverCount', 'N/A')
         console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Panel is down'))
         if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] ') + err)
       })
@@ -220,26 +226,26 @@ module.exports = client => {
         }
       }).then(usr => {
         let res = usr.data.meta.pagination.total
-        db.set('userCount', res)
+        paneltable.set('userCount', res)
       }).catch((err) => {
-        db.set('userCount', 'N/A')
+        paneltable.set('userCount', 'N/A')
         console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Panel is down!'))
         if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] ') + err)
       })
 
-      let userCount = db.get('userCount')
-      let serverCount = db.get('serverCount')
+      let userCount = paneltable.get('userCount')
+      let serverCount = paneltable.get('serverCount')
 
       if (userCount === null) userCount = checking
       if (serverCount === null) serverCount = checking
 
-      if (userCount !== 'N/A') db.set('panel', '**Panel**: ' + statusonline)
+      if (userCount !== 'N/A') paneltable.set('panel', '**Panel**: ' + statusonline)
       if (userCount === 'N/A') {
-        db.set('panel', '**Panel**: ' + statusoffline)
+        paneltable.set('panel', '**Panel**: ' + statusoffline)
         console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('panel is down!'))
       }
-      if (userCount === checking) db.set('panel', '**Panel**: ' + checking)
-      let panel = db.get('panel') + '\n\nUsers: ' + userCount + '\nServers: ' + serverCount
+      if (userCount === checking) paneltable.set('panel', '**Panel**: ' + checking)
+      let panel = paneltable.get('panel') + '\n\nUsers: ' + userCount + '\nServers: ' + serverCount
 
       if (panel === null) panel = '**Panel**: ' + checking + '\n\nUsers: ' + userCount + '\nServers: ' + serverCount
 
@@ -249,6 +255,7 @@ module.exports = client => {
         nodes = nodes + d
       })
 
+      console.log(chalk.cyan(['[PteroStats Checker] ']) + chalk.green('Connected to ' + list.length + ' nodes')
       let nodeCount = '[Total ' + list.length + ']'
 
       if (debug === true) console.log(chalk.magenta('[PteroStats Debug] ') + chalk.blue(nodes))
@@ -259,6 +266,7 @@ module.exports = client => {
 
       let embedfooter = 'Updated every ' + time + ' seconds'
       if (enablef === true) embedfooter = 'Updated every ' + time + ' seconds | ' + footer
+
       let embed = new MessageEmbed()
         .setTitle(title)
         .setColor(color)
