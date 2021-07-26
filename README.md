@@ -1,5 +1,3 @@
-# THIS BUILD HASN'T BEEN TESTED WITH NODE THAT WINGS DOWN
-
 # PteroStats
 
 ![GitHub](https://img.shields.io/github/package-json/v/HirziDevs/PteroStats?style=flat-square)
