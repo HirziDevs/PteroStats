@@ -62,7 +62,7 @@ module.exports = client => {
 
   console.log(chalk.red('=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+='))
   console.log(chalk.green('Name: ') + chalk.cyan('PteroStats'))
-  console.log(chalk.green('Version: ') + chalk.cyan('Stable pre-v1.5.0'))
+  console.log(chalk.green('Version: ') + chalk.cyan('Stable v1.5.0'))
   console.log(chalk.green('Refresh Time: ') + chalk.cyan(time + ' Seconds'))
   console.log(chalk.green('Bot Status: ') + chalk.cyan('Online'))
   console.log(chalk.green('Support: ') + chalk.cyan('https://discord.gg/zv6maQRah3'))
