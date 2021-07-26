@@ -255,7 +255,7 @@ module.exports = client => {
         nodes = nodes + d
       })
 
-      console.log(chalk.cyan(['[PteroStats Checker] ']) + chalk.green('Connected to ' + list.length + ' nodes')
+      console.log(chalk.cyan(['[PteroStats Checker] ']) + chalk.green('Connected to ' + list.length + ' nodes'))
       let nodeCount = '[Total ' + list.length + ']'
 
       if (debug === true) console.log(chalk.magenta('[PteroStats Debug] ') + chalk.blue(nodes))
