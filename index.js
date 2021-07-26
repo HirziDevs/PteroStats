@@ -4,7 +4,6 @@ const client = new Client()
 const yaml = require('js-yaml')
 const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'))
 client.config = config
-client.nodelist = require('./nodes.js')
 
 fs.readdir('./events/', (err, files) => {
     if (err) return console.error(err)

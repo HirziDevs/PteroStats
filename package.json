@@ -1,6 +1,6 @@
 {
   "name": "pterostats",
-  "version": "v1.4.0",
+  "version": "v1.5.0",
   "description": "PteroStats is a bot designed to check Panel, Nodes, and Databases status and post it to your discord server",
   "license": "Apache-2.0",
   "repository": "HirziDevs/PteroStats",
