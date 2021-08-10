@@ -2,6 +2,7 @@ const { Client, Collection } = require('discord.js')
 const fs = require('fs')
 const client = new Client()
 const yaml = require('js-yaml')
+const chalk = require('chalk')
 const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'))
 client.config = config
 
