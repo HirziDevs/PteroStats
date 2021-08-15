@@ -33,6 +33,9 @@ PteroStats checks [pterodactyl](https://pterodactyl.io) nodes wings with [axios]
 
 if you need help contact me on discord `Hirzi#8701` or join [our discord server here](https://discord.gg/zv6maQRah3)
 
+## Admin Apikey Permission
+
+enable `read` on all options, if still didn't work enable `read & write` all
 ### Setuping Config
 
 You need to put right config to make the bot work at [config.yml](https://github.com/HirziDevs/PteroStats/blob/main/config.yml) file
