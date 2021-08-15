@@ -1,9 +1,9 @@
 # PteroStats
 
-![GitHub](https://img.shields.io/github/package-json/v/HirziDevs/PteroStats?style=flat-square)
-![GitHub](https://img.shields.io/github/license/HirziDevs/PteroStats?style=flat-square)
+![Version](https://img.shields.io/github/package-json/v/HirziDevs/PteroStats?style=flat-square)
+![License](https://img.shields.io/github/license/HirziDevs/PteroStats?style=flat-square)
 
-![img](https://media.discordapp.net/attachments/796259732683227157/861126504246411264/20210704_130856.jpg)
+![PteroStats Banner](https://media.discordapp.net/attachments/796259732683227157/861126504246411264/20210704_130856.jpg)
 
 ## Introduction
 
@@ -21,9 +21,9 @@ PteroStats checks [pterodactyl](https://pterodactyl.io) nodes wings with [axios]
 ### Screenshot
 
 - [**ItzyStore**](https://discord.gg/PS4Mf6DBzt) (No screenshot for resource becouse it will be long image)
-![img](https://media.discordapp.net/attachments/796259732683227157/863359897210060820/IMG_20210710_164939.jpg)
+![ItzyStore PteroStats](https://media.discordapp.net/attachments/796259732683227157/863359897210060820/IMG_20210710_164939.jpg)
 - [**SpaceCloud**](https://discord.gg/28z8CYmPEY)
-![img](https://media.discordapp.net/attachments/586738538448420881/866624597171372032/IMG_20210719_171633.jpg)
+![SpaceCloud PteroStats](https://media.discordapp.net/attachments/586738538448420881/866624597171372032/IMG_20210719_171633.jpg)
 
 ## Installation
 
@@ -35,7 +35,9 @@ if you need help contact me on discord `Hirzi#8701` or join [our discord server 
 
 ## Admin Apikey Permission
 
-enable `read` on all options, if still didn't work enable `read & write` all
+enable `read` on all options, if still didn't work enable `read & write` on all options
+![Admin Apikey Permission](https://media.discordapp.net/attachments/819757140155564062/876320084992331816/Screenshot_2021-08-15-11-20-05-56.jpg)
+
 ### Setuping Config
 
 You need to put right config to make the bot work at [config.yml](https://github.com/HirziDevs/PteroStats/blob/main/config.yml) file
