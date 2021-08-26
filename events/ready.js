@@ -67,8 +67,7 @@ module.exports = client => {
   console.log(chalk.green('Bot Status: ') + chalk.cyan('Online'))
   console.log(chalk.green('Support: ') + chalk.cyan('https://discord.gg/zv6maQRah3'))
   console.log(chalk.red('=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+='))
-  console.log(chalk.red('You are using dev build, something not wanted might be happen!'))
-
+  
   if(paneltable.get('URL') === null) console.log(chalk.cyan('It seems you are using our bot for first time, thank you for choosing our bot, if you need help you can join our support server!'))
   if(paneltable.get('URL') !== api) console.log(chalk.cyan('Panel url changed, please allow the bot to check the nodes status for ' + time + ' seconds'))
   paneltable.set('URL',api)
