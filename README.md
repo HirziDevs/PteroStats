@@ -20,7 +20,9 @@ PteroStats checks [pterodactyl](https://pterodactyl.io) nodes wings with [axios]
 
 ### Screenshot
 
-- [**ItzyStore**](https://discord.gg/PS4Mf6DBzt) (No screenshot for resource becouse it will be long image)
+- [**TreeCloud**](https://discord.gg/TCBhPan6SY)
+![TreeCloud PteroStats](https://media.discordapp.net/attachments/819757140155564062/880346867949518848/Screenshot_2021-08-26-14-03-15-50_572064f74bd5f9fa804b05334aa4f912.jpg)
+- [**ItzyStore**](https://discord.gg/PS4Mf6DBzt)
 ![ItzyStore PteroStats](https://media.discordapp.net/attachments/796259732683227157/863359897210060820/IMG_20210710_164939.jpg)
 - [**SpaceCloud**](https://discord.gg/28z8CYmPEY)
 ![SpaceCloud PteroStats](https://media.discordapp.net/attachments/586738538448420881/866624597171372032/IMG_20210719_171633.jpg)
