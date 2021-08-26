@@ -86,7 +86,7 @@ module.exports = client => {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + adminapikey
       }
-    }).then(response => {
+    }).then(async (response) => {
       let data = response.data.data
       data.forEach(nodes => {
         let id = nodes.attributes.id
@@ -178,13 +178,15 @@ module.exports = client => {
         })
 
         let stats = nodetable.get('node' + id)
-        let msgStats = ''
-        if (stats === null) msgStats = '**' + nodes.attributes.name + '**: ' + checking
-        if (stats) {
+        let msgStats;
+        if (`${stats}` === 'null') msgStats = '**' + nodes.attributes.name + '**: ' + checking + '\n'
+        if (`${stats}` !== 'null') {
           let statsname = '**' + nodes.attributes.name + '**: '
 
           if (stats.status === true) statsname = statsname + statusonline
           if (stats.status === false) statsname = statsname + statusoffline
+            
+          if (resource === false) msgStats = statsname + '\n'
 
           if (stats.mode === true) statsname = statsname + ' [Maintance]'
 
@@ -197,7 +199,6 @@ module.exports = client => {
           if (resource === true) msgStats = statsname + '```\n'
         }
 
-        if (debug === true) console.log(chalk.magenta('[PteroStats Debug] ') + chalk.blue(nodes.attributes.name + ': ' + stats.status))
         list.push(msgStats)
       })
 
@@ -236,8 +237,8 @@ module.exports = client => {
       let userCount = paneltable.get('userCount')
       let serverCount = paneltable.get('serverCount')
 
-      if (userCount === null) userCount = checking
-      if (serverCount === null) serverCount = checking
+      if (userCount === null) userCount = 'checking'
+      if (serverCount === null) serverCount = 'checking'
 
       if (userCount !== 'N/A') paneltable.set('panel', '**Panel**: ' + statusonline)
       if (userCount === 'N/A') {
@@ -282,7 +283,11 @@ module.exports = client => {
         embed.setDescription('\n**Nodes Stats' + nodeCount + '**\n' + nodes)
       }
 
-      ch.send(embed).then(msg => { msg.delete({ timeout: time + '000' }) })
+      let messages = await ch.messages.fetch({limit: 10})
+      messages = messages.filter(m => m.author.id === client.user.id).last();
+      if (messages == null) ch.send(embed)
+      else messages.edit(embed)
+
 
       console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Posted Stats'))
       if (panel !== null) console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Stats Updated'))
