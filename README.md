@@ -105,7 +105,7 @@ A: No, the pterodactyl v0.7 is not supported
 
 Q: How much nodes can i add?
 
-A: You can add as much your panel have
+A: The bot will automatically add nodes from your panel
 
 -
 
