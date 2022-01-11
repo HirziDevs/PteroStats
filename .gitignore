@@ -1,0 +1,6 @@
+node_modules
+package-lock.json
+*.zip
+.env
+.vscode
+.vscode/sftp.json
