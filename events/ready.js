@@ -11,6 +11,7 @@ module.exports = client => {
   const config = client.config
   const bytesConverter = require("../calculator/bytesConverter.js");
   const percentageCalculator = require("../calculator/percentageCalculator.js");
+  const adminaAPIFetcher = require("../fetcher/adminAPIFetcher.js");
 
   let panelURL = config.panel.url
   let enablecs = config.botstatus.enable
@@ -19,7 +20,6 @@ module.exports = client => {
   let ch = client.channels.cache.find(cn => cn.id === config.channel)
   let time = config.refreshtime
 
-  //Some extra variables for the embed
   let author = config.embed.author;
   let authorImageURL = config.embed.authorImageURL;
   let imageURL = config.embed.imageURL;
@@ -28,7 +28,6 @@ module.exports = client => {
   let monitorLink = config.monitorLink;
   let adminAccountAPIKey = client.config.adminAccountAPIKey;
   let prefix = client.config.prefix;
-  //----------------------------------------------------------------------
 
   let hosturl = config.panel.url;
   let adminapikey = config.panel.adminkey
@@ -91,7 +90,8 @@ module.exports = client => {
     if (!hosturl.includes('.')) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(hosturl + ' is invalid url!'))
     if (adminapikey.length < 48) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid Admin API key!!'))
     if (adminAccountAPIKey.length < 48) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid Admin Account API key!!'))
-    let list = []
+    let list = [];
+
     axios(api + '/application/nodes/', {
       method: 'GET',
       headers: {
