@@ -11,7 +11,6 @@ module.exports = client => {
   const config = client.config
   const bytesConverter = require("../calculator/bytesConverter.js");
   const percentageCalculator = require("../calculator/percentageCalculator.js");
-  const adminAPIFetcher = require("../fetcher/adminAPIFetcher.js");
 
   let panelURL = config.panel.url
   let enablecs = config.botstatus.enable
