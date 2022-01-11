@@ -9,14 +9,28 @@ module.exports = client => {
   const paneltable = new db.table('panel')
   const chalk = require('chalk')
   const config = client.config
+  const bytesConverter = require("../calculator/bytesConverter.js");
+  const percentageCalculator = require("../calculator/percentageCalculator.js");
 
+  let panelURL = config.panel.url
   let enablecs = config.botstatus.enable
   let cs = config.botstatus.text
   let stype = config.botstatus.type
   let ch = client.channels.cache.find(cn => cn.id === config.channel)
   let time = config.refreshtime
 
-  let hosturl = config.panel.url
+  //Some extra variables for the embed
+  let author = config.embed.author;
+  let authorImageURL = config.embed.authorImageURL;
+  let imageURL = config.embed.imageURL;
+  let thumbnailURL = config.embed.thumbnailURL;
+  let footerImageURL = config.embed.footerImageURL;
+  let monitorLink = config.monitorLink;
+  let adminAccountAPIKey = client.config.adminAccountAPIKey;
+  let prefix = client.config.prefix;
+  //----------------------------------------------------------------------
+
+  let hosturl = config.panel.url;
   let adminapikey = config.panel.adminkey
 
   let statusonline = config.status.online
@@ -26,7 +40,6 @@ module.exports = client => {
   let serverres = config.resource.servers
   let serverport = config.resource.allocations
   let serverloc = config.resource.location
-  let unit = config.resource.unit
 
   let title = config.embed.title
   let color = config.embed.color
@@ -65,6 +78,7 @@ module.exports = client => {
   console.log(chalk.green('Version: ') + chalk.cyan('Stable v1.5.0'))
   console.log(chalk.green('Refresh Time: ') + chalk.cyan(time + ' Seconds'))
   console.log(chalk.green('Bot Status: ') + chalk.cyan('Online'))
+  console.log(chalk.green('Prefix: ') + chalk.cyan(prefix))
   console.log(chalk.green('Support: ') + chalk.cyan('https://discord.gg/zv6maQRah3'))
   console.log(chalk.red('=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+='))
   
@@ -75,8 +89,8 @@ module.exports = client => {
   setInterval(() => {
     if (isNaN(time)) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(time + ' is not a number!'))
     if (!hosturl.includes('.')) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(hosturl + ' is invalid url!'))
-    if (adminapikey.length < 48) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid Admin Apikey!!'))
-
+    if (adminapikey.length < 48) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid Admin API key!!'))
+    if (adminAccountAPIKey.length < 48) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid Admin Account API key!!'))
     let list = []
     axios(api + '/application/nodes/', {
       method: 'GET',
@@ -115,29 +129,18 @@ module.exports = client => {
             }).then(status => {
               let ram = 'temp'
               let disk = 'temp'
-
+              
               const mode = node.data.attributes.maintenance_mode
-              const loc = '[Locations: ' + node.data.attributes.relationships.location.attributes.short + ']'
-              const port = '[Allocations: ' + node.data.attributes.relationships.allocations.data.length + ']'
-              const servers = '[Servers: ' + node.data.attributes.relationships.servers.data.length + ']'
-              const rampercent = '[Ram: ' + Math.floor(node.data.attributes.allocated_resources.memory / node.data.attributes.memory * 100) + '%/100%]'
-              const diskpercent = '[Disk: ' + Math.floor(node.data.attributes.allocated_resources.disk / node.data.attributes.disk * 100) + '%/100%]'
-              const rammega = '[Ram: ' + node.data.attributes.allocated_resources.memory + 'MB/' + node.data.attributes.memory + 'MB]'
-              const diskmega = '[Disk: ' + node.data.attributes.allocated_resources.disk + 'MB/' + node.data.attributes.disk + 'MB]'
-              const ramgiga = '[Ram: ' + Math.floor(node.data.attributes.allocated_resources.memory / 1000) + 'GB/' + Math.floor(node.data.attributes.memory / 1000) + 'GB]'
-              const diskgiga = '[Disk: ' + Math.floor(node.data.attributes.allocated_resources.disk / 1000) + 'GB/' + Math.floor(node.data.attributes.disk / 1000) + 'GB]'
-              if (unit === 'mb') {
-                disk = diskmega
-                ram = rammega
-              }
-              if (unit === 'gb') {
-                disk = diskgiga
-                ram = ramgiga
-              }
-              if (unit === 'percent') {
-                disk = diskpercent
-                ram = rampercent
-              }
+              const loc = 'Location: ' + node.data.attributes.relationships.location.attributes.short
+              const port = 'Allocations: ' + node.data.attributes.relationships.allocations.data.length
+              const servers = 'Servers: ' + node.data.attributes.relationships.servers.data.length
+              const ramUsed = Math.floor(node.data.attributes.allocated_resources.memory)
+              const ramTotal = Math.floor(node.data.attributes.memory)
+              const diskUsed = Math.floor(node.data.attributes.allocated_resources.disk) 
+              const diskTotal = Math.floor(node.data.attributes.disk)
+              
+              ram = `RAM: ${bytesConverter(ramUsed, "MB")}/${bytesConverter(ramTotal, "MB")} [${percentageCalculator(ramUsed, ramTotal)}]`;
+              disk = `Disk: ${bytesConverter(diskUsed, "MB")}/${bytesConverter(diskTotal, "MB")} [${percentageCalculator(diskUsed, diskTotal)}]`;
 
               nodetable.set('node' + id, {
                 ram: ram,
@@ -150,11 +153,11 @@ module.exports = client => {
               })
 
             }).catch((err) => {
-              let servers = '[Servers: N/A]'
-              let loc = '[Location: N/A]'
-              let port = '[Allocations: N/A]'
-              let ram = '[Ram: N/A]'
-              let disk = '[Disk: N/A]'
+              let servers = 'Servers: N/A'
+              let loc = 'Location: N/A'
+              let port = 'Allocations: N/A'
+              let ram = 'RAM: N/A'
+              let disk = 'Disk: N/A'
 
               console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(node.data.attributes.name + ' is down!'))
               if (debugerror === true) console.log(chalk.magenta('[PteroStats Debug] ') + chalk.red(err) + chalk.cyan(' Need Support? https://discord.gg/zv6maQRah3'))
@@ -187,7 +190,7 @@ module.exports = client => {
             
           if (resource === false) msgStats = statsname + '\n'
 
-          if (stats.mode === true) statsname = statsname + ' [Maintance]'
+          if (stats.mode === true) statsname = statsname + ' Maintance'
 
           if (resource === true) statsname = statsname + '\n```\n' + stats.ram + '\n' + stats.disk
           if (serverloc === true) statsname = statsname + '\n' + stats.location
@@ -239,15 +242,15 @@ module.exports = client => {
       if (userCount === null) userCount = 'checking'
       if (serverCount === null) serverCount = 'checking'
 
-      if (userCount !== 'N/A') paneltable.set('panel', '**Panel**: ' + statusonline)
+      if (userCount !== 'N/A') paneltable.set('panel', `**[Panel](${panelURL})**: ` + statusonline)
       if (userCount === 'N/A') {
-        paneltable.set('panel', '**Panel**: ' + statusoffline)
+        paneltable.set('panel', `**[Panel](${panelURL})**: ` + statusoffline)
         console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('panel is down!'))
       }
-      if (userCount === checking) paneltable.set('panel', '**Panel**: ' + checking)
-      let panel = paneltable.get('panel') + '\n\nUsers: ' + userCount + '\nServers: ' + serverCount
+      if (userCount === checking) paneltable.set('panel', `**[Panel](${panelURL})**: ` + checking)
+      let panel = paneltable.get('panel') + '\n\nUsers: `' + userCount + '`\nServers: `' + serverCount + '`'
 
-      if (panel === null) panel = '**Panel**: ' + checking + '\n\nUsers: ' + userCount + '\nServers: ' + serverCount
+      if (panel === null) panel = `**[Panel](${panelURL})**: ` + checking + '\n\nUsers: `' + userCount + '`\nServers: `' + serverCount + '`'
 
       let nodes
       list.forEach((d) => {
@@ -268,18 +271,20 @@ module.exports = client => {
       if (enablef === true) embedfooter = 'Updated every ' + time + ' seconds | ' + footer
 
       let embed = new MessageEmbed()
+        .setAuthor(author, authorImageURL)
         .setTitle(title)
         .setColor(color)
-        .addField('Panel Stats', panel)
-        .setFooter(embedfooter)
-        .setThumbnail(client.user.avatarURL())
+        .addField(`Panel Stats`, panel)
+        .setImage(imageURL)
+        .setFooter(embedfooter, footerImageURL)
+        .setThumbnail(thumbnailURL)
       if (enablets === true) {
         embed.setTimestamp()
       }
       if (enabledesc === true) {
-        embed.setDescription(desc + '\n**Nodes Stats' + nodeCount + '**\n' + nodes)
+        embed.setDescription(desc + `\n**[Nodes Stats](${monitorLink})** **` + nodeCount + '**\n' + nodes)
       } else {
-        embed.setDescription('\n**Nodes Stats' + nodeCount + '**\n' + nodes)
+        embed.setDescription(`\n**[Nodes Stats](${monitorLink})** **` + nodeCount + '**\n' + nodes)
       }
 
       let messages = await ch.messages.fetch({limit: 10})
