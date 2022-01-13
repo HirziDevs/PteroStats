@@ -63,12 +63,12 @@ module.exports = {
       }else{
         RAM = `${bytesConverter(ramUsage, "MB")}/${bytesConverter(ramTotal, "MB")} [${percentageCalculator(ramUsage, ramTotal)}]`
       }
-      if(diskTotal < 0.00 || diskTotal < diskUsage){
+      if(diskTotal <= 0.00 || diskTotal < diskUsage){
         DISK = `${bytesConverter(diskUsage, "MB")} Used`
       }else{
         DISK = `${bytesConverter(diskUsage, "MB")}/${bytesConverter(diskTotal, "MB")} [${percentageCalculator(diskUsage, diskTotal)}]`
       }
-      if(cpuTotal < 0.00 || cpuTotal < cpuUsage){
+      if(cpuTotal <= 0.00 || cpuTotal < cpuUsage){
         CPU = `${cpuUsage} Used`
       }else{
         CPU = `${cpuUsage}/${cpuTotal}`
