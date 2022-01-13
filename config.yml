@@ -12,42 +12,44 @@ botstatus:
   type: '' # Bot Status Type. Ex: PLAYING, WATCHING, LISTENING, STREAMING
 
 # Channel and RefreshTime Configuration
-channel: '' # Put channel id here where the embed will be sent
-refreshtime: 30 # Time when the embed edited/refreshed (MUST BE A SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
+channel: '' # Put channel id here where the node sts embed will be sent
+refreshtime: 30 # Time interval when the embed is edited/refreshed (MUST BE IN SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
 
-# Uptime Monitor
-monitorLink: '' # url of the node uptime monitor page
+# Uptime Monitor page linkg
+monitorLink: '' # Ex- https://stats.your.host (stats.your.host is an exmaple link of your stats page)
 
 #Admin Account API Key
-adminAccountAPIKey: '' # Put admin account's client Apikey here. check https://your.host.url/account/api (your.host.url is an example link) to get the Client ApiKey
+adminAccountAPIKey: '' # Put admin account's client API Key here. check https://your.host.url/account/api (your.host.url is an example link) to get the Client API Key)
 
-#Admin Role ID in Discord
-adminRoleID: "907627133608800278"
+#Discord Admin Role ID
+adminRoleID: "" # Put the ID of a role that can use the bot commands
 
 #Bot will reply to commands sent in this channel only
-botCommandsChannelID: ""
+botCommandsChannelID: "" # Type "null" or keep it blank if you want the commands to be used in all channels.
 
-# Panel Info's
+# Panel's Info
 panel:
-  url: '' # Put panel url here. Example: https://connect.aasgard.in
+  url: '' # Put panel url here. Example: https://your.host.url (your.host.url is an example link)
   adminkey: '' # Put Admin Apikey here. check https://your.host.url/admin/api (your.host.url is an example link) to get the Admin ApiKey
 
 # Embed Configuration
-embed: 
-  author: '' # Embed Author Name. Ex- ShreshthTiwari
-  authorImageURL: '' # Embed Author image
-  title: '' # Embed Title here. Ex: PureNodes Stats
-  color: '' # Embed color here. Ex: YELLOW
-  imageURL: '' # Embed image url.
-  thumbnailURL: '' # Embed thumbnail url.
+embed:
+  author:
+    enabled: false  # Enable Embed Author Name and Image (MUST BE "true" OR "false")
+    name: '' # Embed Author Name. Ex- TestNodes
+    imageURL: '' # Author Image url. Note- image url should be loadable and should end with either png, jpg, jpeg, webp or gif 
+  title: '' # Embed Title here. Ex: TestNodes Stats
+  color: '' # Embed color here. Ex: YELLOW OR you can provide a hex code Eg- 0xFFFF00
+  imageURL: '' # Embed image url.  Note- image url should be loadable and should end with either png, jpg, jpeg, webp or gif
+  thumbnailURL: '' # Embed thumbnail image url.  Note- image url should be loadable and should end with either png, jpg, jpeg, webp or gif
   description: 
     enable: false # Enable Embed Description (MUST BE "true" OR "false")
-    text: '' # Embed Description
+    text: '' # Embed Description Text
   footer: 
     enable: false # Enable Embed Footer (MUST BE "true" OR "false")
-    text: '' # Embed Footer
-  timestamp: true # Enable Embed TimeStamp (MUST BE "true" OR "false")
-  footerImageURL: '' # Embed footer image url.
+    text: '' # Embed Footer Text
+    imageURL: '' # Footer Image url
+  timestamp: false # Enable Embed TimeStamp (MUST BE "true" OR "false")
 
 # Status Message Configuration
 status:
