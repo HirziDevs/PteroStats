@@ -275,7 +275,7 @@ module.exports = client => {
         .setTitle(title)
         .setColor(color)
         .addField(`Panel Stats`, panel)
-        .setFooter(embed.footer)
+        .setFooter(embedfooter)
         .setThumbnail(thumbnailURL)
       if(enablea === true){
         if(author && authorImageURL){
@@ -291,7 +291,7 @@ module.exports = client => {
       if(imageURL){
         embed.setImage(imageURL);
       }
-      if(enablef && footerImageURL){
+      if(footerImageURL){
         embed.setFooter(embedfooter, footerImageURL)
       }
       if (enablets === true) {
