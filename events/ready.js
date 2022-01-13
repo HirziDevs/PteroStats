@@ -19,17 +19,12 @@ module.exports = client => {
   let ch = client.channels.cache.find(cn => cn.id === config.channel)
   let time = config.refreshtime
 
-  let author = config.embed.author;
-  let authorImageURL = config.embed.authorImageURL;
-  let imageURL = config.embed.imageURL;
-  let thumbnailURL = config.embed.thumbnailURL;
-  let footerImageURL = config.embed.footerImageURL;
-  let monitorLink = config.monitorLink;
-  let adminAccountAPIKey = client.config.adminAccountAPIKey;
   let prefix = client.config.prefix;
 
   let hosturl = config.panel.url;
+  let monitorLink = config.monitorLink;
   let adminapikey = config.panel.adminkey
+  let adminAccountAPIKey = client.config.adminAccountAPIKey;
 
   let statusonline = config.status.online
   let statusoffline = config.status.offline
@@ -39,10 +34,16 @@ module.exports = client => {
   let serverport = config.resource.allocations
   let serverloc = config.resource.location
 
+  let author = config.embed.author.name;
+  let authorImageURL = config.embed.author.imageURL;
   let title = config.embed.title
   let color = config.embed.color
+  let imageURL = config.embed.imageURL;
+  let thumbnailURL = config.embed.thumbnailURL;
   let desc = config.embed.description.text
   let footer = config.embed.footer.text
+  let footerImageURL = config.embed.footer.imageURL;
+  let enablea = config.embed.author.enable
   let enablets = config.embed.timestamp
   let enabledesc = config.embed.description.enable
   let enablef = config.embed.footer.enable
@@ -56,6 +57,7 @@ module.exports = client => {
     console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Debug Axios Mode: ') + chalk.cyan(debugerror))
     console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Resource: ') + chalk.cyan(resource))
     console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Custom Status: ') + chalk.cyan(enablecs))
+    console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Enable Author: ') + chalk.cyan(enablea))
     console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Enable Timestamp: ') + chalk.cyan(enablets))
     console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Enable Description: ') + chalk.cyan(enabledesc))
     console.log(chalk.magenta('[PteroStats Debug] ') + chalk.green('Enable Footer: ') + chalk.cyan(enablef))
@@ -270,13 +272,28 @@ module.exports = client => {
       if (enablef === true) embedfooter = 'Updated every ' + time + ' seconds | ' + footer
 
       let embed = new MessageEmbed()
-        .setAuthor(author, authorImageURL)
         .setTitle(title)
         .setColor(color)
         .addField(`Panel Stats`, panel)
-        .setImage(imageURL)
-        .setFooter(embedfooter, footerImageURL)
+        .setFooter(embed.footer)
         .setThumbnail(thumbnailURL)
+      if(enablea === true){
+        if(author && authorImageURL){
+          embed.setAuthor(author, authorImageURL)
+        }
+        else if(author){
+          embed.setAuthor(author)
+        }
+        else if(authorImageURL){
+          embed.setAuthor("", authorImageURL)
+        }
+      }
+      if(imageURL){
+        embed.setImage(imageURL);
+      }
+      if(enablef && footerImageURL){
+        embed.setFooter(embedfooter, footerImageURL)
+      }
       if (enablets === true) {
         embed.setTimestamp()
       }
