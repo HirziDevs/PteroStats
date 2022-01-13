@@ -33,7 +33,7 @@ module.exports = {
       let state = attributes.current_state
       let isSuspended = attributes.is_suspended
       let resources = attributes.resources
-      let cpuUsage = `${resources.cpu_absolute.toFixed(2)}%`
+      let cpuUsage = `${resources.cpu_absolute.toFixed(2)}`
       let ramUsage = resources.memory_bytes/(1024*1024)
       let diskUsage = resources.disk_bytes/(1024*1024)
       let uptime = timeConverter(resources.uptime, "ms")
@@ -52,7 +52,7 @@ module.exports = {
       }
       let ramTotal = attributes.limits.memory
       let diskTotal = attributes.limits.disk
-      let cpuTotal = `${attributes.limits.cpu.toFixed(2)}%`
+      let cpuTotal = `${attributes.limits.cpu.toFixed(2)}`
       let databases = attributes.feature_limits.databases
       let ports = attributes.feature_limits.allocations
       let backups = attributes.feature_limits.backups
@@ -69,9 +69,9 @@ module.exports = {
         DISK = `${bytesConverter(diskUsage, "MB")}/${bytesConverter(diskTotal, "MB")} [${percentageCalculator(diskUsage, diskTotal)}]`
       }
       if(cpuTotal <= 0.00 || cpuTotal < cpuUsage){
-        CPU = `${cpuUsage} Used`
+        CPU = `${cpuUsage}% Used`
       }else{
-        CPU = `${cpuUsage}/${cpuTotal}`
+        CPU = `${cpuUsage}%/${cpuTotal}%`
       }
       if(isInstalling){
         embed.setTitle("Server Stats")
