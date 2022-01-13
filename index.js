@@ -50,8 +50,10 @@ client.on("message", async message => {
         await message.channel.send(embed).catch(error => { });
         return;
       }
-      if(message.channel.id != botCommandsChannelID){
-        return;
+      if(botCommandsChannelID && botCommandsChannelID != "null" && botCommandsChannelID != ""){
+        if(message.channel.id != botCommandsChannelID){
+          return;
+        }
       }
 
       let args = await message.content.slice(prefix.length).split(/ +/);  
