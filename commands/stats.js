@@ -1,5 +1,3 @@
-//let usageBarBuilder = require("../builder/usageBarBuilder.js")
-
 module.exports = {
   name : 'stats',
   description : 'get stats of a node',
