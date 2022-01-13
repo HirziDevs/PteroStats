@@ -86,7 +86,7 @@ module.exports = client => {
   if(paneltable.get('URL') !== api) console.log(chalk.cyan('Panel url changed, please allow the bot to check the nodes status for ' + time + ' seconds'))
   paneltable.set('URL',api)
 
-  setInterval(() => {
+  setInterval(async () => {
     if (isNaN(time)) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(time + ' is not a number!'))
     if (!hosturl.includes('.')) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(hosturl + ' is invalid url!'))
     if (adminapikey.length < 48) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid Admin API key!!'))
@@ -100,7 +100,7 @@ module.exports = client => {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + adminapikey
       }
-    }).then((response) => {
+    }).then(async (response) => {
       let data = response.data.data
       data.forEach(nodes => {//215
         let id = nodes.attributes.id
