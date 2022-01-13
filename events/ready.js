@@ -9,8 +9,8 @@ module.exports = client => {
   const paneltable = new db.table('panel')
   const chalk = require('chalk')
   const config = client.config
-  const bytesConverter = require("../calculator/bytesConverter.js");
-  const percentageCalculator = require("../calculator/percentageCalculator.js");
+  const bytesConverter = require("../calculator/bytesConverter.js")
+  const percentageCalculator = require("../calculator/percentageCalculator.js")
 
   let panelURL = config.panel.url
   let enablecs = config.botstatus.enable
@@ -19,12 +19,12 @@ module.exports = client => {
   let ch = client.channels.cache.find(cn => cn.id === config.channel)
   let time = config.refreshtime
 
-  let prefix = client.config.prefix;
+  let prefix = client.config.prefix
 
-  let hosturl = config.panel.url;
-  let monitorLink = config.monitorLink;
+  let hosturl = config.panel.url
+  let monitorLink = config.monitorLink
   let adminapikey = config.panel.adminkey
-  let adminAccountAPIKey = client.config.adminAccountAPIKey;
+  let adminAccountAPIKey = client.config.adminAccountAPIKey
 
   let statusonline = config.status.online
   let statusoffline = config.status.offline
@@ -34,15 +34,15 @@ module.exports = client => {
   let serverport = config.resource.allocations
   let serverloc = config.resource.location
 
-  let author = config.embed.author.name;
-  let authorImageURL = config.embed.author.imageURL;
+  let author = config.embed.author.name
+  let authorImageURL = config.embed.author.imageURL
   let title = config.embed.title
   let color = config.embed.color
-  let imageURL = config.embed.imageURL;
-  let thumbnailURL = config.embed.thumbnailURL;
+  let imageURL = config.embed.imageURL
+  let thumbnailURL = config.embed.thumbnailURL
   let desc = config.embed.description.text
   let footer = config.embed.footer.text
-  let footerImageURL = config.embed.footer.imageURL;
+  let footerImageURL = config.embed.footer.imageURL
   let enablea = config.embed.author.enable
   let enablets = config.embed.timestamp
   let enabledesc = config.embed.description.enable
@@ -91,7 +91,7 @@ module.exports = client => {
     if (!hosturl.includes('.')) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red(hosturl + ' is invalid url!'))
     if (adminapikey.length < 48) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid Admin API key!!'))
     if (adminAccountAPIKey.length < 48) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid Admin Account API key!!'))
-    let list = [];
+    let list = []
 
     axios(api + '/application/nodes/', {
       method: 'GET',
@@ -140,8 +140,8 @@ module.exports = client => {
               const diskUsed = Math.floor(node.data.attributes.allocated_resources.disk) 
               const diskTotal = Math.floor(node.data.attributes.disk)
               
-              ram = `RAM: ${bytesConverter(ramUsed, "MB")}/${bytesConverter(ramTotal, "MB")} [${percentageCalculator(ramUsed, ramTotal)}]`;
-              disk = `Disk: ${bytesConverter(diskUsed, "MB")}/${bytesConverter(diskTotal, "MB")} [${percentageCalculator(diskUsed, diskTotal)}]`;
+              ram = `RAM: ${bytesConverter(ramUsed, "MB")}/${bytesConverter(ramTotal, "MB")} [${percentageCalculator(ramUsed, ramTotal)}]`
+              disk = `Disk: ${bytesConverter(diskUsed, "MB")}/${bytesConverter(diskTotal, "MB")} [${percentageCalculator(diskUsed, diskTotal)}]`
 
               nodetable.set('node' + id, {
                 ram: ram,
@@ -181,7 +181,7 @@ module.exports = client => {
         })
 
         let stats = nodetable.get('node' + id)
-        let msgStats;
+        let msgStats
         if (`${stats}` === 'null') msgStats = '**' + nodes.attributes.name + '**: ' + checking + '\n'
         if (`${stats}` !== 'null') {
           let statsname = '**' + nodes.attributes.name + '**: '
@@ -289,7 +289,7 @@ module.exports = client => {
         }
       }
       if(imageURL){
-        embed.setImage(imageURL);
+        embed.setImage(imageURL)
       }
       if(footerImageURL){
         embed.setFooter(embedfooter, footerImageURL)
@@ -304,7 +304,7 @@ module.exports = client => {
       }
 
       let messages = await ch.messages.fetch({limit: 10})
-      messages = messages.filter(m => m.author.id === client.user.id).last();
+      messages = messages.filter(m => m.author.id === client.user.id).last()
       if (messages == null) ch.send(embed)
       else messages.edit(embed)
 
