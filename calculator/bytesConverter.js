@@ -40,5 +40,5 @@ module.exports = (value, unit) => {
     }
   }
 
-  return `${value}${unit}`;
+  return `${value.toFixed(2)}${unit}`;
 }
