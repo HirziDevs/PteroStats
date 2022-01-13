@@ -1,8 +1,11 @@
 const axios = require('axios');
 
-module.exports = async (client, url) => {
+module.exports = async (client, url, strippingLevel) => {
   let hosturl = client.config.panel.url;
   let adminAPIKey = client.config.panel.adminkey;
+  if(!strippingLevel){
+    strippingLevel = 2
+  }
 
   if (!hosturl.includes('http')) hosturl = 'http://' + hosturl;
   let unapi = hosturl + '/api';
@@ -18,7 +21,11 @@ module.exports = async (client, url) => {
     }
   });
 
-  let data = response.data.data;
-  
-  return data;
+  if(strippingLevel == 2){
+    return response.data.data
+  }else if(strippingLevel == 1){
+    return response.data
+  }else if(strippingLevel == 0){
+    return response
+  }
 }

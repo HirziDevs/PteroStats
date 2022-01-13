@@ -100,9 +100,9 @@ module.exports = client => {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + adminapikey
       }
-    }).then(async (response) => {
+    }).then((response) => {
       let data = response.data.data
-      data.forEach(nodes => {
+      data.forEach(nodes => {//215
         let id = nodes.attributes.id
         axios(api + '/application/nodes/' + id + '?include=servers,location,allocations', {
           method: 'GET',
