@@ -83,7 +83,7 @@ module.exports = {
             method: 'post',
             url: `https://connect.aasgard.in/api/client/servers/${args[0]}/power`,
             data: {
-              "command": powerSignal
+              "command": command
             },
             headers: {
               Accept: 'application/json',
