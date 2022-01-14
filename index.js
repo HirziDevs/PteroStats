@@ -5,6 +5,7 @@ client.commands = new Discord.Collection()
 const fs = require('fs')
 const { readdirSync } = require('fs')
 const { join } = require ('path')
+const axios = require('axios');
 
 const yaml = require('js-yaml')
 const chalk = require('chalk')
@@ -60,7 +61,7 @@ client.on("message", async message => {
       let command = args.shift().toLowerCase()
 
       if(client.commands.has(command)){
-        await client.commands.get(command).run(Discord, client, prefix, message, args, adminRoleID, APIFetcher, bytesConverter, percentageCalculator, timeConverter)
+        await client.commands.get(command).run(Discord, client, prefix, message, args, axios, adminRoleID, APIFetcher, bytesConverter, percentageCalculator, timeConverter)
       }
     }
   }

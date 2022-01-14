@@ -1,8 +1,8 @@
 module.exports = {
   name : 'stats',
-  description : 'get stats of a node',
+  description : 'get stats of a server',
   
-  async run(Discord, client, prefix, message, args, adminRoleID, APIFetcher, bytesConverter, percentageCalculator, timeConverter){
+  async run(Discord, client, prefix, message, args, axios, adminRoleID, APIFetcher, bytesConverter, percentageCalculator, timeConverter){
     let embed = new Discord.MessageEmbed()
       .setColor(0x2f3136)
     if ((!args[0])) {
@@ -26,6 +26,8 @@ module.exports = {
       return
     }
     try {
+      let powerSignal;
+      let adminAccountAPIKey = client.config.adminAccountAPIKey
       let responseData = await APIFetcher(client, "client", `/servers/${args[0]}/resources/`, 1)
       let attributes = responseData.attributes
       let state = attributes.current_state
@@ -80,6 +82,7 @@ module.exports = {
           **Node**- \`${node}\`.
           **INSTALLING**.`)
           .setColor(0xFFA500)
+        await message.channel.send(embed).catch(error => {})
       }
       else if(isSuspended){
         embed.setTitle("Server Stats")
@@ -90,6 +93,7 @@ module.exports = {
           **Node**- \`${node}\`.
           **SUSPENDED**.`)
           .setColor(0xff4747)
+        await message.channel.send(embed).catch(error => {})  
       }
       else{
         embed.setTitle("Server Stats")
@@ -108,8 +112,8 @@ module.exports = {
           ㅤ**Ports**- \`${ports}\`.
           ㅤ**Backups**- \`${backups}\`.`)
           .setColor(0x95fd91)
+        await message.channel.send(embed).catch(error => {})
       }
-      await message.channel.send(embed).catch(error => { })
     } catch {
       embed.setTitle("Invalid Server ID.")
         .setDescription(`Don't know what a server ID is?
@@ -117,7 +121,7 @@ module.exports = {
         Eg- \`https://connect.aasgard.in/server/4c09a487\`.
         Here, \`4c09a487\` is the server ID.`)
         .setColor(0xff4747)
-      await message.channel.send(embed).catch(error => { })
+      await message.channel.send(embed).catch(error => {})
       return
     }
   }
