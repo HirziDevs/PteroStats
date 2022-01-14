@@ -99,9 +99,7 @@ module.exports = {
               **Node**- \`${node}\`.\n
               -------------
               Command Sent-
-              \`\`\`
-              ${command}
-              \`\`\``)
+              \`\`\`${command}\`\`\``)
               .setColor(0x95fd91)
               await msg.edit(embed).catch(error => {})
           })
