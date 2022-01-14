@@ -9,7 +9,7 @@ module.exports = {
       embed.setTitle("Please provide your server ID.")
         .setDescription(`Don't know what a server ID is?
       Open your server's console and see the code at the last of console url.
-      Eg- \`https://connect.aasgard.in/server/4c09a487\`.
+      Eg- \`https://your.host.url/server/4c09a487\`.
       Here, \`4c09a487\` is the server ID.`)
         .setColor(0xff4747)
       await message.channel.send(embed).catch(error => { })
@@ -19,7 +19,7 @@ module.exports = {
       embed.setTitle("Please provide a correct server ID.")
         .setDescription(`Don't know what a server ID is?
         Open your server's console and see the code at the last of console url.
-        Eg- \`https://connect.aasgard.in/server/4c09a487\`.
+        Eg- \`https://your.host.url/server/4c09a487\`.
         Here, \`4c09a487\` is the server ID.`)
         .setColor(0xff4747)
       await message.channel.send(embed).catch(error => { })
@@ -114,7 +114,7 @@ module.exports = {
       embed.setTitle("Invalid Server ID.")
         .setDescription(`Don't know what a server ID is?
         Open your server's console and see the code at the last of console url.
-        Eg- \`https://connect.aasgard.in/server/4c09a487\`.
+        Eg- \`https://your.host.url/server/4c09a487\`.
         Here, \`4c09a487\` is the server ID.`)
         .setColor(0xff4747)
       await message.channel.send(embed).catch(error => {})
