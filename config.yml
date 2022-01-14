@@ -13,7 +13,7 @@ botstatus:
 
 # Channel and RefreshTime Configuration
 channel: '' # Put channel id here where the node sts embed will be sent
-refreshtime: 30 # Time interval when the embed is edited/refreshed (MUST BE IN SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
+refreshtime: 10 # Time interval when the embed is edited/refreshed (MUST BE IN SECONDS)
 
 # Uptime Monitor page linkg
 monitorLink: '' # Ex- https://stats.your.host (stats.your.host is an exmaple link of your stats page)
