@@ -51,7 +51,7 @@ client.on("message", async message => {
         return
       }
       if(botCommandsChannelID && botCommandsChannelID != "null" && botCommandsChannelID != ""){
-        if(message.channel.id != botCommandsChannelID){
+        if(message.channel.id != botCommandsChannelID && (!message.member.roles.cache.has(adminRoleID))){
           return
         }
       }
