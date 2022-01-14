@@ -137,7 +137,20 @@ module.exports = {
               .setColor(0x95fd91)
               await msg.edit(embed).catch(error => {})
             }
-        }).catch(async() => {});
+        }).catch(async() => {
+          powerText = "**POWER ACTION** - ㅤ🗑️ CANCELED";
+          await msg.reactions.removeAll()
+          embed.setTitle("Server Stats")
+          .setDescription(`**ID**- \`${args[0]}\`.
+          **UUID**- \`${uuid}\`.
+          **Name**- \`${name}\`.
+          **Description**- \`${description}\`.
+          **Node**- \`${node}\`.\n
+          -------------
+          ${powerText}`)
+          .setColor(0x95fd91)
+          await msg.edit(embed).catch(error => {})
+        });
       }
     } catch {
       embed.setTitle("Invalid Server ID.")
