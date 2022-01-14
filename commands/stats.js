@@ -154,7 +154,7 @@ module.exports = {
                   'Content-Type': 'application/json',
                   Authorization: 'Bearer ' + adminAccountAPIKey
                 }
-              }).catch(error => {})
+              })
               await msg.reactions.removeAll()
               embed.setTitle("Server Stats")
               .setDescription(`**ID**- \`${args[0]}\`.
