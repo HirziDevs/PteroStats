@@ -2,7 +2,7 @@ module.exports = {
   name : 'stats',
   description : 'get stats of a node',
   
-  async run(Discord, client, prefix, message, args, adminRoleID, adminAPIFetcher, clientAPIFetcher, bytesConverter, percentageCalculator, timeConverter){
+  async run(Discord, client, prefix, message, args, adminRoleID, APIFetcher, bytesConverter, percentageCalculator, timeConverter){
     let embed = new Discord.MessageEmbed()
       .setColor(0x2f3136)
     if ((!args[0])) {
@@ -26,7 +26,7 @@ module.exports = {
       return
     }
     try {
-      let responseData = await clientAPIFetcher(client, `/servers/${args[0]}/resources/`)
+      let responseData = await APIFetcher(client, "client", `/servers/${args[0]}/resources/`, 1)
       let attributes = responseData.attributes
       let state = attributes.current_state
       let isSuspended = attributes.is_suspended
@@ -35,7 +35,7 @@ module.exports = {
       let ramUsage = resources.memory_bytes/(1024*1024)
       let diskUsage = resources.disk_bytes/(1024*1024)
       let uptime = timeConverter(resources.uptime, "ms")
-      responseData = await clientAPIFetcher(client, `/servers/${args[0]}/`)
+      responseData = await APIFetcher(client, "client", `/servers/${args[0]}/`, 1)
       attributes = responseData.attributes
       let name = attributes.name
       let node = attributes.node

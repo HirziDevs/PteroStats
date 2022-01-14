@@ -13,8 +13,7 @@ const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'))
 const bytesConverter = require("./calculator/bytesConverter.js")
 const percentageCalculator = require("./calculator/percentageCalculator.js")
 const timeConverter = require("./calculator/timeConverter.js")
-const adminAPIFetcher = require("./fetcher/adminAPIFetcher.js")
-const clientAPIFetcher = require("./fetcher/clientAPIFetcher.js")
+const APIFetcher = require("./fetcher/APIFetcher.js")
 
 
 client.config = config
@@ -61,7 +60,7 @@ client.on("message", async message => {
       let command = args.shift().toLowerCase()
 
       if(client.commands.has(command)){
-        await client.commands.get(command).run(Discord, client, prefix, message, args, adminRoleID, adminAPIFetcher, clientAPIFetcher, bytesConverter, percentageCalculator, timeConverter)
+        await client.commands.get(command).run(Discord, client, prefix, message, args, adminRoleID, APIFetcher, bytesConverter, percentageCalculator, timeConverter)
       }
     }
   }
