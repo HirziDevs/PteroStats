@@ -8,6 +8,7 @@ module.exports = {
       }
       let hosturl = client.config.panel.url;
       if (!hosturl.includes('http')) hosturl = 'http://' + hosturl;
+      if(!hosturl.endsWith("/")) hosturl = hosturl + "/";
       let embed = new Discord.MessageEmbed()
         .setColor(0x2f3136)
       if ((!args[0])) {
@@ -83,7 +84,7 @@ module.exports = {
           let command = args.slice(1).join(" ");
           await axios({
             method: 'post',
-            url: `https://your.host.url/api/client/servers/${args[0]}/command`,
+            url: `${hosturl}api/client/servers/${args[0]}/command`,
             data: {
               "command": command
             },

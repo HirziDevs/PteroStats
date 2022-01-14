@@ -8,6 +8,7 @@ module.exports = {
     }
     let hosturl = client.config.panel.url;
     if (!hosturl.includes('http')) hosturl = 'http://' + hosturl;
+    if(!hosturl.endsWith("/")) hosturl = hosturl + "/";
     let embed = new Discord.MessageEmbed()
       .setColor(0x2f3136)
     if ((!args[0])) {
@@ -87,11 +88,12 @@ module.exports = {
         await msg.react('🟢').then(
           msg.react('🟡'),
           msg.react('🔴'),
-          msg.react('❌')
+          msg.react('❌'),
+          msg.react('🗑️')
         )
-        msg.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '🟢' || reaction.emoji.name == '🟡' || reaction.emoji.name == '🔴' || reaction.emoji.name == '❌'),
-          { max: 1, time: 30000 }).then(collected => {
-            if(collected.first().emoji.name == '🟢' || collected.first().emoji.name == '🟡' || collected.first().emoji.name == '🔴' || collected.first().emoji.name == '❌'){
+        msg.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '🟢' || reaction.emoji.name == '🟡' || reaction.emoji.name == '🔴' || reaction.emoji.name == '❌' || reaction.emoji.name == '🗑️'),
+          { max: 1, time: 30000 }).then(async collected => {
+            if(collected.first().emoji.name == '🟢' || collected.first().emoji.name == '🟡' || collected.first().emoji.name == '🔴' || collected.first().emoji.name == '❌' || collected.first().emoji.name == '🗑️'){
               if(collected.first().emoji.name == '🟢'){
                 powerSignal= "start"
                 powerText = "**POWER ACTION** - ㅤ🟢 STARTING";
@@ -108,12 +110,14 @@ module.exports = {
                 powerSignal= "kill"
                 powerText = "**POWER ACTION** - ㅤ❌ KILLED";
               }
-              else{
-                console.log("poop")
+              else if(collected.first().emoji.name == '🗑️'){
+                powerSignal= null
+                powerText = "**POWER ACTION** - ㅤ🗑️ CANCELED";
               }
-                axios({
+              if(powerSignal){
+                await axios({
                   method: 'post',
-                  url: `https://your.host.url/api/client/servers/${args[0]}/power`,
+                  url: `${hosturl}api/client/servers/${args[0]}/power`,
                   data: {
                     "signal": powerSignal
                   },
@@ -123,8 +127,8 @@ module.exports = {
                     Authorization: 'Bearer ' + adminAccountAPIKey
                   }
                 })
-              
-              msg.reactions.removeAll()
+              }
+              await msg.reactions.removeAll()
               embed.setTitle("Server Stats")
               .setDescription(`**ID**- \`${args[0]}\`.
               **UUID**- \`${uuid}\`.
@@ -134,7 +138,7 @@ module.exports = {
               -------------
               ${powerText}`)
               .setColor(0x95fd91)
-              msg.edit(embed).catch(error => {})
+              await msg.edit(embed).catch(error => {})
             }
         }).catch(async() => {
           powerText = "**POWER ACTION** - ㅤ🗑️ CANCELED";
