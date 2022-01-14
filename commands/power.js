@@ -1,8 +1,11 @@
 module.exports = {
-  name : 'stats',
-  description : 'get stats of a server',
+  name : 'power',
+  description : 'start/stop/restart/kill',
   
   async run(Discord, client, prefix, message, args, axios, adminRoleID, APIFetcher, bytesConverter, percentageCalculator, timeConverter){
+    if(!message.member.roles.cache.has(adminRoleID)){
+      return;
+    }
     let embed = new Discord.MessageEmbed()
       .setColor(0x2f3136)
     if ((!args[0])) {
@@ -26,6 +29,9 @@ module.exports = {
       return
     }
     try {
+      let powerSignal;
+      let powerText = "**POWER ACTIONS**\nㅤ🟢 START\nㅤ🟡 RESTART\nㅤ🔴 STOP\nㅤ❌ KILL";
+      let adminAccountAPIKey = client.config.adminAccountAPIKey
       let responseData = await APIFetcher(client, "client", `/servers/${args[0]}/resources/`, 1)
       let attributes = responseData.attributes
       let state = attributes.current_state
@@ -80,6 +86,7 @@ module.exports = {
           **Node**- \`${node}\`.
           **INSTALLING**.`)
           .setColor(0xFFA500)
+        await message.channel.send(embed).catch(error => {})
       }
       else if(isSuspended){
         embed.setTitle("Server Stats")
@@ -90,6 +97,7 @@ module.exports = {
           **Node**- \`${node}\`.
           **SUSPENDED**.`)
           .setColor(0xff4747)
+        await message.channel.send(embed).catch(error => {})  
       }
       else{
         embed.setTitle("Server Stats")
@@ -97,19 +105,61 @@ module.exports = {
           **UUID**- \`${uuid}\`.
           **Name**- \`${name}\`.
           **Description**- \`${description}\`.
-          **Node**- \`${node}\`.
-          **State**- \`${state}\`.
-          **Uptime**- \`${uptime}\`.
-          **Resources**-
-          ㅤ**RAM**- \`${RAM}\`.
-          ㅤ**CPU**- \`${CPU}\`.
-          ㅤ**Disk**- \`${DISK}\`.
-          ㅤ**Databases**- \`${databases}\`.
-          ㅤ**Ports**- \`${ports}\`.
-          ㅤ**Backups**- \`${backups}\`.`)
+          **Node**- \`${node}\`.\n
+          -------------
+          ${powerText}`)
           .setColor(0x95fd91)
+        let msg = await message.channel.send(embed).catch(error => {})
+        await msg.react('🟢').then(
+          msg.react('🟡'),
+          msg.react('🔴'),
+          msg.react('❌')
+        )
+        msg.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '🟢' || reaction.emoji.name == '🟡' || reaction.emoji.name == '🔴' || reaction.emoji.name == '❌'),
+          { max: 1, time: 30000 }).then(async collected => {
+            if(collected.first().emoji.name == '🟢' || collected.first().emoji.name == '🟡' || collected.first().emoji.name == '🔴' || collected.first().emoji.name == '❌'){
+              if(collected.first().emoji.name == '🟢'){
+                powerSignal= "start"
+                powerText = "**POWER ACTION** - ㅤ🟢 STARTING";
+              }
+              else if(collected.first().emoji.name == '🟡'){
+                powerSignal= "restart"
+                powerText = "**POWER ACTION** - ㅤ🟡 RESTARTING";
+              }
+              else if(collected.first().emoji.name == '🔴'){
+                powerSignal= "stop"
+                powerText = "**POWER ACTION** - ㅤ🔴 STOPPING";
+              } 
+              else if(collected.first().emoji.name == '❌'){
+                powerSignal= "kill"
+                powerText = "**POWER ACTION** - ㅤ❌ KILLED";
+              }
+              await axios({
+                method: 'post',
+                url: `https://connect.aasgard.in/api/client/servers/${args[0]}/power`,
+                data: {
+                  "signal": powerSignal
+                },
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                  Authorization: 'Bearer ' + adminAccountAPIKey
+                }
+              })
+              await msg.reactions.removeAll()
+              embed.setTitle("Server Stats")
+              .setDescription(`**ID**- \`${args[0]}\`.
+              **UUID**- \`${uuid}\`.
+              **Name**- \`${name}\`.
+              **Description**- \`${description}\`.
+              **Node**- \`${node}\`.\n
+              -------------
+              ${powerText}`)
+              .setColor(0x95fd91)
+              await msg.edit(embed).catch(error => {})
+            }
+        }).catch(async() => {});
       }
-      await message.channel.send(embed).catch(error => {})
     } catch {
       embed.setTitle("Invalid Server ID.")
         .setDescription(`Don't know what a server ID is?
