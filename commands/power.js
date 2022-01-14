@@ -30,7 +30,7 @@ module.exports = {
     }
     try {
       let powerSignal;
-      let powerText = "**POWER ACTIONS**\nㅤ🟢 START\nㅤ🟡 RESTART\nㅤ🔴 STOP\nㅤ❌ KILL";
+      let powerText = "**POWER ACTIONS**\nㅤ🟢 START\nㅤ🟡 RESTART\nㅤ🔴 STOP\nㅤ❌ KILL\nㅤ🗑️ CANCEL";
       let adminAccountAPIKey = client.config.adminAccountAPIKey
       let responseData = await APIFetcher(client, "client", `/servers/${args[0]}/resources/`, 1)
       let attributes = responseData.attributes
@@ -113,11 +113,12 @@ module.exports = {
         await msg.react('🟢').then(
           msg.react('🟡'),
           msg.react('🔴'),
-          msg.react('❌')
+          msg.react('❌'),
+          msg.react('🗑️')
         )
-        msg.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '🟢' || reaction.emoji.name == '🟡' || reaction.emoji.name == '🔴' || reaction.emoji.name == '❌'),
+        msg.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '🟢' || reaction.emoji.name == '🟡' || reaction.emoji.name == '🔴' || reaction.emoji.name == '❌' || reaction.emoji.name == '🗑️'),
           { max: 1, time: 30000 }).then(async collected => {
-            if(collected.first().emoji.name == '🟢' || collected.first().emoji.name == '🟡' || collected.first().emoji.name == '🔴' || collected.first().emoji.name == '❌'){
+            if(collected.first().emoji.name == '🟢' || collected.first().emoji.name == '🟡' || collected.first().emoji.name == '🔴' || collected.first().emoji.name == '❌' || collected.first().emoji.name == '🗑️'){
               if(collected.first().emoji.name == '🟢'){
                 powerSignal= "start"
                 powerText = "**POWER ACTION** - ㅤ🟢 STARTING";
@@ -134,18 +135,24 @@ module.exports = {
                 powerSignal= "kill"
                 powerText = "**POWER ACTION** - ㅤ❌ KILLED";
               }
-              await axios({
-                method: 'post',
-                url: `https://connect.aasgard.in/api/client/servers/${args[0]}/power`,
-                data: {
-                  "signal": powerSignal
-                },
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-                  Authorization: 'Bearer ' + adminAccountAPIKey
-                }
-              })
+              else if(collected.first().emoji.name == '🗑️'){
+                powerSignal= null
+                powerText = "**POWER ACTION** - ㅤ🗑️ CANCELED";
+              }
+              if(powerSignal){
+                await axios({
+                  method: 'post',
+                  url: `https://connect.aasgard.in/api/client/servers/${args[0]}/power`,
+                  data: {
+                    "signal": powerSignal
+                  },
+                  headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + adminAccountAPIKey
+                  }
+                })
+              }
               await msg.reactions.removeAll()
               embed.setTitle("Server Stats")
               .setDescription(`**ID**- \`${args[0]}\`.
