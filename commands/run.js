@@ -81,7 +81,7 @@ module.exports = {
           let command = args.slice(1).join(" ");
           await axios({
             method: 'post',
-            url: `https://connect.aasgard.in/api/client/servers/${args[0]}/power`,
+            url: `https://connect.aasgard.in/api/client/servers/${args[0]}/command`,
             data: {
               "command": command
             },
