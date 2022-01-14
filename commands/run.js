@@ -6,6 +6,8 @@ module.exports = {
       if(!message.member.roles.cache.has(adminRoleID)){
         return;
       }
+      let hosturl = client.config.panel.url;
+      if (!hosturl.includes('http')) hosturl = 'http://' + hosturl;
       let embed = new Discord.MessageEmbed()
         .setColor(0x2f3136)
       if ((!args[0])) {
