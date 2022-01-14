@@ -1,10 +1,13 @@
 module.exports = {
   name : 'stats',
-  description : 'get stats of a server',
+  description : 'check stats of a server',
   
   async run(Discord, client, prefix, message, args, axios, adminRoleID, APIFetcher, bytesConverter, percentageCalculator, timeConverter){
     let embed = new Discord.MessageEmbed()
       .setColor(0x2f3136)
+    if(!message.member.roles.cache.has(adminRoleID)){
+      return;
+    }
     if ((!args[0])) {
       embed.setTitle("Please provide your server ID.")
         .setDescription(`Don't know what a server ID is?
@@ -27,6 +30,7 @@ module.exports = {
     }
     try {
       let powerSignal;
+      let powerText = "**POWER ACTIONS**\nㅤ🟢 START\nㅤ🟡 RESTART\nㅤ🔴 STOP\nㅤ❌ KILL";
       let adminAccountAPIKey = client.config.adminAccountAPIKey
       let responseData = await APIFetcher(client, "client", `/servers/${args[0]}/resources/`, 1)
       let attributes = responseData.attributes
@@ -110,9 +114,60 @@ module.exports = {
           ㅤ**Disk**- \`${DISK}\`.
           ㅤ**Databases**- \`${databases}\`.
           ㅤ**Ports**- \`${ports}\`.
-          ㅤ**Backups**- \`${backups}\`.`)
+          ㅤ**Backups**- \`${backups}\`.\n
+          -------------
+          ${powerText}`)
           .setColor(0x95fd91)
-        await message.channel.send(embed).catch(error => {})
+        let msg = await message.channel.send(embed).catch(error => {})
+        await msg.react('🟢').then(
+          msg.react('🟡'),
+          msg.react('🔴'),
+          msg.react('❌')
+        )
+        msg.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '🟢' || reaction.emoji.name == '🟡' || reaction.emoji.name == '🔴' || reaction.emoji.name == '❌'),
+          { max: 1, time: 30000 }).then(async collected => {
+            if(collected.first().emoji.name == '🟢' || collected.first().emoji.name == '🟡' || collected.first().emoji.name == '🔴' || collected.first().emoji.name == '❌'){
+              if(collected.first().emoji.name == '🟢'){
+                powerSignal= "start"
+                powerText = "**POWER ACTION** - ㅤ🟢 STARTING";
+              }
+              else if(collected.first().emoji.name == '🟡'){
+                powerSignal= "restart"
+                powerText = "**POWER ACTION** - ㅤ🟡 RESTARTING";
+              }
+              else if(collected.first().emoji.name == '🔴'){
+                powerSignal= "stop"
+                powerText = "**POWER ACTION** - ㅤ🔴 STOPPING";
+              } 
+              else if(collected.first().emoji.name == '❌'){
+                powerSignal= "kill"
+                powerText = "**POWER ACTION** - ㅤ❌ KILLING";
+              }
+              await axios({
+                method: 'post',
+                url: `https://connect.aasgard.in/api/client/servers/${args[0]}/power`,
+                data: {
+                  "signal": powerSignal
+                },
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                  Authorization: 'Bearer ' + adminAccountAPIKey
+                }
+              }).catch(error => {})
+              await msg.reactions.removeAll()
+              embed.setTitle("Server Stats")
+              .setDescription(`**ID**- \`${args[0]}\`.
+              **UUID**- \`${uuid}\`.
+              **Name**- \`${name}\`.
+              **Description**- \`${description}\`.
+              **Node**- \`${node}\`.\n
+              -------------
+              ${powerText}`)
+              .setColor(0x95fd91)
+              await msg.edit(embed).catch(error => {})
+            }
+        }).catch(async() => {});
       }
     } catch {
       embed.setTitle("Invalid Server ID.")
