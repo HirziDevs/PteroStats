@@ -7,7 +7,7 @@ module.exports = {
       .setTitle(`${client.user.username} Help`)
       .setColor(0x95fd91)
       let helpText = `**Members**
-      > ${prefix}status \`<serverID>\``
+      > ${prefix}stats \`<serverID>\``
       
       if(message.member.roles.cache.has(adminRoleID)){
         helpText = helpText +`\n**Admins**
