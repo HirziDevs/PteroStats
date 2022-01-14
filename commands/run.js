@@ -90,7 +90,7 @@ module.exports = {
               'Content-Type': 'application/json',
               Authorization: 'Bearer ' + adminAccountAPIKey
             }
-          }).then(sucess => {
+          }).then(async sucess => {
             embed.setTitle("Server Stats")
               .setDescription(`**ID**- \`${args[0]}\`.
               **UUID**- \`${uuid}\`.
