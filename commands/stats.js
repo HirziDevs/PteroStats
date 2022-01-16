@@ -28,6 +28,7 @@ module.exports = {
     try {
       let responseData = await APIFetcher(client, "client", `/servers/${args[0]}/resources/`, 1)
       let attributes = responseData.attributes
+      let id = responseData.id;
       let state = attributes.current_state
       let isSuspended = attributes.is_suspended
       let resources = attributes.resources
@@ -73,7 +74,7 @@ module.exports = {
       }
       if(isInstalling){
         embed.setTitle("Server Stats")
-          .setDescription(`**ID**- \`${args[0]}\`.
+          .setDescription(`**ID**- \`${id}\`.
           **UUID**- \`${uuid}\`.
           **Name**- \`${name}\`.
           **Description**- \`${description}\`.
@@ -83,7 +84,7 @@ module.exports = {
       }
       else if(isSuspended){
         embed.setTitle("Server Stats")
-          .setDescription(`**ID**- \`${args[0]}\`.
+          .setDescription(`**ID**- \`${id}\`.
           **UUID**- \`${uuid}\`.
           **Name**- \`${name}\`.
           **Description**- \`${description}\`.
@@ -93,7 +94,7 @@ module.exports = {
       }
       else{
         embed.setTitle("Server Stats")
-          .setDescription(`**ID**- \`${args[0]}\`.
+          .setDescription(`**ID**- \`${id}\`.
           **UUID**- \`${uuid}\`.
           **Name**- \`${name}\`.
           **Description**- \`${description}\`.

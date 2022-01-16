@@ -12,7 +12,7 @@ module.exports = {
         embed.addField("Admins", `> ${prefix}power \`<serverID>\`
         > ${prefix}run \`<serverID>\` \`<command>\`
         > ${prefix}user \`<ID>\`
-        > ${prefix}users`)
+        > ${prefix}users \`<page>\``)
       }
 
       await message.channel.send(embed).catch(error => {});

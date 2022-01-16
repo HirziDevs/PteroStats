@@ -36,6 +36,7 @@ module.exports = {
       let powerText = "**POWER ACTIONS**\nㅤ🟢 START\nㅤ🟡 RESTART\nㅤ🔴 STOP\nㅤ❌ KILL\nㅤ🗑️ CANCEL";
       let adminAccountAPIKey = client.config.adminAccountAPIKey
       let responseData = await APIFetcher(client, "client", `/servers/${args[0]}/resources/`, 1)
+      let id = responseData.id;
       let attributes = responseData.attributes
       let isSuspended = attributes.is_suspended
       responseData = await APIFetcher(client, "client", `/servers/${args[0]}/`, 1)
@@ -54,7 +55,7 @@ module.exports = {
       }
       if(isInstalling){
         embed.setTitle("Server Stats")
-          .setDescription(`**ID**- \`${args[0]}\`.
+          .setDescription(`**ID**- \`${id}\`.
           **UUID**- \`${uuid}\`.
           **Name**- \`${name}\`.
           **Description**- \`${description}\`.
@@ -65,7 +66,7 @@ module.exports = {
       }
       else if(isSuspended){
         embed.setTitle("Server Stats")
-          .setDescription(`**ID**- \`${args[0]}\`.
+          .setDescription(`**ID**- \`${id}\`.
           **UUID**- \`${uuid}\`.
           **Name**- \`${name}\`.
           **Description**- \`${description}\`.
@@ -76,7 +77,7 @@ module.exports = {
       }
       else{
         embed.setTitle("Server Stats")
-          .setDescription(`**ID**- \`${args[0]}\`.
+          .setDescription(`**ID**- \`${id}\`.
           **UUID**- \`${uuid}\`.
           **Name**- \`${name}\`.
           **Description**- \`${description}\`.
