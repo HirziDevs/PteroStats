@@ -12,6 +12,7 @@ module.exports = {
         embed.addField("Admins", `> ${prefix}power \`<serverID>\`
         > ${prefix}run \`<serverID>\` \`<command>\`
         > ${prefix}user \`<ID>\`
+        > ${prefix}update help
         > ${prefix}users \`<page>\``)
       }
 
