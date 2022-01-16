@@ -6,21 +6,21 @@ module.exports = {
     let embed = new Discord.MessageEmbed()
       .setColor(0x2f3136)
     if ((!args[0])) {
-      embed.setTitle("Please provide your server ID.")
-        .setDescription(`Don't know what a server ID is?
-      Open your server's console and see the code at the last of console url.
-      Eg- \`https://your.host.url/server/4c09a487\`.
-      Here, \`4c09a487\` is the server ID.`)
+      embed.setTitle("Please provide your server identifier.")
+        .setDescription(`Don't know what a server identifier is?
+        Open your server's console and see the code at the last of console url.
+        Eg- \`https://your.host.url/server/4c09a487\`.
+        Here, \`4c09a487\` is the server identifier.`)
         .setColor(0xff4747)
       await message.channel.send(embed).catch(error => { })
       return
     }
     if (args[0].length != 8) {
-      embed.setTitle("Please provide a correct server ID.")
-        .setDescription(`Don't know what a server ID is?
+      embed.setTitle("Please provide a correct server identifier.")
+        .setDescription(`Don't know what a server identifier is?
         Open your server's console and see the code at the last of console url.
         Eg- \`https://your.host.url/server/4c09a487\`.
-        Here, \`4c09a487\` is the server ID.`)
+        Here, \`4c09a487\` is the server identifier.`)
         .setColor(0xff4747)
       await message.channel.send(embed).catch(error => { })
       return
@@ -28,7 +28,6 @@ module.exports = {
     try {
       let responseData = await APIFetcher(client, "client", `/servers/${args[0]}/resources/`, 1)
       let attributes = responseData.attributes
-      let id = responseData.id;
       let state = attributes.current_state
       let isSuspended = attributes.is_suspended
       let resources = attributes.resources
@@ -40,6 +39,7 @@ module.exports = {
       attributes = responseData.attributes
       let name = attributes.name
       let node = attributes.node
+      let id = attributes.internal_id;
       let uuid = attributes.uuid
       let description = attributes.description
       if(!description){
@@ -112,11 +112,11 @@ module.exports = {
       }
       await message.channel.send(embed).catch(error => {})
     } catch {
-      embed.setTitle("Invalid Server ID.")
-        .setDescription(`Don't know what a server ID is?
+      embed.setTitle("Invalid Server identifier.")
+        .setDescription(`Don't know what a server identifier is?
         Open your server's console and see the code at the last of console url.
         Eg- \`https://your.host.url/server/4c09a487\`.
-        Here, \`4c09a487\` is the server ID.`)
+        Here, \`4c09a487\` is the server identifier.`)
         .setColor(0xff4747)
       await message.channel.send(embed).catch(error => {})
       return
