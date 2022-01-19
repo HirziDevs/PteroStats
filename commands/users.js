@@ -3,6 +3,9 @@ module.exports = {
   description : 'Info of all created users',
       
   async run(Discord, client, prefix, message, args, axios, adminRoleID, APIFetcher, bytesConverter, percentageCalculator, timeConverter){
+    if(!message.member.roles.cache.has(adminRoleID)){
+      return;
+    }
     let embed = new Discord.MessageEmbed()
     .setColor(0x95fd91)
     let list = "";
