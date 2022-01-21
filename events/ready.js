@@ -276,7 +276,6 @@ module.exports = client => {
         .setColor(color)
         .addField(`Panel Stats`, panel)
         .setFooter(embedfooter)
-        .setThumbnail(thumbnailURL)
       if(enablea === true){
         if(author && authorImageURL){
           embed.setAuthor(author, authorImageURL)
@@ -288,6 +287,9 @@ module.exports = client => {
           embed.setAuthor("", authorImageURL)
         }
       }
+      if(thumbnailURL){
+        embed.setThumbnail(thumbnailURL)
+      }
       if(imageURL){
         embed.setImage(imageURL)
       }
@@ -298,9 +300,17 @@ module.exports = client => {
         embed.setTimestamp()
       }
       if (enabledesc === true) {
-        embed.setDescription(desc + `\n**[Nodes Stats](${monitorLink})** **` + nodeCount + '**\n' + nodes)
+        if(monitorLink){
+          embed.setDescription(desc + `\n**[Nodes Stats](${monitorLink})** **` + nodeCount + '**\n' + nodes)
+        }else{
+          embed.setDescription(desc + `\n**Nodes Stats$** **` + nodeCount + '**\n' + nodes)
+        }
       } else {
-        embed.setDescription(`\n**[Nodes Stats](${monitorLink})** **` + nodeCount + '**\n' + nodes)
+        if(monitorLink){
+          embed.setDescription(`\n**[Nodes Stats](${monitorLink})** **` + nodeCount + '**\n' + nodes)
+        }else{
+          embed.setDescription(`\n**Nodes Stats$** **` + nodeCount + '**\n' + nodes)
+        }
       }
 
       let messages = await ch.messages.fetch({limit: 10})
