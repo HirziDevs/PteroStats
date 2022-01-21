@@ -32,9 +32,10 @@ module.exports = {
       return
     }
     try {
-      let powerSignal;
-      let powerText = "**POWER ACTIONS**\nㅤ🟢 START\nㅤ🟡 RESTART\nㅤ🔴 STOP\nㅤ❌ KILL\nㅤ🗑️ CANCEL";
+      let powerSignal, subURL;
+      let powerText = "**POWER ACTIONS**\nㅤ🟢 START\nㅤ🟡 RESTART\nㅤ🔴 STOP\nㅤ❌ KILL\nㅤ🟩 REINSTALL\nㅤ🔸 SUSPEND\nㅤ🔹 UNSUSPEND\nㅤ🔺 SAFELY DELETE\nㅤ🔻 FORCEFULLY DELETE\nㅤ🗑️ CANCEL";
       let adminAccountAPIKey = client.config.adminAccountAPIKey
+      let adminKey = client.config.panel.adminkey
       let responseData = await APIFetcher(client, "client", `/servers/${args[0]}/resources/`, 1)
       let attributes = responseData.attributes
       let isSuspended = attributes.is_suspended
@@ -90,32 +91,84 @@ module.exports = {
           msg.react('🟡'),
           msg.react('🔴'),
           msg.react('❌'),
+          msg.react('🟩'),
+          msg.react('🔸'),
+          msg.react('🔹'),
+          msg.react('🔺'),
+          msg.react('🔻'),
           msg.react('🗑️')
         )
-        msg.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '🟢' || reaction.emoji.name == '🟡' || reaction.emoji.name == '🔴' || reaction.emoji.name == '❌' || reaction.emoji.name == '🗑️'),
+        msg.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '🟢' || reaction.emoji.name == '🟡' || reaction.emoji.name == '🔴' || reaction.emoji.name == '❌' || reaction.emoji.name == '🟩' || reaction.emoji.name == '🔸' || reaction.emoji.name == '🔹' || reaction.emoji.name == '🔺' || reaction.emoji.name == '🔻' || reaction.emoji.name == '🗑️'),
           { max: 1, time: 30000 }).then(async collected => {
-            if(collected.first().emoji.name == '🟢' || collected.first().emoji.name == '🟡' || collected.first().emoji.name == '🔴' || collected.first().emoji.name == '❌' || collected.first().emoji.name == '🗑️'){
-              if(collected.first().emoji.name == '🟢'){
-                powerSignal= "start"
-                powerText = "**POWER ACTION** - ㅤ🟢 STARTING";
+            if(collected.first().emoji.name == '🟢'){
+              powerSignal= "start"
+              powerText = "**POWER ACTION** - ㅤ🟢 STARTING";
+            }
+            else if(collected.first().emoji.name == '🟡'){
+              powerSignal= "restart"
+              powerText = "**POWER ACTION** - ㅤ🟡 RESTARTING";
+            }
+            else if(collected.first().emoji.name == '🔴'){
+              powerSignal= "stop"
+              powerText = "**POWER ACTION** - ㅤ🔴 STOPPING";
+            } 
+            else if(collected.first().emoji.name == '❌'){
+              powerSignal= "kill"
+              powerText = "**POWER ACTION** - ㅤ❌ KILLED";
+            }
+            else if(collected.first().emoji.name == '🟩'){
+              powerSignal= "empty"
+              subURL = "reinstall"
+              powerText = "**POWER ACTION** - ㅤ🟩 REINSTALLING";
+            }
+            else if(collected.first().emoji.name == '🔸'){
+              powerSignal= "empty"
+              subURL = "suspend"
+              powerText = "**POWER ACTION** - ㅤ🔸 SUSPENDED";
+            }
+            else if(collected.first().emoji.name == '🔹'){
+              powerSignal= "empty"
+              subURL = "unsuspend"
+              powerText = "**POWER ACTION** - ㅤ🔹 UNSUSPENDED";
+            }
+            else if(collected.first().emoji.name == '🔺'){
+              powerSignal= "delete"
+              subURL = ""
+              powerText = "**POWER ACTION** - ㅤ🔺 SAFELY DELETING";
+            }
+            else if(collected.first().emoji.name == '🔻'){
+              powerSignal= "delete"
+              subURL = "force"
+              powerText = "**POWER ACTION** - ㅤ🔻 FORCEFULLY DELETING";
+            }
+            else{
+              powerSignal= null
+              powerText = "**POWER ACTION** - ㅤ🗑️ CANCELED";
+            }
+            if(powerSignal){
+              if(powerSignal == "empty" && subURL){
+                await axios({
+                  method: 'post',
+                  url: `${hosturl}api/application/servers/${id}/${subURL}`,
+                  headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + adminKey
+                  }
+                })
               }
-              else if(collected.first().emoji.name == '🟡'){
-                powerSignal= "restart"
-                powerText = "**POWER ACTION** - ㅤ🟡 RESTARTING";
+              else if(powerSignal == "delete"){
+                await axios({
+                  method: 'delete',
+                  url: `${hosturl}api/application/servers/${id}/${subURL}`,
+                  headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + adminKey
+                  }
+                })
               }
-              else if(collected.first().emoji.name == '🔴'){
-                powerSignal= "stop"
-                powerText = "**POWER ACTION** - ㅤ🔴 STOPPING";
-              } 
-              else if(collected.first().emoji.name == '❌'){
-                powerSignal= "kill"
-                powerText = "**POWER ACTION** - ㅤ❌ KILLED";
-              }
-              else if(collected.first().emoji.name == '🗑️'){
-                powerSignal= null
-                powerText = "**POWER ACTION** - ㅤ🗑️ CANCELED";
-              }
-              if(powerSignal){
+              else{
                 await axios({
                   method: 'post',
                   url: `${hosturl}api/client/servers/${args[0]}/power`,
@@ -129,18 +182,18 @@ module.exports = {
                   }
                 })
               }
-              await msg.reactions.removeAll()
-              embed.setTitle("Server Stats")
-              .setDescription(`**ID**- \`${args[0]}\`.
-              **UUID**- \`${uuid}\`.
-              **Name**- \`${name}\`.
-              **Description**- \`${description}\`.
-              **Node**- \`${node}\`.\n
-              -------------
-              ${powerText}`)
-              .setColor(0x95fd91)
-              await msg.edit(embed).catch(error => {})
             }
+            await msg.reactions.removeAll()
+            embed.setTitle("Server Stats")
+            .setDescription(`**ID**- \`${args[0]}\`.
+            **UUID**- \`${uuid}\`.
+            **Name**- \`${name}\`.
+            **Description**- \`${description}\`.
+            **Node**- \`${node}\`.\n
+            -------------
+            ${powerText}`)
+            .setColor(0x95fd91)
+            await msg.edit(embed).catch(error => {})
         }).catch(async() => {
           powerText = "**POWER ACTION** - ㅤ🗑️ CANCELED";
           await msg.reactions.removeAll()
