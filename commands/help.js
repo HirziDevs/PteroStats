@@ -9,7 +9,8 @@ module.exports = {
       embed.addField("Members", `> ${prefix}stats \`<serverID>\``)
       
       if(message.member.roles.cache.has(adminRoleID)){
-        embed.addField("Admins", `> ${prefix}power \`<serverID>\`
+        embed.addField("Admins", `> ${prefix}create
+        > ${prefix}power \`<serverID>\`
         > ${prefix}run \`<serverID>\` \`<command>\`
         > ${prefix}user \`<ID>\`
         > ${prefix}update help
