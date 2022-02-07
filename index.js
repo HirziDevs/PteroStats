@@ -23,9 +23,6 @@ let prefix = client.config.prefix
 let botCommandsChannelID = client.config.botCommandsChannelID
 let adminRoleID = client.config.adminRoleID
 
-const serverCreator = require("./events/serverCreator.js");
-serverCreator(Discord, client, prefix, axios, adminRoleID, botCommandsChannelID, APIFetcher, bytesConverter, percentageCalculator, timeConverter);
-
 const commandFiles = readdirSync(join(__dirname, "commands")).filter(file => file.endsWith(".js"))
 for(const file of commandFiles){
   const command = require(join(__dirname, "commands", `${file}`))
