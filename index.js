@@ -5,7 +5,7 @@ const client = new Client({
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
   ]
-});
+})
 const yaml = require('js-yaml')
 const chalk = require('chalk')
 const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'))
