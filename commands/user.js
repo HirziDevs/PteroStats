@@ -11,7 +11,7 @@ module.exports = {
     if((!args[0]) || isNaN(args[0])){
       embed.setDescription("Please provide a user ID")
       .setColor(0xff4747)
-      await message.channel.send(embed).catch(error => {})
+      await message.reply({embeds: [embed]}).catch(error => {})
       return
     }
     try {
@@ -40,12 +40,12 @@ module.exports = {
       **Administrator**- \`${isAdmin}\`
       **Account Created**- \`${created}\`
       **Last Updated**- \`${lastUpdated}\``)
-      await message.channel.send(embed).catch(error => {})
+      await message.reply({embeds: [embed]}).catch(error => {})
     } catch {
       embed.setTitle("Wrong user ID provided")
       .setDescription(`Use the command \`${prefix}users\` to see the list of users`)
       .setColor(0xff4747)
-      await message.channel.send(embed).catch(error => {})
+      await message.reply({embeds: [embed]}).catch(error => {})
       return
     }
   }

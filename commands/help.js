@@ -17,6 +17,6 @@ module.exports = {
         > ${prefix}users \`<page>\``)
       }
 
-      await message.channel.send(embed).catch(error => {});
+      await message.reply({embeds: [embed]}).catch(error => {});
     }
   }

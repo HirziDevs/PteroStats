@@ -18,7 +18,7 @@ module.exports = {
       Eg- \`https://your.host.url/server/4c09a487\`.
       Here, \`4c09a487\` is the server identifier.`)
         .setColor(0xff4747)
-      await message.channel.send(embed).catch(error => { })
+      await message.reply({embeds: [embed]}).catch(error => { })
       return
     }
     if (args[0].length != 8) {
@@ -28,7 +28,7 @@ module.exports = {
         Eg- \`https://your.host.url/server/4c09a487\`.
         Here, \`4c09a487\` is the server identifier.`)
         .setColor(0xff4747)
-      await message.channel.send(embed).catch(error => { })
+      await message.reply({embeds: [embed]}).catch(error => { })
       return
     }
     try {
@@ -63,7 +63,7 @@ module.exports = {
           **Node**- \`${node}\`.
           **INSTALLING**.`)
           .setColor(0xFFA500)
-        await message.channel.send(embed).catch(error => {})
+        await message.reply({embeds: [embed]}).catch(error => {})
       }
       else if(isSuspended){
         embed.setTitle("Server Stats")
@@ -74,7 +74,7 @@ module.exports = {
           **Node**- \`${node}\`.
           **SUSPENDED**.`)
           .setColor(0xff4747)
-        await message.channel.send(embed).catch(error => {})  
+        await message.reply({embeds: [embed]}).catch(error => {})  
       }
       else{
         embed.setTitle("Server Stats")
@@ -86,7 +86,7 @@ module.exports = {
           -------------
           ${powerText}`)
           .setColor(0x95fd91)
-        let msg = await message.channel.send(embed).catch(error => {})
+        let msg = await message.reply({embeds: [embed]}).catch(error => {})
         await msg.react('🟢').then(
           msg.react('🟡'),
           msg.react('🔴'),
@@ -193,7 +193,7 @@ module.exports = {
             -------------
             ${powerText}`)
             .setColor(0x95fd91)
-            await msg.edit(embed).catch(error => {})
+            await msg.edit({embeds: [embed]}).catch(error => {})
         }).catch(async() => {
           powerText = "**POWER ACTION** - ㅤ🗑️ CANCELED";
           await msg.reactions.removeAll()
@@ -206,7 +206,7 @@ module.exports = {
           -------------
           ${powerText}`)
           .setColor(0x95fd91)
-          await msg.edit(embed).catch(error => {})
+          await msg.edit({embeds: [embed]}).catch(error => {})
         });
       }
     } catch {
@@ -216,7 +216,7 @@ module.exports = {
         Eg- \`https://your.host.url/server/4c09a487\`.
         Here, \`4c09a487\` is the server identifier.`)
         .setColor(0xff4747)
-      await message.channel.send(embed).catch(error => {})
+      await message.reply({embeds: [embed]}).catch(error => {})
       return
     }
   }

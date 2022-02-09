@@ -275,7 +275,7 @@ module.exports = client => {
         .setTitle(title)
         .setColor(color)
         .addField(`Panel Stats`, panel)
-        .setFooter(embedfooter)
+        .setFooter({text: embedfooter})
       if(enablea === true){
         if(author && authorImageURL){
           embed.setAuthor(author, authorImageURL)
@@ -294,7 +294,7 @@ module.exports = client => {
         embed.setImage(imageURL)
       }
       if(footerImageURL){
-        embed.setFooter(embedfooter, footerImageURL)
+        embed.setFooter({text: embedfooter, iconURL: footerImageURL})
       }
       if (enablets === true) {
         embed.setTimestamp()
@@ -315,8 +315,8 @@ module.exports = client => {
 
       let messages = await ch.messages.fetch({limit: 10})
       messages = messages.filter(m => m.author.id === client.user.id).last()
-      if (messages == null) ch.send(embed)
-      else messages.edit(embed)
+      if (messages == null) ch.send({embeds: [embed]})
+      else messages.edit({embeds: [embed]})
 
 
       console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Posted Stats'))

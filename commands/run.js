@@ -18,7 +18,7 @@ module.exports = {
         Eg- \`https://your.host.url/server/4c09a487\`.
         Here, \`4c09a487\` is the server ID.`)
           .setColor(0xff4747)
-        await message.channel.send(embed).catch(error => { })
+        await message.reply({embeds: [embed]}).catch(error => { })
         return
       }
       if (args[0].length != 8) {
@@ -28,7 +28,7 @@ module.exports = {
           Eg- \`https://your.host.url/server/4c09a487\`.
           Here, \`4c09a487\` is the server ID.`)
           .setColor(0xff4747)
-        await message.channel.send(embed).catch(error => { })
+        await message.reply({embeds: [embed]}).catch(error => { })
         return
       }
       try {
@@ -59,7 +59,7 @@ module.exports = {
             **Node**- \`${node}\`.
             **INSTALLING**.`)
             .setColor(0xFFA500)
-          await message.channel.send(embed).catch(error => {})
+          await message.reply({embeds: [embed]}).catch(error => {})
         }
         else if(isSuspended){
           embed.setTitle("Server Stats")
@@ -70,7 +70,7 @@ module.exports = {
             **Node**- \`${node}\`.
             **SUSPENDED**.`)
             .setColor(0xff4747)
-          await message.channel.send(embed).catch(error => {})  
+          await message.reply({embeds: [embed]}).catch(error => {})  
         }
         else{
           embed.setTitle("Server Stats")
@@ -80,7 +80,7 @@ module.exports = {
             **Description**- \`${description}\`.
             **Node**- \`${node}\`.`)
             .setColor(0x95fd91)
-          let msg = await message.channel.send(embed).catch(error => {})
+          let msg = await message.reply({embeds: [embed]}).catch(error => {})
           let command = args.slice(1).join(" ");
           await axios({
             method: 'post',
@@ -104,7 +104,7 @@ module.exports = {
               Command Sent-
               \`\`\`${command}\`\`\``)
               .setColor(0x95fd91)
-              await msg.edit(embed).catch(error => {})
+              await msg.edit({embeds: [embed]}).catch(error => {})
           })
         }
       } catch {
@@ -114,7 +114,7 @@ module.exports = {
           Eg- \`https://your.host.url/server/4c09a487\`.
           Here, \`4c09a487\` is the server ID.`)
           .setColor(0xff4747)
-        await message.channel.send(embed).catch(error => {})
+        await message.reply({embeds: [embed]}).catch(error => {})
         return
       }
     }

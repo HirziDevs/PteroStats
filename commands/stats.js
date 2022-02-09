@@ -12,7 +12,7 @@ module.exports = {
         Eg- \`https://your.host.url/server/4c09a487\`.
         Here, \`4c09a487\` is the server identifier.`)
         .setColor(0xff4747)
-      await message.channel.send(embed).catch(error => { })
+      await message.reply({embeds: [embed]}).catch(error => { })
       return
     }
     if (args[0].length != 8) {
@@ -22,7 +22,7 @@ module.exports = {
         Eg- \`https://your.host.url/server/4c09a487\`.
         Here, \`4c09a487\` is the server identifier.`)
         .setColor(0xff4747)
-      await message.channel.send(embed).catch(error => { })
+      await message.reply({embeds: [embed]}).catch(error => { })
       return
     }
     try {
@@ -110,7 +110,7 @@ module.exports = {
           ㅤ**Backups**- \`${backups}\`.`)
           .setColor(0x95fd91)
       }
-      await message.channel.send(embed).catch(error => {})
+      await message.reply({embeds: [embed]}).catch(error => {})
     } catch {
       embed.setTitle("Invalid Server identifier.")
         .setDescription(`Don't know what a server identifier is?
@@ -118,7 +118,7 @@ module.exports = {
         Eg- \`https://your.host.url/server/4c09a487\`.
         Here, \`4c09a487\` is the server identifier.`)
         .setColor(0xff4747)
-      await message.channel.send(embed).catch(error => {})
+      await message.reply({embeds: [embed]}).catch(error => {})
       return
     }
   }

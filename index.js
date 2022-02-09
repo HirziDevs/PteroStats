@@ -1,5 +1,11 @@
 const Discord = require('discord.js')
-const client = new Discord.Client()
+const { Client, Intents} = require('discord.js')
+const client = new Client({ 
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+  ]
+})
 client.commands = new Discord.Collection()
 
 const fs = require('fs')
@@ -38,7 +44,7 @@ fs.readdir('./events/', (err, files) => {
   })
 })
 
-client.on("message", async message => {
+client.on("messageCreate", async message => {
   if (message.guild) {
     if (message.author.bot) {
       return
@@ -47,7 +53,7 @@ client.on("message", async message => {
       if (!client.config.panel.url) {
         embed.setDescription("Panel URL not set.")
           .setColor(0xff4747)
-        await message.channel.send(embed).catch(error => { })
+        await message.reply({embeds: [embed]}).catch(error => { })
         return
       }
       if(botCommandsChannelID && botCommandsChannelID != "null" && botCommandsChannelID != ""){

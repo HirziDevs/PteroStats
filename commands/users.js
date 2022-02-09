@@ -56,12 +56,12 @@ module.exports = {
       embed.setTitle("USER DETAILS")
       .setDescription(list)
       .setFooter(`Page- ${page}/${Math.floor(ids.length/10)+1}`);
-      await message.channel.send(embed).catch(error => {})
+      await message.reply({embeds: [embed]}).catch(error => {})
     } catch {
       embed.setTitle("Error creating a server.")
         .setDescription(`Please report it to the bot dev`)
         .setColor(0xff4747)
-      await message.channel.send(embed).catch(error => {})
+      await message.reply({embeds: [embed]}).catch(error => {})
       return
     }
   }
