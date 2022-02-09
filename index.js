@@ -1,6 +1,11 @@
-const { Client, Collection } = require('discord.js')
+const { Client, Intents, Collection } = require('discord.js')
 const fs = require('fs')
-const client = new Client()
+const client = new Client({ 
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+  ]
+});
 const yaml = require('js-yaml')
 const chalk = require('chalk')
 const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'))
