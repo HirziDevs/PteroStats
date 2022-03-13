@@ -78,6 +78,12 @@ module.exports = client => {
     if (adminapikey.length < 48) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid Admin Apikey!!'))
 
     let list = []
+    let count = 0
+    let embedsArray = []
+    let embeds = []
+    for(let i=0; i<=9; i++){
+      embeds[i] = new MessageEmbed()
+    }
     axios(api + '/application/nodes/', {
       method: 'GET',
       headers: {
@@ -267,25 +273,27 @@ module.exports = client => {
       let embedfooter = 'Updated every ' + time + ' seconds'
       if (enablef === true) embedfooter = 'Updated every ' + time + ' seconds | ' + footer
 
-      let embed = new MessageEmbed()
-        .setTitle(title)
-        .setColor(color)
-        .addField('Panel Stats', panel)
-        .setFooter({text: embedfooter})
-        .setThumbnail(client.user.avatarURL())
+      embeds[Math.floor(count/5)]
+      .setTitle(title)
+      .setColor(color)
+      .addField('Panel Stats', panel)
+      .setFooter({text: embedfooter})
+      .setThumbnail(client.user.avatarURL())
+      
       if (enablets === true) {
-        embed.setTimestamp()
+        embeds[Math.floor(count/5)].setTimestamp()
       }
       if (enabledesc === true) {
-        embed.setDescription(desc + '\n**Nodes Stats' + nodeCount + '**\n' + nodes)
+        embeds[Math.floor(count/5)].setDescription(desc + '\n**Nodes Stats' + nodeCount + '**\n' + nodes)
       } else {
-        embed.setDescription('\n**Nodes Stats' + nodeCount + '**\n' + nodes)
+        embeds[Math.floor(count/5)].setDescription('\n**Nodes Stats' + nodeCount + '**\n' + nodes)
       }
+      count++;
 
       let messages = await ch.messages.fetch({limit: 10})
       messages = messages.filter(m => m.author.id === client.user.id).last();
-      if (messages == null) ch.send({embeds: [embed]})
-      else messages.edit({embeds: [embed]})
+      if (messages == null) ch.send({embeds: embeds}).catch(error => {})
+      else messages.edit({embeds: embeds}).catch(error => {})
 
 
       console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Posted Stats'))
