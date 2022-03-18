@@ -13,7 +13,7 @@ module.exports = client => {
   let enablecs = config.botstatus.enable
   let cs = config.botstatus.text
   let stype = config.botstatus.type
-  let ch = client.channels.cache.find(cn => cn.id === config.channel)
+  let channelsIDs = config.channels
   let time = config.refreshtime
 
   let hosturl = config.panel.url
@@ -78,12 +78,6 @@ module.exports = client => {
     if (adminapikey.length < 48) return console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid Admin Apikey!!'))
 
     let list = []
-    let count = 0
-    let embedsArray = []
-    let embeds = []
-    for(let i=0; i<=9; i++){
-      embeds[i] = new MessageEmbed()
-    }
     axios(api + '/application/nodes/', {
       method: 'GET',
       headers: {
@@ -273,7 +267,7 @@ module.exports = client => {
       let embedfooter = 'Updated every ' + time + ' seconds'
       if (enablef === true) embedfooter = 'Updated every ' + time + ' seconds | ' + footer
 
-      embeds[Math.floor(count/5)]
+      let embed = new MessageEmbed()
       .setTitle(title)
       .setColor(color)
       .addField('Panel Stats', panel)
@@ -281,20 +275,22 @@ module.exports = client => {
       .setThumbnail(client.user.avatarURL())
       
       if (enablets === true) {
-        embeds[Math.floor(count/5)].setTimestamp()
+        embed.setTimestamp()
       }
       if (enabledesc === true) {
-        embeds[Math.floor(count/5)].setDescription(desc + '\n**Nodes Stats' + nodeCount + '**\n' + nodes)
+        embed.setDescription(desc + '\n**Nodes Stats' + nodeCount + '**\n' + nodes)
       } else {
-        embeds[Math.floor(count/5)].setDescription('\n**Nodes Stats' + nodeCount + '**\n' + nodes)
+        embed.setDescription('\n**Nodes Stats' + nodeCount + '**\n' + nodes)
       }
-      count++;
-
-      let messages = await ch.messages.fetch({limit: 10})
-      messages = messages.filter(m => m.author.id === client.user.id).last();
-      if (messages == null) ch.send({embeds: embeds}).catch(error => {})
-      else messages.edit({embeds: embeds}).catch(error => {})
-
+      for(let i=0; i<=channelsIDs.length-1; i++){
+        let ch = await client.channels.cache.get(channelsIDs[i])
+        if(ch){
+          let messages = await ch.messages.fetch({limit: 10})
+          messages = await messages.filter(m => m.author.id === client.user.id).last();
+          if (messages == null) await ch.send({embeds: [embed]}).catch(error => {console.log(error)})
+          else await messages.edit({embeds: [embed]}).catch(error => {console.log(error)})
+        }
+      }
 
       console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Posted Stats'))
       if (panel !== null) console.log(chalk.cyan('[PteroStats Checker] ') + chalk.green('Stats Updated'))
