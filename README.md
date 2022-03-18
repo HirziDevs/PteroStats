@@ -54,8 +54,8 @@ botstatus:
   text: 'Hosting Panel' # Bot Status Message
   type: 'WATCHING' # Bot Status Type. Ex: PLAYING, WATCHING, LISTENING, STREAMING
 
-# Channel and RefreshTime Configuration
-channel: 'CHANNEL ID' # Put channel id here where the embed will be sended
+# Channels and RefreshTime Configuration
+channels: ['CHANNEL1 ID', 'CHANNEL2 ID'] # Put channels id here where the embed will be sended
 refreshtime: 60 # Time when the embed edited/refreshed (MUST BE A SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
 
 # Panel Info's
