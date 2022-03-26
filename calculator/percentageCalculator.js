@@ -1,4 +1,4 @@
 module.exports = (value, total) =>{
   let sol = (value*100)/total 
-    return `${sol.toFixed(2).replace(".00", ""}%`
+    return `${sol.toFixed(2).replace(".00", "")}%`
 }
