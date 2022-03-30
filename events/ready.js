@@ -1,3 +1,6 @@
+const bytesConverter = require("../calculator/bytesConverter.js")
+const percentageCalculator = require("../calculator/percentageCalculator.js")
+
 module.exports = client => {
 
   //Code are very sensitive, please changes things on config.yml instead
@@ -38,6 +41,8 @@ module.exports = client => {
 
   let debug = config.debug
   let debugerror = config.debugaxios
+
+  let monitorLink = config.monitorLink;
 
   if (debug === true) {
     console.log(chalk.red('=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+='))
@@ -117,26 +122,39 @@ module.exports = client => {
               let disk = 'temp'
 
               const mode = node.data.attributes.maintenance_mode
-              const loc = '[Locations: ' + node.data.attributes.relationships.location.attributes.short + ']'
-              const port = '[Allocations: ' + node.data.attributes.relationships.allocations.data.length + ']'
-              const servers = '[Servers: ' + node.data.attributes.relationships.servers.data.length + ']'
-              const rampercent = '[Ram: ' + Math.floor(node.data.attributes.allocated_resources.memory / node.data.attributes.memory * 100) + '%/100%]'
-              const diskpercent = '[Disk: ' + Math.floor(node.data.attributes.allocated_resources.disk / node.data.attributes.disk * 100) + '%/100%]'
-              const rammega = '[Ram: ' + node.data.attributes.allocated_resources.memory + 'MB/' + node.data.attributes.memory + 'MB]'
-              const diskmega = '[Disk: ' + node.data.attributes.allocated_resources.disk + 'MB/' + node.data.attributes.disk + 'MB]'
-              const ramgiga = '[Ram: ' + Math.floor(node.data.attributes.allocated_resources.memory / 1000) + 'GB/' + Math.floor(node.data.attributes.memory / 1000) + 'GB]'
-              const diskgiga = '[Disk: ' + Math.floor(node.data.attributes.allocated_resources.disk / 1000) + 'GB/' + Math.floor(node.data.attributes.disk / 1000) + 'GB]'
+              const loc = 'Locations: ' + node.data.attributes.relationships.location.attributes.short
+              const port = 'Allocations: ' + node.data.attributes.relationships.allocations.data.length
+              const servers = 'Servers: ' + node.data.attributes.relationships.servers.data.length
+              const rampercent = 'RAM: ' + Math.floor(node.data.attributes.allocated_resources.memory / node.data.attributes.memory * 100) + '%/100%'
+              const diskpercent = 'Disk: ' + Math.floor(node.data.attributes.allocated_resources.disk / node.data.attributes.disk * 100) + '%/100%'
+              const rammega = 'RAM: ' + node.data.attributes.allocated_resources.memory + 'MB/' + node.data.attributes.memory + 'MB'
+              const diskmega = 'Disk: ' + node.data.attributes.allocated_resources.disk + 'MB/' + node.data.attributes.disk + 'MB'
+              const ramgiga = 'RAM: ' + Math.floor(node.data.attributes.allocated_resources.memory / 1000) + 'GB/' + Math.floor(node.data.attributes.memory / 1000) + 'GB'
+              const diskgiga = 'Disk: ' + Math.floor(node.data.attributes.allocated_resources.disk / 1000) + 'GB/' + Math.floor(node.data.attributes.disk / 1000) + 'GB'
               if (unit === 'mb') {
                 disk = diskmega
                 ram = rammega
-              }
-              if (unit === 'gb') {
+               }else if (unit === 'gb') {
                 disk = diskgiga
                 ram = ramgiga
-              }
-              if (unit === 'percent') {
+               }else if (unit === 'percent') {
                 disk = diskpercent
                 ram = rampercent
+               }else if(unit === 'custom') {
+                 let RAMTotal = Math.round(node.data.attributes.memory)
+                 let RAMTotalText = bytesConverter(RAMTotal, "MB")
+                 let RAM = Math.round(node.data.attributes.allocated_resources.memory)
+                 let RAMText = bytesConverter(RAM, "MB")
+                 let RAMPercent = percentageCalculator(RAM, RAMTotal)
+
+                 let DiskTotal = Math.round(node.data.attributes.disk)
+                 let DiskTotalText = bytesConverter(DiskTotal, "MB")
+                 let Disk = Math.round(node.data.attributes.allocated_resources.disk)
+                 let DiskText = bytesConverter(Disk, "MB")
+                 let DiskPercent = percentageCalculator(Disk, DiskTotal)
+
+                 ram = `RAM: ${RAMText}/${RAMTotalText} (${RAMPercent}%)`
+                 disk = `Disk: ${DiskText}/${DiskTotalText} (${DiskPercent}%)`
               }
 
               nodetable.set('node' + id, {
@@ -239,15 +257,15 @@ module.exports = client => {
       if (userCount === null) userCount = 'checking'
       if (serverCount === null) serverCount = 'checking'
 
-      if (userCount !== 'N/A') paneltable.set('panel', '**Panel**: ' + statusonline)
+      if (userCount !== 'N/A') paneltable.set('panel', `[**Panel**](${hosturl}): ` + statusonline)
       if (userCount === 'N/A') {
-        paneltable.set('panel', '**Panel**: ' + statusoffline)
+        paneltable.set('panel', `[**Panel**](${hosturl}): ` + statusoffline)
         console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('panel is down!'))
       }
       if (userCount === checking) paneltable.set('panel', '**Panel**: ' + checking)
-      let panel = paneltable.get('panel') + '\n\nUsers: ' + userCount + '\nServers: ' + serverCount
+      let panel = paneltable.get('panel') + '\n\n**Users**: \`' + userCount + '\`\n**Servers**: \`' + serverCount + '\`'
 
-      if (panel === null) panel = '**Panel**: ' + checking + '\n\nUsers: ' + userCount + '\nServers: ' + serverCount
+      if (panel === null) panel = `[**Panel**](${hosturl}): ` + checking + '\n\n**Users**: \`' + userCount + '\`\n**Servers**: \`' + serverCount + '\`'
 
       let nodes
       list.forEach((d) => {
@@ -277,10 +295,17 @@ module.exports = client => {
       if (enablets === true) {
         embed.setTimestamp()
       }
+
+      let text = "Nodes Stats";
+
+      if(monitorLink && monitorLink.startsWith("https://")){
+        text = `[Nodes Stats](${monitorLink})`
+      }
+
       if (enabledesc === true) {
-        embed.setDescription(desc + '\n**Nodes Stats' + nodeCount + '**\n' + nodes)
+        embed.setDescription(desc + `\n**${text} ` + nodeCount + '**\n' + nodes)
       } else {
-        embed.setDescription('\n**Nodes Stats' + nodeCount + '**\n' + nodes)
+        embed.setDescription(`\n**${text} ` + nodeCount + '**\n' + nodes)
       }
       for(let i=0; i<=channelsIDs.length-1; i++){
         let ch = await client.channels.cache.get(channelsIDs[i])

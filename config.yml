@@ -10,7 +10,10 @@ botstatus:
 
 # Channels and RefreshTime Configuration
 channels: ['CHANNEL1 ID', 'CHANNEL2 ID'] # Put channel ids here where the embed will be sended
-refreshtime: 60 # Time when the embed edited/refreshed (MUST BE A SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
+refreshtime: 10 # Time when the embed edited/refreshed (MUST BE A SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
+
+# Place uptime monitor link here
+monitorLink: 'LINK OF UPTIME MONITOR'
 
 # Panel Info's
 panel:
@@ -41,7 +44,7 @@ resource:
   servers: true # Enable Total server on the node to resource text (MUST BE "true" OR "false")
   allocations: true # Enable Total Allocation on the node to resource text (MUST BE "true" OR "false")
   location: true # Enable location short name on the node to resource text (MUST BE "true" OR "false")
-  unit: 'gb' # Must be 'mb', 'gb', or 'percent'
+  unit: 'custom' # Must be 'mb', 'gb', 'percent', 'custom'
 
 # Developers feature
 debug: false # Enable and Disable debug log to console
