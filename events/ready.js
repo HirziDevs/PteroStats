@@ -3,7 +3,7 @@ const percentageCalculator = require("../calculator/percentageCalculator.js")
 
 module.exports = client => {
 
-  //Code are very sensitive, please changes things on config.yml instead
+  //Code is very sensitive, please changes things on config.yml instead
   
   const { MessageEmbed } = require('discord.js')
   const axios = require('axios')
