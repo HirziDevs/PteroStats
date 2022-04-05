@@ -9,7 +9,7 @@ botstatus:
   type: 'WATCHING' # Bot Status Type. Ex: PLAYING, WATCHING, LISTENING, STREAMING
 
 # Channels and RefreshTime Configuration
-channels: ['CHANNEL1 ID', 'CHANNEL2 ID'] # Put channel ids here where the embed will be sended
+channels: ['CHANNEL1 ID', 'CHANNEL2 ID'] # Put channel ids here where the embed will be sent
 refreshtime: 10 # Time when the embed edited/refreshed (MUST BE A SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
 
 # Place uptime monitor link here
@@ -24,6 +24,8 @@ panel:
 embed: 
   title: 'EMBED TITLE' # Embed Title here. Ex: PureNodes Stats
   color: 'E5BE11' # Embed Hex color here.
+  thumbnail: '' # Provide image URL of thumbnail of embed
+  image: '' # Provide image URL of image of embed
   description: 
     enable: false # Enable Embed Description (MUST BE "true" OR "false")
     text: 'EMBED DESCRIPTION' # Embed Description

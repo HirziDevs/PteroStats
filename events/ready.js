@@ -43,6 +43,8 @@ module.exports = client => {
   let debugerror = config.debugaxios
 
   let monitorLink = config.monitorLink;
+  let thumbnail = config.embed.thumbnail;
+  let image = config.embed.image;
 
   if (debug === true) {
     console.log(chalk.red('=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+='))
@@ -307,6 +309,23 @@ module.exports = client => {
       } else {
         embed.setDescription(`\n**${text} ` + nodeCount + '**\n' + nodes)
       }
+
+      if(thumbnail){
+        try{
+          embed.setThumbnail(thumbnail)
+        }catch{
+          console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid thumbnail image URL!'))
+        }
+      }
+
+      if(image){
+        try{
+          embed.setImage(image)
+        }catch{
+          console.log(chalk.cyan('[PteroStats Checker] ') + chalk.red('Invalid image URL!'))
+        }
+      }
+
       for(let i=0; i<=channelsIDs.length-1; i++){
         let ch = await client.channels.cache.get(channelsIDs[i])
         if(ch){
