@@ -53,7 +53,7 @@ client:
 
 embed:
     title: 'PteroStats Hosting' # Embed Title here. Ex: MyHost Stats
-    color_primary: 'E5BE11' # Embed Hex color here.
+    color_primary: 'e172fc' # Embed Hex color here.
  
     description: 
        enable: false # Enable Embed Description (MUST BE "true" OR "false")
@@ -79,8 +79,8 @@ pterodactyl:
     key: 'yhBaWjWcmUTseBq72lBBGL53DIDX4Z5dwbP4xzz3D' # Put your API Key here. (Must be an admin api key with read permissions)
 
 status:
-    online: ':green_circle: Online' # Message if the status is Online
-    offline: ':red_circle: Offline' # Message if the status is Offline
+    online: ':green_circle: UP' # Message if the status is Online
+    offline: ':red_circle: DOWN' # Message if the status is Offline
     check: ':orange_circle: Checking' # Message if the status is Checking
 
 resource:
@@ -91,8 +91,9 @@ resource:
     unit: 'gb' # Must be 'mb', 'gb', or 'percent'
 
 # Developers feature
-debug: true # Enable and Disable debug log to console
-debugaxios: true #Enable and Disable axios error logs
+checker: false # Enable and Disable checker log to console
+debug: false # Enable and Disable debug log to console
+debugaxios: false #Enable and Disable axios error logs
 ```
 
 ## Other
