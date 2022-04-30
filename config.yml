@@ -48,5 +48,6 @@ resource:
     unit: 'gb' # Must be 'mb', 'gb', or 'percent'
 
 # Developers feature
+checker: true # Enable and Disable checker log to console
 debug: true # Enable and Disable debug log to console
 debugaxios: true #Enable and Disable axios error logs
