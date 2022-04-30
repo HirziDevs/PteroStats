@@ -9,9 +9,8 @@
 
 PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and post it to your discord server
 
-- Written in Javascript, CloudServer is faster and more stable.
-- PteroControl can be used with any server on Pterodactyl, irregardless of whether it's on shared hosting or your own hosted panel
-
+- Written in Javascript, PteroStats is faster and more stable.
+- 
 PteroStats is still **under development** and we welcome contributions. 
 
 ### How it works?
@@ -37,61 +36,65 @@ if you need help contact me on discord `Hirzi#8701` or join [our discord server 
 
 ## Admin Apikey Permission
 
-enable `read` on all options, if still didn't work enable `read & write` on all options
+enable `read` on all options, if it still doesnt work you can try enabling `read & write` on all options
 ![Admin Apikey Permission](https://media.discordapp.net/attachments/819757140155564062/876320084992331816/Screenshot_2021-08-15-11-20-05-56.jpg)
 
 ### Setuping Config
 
 You need to put right config to make the bot work at [config.yml](https://github.com/HirziDevs/PteroStats/blob/main/config.yml) file
 ```
-# PteroStats config
-# If you need help, join our discord server: https://discord.gg/zv6maQRah3
+##########################################
+#                                        #
+#         Client Initialization          #
+#                                        #
+##########################################
+client:
+    token: 'Discord Bot Token' # Your bot token which can be found on (https://discord.com/developers/applications/)
+    activity: "NObody loves me:( wanna be friends?" # The bot activity EG/ (playing <LEAVE A STAR ON THE REPO>)
+    status: 'dnd' # Bot status. Ex: online, idle, dnd
 
-# Bot Info's
-token: 'BOT TOKEN' # Put bot token here, check https://discord.dev to create and get bot token
-botstatus:
-  enable: false # Enable Custom Status (MUST BE "true" OR "false")
-  text: 'Hosting Panel' # Bot Status Message
-  type: 'WATCHING' # Bot Status Type. Ex: PLAYING, WATCHING, LISTENING, STREAMING
+embed:
+    title: 'PteroStats Hosting' # Embed Title here. Ex: MyHost Stats
+    color_primary: 'E5BE11' # Embed Hex color here.
+ 
+    description: 
+       enable: false # Enable Embed Description (MUST BE "true" OR "false")
+       text: 'Embed Description' # Embed Description
+ 
+    footer: 
+       enable: true # Enable Embed Footer (MUST BE "true" OR "false")
+       text: 'By Hirzi#8701' # Embed Footer
+ 
+    timestamp: true # Enable Embed TimeStamp (MUST BE "true" OR "false")
 
-# Channel and RefreshTime Configuration
-channel: 'CHANNEL ID' # Put channel id here where the embed will be sended
-refreshtime: 60 # Time when the embed edited/refreshed (MUST BE A SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
+##########################################
+#                                        #
+#      Settings and configuration        #
+#                                        #
+##########################################
+channel:
+    id: '962288046944960542' # The channel where you want to show the statistics (ID)
+    refreshtime: 60 # Time after which the embed will be edited/refreshed (MUST BE A SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
 
-# Panel Info's
-panel:
-  url: 'HOST PANEL LINK' # Put panel url here. Example: https://panel.purenodes.net
-  adminkey: 'ADMIN APIKEY' # Put Admin Apikey here. check https://your.host.url/admin/api (your.host.url is an example link) to get the Admin ApiKey
+pterodactyl:
+    url: 'https://panel.pterostats.net' # Put the URL to your panel here. Example: https://panel.pterostats.net
+    key: 'yhBaWjWcmUTseBq72lBBGL53DIDX4Z5dwbP4xzz3D' # Put your API Key here. (Must be an admin api key with read permissions)
 
-# Embed Configuration
-embed: 
-  title: 'EMBED TITLE' # Embed Title here. Ex: PureNodes Stats
-  color: 'E5BE11' # Embed Hex color here.
-  description: 
-    enable: false # Enable Embed Description (MUST BE "true" OR "false")
-    text: 'EMBED DESCRIPTION' # Embed Description
-  footer: 
-    enable: true # Enable Embed Footer (MUST BE "true" OR "false")
-    text: 'By Hirzi#8701' # Embed Footer
-  timestamp: true # Enable Embed TimeStamp (MUST BE "true" OR "false")
-
-# Status Message Configuration
 status:
-  online: ':green_circle: Online' # Message if the status is Online
-  offline: ':red_circle: Offline' # Message if the status is Offline
-  check: ':orange_circle: Checking' # Message if the status is Checking
+    online: ':green_circle: Online' # Message if the status is Online
+    offline: ':red_circle: Offline' # Message if the status is Offline
+    check: ':orange_circle: Checking' # Message if the status is Checking
 
-# Node Resource
 resource:
-  enable: false # Enable resource option ex [Ram: 2gb/5gb] bellow node name (MUST BE "true" OR "false")
-  servers: true # Enable Total server on the node to resource text (MUST BE "true" OR "false")
-  allocations: true # Enable Total Allocation on the node to resource text (MUST BE "true" OR "false")
-  location: true # Enable location short name on the node to resource text (MUST BE "true" OR "false")
-  unit: 'gb' # Must be 'mb', 'gb', or 'percent'
+    enable: true # Enable resource option ex [Ram: 2gb/5gb] below node name (MUST BE "true" OR "false")
+    servers: true # Enable Total server on the node to resource text (MUST BE "true" OR "false")
+    allocations: true # Enable Total Allocation on the node to resource text (MUST BE "true" OR "false")
+    location: true # Enable location short name on the node to resource text (MUST BE "true" OR "false")
+    unit: 'gb' # Must be 'mb', 'gb', or 'percent'
 
 # Developers feature
-debug: false # Enable and Disable debug log to console
-debugaxios: false #Enable and Disable axios error logs
+debug: true # Enable and Disable debug log to console
+debugaxios: true #Enable and Disable axios error logs
 ```
 
 ## Other
@@ -99,7 +102,7 @@ debugaxios: false #Enable and Disable axios error logs
 
 Q: Can i use pterodactyl v0.7?
 
-A: No, the pterodactyl v0.7 is not supported
+A: No, version v0.7 of pterodactyl panel is not supported
 
 -
 
@@ -109,7 +112,7 @@ A: The bot will automatically add nodes from your panel
 
 -
 
-Q: How i can get support?
+Q: How can i get support?
 
 A: You can join our [discord server](https://discord.gg/zv6maQRah3)
 
