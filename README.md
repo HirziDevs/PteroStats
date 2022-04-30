@@ -9,8 +9,6 @@
 
 PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and post it to your discord server
 
-- Written in Javascript, PteroStats is faster and more stable.
-
 PteroStats is still **under development** and we welcome contributions. 
 
 ### How it works?
