@@ -3,8 +3,6 @@
 ![Version](https://img.shields.io/github/package-json/v/HirziDevs/PteroStats?style=flat-square)
 ![License](https://img.shields.io/github/license/HirziDevs/PteroStats?style=flat-square)
 
-![PteroStats Banner](https://media.discordapp.net/attachments/796259732683227157/861126504246411264/20210704_130856.jpg)
-
 ## Introduction
 
 PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and post it to your discord server
