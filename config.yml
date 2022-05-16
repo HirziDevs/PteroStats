@@ -11,6 +11,7 @@ botstatus:
 
 # Discord Server;s Configuration
 serverID: "ID OF DISCORD SERVER"
+adminRoleID: "ROLE ID" #Only this role wll have pemrission to use the commands
 
 # Channels and RefreshTime Configuration
 channels: ['CHANNEL1 ID', 'CHANNEL2 ID'] # Put channel ids here where the embed will be sent
