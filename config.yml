@@ -2,11 +2,15 @@
 # If you need help, join our discord server here: https://discord.gg/zv6maQRah3
 
 # Bot Info's
+clientID : 'Discord Bot ID'
 token: 'BOT TOKEN' # Put bot token here, check https://discord.dev to create and get bot token
 botstatus:
   enable: false # Enable Custom Status (MUST BE "true" OR "false")
   text: 'Hosting Panel' # Bot Status Message
   type: 'WATCHING' # Bot Status Type. Ex: PLAYING, WATCHING, LISTENING, STREAMING
+
+# Discord Server;s Configuration
+serverID: "ID OF DISCORD SERVER"
 
 # Channels and RefreshTime Configuration
 channels: ['CHANNEL1 ID', 'CHANNEL2 ID'] # Put channel ids here where the embed will be sent
