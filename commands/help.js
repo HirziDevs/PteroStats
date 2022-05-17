@@ -5,7 +5,7 @@ module.exports = {
     .setName('help')
 	  .setDescription('Show help message.'),
   
-  async execute(client, embed, MessageEmbed, config, embedConfig, Permissions, interaction, tick, cross){
+  async execute(client, embed, MessageEmbed, config, embedConfig, Permissions, interaction, tick, cross, axios, APIFetcher, bytesConverter, percentageCalculator, timeConverter){
     embed = new MessageEmbed()
       .setColor(embedConfig.defaultColor);
 

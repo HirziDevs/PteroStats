@@ -32,7 +32,7 @@ module.exports = {
         return
       }
       try {
-        let adminAccountAPIKey = client.config.adminAccountAPIKey
+        let adminAccountAPIKey = client.config.clientkey
         let responseData = await APIFetcher(client, "client", `/servers/${args[0]}/resources/`, 1)
         let attributes = responseData.attributes
         let isSuspended = attributes.is_suspended

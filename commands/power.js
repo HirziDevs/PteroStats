@@ -34,7 +34,7 @@ module.exports = {
     try {
       let powerSignal, subURL;
       let powerText = "**POWER ACTIONS**\nㅤ🟢 START\nㅤ🟡 RESTART\nㅤ🔴 STOP\nㅤ❌ KILL\nㅤ🟩 REINSTALL\nㅤ🔸 SUSPEND\nㅤ🔹 UNSUSPEND\nㅤ🔺 SAFELY DELETE\nㅤ🔻 FORCEFULLY DELETE\nㅤ🗑️ CANCEL";
-      let adminAccountAPIKey = client.config.adminAccountAPIKey
+      let adminAccountAPIKey = client.config.clientkey
       let adminKey = client.config.panel.adminkey
       let responseData = await APIFetcher(client, "client", `/servers/${args[0]}/resources/`, 1)
       let attributes = responseData.attributes

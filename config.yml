@@ -24,6 +24,7 @@ monitorLink: 'LINK OF UPTIME MONITOR'
 panel:
   url: 'HOST PANEL LINK' # Put panel url here. Example: https://panel.purenodes.net
   adminkey: 'ADMIN APIKEY' # Put Admin Apikey here. check https://your.host.url/admin/api (your.host.url is an example link) to get the Admin ApiKey
+  clientkey: "CLIENT KEY" #Put your account's Client API key. 
 
 # Embed Configuration
 embed: 

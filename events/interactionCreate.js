@@ -3,7 +3,9 @@ const commandUsed = new Set();
 const APIFetcher = require("../fetcher/APIFetcher.js");
 const bytesConverter = require("../calculator/bytesConverter.js");
 const percentageCalculator = require("../calculator/percentageCalculator.js");
-const timeConverter = require();
+const timeConverter = require("../calculator/timeConverter.js");
+
+const axios = require("axios");
 
 module.exports = {
   name: 'interactionCreate',
@@ -58,7 +60,7 @@ module.exports = {
 
         return;
       }else{
-        await command.execute(client, embed, MessageEmbed, config, embedConfig, Permissions, interaction, tick, cross);
+        await command.execute(client, embed, MessageEmbed, config, embedConfig, Permissions, interaction, tick, cross, axios, APIFetcher, bytesConverter, percentageCalculator, timeConverter);
 
         commandUsed.add(interaction.user.id);
         

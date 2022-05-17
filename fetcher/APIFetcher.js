@@ -2,7 +2,7 @@ const axios = require('axios');
 
 module.exports = async (client, type, url, strippingLevel) => {
   let hosturl = client.config.panel.url;
-  let adminAccountAPIKey = client.config.adminAccountAPIKey;
+  let adminAccountAPIKey = client.config.clientkey;
   let adminAPIKey = client.config.panel.adminkey;
 
   if(!strippingLevel){
