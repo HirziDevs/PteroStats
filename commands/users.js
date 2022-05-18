@@ -111,9 +111,8 @@ module.exports = {
     }catch(error){
       console.log(error);
 
-      embed.setTitle("Invalid Server Identifier.")
-        .setDescription(`Don't know what a server identifier is?
-        Open your server's console and see the code at the last of console url.
+      embed.setTitle("Error")
+        .setDescription(`Unable to find users list.
         Eg- \`https://your.host.url/server/4c09a487\`.
         Here, \`4c09a487\` is the server identifier.`)
         .setColor(embedConfig.errorColor)
