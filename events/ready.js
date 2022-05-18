@@ -293,7 +293,6 @@ module.exports = {
         .setColor(color)
         .addField('Panel Stats', panel)
         .setFooter({text: embedfooter})
-        .setThumbnail(client.user.avatarURL())
         
         if (enablets === true) {
           embed.setTimestamp()

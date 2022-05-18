@@ -3,7 +3,7 @@ let { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('user')
-	  .setDescription('Get stats of a server.')
+	  .setDescription('Get info of a user.')
     .addStringOption(option => option.setName("id").setDescription("Server ID.").setRequired(true)),
   
   async execute(client, embed, MessageEmbed, config, embedConfig, Permissions, interaction, tick, cross, axios, APIFetcher, bytesConverter, percentageCalculator, timeConverter){
