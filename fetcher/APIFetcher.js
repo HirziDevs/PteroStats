@@ -2,7 +2,7 @@ const axios = require('axios');
 
 module.exports = async (client, type, url, strippingLevel) => {
   let hosturl = client.config.panel.url;
-  let adminAccountAPIKey = client.config.clientkey;
+  let adminAccountAPIKey = client.config.panel.clientkey;
   let adminAPIKey = client.config.panel.adminkey;
 
   if(!strippingLevel){
@@ -38,5 +38,9 @@ module.exports = async (client, type, url, strippingLevel) => {
     return response.data
   }else if(strippingLevel == 0){
     return response
+  }else{
+    console.log("Error fetching");
+
+    return "ERROR";
   }
 }
