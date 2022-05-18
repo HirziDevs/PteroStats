@@ -220,10 +220,11 @@ module.exports = {
             }
           }
 
-          await button.reply({content: "*"}).catch(error => {
+          await button.reply({content: "*"}).then(async () => {
+            await button.deleteReply();
+          }).catch(error => {
             console.log(error);
           });
-          await button.deleteReply().catch(err => {});
 
           embed.setTitle("Server Stats")
             .setDescription(`**ID**- \`${input}\`.
