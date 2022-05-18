@@ -45,28 +45,39 @@ enable `read` on all options, if still didn't work enable `read & write` on all 
 You need to put right config to make the bot work at [config.yml](https://github.com/HirziDevs/PteroStats/blob/main/config.yml) file
 ```
 # PteroStats config
-# If you need help, join our discord server: https://discord.gg/zv6maQRah3
+# If you need help, join our discord server here: https://discord.gg/zv6maQRah3
 
 # Bot Info's
+clientID : 'Discord Bot ID'
 token: 'BOT TOKEN' # Put bot token here, check https://discord.dev to create and get bot token
 botstatus:
   enable: false # Enable Custom Status (MUST BE "true" OR "false")
   text: 'Hosting Panel' # Bot Status Message
   type: 'WATCHING' # Bot Status Type. Ex: PLAYING, WATCHING, LISTENING, STREAMING
 
+# Discord Server;s Configuration
+serverID: "ID OF DISCORD SERVER"
+adminRoleID: "ROLE ID" #Only this role wll have pemrission to use the commands
+
 # Channels and RefreshTime Configuration
 channels: ['CHANNEL1 ID', 'CHANNEL2 ID'] # Put channel ids here where the embed will be sent
-refreshtime: 60 # Time when the embed edited/refreshed (MUST BE A SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
+refreshtime: 10 # Time when the embed edited/refreshed (MUST BE A SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
+
+# Place uptime monitor link here
+monitorLink: 'LINK OF UPTIME MONITOR'
 
 # Panel Info's
 panel:
   url: 'HOST PANEL LINK' # Put panel url here. Example: https://panel.purenodes.net
   adminkey: 'ADMIN APIKEY' # Put Admin Apikey here. check https://your.host.url/admin/api (your.host.url is an example link) to get the Admin ApiKey
+  clientkey: "CLIENT KEY" #Put your account's Client API key. 
 
 # Embed Configuration
 embed: 
   title: 'EMBED TITLE' # Embed Title here. Ex: PureNodes Stats
   color: 'E5BE11' # Embed Hex color here.
+  thumbnail: '' # Provide image URL of thumbnail of embed
+  image: '' # Provide image URL of image of embed
   description: 
     enable: false # Enable Embed Description (MUST BE "true" OR "false")
     text: 'EMBED DESCRIPTION' # Embed Description
@@ -83,11 +94,11 @@ status:
 
 # Node Resource
 resource:
-  enable: false # Enable resource option ex [Ram: 2gb/5gb] bellow node name (MUST BE "true" OR "false")
+  enable: true # Enable resource option ex [Ram: 2gb/5gb] bellow node name (MUST BE "true" OR "false")
   servers: true # Enable Total server on the node to resource text (MUST BE "true" OR "false")
   allocations: true # Enable Total Allocation on the node to resource text (MUST BE "true" OR "false")
   location: true # Enable location short name on the node to resource text (MUST BE "true" OR "false")
-  unit: 'gb' # Must be 'mb', 'gb', or 'percent'
+  unit: 'custom' # Must be 'mb', 'gb', 'percent', 'custom'
 
 # Developers feature
 debug: false # Enable and Disable debug log to console
