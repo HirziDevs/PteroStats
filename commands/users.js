@@ -1,19 +1,24 @@
+let { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageActionRow, MessageButton } = require('discord.js');
+
+const pageBuilder = require("../builder/pageBuilder.js");
+
+let idsList = [];
+let usernamesList = [];
+let emailsList = [];
+let i = 0;
+
 module.exports = {
-  name : 'users',
-  description : 'Info of all created users',
+  data: new SlashCommandBuilder()
+    .setName('users')
+	  .setDescription('Get a list of all the users.'),
+  
+  async execute(client, embed, MessageEmbed, config, embedConfig, Permissions, interaction, tick, cross, axios, APIFetcher, bytesConverter, percentageCalculator, timeConverter){
+    embed = new MessageEmbed()
+      .setColor(embedConfig.defaultColor);
       
-  async run(Discord, client, prefix, message, args, axios, adminRoleID, APIFetcher, bytesConverter, percentageCalculator, timeConverter){
-    if(!message.member.roles.cache.has(adminRoleID)){
-      return;
-    }
-    let embed = new Discord.MessageEmbed()
-    .setColor(0x95fd91)
-    let list = "";
-    let ids = [];
-    let usernames = [];
-    let emails = [];
-    let i = 0;
     try {
+      let pno = 1;
       let responseData = await APIFetcher(client, "application", "/users", 2)
 
       responseData.forEach(async response => {
@@ -21,48 +26,110 @@ module.exports = {
         let id = attributes.id;
         let username = attributes.username;
         let email = attributes.email;
-        ids[i++] = id;
-        usernames[id] = username;
-        emails[id] = email;
-      })
-      
-      let page = 1;
-      let start = 0;
-      let stop = 9;
-      if(args[0] && (!isNaN(args[0]))){
-        page = args[0] * 1;
-        if(page < 1){
-          page = 1;
-        }
-        else if(page > 1){
-          if(((((page-1)*10)+1) > ids.length)){
-            page = 1;
-          }else{
-            start += (page-1)*10;
-            stop += (page-1)*10;
+        idsList[i++] = id;
+        usernamesList[id] = username;
+        emailsList[id] = email;
+      });
+
+
+      const fbButtons = new MessageActionRow()
+        .addComponents(
+          new MessageButton()
+            .setCustomId("previous") 
+            .setLabel("Previous")
+            .setStyle("PRIMARY"),
+          new MessageButton()
+           .setCustomId("next")
+           .setLabel("Next")
+           .setStyle("PRIMARY")
+        );
+
+      const collector = await interaction.channel.createMessageComponentCollector();
+
+      async function showUsersList(pageNo){
+        const data = await pageBuilder(pageNo, idsList);
+  
+        let start = data[0] || 0;
+        let stop = data[1] || 9;
+        let page = data[2] || 1;
+        let pages = data[3] || 1;
+
+        let usersList = [];
+
+        for(let i=start; i<=stop; i++){
+          if(idsList[i]){
+            usersList[i] = `\`\`\`ID- ${idsList[i]}\nUsername- ${usernamesList[idsList[i]]}\nEmail- ${emailsList[idsList[i]]}\`\`\``
           }
         }
-      }
-      if(stop > ids.length-1){
-        stop = ids.length-1;
-      }
 
-      for(i=start; i<=stop; i++){
-        if(ids[i]){
-          list = list + `\`\`\`ID- ${ids[i]}\nUsername- ${usernames[ids[i]]}\nEmail- ${emails[ids[i]]}\`\`\`\n`;
+        usersList = usersList.join("\n");
+        
+        await embed.setAuthor({name: `${idsList.length} Users`})
+          .setDescription(usersList)
+          .setFooter({text: `Page- ${page}/${pages}`});
+    
+        let p = false;
+        let n = false;
+    
+        if(page === 1 && pages === 1){
+          p = n = true;
+        }else if(page === 1){
+          p = true;
+          n = false;
+        }else if(page === pages){
+          p = false;
+          n = true
         }
+    
+        fbButtons.components[0].setDisabled(p);
+        fbButtons.components[1].setDisabled(n);
+
+        await interaction.editReply({embeds: [embed], components: [fbButtons]}).catch(async error => {
+          await errorLogger(client, interaction, error, "src/commands/bot.js : 145");
+        });
       }
 
-      embed.setTitle("USER DETAILS")
-      .setDescription(list)
-      .setFooter(`Page- ${page}/${Math.floor(ids.length/10)+1}`);
-      await message.reply({embeds: [embed]}).catch(error => {})
-    } catch {
-      embed.setTitle("Error creating a server.")
-        .setDescription(`Please report it to the bot dev`)
-        .setColor(0xff4747)
-      await message.reply({embeds: [embed]}).catch(error => {})
+      collector.on('collect', async button => {
+        if(button.customId === "vote"){
+          const voteEmbed = new MessageEmbed()
+            .setTitle("VOTE ME")
+            .setDescription(config.votingLink)
+            .setColor(embedConfig.defaultColor);
+      
+          await button.reply({embeds: [voteEmbed]});
+        }else{
+          if (button.customId === 'previous') {
+            pno--;
+          }else if(button.customId === 'next'){
+            pno++;
+          }
+      
+          await button.reply({content: '*'}).then(async () => {
+            await button.deleteReply();
+          });
+    
+          await showUsersList(pno);
+        }
+      });
+
+      pno = 1;
+
+      await showUsersList(pno);
+    }catch(error){
+      console.log(error);
+
+      embed.setTitle("Invalid Server Identifier.")
+        .setDescription(`Don't know what a server identifier is?
+        Open your server's console and see the code at the last of console url.
+        Eg- \`https://your.host.url/server/4c09a487\`.
+        Here, \`4c09a487\` is the server identifier.`)
+        .setColor(embedConfig.errorColor)
+    
+      await interaction.editReply({embeds: [embed]}).catch(error => {
+        console.log(error);
+      });
+      
       return
     }
-  }
+  },
 }
