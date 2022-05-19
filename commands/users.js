@@ -58,7 +58,7 @@ module.exports = {
 
         for(let i=start; i<=stop; i++){
           if(idsList[i]){
-            usersList[i] = `\`\`\`\n${i}.\nID- ${idsList[i]}\nUsername- ${usernamesList[idsList[i]]}\nEmail- ${emailsList[idsList[i]]}\`\`\``
+            usersList[i] = `\`\`\`\n${i+1}.\nID- ${idsList[i]}\nUsername- ${usernamesList[idsList[i]]}\nEmail- ${emailsList[idsList[i]]}\`\`\``
           }
         }
 
