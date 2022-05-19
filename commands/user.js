@@ -27,7 +27,7 @@ module.exports = {
       let firstName = attributes.first_name;
       let lastName = attributes.last_name;
       let isAdmin = attributes.root_admin;
-      let created = attributes.created_at;
+      let createdAt = attributes.created_at;
       let lastUpdated = attributes.updated_at;
 
       embed.setTitle("USER DETAILS")
@@ -38,7 +38,7 @@ module.exports = {
         **First Name**- \`${firstName}\`
         **Last Name**- \`${lastName}\`
         **Administrator**- \`${isAdmin}\`
-        **Account Created**- \`${created}\`
+        **Account Created**- \`${createdAt}\`
         **Last Updated**- \`${lastUpdated}\``)
         .setColor(embedConfig.successColor);
 
