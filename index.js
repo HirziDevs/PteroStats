@@ -13,7 +13,10 @@ if (fs.existsSync('./node_modules')) {
     }
 } else {
     console.log("You are not installing package first, please wait until Auto Installer complete.")
-    child.execSync("npm i")
+    child.execSync("npm i").catch((err) => {
+      console.log("An error detected: ", err)
+      console.log("If you want")
+    })
     console.log("Auto Installer complete! Please re run this bot!")
     process.exit()
 }
