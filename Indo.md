@@ -76,6 +76,6 @@ Pilih Aktifkan `read` di semua opsi permission, jika tetap error pilih `read & w
 
 - [Pterodactyl Panel](https://pterodactyl.io)
 - [Pterodactyl Api Documentation](https://dashflo/docs/api/pterodactyl/v1)
-- [Pterodactyl Discord Server]((https://discord.gg/pterodactyl))
+- [Pterodactyl Discord Server](https://discord.gg/pterodactyl)
 - [PteroBot Support Server](https://discord.gg/zv6maQRah3)
 - [PteroBot Support Server (Indonesia)](https://discord.gg/EYaFB7WSg6)
