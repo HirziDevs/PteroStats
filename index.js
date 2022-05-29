@@ -1,18 +1,44 @@
-const { Client, Collection } = require('discord.js')
-const fs = require('fs')
-const client = new Client()
-const yaml = require('js-yaml')
-const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'))
+const fs = require('fs');
+
+if (Number(process.version.split('.')[0]) < 16) {
+    console.log('Invalid NodeJS Version!, Please use NodeJS 16.x or upper')
+    process.exit()
+}
+if (fs.existsSync('./node_modules')) {
+    const check = require('./node_modules/discord.js/package.json')
+    if (Number(check.version.split('.')[0]) !== 13) {
+        console.log('Invalid Discord.JS Version!, Please use Discord.JS 13.x')
+        process.exit()
+    }
+} else {
+    console.log('There is no node_modules!, please install the package first by using "npm i"')
+    process.exit()
+}
+
+const yaml = require('js-yaml');
+const { Client, Intents } = require('discord.js');
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+
+// Load Config
+const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'));
 client.config = config
 
-fs.readdir('./events/', (err, files) => {
-    if (err) return console.error(err)
-    files.forEach(file => {
-        const event = require(`./events/${file}`)
-        const eventName = file.split('.')[0]
-        client.on(eventName, event.bind(null, client))
-    })
-})
+// Read Events Files
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
-if (config.token === 'BOT TOKEN') console.log(chalk.blue('[PteroStats Checker] ') + chalk.red('Invalid Token, Check ') + chalk.green('config.yml') + chalk.red(' file to change token'))
-client.login(config.token)
+for (const file of eventFiles) {
+    const event = require(`./events/${file}`);
+    if (event.once) {
+        client.once(event.name, (client) => event.execute(client));
+    } else {
+        client.on(event.name, (client) => event.execute(client));
+    }
+}
+
+// Login to bot
+try {
+    client.login(config.token);
+} catch (Err) {
+    console.log('Invalid discord bot token')
+    process.exit()
+}
