@@ -73,7 +73,7 @@ module.exports = async function postStatus(client, panel, nodes) {
                 text = 'There is no nodes to display'
                 resolve()
             } else {
-                text = messages.embeds[0].fields[0].value.replaceAll(client.config.status.online, client.config.status.offline)
+                text = messages.embeds[0].description.replaceAll(client.config.status.online, client.config.status.offline)
                 if (!panel.status && String(String(messages.embeds[0].fields[1].value).split('\n')[2]).split('')[String(String(messages.embeds[0].fields[1].value).split('\n')[2]).length - 1] !== '`') {
                     panel.total_users = String(String(messages.embeds[0].fields[1].value).split('\n')[2]).split('')[String(String(messages.embeds[0].fields[1].value).split('\n')[2]).length - 1]
                     panel.total_servers = String(String(messages.embeds[0].fields[1].value).split('\n')[3]).split('')[String(String(messages.embeds[0].fields[1].value).split('\n')[3]).length - 1]
@@ -86,11 +86,15 @@ module.exports = async function postStatus(client, panel, nodes) {
     stats.then(async () => {
 
         embed.setDescription(desc + '\n**Nodes Stats [' + nodes.length + ']**' + text)
-        embed.addField('Panel Stats',
-            '**Status:** ' + String(panel.status).replace('true', client.config.status.online).replace('false', client.config.status.offline) + '\n\n' +
-            'Users: ' + String(panel.total_users).replace('-1', '`Unknown`') + '\n' +
-            'Servers: ' + String(panel.total_servers).replace('-1', '`Unknown`')
-        )
+
+        if (client.config.panel_resource.enable) {
+            let stats = '**Status:** ' + String(panel.status).replace('true', client.config.status.online).replace('false', client.config.status.offline) + '\n\n'
+
+            if (client.config.panel_resource.users) stats = stats + 'Users: ' + String(panel.total_users).replace('-1', '`Unknown`') + '\n'
+            if (client.config.panel_resource.servers) stats = stats + 'Servers: ' + String(panel.total_servers).replace('-1', '`Unknown`')
+
+            embed.addField('Panel Stats', stats)
+        }
 
         if (client.config.embed.field.enable) {
             embed.addField(client.config.embed.field.title, client.config.embed.field.description.replaceAll('{{time}}', format))

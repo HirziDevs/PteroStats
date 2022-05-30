@@ -11,7 +11,7 @@ module.exports = {
         if (client.guilds.cache.size === 0) return console.log(chalk.cyan('[PteroStats]') + chalk.red(' There is bot is not in servers, please invite the bot first!'))
 
         if (client.config.bot_status.enable) {
-            if (!['PLAYING', 'WATCHING', 'LISTENING', 'COMPETING'].includes(client.config.status.type)) {
+            if (!['PLAYING', 'WATCHING', 'LISTENING', 'COMPETING'].includes(client.config.bot_status.type)) {
                 console.log('Invalid Status Type!, Can be "WATCHING", "PLAYING", "LISTENING", or "COMPETING"')
             } else {
                 client.user.setActivity(client.config.status.text, { type: client.config.status.type })

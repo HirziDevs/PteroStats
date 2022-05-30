@@ -53,7 +53,7 @@ button:
     
 # Status Message Configuration
 status:
-    online: ':green_circle: Online' # TODO how to use custom emoji
+    online: ':green_circle: Online'
     offline: ':red_circle: Offline'
 
 # Node Resource
@@ -63,3 +63,9 @@ resource:
     location: true 
     allocations: true
     unit: 'gb' # You can use "gb", "mb", or "percent"
+
+# Panel Users and Servers
+panel_resource:
+    enable: true
+    servers: true
+    users: true
