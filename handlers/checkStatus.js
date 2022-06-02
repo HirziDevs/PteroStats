@@ -13,7 +13,9 @@ module.exports = async function checkStatus(client) {
         total_servers: -1,
         total_users: -1,
     }
+
     console.log(chalk.cyan('[PteroStats]') + chalk.green(' Getting nodes stats'))
+
     const panelStats = new Promise((resolve, reject) => {
         axios(client.config.panel.url + '/api/application/users', {
             method: 'GET',
@@ -40,19 +42,15 @@ module.exports = async function checkStatus(client) {
         }).catch(async (err) => {
             if (err.response) {
                 if (err.response.status === 403) {
-                    console.log('[PteroStats] Err! Invalid apikey')
-                    console.log('[PteroStats] 1. Make sure the apikey is from admin page not account page')
-                    console.log('[PteroStats] 2. Make sure the apikey has read permission on all options')
-                    console.log('[PteroStats] 3. Make sure the apikey is exist')
+                    console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid apikey'))
+                    console.log(chalk.cyan('[PteroStats]') + chalk.red(' 1. Make sure the apikey is from admin page not account page'))
+                    console.log(chalk.cyan('[PteroStats]') + chalk.red(' 2. Make sure the apikey has read permission on all options'))
+                    console.log(chalk.cyan('[PteroStats]') + chalk.red(' 3. Make sure the apikey is exist'))
                 } else if (err.response.status === 404) {
-                    console.log('[PteroStats] Err! Invalid URL Panel')
-                    console.log('[PteroStats] 1. Make sure the panel url is like "https://panel.example.com"')
-                } else {
-                    console.log(err)
-                }
-            } else {
-                console.log('[PteroStats] ' + err)
-            }
+                    console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid URL Panel'))
+                    console.log(chalk.cyan('[PteroStats]') + chalk.red(' 1. Make sure the panel url is like "https://panel.example.com"'))
+                } else console.log(chalk.cyan('[PteroStats] ') + err)
+            } else console.log(chalk.cyan('[PteroStats] ') + err)
             resolve()
         })
     })

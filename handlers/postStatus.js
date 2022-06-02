@@ -3,9 +3,11 @@ const chalk = require('chalk')
 
 module.exports = async function postStatus(client, panel, nodes) {
 
+    if (client.guilds.cache.size === 0) return console.log(chalk.cyan('[PteroStats]') + chalk.red(' This bot is not on any discord servers'))
+
     const channel = await client.channels.cache.get(client.config.channel)
 
-    if (!channel) return console.log('Invalid Channel ID')
+    if (!channel) return console.log(chalk.cyan('[PteroStats]') + chalk.red(' Invalid Channel ID'))
 
     let messages = await channel.messages.fetch({ limit: 10 })
     messages = messages.filter(m => m.author.id === client.user.id).last();
@@ -106,7 +108,7 @@ module.exports = async function postStatus(client, panel, nodes) {
 
         if (client.config.button.enable) {
             row = new MessageActionRow
-            if (client.config.button.btn1.label.length !== 0 && client.config.button.btn1.label.link.length !== 0) {
+            if (client.config.button.btn1.label.length !== 0 && client.config.button.btn1.url.length !== 0) {
                 row.addComponents(
                     new MessageButton()
                         .setLabel(client.config.button.btn1.label)
@@ -114,7 +116,7 @@ module.exports = async function postStatus(client, panel, nodes) {
                         .setURL(client.config.button.btn1.url)
                 )
             }
-            if (client.config.button.btn2.label.length !== 0 && client.config.button.btn2.label.link.length !== 0) {
+            if (client.config.button.btn2.label.length !== 0 && client.config.button.btn2.url.length !== 0) {
                 row.addComponents(
                     new MessageButton()
                         .setLabel(client.config.button.btn2.label)
@@ -122,7 +124,7 @@ module.exports = async function postStatus(client, panel, nodes) {
                         .setURL(client.config.button.btn2.url)
                 )
             }
-            if (client.config.button.btn3.label.length !== 0 && client.config.button.btn3.label.link.length !== 0) {
+            if (client.config.button.btn3.label.length !== 0 && client.config.button.btn3.url.length !== 0) {
                 row.addComponents(
                     new MessageButton()
                         .setLabel(client.config.button.btn3.label)
@@ -130,7 +132,7 @@ module.exports = async function postStatus(client, panel, nodes) {
                         .setURL(client.config.button.btn3.url)
                 )
             }
-            if (client.config.button.btn4.label.length !== 0 && client.config.button.btn4.label.link.length !== 0) {
+            if (client.config.button.btn4.label.length !== 0 && client.config.button.btn4.url.length !== 0) {
                 row.addComponents(
                     new MessageButton()
                         .setLabel(client.config.button.btn4.label)
@@ -138,7 +140,7 @@ module.exports = async function postStatus(client, panel, nodes) {
                         .setURL(client.config.button.btn4.url)
                 )
             }
-            if (client.config.button.btn5.label.length !== 0 && client.config.button.btn5.label.link.length !== 0) {
+            if (client.config.button.btn5.label.length !== 0 && client.config.button.btn5.url.length !== 0) {
                 row.addComponents(
                     new MessageButton()
                         .setLabel(client.config.button.btn5.label)
@@ -152,6 +154,6 @@ module.exports = async function postStatus(client, panel, nodes) {
 
         if (!messages) channel.send({ embeds: [embed] })
         else messages.edit({ embeds: [embed], components: row })
-        console.log(chalk.cyan('[PteroStats]') + chalk.green(' stats posted!'))
+        console.log(chalk.cyan('[PteroStats]') + chalk.green(' Stats posted!'))
     })
 }
