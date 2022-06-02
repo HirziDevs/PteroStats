@@ -15,19 +15,19 @@ PteroStats adalah bot yang dirancang untuk memeriksa status panel pterodactyl da
 ### Mendapatkan apikey dari pterodactyl
 - Pergi ke `panel admin pterodactyl` dan pergi ke `Application API`
 
-    ![Idk](https://usercontent.catto.pictures/hirzi/d5225df9-7395-491b-a214-dcd110b12308.png)
+    ![Admin Panel](https://usercontent.catto.pictures/hirzi/d5225df9-7395-491b-a214-dcd110b12308.png)
 
 - Klik tombol `Create New`
 
-    ![Admin Panel](https://usercontent.catto.pictures/hirzi/5ac33e25-ac37-416a-99a6-46d860a51645.png)
+    ![Application API Page](https://usercontent.catto.pictures/hirzi/5ac33e25-ac37-416a-99a6-46d860a51645.png)
 
 - Set semua permission ke `read` dan untuk description kamu bisa mengisi apa saja
 
-    ![Application API](https://usercontent.catto.pictures/hirzi/a0c4a721-e1eb-483f-9a36-0c2aaa213186.png)
+    ![Create Application API](https://usercontent.catto.pictures/hirzi/a0c4a721-e1eb-483f-9a36-0c2aaa213186.png)
 
 - Copy apikey-nya.
 
-    ![Copy the apikey](https://usercontent.catto.pictures/hirzi/086111e0-0ffa-48ee-8839-801e0c3678cc.png)
+    ![Application API List](https://usercontent.catto.pictures/hirzi/086111e0-0ffa-48ee-8839-801e0c3678cc.png)
 
 ### Membuat Discord Bot
 Kalian bisa cek [website ini](https://discordjs.guide/preparations/setting-up-a-bot-application.html)
@@ -38,11 +38,11 @@ Kalian bisa cek [website ini](https://discordjs.guide/preparations/adding-your-b
 ### Mendapatkan Channel ID
 1. Aktifkan `Developer Mode` di settings discord kamu
 
-    ![User Settings](https://usercontent.catto.pictures/hirzi/c5e825d1-c323-4b19-a11b-e2f004d4906e.png)
+    ![Discord User Settings](https://usercontent.catto.pictures/hirzi/c5e825d1-c323-4b19-a11b-e2f004d4906e.png)
 
-2. Copy Channel ID-nya
+2. Klik kanan teks channel dan pilih `Copy ID`
 
-    ![Channel ID](https://usercontent.catto.pictures/hirzi/e5fa4f62-b28f-45fd-a544-429f23899edb.png)
+    ![Klik Kanan Channel](https://usercontent.catto.pictures/hirzi/e5fa4f62-b28f-45fd-a544-429f23899edb.png)
 
 ### Memulai Bot
 - Masukan `token` bot discord di `line token` yang terdapat di file `config.yml`
@@ -56,21 +56,21 @@ Jika kamu mendapat masalah bisa dm `Hirzi#8701` didiscord atau join [server supp
 ### Mengunakan custom emoji
 1. ketik `\` di server yang ada custom emojinya
 
-    ![Idk](https://usercontent.catto.pictures/hirzi/1f59b255-7c5d-48f2-ab93-5358429cec83.png)
+    ![Type \ on the chat](https://usercontent.catto.pictures/hirzi/1f59b255-7c5d-48f2-ab93-5358429cec83.png)
 
 2. Pilih custom emoji yang kamu mau
 
-    ![Idk](https://usercontent.catto.pictures/hirzi/38098261-7257-4e4d-8945-4ac5c252c952.png)
+    ![Select Custom Emoji](https://usercontent.catto.pictures/hirzi/38098261-7257-4e4d-8945-4ac5c252c952.png)
 
 3. Copy textnya!
 
-    ![Idk](https://usercontent.catto.pictures/hirzi/33800ccf-9ed5-4d54-9747-2983b23e1755.png)
+    ![Copy Emoji ID](https://usercontent.catto.pictures/hirzi/33800ccf-9ed5-4d54-9747-2983b23e1755.png)
 
 ## Permission apikey 
 
 Pilih Aktifkan `read` di semua opsi permission, jika tetap error pilih `read & write` di semua opsi permission
 
-![Admin Apikey Permission](https://media.discordapp.net/attachments/819757140155564062/876320084992331816/Screenshot_2021-08-15-11-20-05-56.jpg)
+![Application API Permission](https://media.discordapp.net/attachments/819757140155564062/876320084992331816/Screenshot_2021-08-15-11-20-05-56.jpg)
 
 ## Links
 
