@@ -5,6 +5,23 @@ const postStatus = require('./postStatus')
 
 module.exports = async function checkStatus(client) {
 
+    if (client.config.channel.startsWith('Put')) {
+        console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid Channel ID'))
+        process.exit()
+    } else if (client.config.panel.url.startsWith('Put')) {
+        console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid Panel URL'))
+        process.exit()
+    } else if (client.config.panel.key.startsWith('Put')) {
+        console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid Apikey'))
+        process.exit()
+    } else if (!client.config.panel.url.startsWith('http')) {
+        console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid Panel URL'))
+        console.log(chalk.cyan('[PteroStats]') + chalk.red(' 1. Make sure the panel url is starts with "https://" or "http://"'))
+        process.exit()
+    }
+
+    if (client.config.panel.url.endsWith('/')) client.config.panel.url = client.config.panel.url.slice(0, -1)
+
     const nodes = []
 
     const panel = {
@@ -47,7 +64,7 @@ module.exports = async function checkStatus(client) {
                     console.log(chalk.cyan('[PteroStats]') + chalk.red(' 2. Make sure the apikey has read permission on all options'))
                     console.log(chalk.cyan('[PteroStats]') + chalk.red(' 3. Make sure the apikey is exist'))
                 } else if (err.response.status === 404) {
-                    console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid URL Panel'))
+                    console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid Panel URL'))
                     console.log(chalk.cyan('[PteroStats]') + chalk.red(' 1. Make sure the panel url is like "https://panel.example.com"'))
                 } else console.log(chalk.cyan('[PteroStats] ') + err)
             } else console.log(chalk.cyan('[PteroStats] ') + err)

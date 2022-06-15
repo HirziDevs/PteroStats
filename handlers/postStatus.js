@@ -36,9 +36,7 @@ module.exports = async function postStatus(client, panel, nodes) {
         if (nodes.length !== 0) {
             nodes.forEach((data, i) => {
                 const title = data.name + ': ' + String(data.status).replace('true', client.config.status.online).replace('false', client.config.status.offline)
-                let description = '```' + '\n' +
-                    'Status  : ' + String(data.status).replace('true', client.config.status.online).replace('false', client.config.status.offline) + '\n'
-
+                let description = '```'
                 switch (client.config.resource.unit) {
                     case 'gb':
                         description = description +
@@ -57,7 +55,7 @@ module.exports = async function postStatus(client, panel, nodes) {
                 }
 
                 if (client.config.resource.location) description = description + 'Location: ' + data.location + '\n'
-                if (client.config.resource.allocations) description = description + 'Servers : ' + data.allocations.toLocaleString() + '\n'
+                if (client.config.resource.allocations) description = description + 'Allocations : ' + data.allocations.toLocaleString() + '\n'
                 if (client.config.resource.servers) description = description + 'Servers : ' + data.total_servers.toLocaleString() + '\n'
 
                 description = description + '```'
@@ -76,9 +74,9 @@ module.exports = async function postStatus(client, panel, nodes) {
                 resolve()
             } else {
                 text = messages.embeds[0].description.replaceAll(client.config.status.online, client.config.status.offline)
-                if (!panel.status && String(String(messages.embeds[0].fields[1].value).split('\n')[2]).split('')[String(String(messages.embeds[0].fields[1].value).split('\n')[2]).length - 1] !== '`') {
-                    panel.total_users = String(String(messages.embeds[0].fields[1].value).split('\n')[2]).split('')[String(String(messages.embeds[0].fields[1].value).split('\n')[2]).length - 1]
-                    panel.total_servers = String(String(messages.embeds[0].fields[1].value).split('\n')[3]).split('')[String(String(messages.embeds[0].fields[1].value).split('\n')[3]).length - 1]
+                if (!panel.status && String(String(messages.embeds[0].fields[0].value).split('\n')[2]).split('')[String(String(messages.embeds[0].fields[0].value).split('\n')[2]).length - 1] !== '`') {
+                    panel.total_users = String(String(messages.embeds[0].fields[0].value).split('\n')[2]).split('')[String(String(messages.embeds[0].fields[0].value).split('\n')[2]).length - 1]
+                    panel.total_servers = String(String(messages.embeds[0].fields[0].value).split('\n')[3]).split('')[String(String(messages.embeds[0].fields[0].value).split('\n')[3]).length - 1]
                 }
                 resolve()
             }
@@ -107,9 +105,9 @@ module.exports = async function postStatus(client, panel, nodes) {
         let row = []
 
         if (client.config.button.enable) {
-            row = new MessageActionRow
+            const button = new MessageActionRow
             if (client.config.button.btn1.label.length !== 0 && client.config.button.btn1.url.length !== 0) {
-                row.addComponents(
+                button.addComponents(
                     new MessageButton()
                         .setLabel(client.config.button.btn1.label)
                         .setStyle('LINK')
@@ -117,7 +115,7 @@ module.exports = async function postStatus(client, panel, nodes) {
                 )
             }
             if (client.config.button.btn2.label.length !== 0 && client.config.button.btn2.url.length !== 0) {
-                row.addComponents(
+                button.addComponents(
                     new MessageButton()
                         .setLabel(client.config.button.btn2.label)
                         .setStyle('LINK')
@@ -125,7 +123,7 @@ module.exports = async function postStatus(client, panel, nodes) {
                 )
             }
             if (client.config.button.btn3.label.length !== 0 && client.config.button.btn3.url.length !== 0) {
-                row.addComponents(
+                button.addComponents(
                     new MessageButton()
                         .setLabel(client.config.button.btn3.label)
                         .setStyle('LINK')
@@ -133,7 +131,7 @@ module.exports = async function postStatus(client, panel, nodes) {
                 )
             }
             if (client.config.button.btn4.label.length !== 0 && client.config.button.btn4.url.length !== 0) {
-                row.addComponents(
+                button.addComponents(
                     new MessageButton()
                         .setLabel(client.config.button.btn4.label)
                         .setStyle('LINK')
@@ -141,7 +139,7 @@ module.exports = async function postStatus(client, panel, nodes) {
                 )
             }
             if (client.config.button.btn5.label.length !== 0 && client.config.button.btn5.url.length !== 0) {
-                row.addComponents(
+                button.addComponents(
                     new MessageButton()
                         .setLabel(client.config.button.btn5.label)
                         .setStyle('LINK')
@@ -149,10 +147,10 @@ module.exports = async function postStatus(client, panel, nodes) {
                 )
             }
 
-            row = [row]
+            row.push(button)
         }
 
-        if (!messages) channel.send({ embeds: [embed] })
+        if (!messages) channel.send({ embeds: [embed], components: row })
         else messages.edit({ embeds: [embed], components: row })
         console.log(chalk.cyan('[PteroStats]') + chalk.green(' Stats posted!'))
     })

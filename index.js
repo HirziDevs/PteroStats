@@ -1,5 +1,5 @@
 const fs = require('fs');
-const child = require("child_process")
+const child = require('child_process');
 
 if (Number(process.version.split('.')[0]) < 16) {
     console.log('Invalid NodeJS Version!, Please use NodeJS 16.x or upper')
@@ -12,16 +12,20 @@ if (fs.existsSync('./node_modules')) {
         process.exit()
     }
 } else {
-    console.log('You are not installing package first, please wait until Auto Installer complete.')
-    child.execSync('npm i').catch((err) => {
-      console.log('An error detected: ', err)
-      console.log('Need Support? https://discord.gg/zv6maQRah3')
-      process.exit()
-    })
-    console.log("Auto Installer complete! Please re run this bot!")
-    process.exit()
+    console.log('You didn\'t install the required node packages first!')
+    console.log('Please wait... starting to install all required node packages using child process')
+    try {
+        child.execSync('npm i')
+        console.log('Install complete!, please run "node index" command again!')
+        process.exit()
+    } catch (err) {
+        console.log('Err! ', err)
+        console.log('Support Server: https://discord.gg/zv6maQRah3')
+        process.exit()
+    }
 }
 
+const chalk = require('chalk');
 const yaml = require('js-yaml');
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
@@ -43,9 +47,9 @@ for (const file of eventFiles) {
 }
 
 // Login to bot
-try {
-    client.login(config.token);
-} catch (Err) {
-    console.log('Invalid discord bot token')
+if (client.config.token.startsWith('Put')) {
+    console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid Discord Bot Token'))
     process.exit()
 }
+
+client.login(config.token);
