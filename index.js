@@ -1,4 +1,5 @@
 const fs = require('fs');
+const child = require("child_process")
 
 if (Number(process.version.split('.')[0]) < 16) {
     console.log('Invalid NodeJS Version!, Please use NodeJS 16.x or upper')
@@ -11,7 +12,13 @@ if (fs.existsSync('./node_modules')) {
         process.exit()
     }
 } else {
-    console.log('There is no node_modules!, please install the package first by using "npm i"')
+    console.log('You are not installing package first, please wait until Auto Installer complete.')
+    child.execSync('npm i').catch((err) => {
+      console.log('An error detected: ', err)
+      console.log('Need Support? https://discord.gg/zv6maQRah3')
+      process.exit()
+    })
+    console.log("Auto Installer complete! Please re run this bot!")
     process.exit()
 }
 
