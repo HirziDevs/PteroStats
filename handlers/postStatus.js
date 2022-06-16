@@ -40,25 +40,25 @@ module.exports = async function postStatus(client, panel, nodes) {
                 switch (client.config.resource.unit) {
                     case 'gb':
                         description = description +
-                            'Memory  : ' + Math.floor(data.memory_min / 1000).toLocaleString() + ' Gb /' + Math.floor(data.memory_max / 1000).toLocaleString() + ' Gb\n' +
-                            'Disk    : ' + Math.floor(data.disk_min / 1000).toLocaleString() + 'Gb /' + Math.floor(data.disk_max / 1000).toLocaleString() + ' Gb\n'
+                            '\nMemory : ' + Math.floor(data.memory_min / 1000).toLocaleString() + ' GB / ' + Math.floor(data.memory_max / 1000).toLocaleString() + ' GB' +
+                            '\nDisk : ' + Math.floor(data.disk_min / 1000).toLocaleString() + ' GB / ' + Math.floor(data.disk_max / 1000).toLocaleString() + ' GB'
                         break;
                     case 'percent':
                         description = description +
-                            'Memory  : ' + Math.floor(data.memory_min / data.memory_max * 100) + ' %\n' +
-                            'Disk    : ' + Math.floor(data.disk_min / data.disk_max * 100) + ' %\n'
+                            '\nMemory : ' + Math.floor(data.memory_min / data.memory_max * 100) + ' %' +
+                            '\nDisk : ' + Math.floor(data.disk_min / data.disk_max * 100) + ' %'
                         break;
                     default:
                         description = description +
-                            'Memory  : ' + data.memory_min.toLocaleString() + ' Mb /' + data.memory_max.toLocaleString() + ' Mb\n' +
-                            'Disk    : ' + data.disk_min.toLocaleString() + 'Mb /' + data.disk_max.toLocaleString() + ' Mb\n'
+                            '\nMemory : ' + data.memory_min.toLocaleString() + ' MB / ' + data.memory_max.toLocaleString() + ' MB' +
+                            '\nDisk : ' + data.disk_min.toLocaleString() + ' MB / ' + data.disk_max.toLocaleString() + ' MB'
                 }
 
-                if (client.config.resource.location) description = description + 'Location: ' + data.location + '\n'
-                if (client.config.resource.allocations) description = description + 'Allocations : ' + data.allocations.toLocaleString() + '\n'
-                if (client.config.resource.servers) description = description + 'Servers : ' + data.total_servers.toLocaleString() + '\n'
+                if (client.config.resource.servers) description = description + '\nServers : ' + data.total_servers.toLocaleString()
+                if (client.config.resource.location) description = description + '\nLocation : ' + data.location
+                if (client.config.resource.allocations) description = description + '\nAllocations : ' + data.allocations.toLocaleString()
 
-                description = description + '```'
+                description = description + '\n```'
 
                 if (client.config.resource.enable) {
                     text = text + '\n**' + title.replace(':', ':**') + '\n' + description
@@ -102,7 +102,7 @@ module.exports = async function postStatus(client, panel, nodes) {
 
         embed.setTimestamp()
 
-        let row = []
+        const row = []
 
         if (client.config.button.enable) {
             const button = new MessageActionRow

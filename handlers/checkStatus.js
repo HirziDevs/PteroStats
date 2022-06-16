@@ -25,7 +25,6 @@ module.exports = async function checkStatus(client) {
     const nodes = []
 
     const panel = {
-        id: 1,
         status: false,
         total_servers: -1,
         total_users: -1,
