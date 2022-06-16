@@ -14,7 +14,7 @@ module.exports = {
             if (!['PLAYING', 'WATCHING', 'LISTENING', 'COMPETING'].includes(client.config.bot_status.type)) {
                 console.log('Invalid Status Type!, Can be "WATCHING", "PLAYING", "LISTENING", or "COMPETING"')
             } else {
-                client.user.setActivity(client.config.status.text, { type: client.config.status.type })
+                client.user.setActivity(client.config.bot_status.text, { type: client.config.bot_status.type })
             }
         }
 
