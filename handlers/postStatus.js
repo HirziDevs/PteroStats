@@ -3,7 +3,11 @@ const chalk = require('chalk')
 
 module.exports = async function postStatus(client, panel, nodes) {
 
-    if (client.guilds.cache.size === 0) return console.log(chalk.cyan('[PteroStats]') + chalk.red(' This bot is not on any discord servers'))
+    if (!client.config.nodes_resource) client.config.nodes_resource = client.config.resource
+    if (!client.config.nodes_resource.blacklist) client.config.nodes_resource.blacklist = []
+    if (!Array.isArray(client.config.nodes_resource.blacklist) && Number.isInteger(client.config.nodes_resource.blacklist)) client.config.nodes_resource.blacklist = [client.config.nodes_resource.blacklist]
+
+    if (client.guilds.cache.size < 1) return console.log(chalk.cyan('[PteroStats]') + chalk.red(' This bot is not on any discord servers'))
 
     const channel = await client.channels.cache.get(client.config.channel)
 
@@ -11,7 +15,7 @@ module.exports = async function postStatus(client, panel, nodes) {
 
     let messages = await channel.messages.fetch({ limit: 10 })
     messages = messages.filter(m => m.author.id === client.user.id).last();
-    if (messages && messages.embeds.length === 0) {
+    if (messages && messages.embeds.length < 1) {
         messages.delete()
         messages = null
     }
@@ -21,6 +25,7 @@ module.exports = async function postStatus(client, panel, nodes) {
 
     let text = ''
     let desc = ''
+    let blacklist = 0
 
     if (client.config.embed.title) embed.setTitle(client.config.embed.title)
     if (client.config.embed.description) desc = client.config.embed.description.replaceAll('{{time}}', format) + '\n'
@@ -35,42 +40,47 @@ module.exports = async function postStatus(client, panel, nodes) {
     const stats = new Promise((resolve, reject) => {
         if (nodes.length !== 0) {
             nodes.forEach((data, i) => {
-                const title = data.name + ': ' + String(data.status).replace('true', client.config.status.online).replace('false', client.config.status.offline)
-                let description = '```'
-                switch (client.config.resource.unit) {
-                    case 'gb':
-                        description = description +
-                            '\nMemory : ' + Math.floor(data.memory_min / 1000).toLocaleString() + ' GB / ' + Math.floor(data.memory_max / 1000).toLocaleString() + ' GB' +
-                            '\nDisk : ' + Math.floor(data.disk_min / 1000).toLocaleString() + ' GB / ' + Math.floor(data.disk_max / 1000).toLocaleString() + ' GB'
-                        break;
-                    case 'percent':
-                        description = description +
-                            '\nMemory : ' + Math.floor(data.memory_min / data.memory_max * 100) + ' %' +
-                            '\nDisk : ' + Math.floor(data.disk_min / data.disk_max * 100) + ' %'
-                        break;
-                    default:
-                        description = description +
-                            '\nMemory : ' + data.memory_min.toLocaleString() + ' MB / ' + data.memory_max.toLocaleString() + ' MB' +
-                            '\nDisk : ' + data.disk_min.toLocaleString() + ' MB / ' + data.disk_max.toLocaleString() + ' MB'
-                }
+                if (!client.config.nodes_resource.blacklist.includes(data.id)) {
+                    blacklist = blacklist + 1
+                    const title = data.name + ': ' + String(data.status).replace('true', client.config.status.online).replace('false', client.config.status.offline)
+                    let description = '```'
+                    switch (client.config.nodes_resource.unit) {
+                        case 'gb':
+                            description = description +
+                                '\nMemory : ' + Math.floor(data.memory_min / 1000).toLocaleString() + ' GB / ' + Math.floor(data.memory_max / 1000).toLocaleString() + ' GB' +
+                                '\nDisk : ' + Math.floor(data.disk_min / 1000).toLocaleString() + ' GB / ' + Math.floor(data.disk_max / 1000).toLocaleString() + ' GB'
+                            break;
+                        case 'percent':
+                            description = description +
+                                '\nMemory : ' + Math.floor(data.memory_min / data.memory_max * 100) + ' %' +
+                                '\nDisk : ' + Math.floor(data.disk_min / data.disk_max * 100) + ' %'
+                            break;
+                        default:
+                            description = description +
+                                '\nMemory : ' + data.memory_min.toLocaleString() + ' MB / ' + data.memory_max.toLocaleString() + ' MB' +
+                                '\nDisk : ' + data.disk_min.toLocaleString() + ' MB / ' + data.disk_max.toLocaleString() + ' MB'
+                    }
 
-                if (client.config.resource.servers) description = description + '\nServers : ' + data.total_servers.toLocaleString()
-                if (client.config.resource.location) description = description + '\nLocation : ' + data.location
-                if (client.config.resource.allocations) description = description + '\nAllocations : ' + data.allocations.toLocaleString()
+                    if (client.config.nodes_resource.servers) description = description + '\nServers : ' + data.total_servers.toLocaleString()
+                    if (client.config.nodes_resource.location) description = description + '\nLocation : ' + data.location
+                    if (client.config.nodes_resource.allocations) description = description + '\nAllocations : ' + data.allocations.toLocaleString()
 
-                description = description + '\n```'
+                    description = description + '\n```'
 
-                if (client.config.resource.enable) {
-                    text = text + '\n**' + title.replace(':', ':**') + '\n' + description
+                    if (client.config.nodes_resource.enable) {
+                        text = text + '\n**' + title.replace(':', ':**') + '\n' + description
+                    } else {
+                        text = text + '\n**' + title.replace(':', ':**')
+                    }
                 } else {
-                    text = text + '\n**' + title.replace(':', ':**')
+                    if (nodes.length - client.config.nodes_resource.blacklist < 1) text = '\nThere is no nodes to display'
                 }
 
                 if (i + 1 === nodes.length) resolve()
             })
-        } else if (nodes.length === 0) {
+        } else if (nodes.length < 1) {
             if (!messages) {
-                text = 'There is no nodes to display'
+                text = '\nThere is no nodes to display'
                 resolve()
             } else {
                 text = messages.embeds[0].description.replaceAll(client.config.status.online, client.config.status.offline)
@@ -85,7 +95,7 @@ module.exports = async function postStatus(client, panel, nodes) {
 
     stats.then(async () => {
 
-        embed.setDescription(desc + '\n**Nodes Stats [' + nodes.length + ']**' + text)
+        embed.setDescription(desc + '\n**Nodes Stats [' + Math.floor(nodes.length - blacklist) + ']**' + text)
 
         if (client.config.panel_resource.enable) {
             let stats = '**Status:** ' + String(panel.status).replace('true', client.config.status.online).replace('false', client.config.status.offline) + '\n\n'

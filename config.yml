@@ -57,8 +57,9 @@ status:
     offline: ':red_circle: Offline'
 
 # Node Resource
-resource:
+nodes_resource:
     enable: false
+    blacklist: [] # You can add node id to remove the node from status embed (Example: "blacklist: [1]")
     servers: true
     location: true 
     allocations: true

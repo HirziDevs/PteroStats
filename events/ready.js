@@ -8,7 +8,7 @@ module.exports = {
         console.log(chalk.cyan('[PteroStats]') + chalk.green(' Bot is up!'))
         console.log(chalk.cyan('[PteroStats]') + chalk.green(' If you need support you can join our discord server https://discord.gg/zv6maQRah3'))
 
-        if (client.guilds.cache.size === 0) return console.log(chalk.cyan('[PteroStats]') + chalk.red(' There is bot is not in servers, please invite the bot first!'))
+        if (client.guilds.cache.size < 1) return console.log(chalk.cyan('[PteroStats]') + chalk.red(' There is bot is not in servers, please invite the bot first!'))
 
         if (client.config.bot_status.enable) {
             if (!['PLAYING', 'WATCHING', 'LISTENING', 'COMPETING'].includes(client.config.bot_status.type)) {
