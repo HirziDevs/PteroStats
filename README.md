@@ -66,7 +66,7 @@ if you need help contact me on discord `Hirzi#8701` or join [our discord support
 
     ![Copy Emoji ID](https://usercontent.catto.pictures/hirzi/33800ccf-9ed5-4d54-9747-2983b23e1755.png)
 
-### Blaclist Nodes
+### Blacklist Nodes
 1. Select node from node list on admin page
     
     ![Nodes List](https://usercontent.catto.pictures/hirzi/5699fdbd-7c3c-4fa5-ae2c-d0ccb39cb69e.png)
@@ -79,7 +79,7 @@ if you need help contact me on discord `Hirzi#8701` or join [our discord support
 
     ![Blacklist Config](https://usercontent.catto.pictures/hirzi/9c40da3d-fa01-447e-aa86-7871da9da282.png)
 
-You can add more than one node in the blaclist
+You can add more than one node in the blacklist
 
 ![Blacklist Config](https://usercontent.catto.pictures/hirzi/f2a34ca9-accf-4d31-a246-f9dcc6a2fd75.png)
 
