@@ -66,6 +66,23 @@ if you need help contact me on discord `Hirzi#8701` or join [our discord support
 
     ![Copy Emoji ID](https://usercontent.catto.pictures/hirzi/33800ccf-9ed5-4d54-9747-2983b23e1755.png)
 
+### Blaclist Nodes
+1. Select node from node list on admin page
+    
+    ![Nodes List](https://usercontent.catto.pictures/hirzi/5699fdbd-7c3c-4fa5-ae2c-d0ccb39cb69e.png)
+
+2. Check the url and copy the node id
+
+    ![Node Id](https://usercontent.catto.pictures/hirzi/45f855fc-6d96-4b23-a96e-892071189d01.png)
+
+3. Add the id to the blacklist on config
+
+    ![Blacklist Config](https://usercontent.catto.pictures/hirzi/9c40da3d-fa01-447e-aa86-7871da9da282.png)
+
+You can add more than one node in the blaclist
+
+![Blacklist Config](https://usercontent.catto.pictures/hirzi/f2a34ca9-accf-4d31-a246-f9dcc6a2fd75.png)
+
 ## Admin Apikey Permission
 
 enable `read` on all options, if still didn't work enable `read & write` on all options
