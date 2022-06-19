@@ -11,23 +11,30 @@
 PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and post it to your discord server
 
 ## Installation
+- [Getting apikey from pterodactyl](#getting-apikey-from-pterodactyl)
+- [Creating Discord Bot](#creating-discord-bot)
+- [Inviting Discord Bot](#inviting-discord-bot)
+- [Getting Channel ID](#getting-channel-id)
+- [Starting bot](#starting-bot)
+- [Using Custom Emoji](#using-custom-emoji)
+- [Blacklist Nodes](#blacklist-nodes)
 
 ### Getting apikey from pterodactyl
 - Go to your `pterodactyl admin page` and go to `Application API`.
 
-    ![Admin Panel](https://usercontent.catto.pictures/hirzi/d5225df9-7395-491b-a214-dcd110b12308.png)
+    ![Admin Panel](https://usercontent.catto.pictures/hirzi/aabafe57-cbfe-4d7f-9d6d-4a63a7f23d4c.png)
 
 - Click on the `Create New` button
 
-    ![Application API Page](https://usercontent.catto.pictures/hirzi/5ac33e25-ac37-416a-99a6-46d860a51645.png)
+    ![Application API Page](https://usercontent.catto.pictures/hirzi/f916f0c6-0968-4125-8226-ba4daa1de902.png)
 
 - Set all options permission to `read` and for description you can put whatever you want
 
-    ![Create Application API](https://usercontent.catto.pictures/hirzi/a0c4a721-e1eb-483f-9a36-0c2aaa213186.png)
+    ![Create Application API](https://usercontent.catto.pictures/hirzi/3e4575cb-4f52-4bd9-9091-36fda20bedad.png)
 
 - Copy the apikey.
 
-    ![Application API List](https://usercontent.catto.pictures/hirzi/086111e0-0ffa-48ee-8839-801e0c3678cc.png)
+    ![Application API List](https://usercontent.catto.pictures/hirzi/9142b0b3-0556-4741-840c-6976c3fe3ad4.png)
 
 ### Creating Discord Bot
 Please refer to [this website](https://discordjs.guide/preparations/setting-up-a-bot-application.html)

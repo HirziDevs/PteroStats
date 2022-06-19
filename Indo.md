@@ -11,23 +11,30 @@
 PteroStats adalah bot yang dirancang untuk memeriksa status panel pterodactyl dan dikirim ke server discord
 
 ## Instalasi
+ - [Mendapatkan apikey dari pterodactyl](#mendapatkan-apikey-dari-pterodactyl)
+ - [Membuat Discord Bot](#membuat-discord-bot)
+ - [Menginvite Discord Bot](#menginvite-discord-bot)
+ - [Mendapatkan Channel ID](#mendapatkan-channel-id)
+ - [Memulai Bot](#memulai-bot)
+ - [Mengunakan custom emoji](#mengunakan-custom-emoji)
+ - [Blacklist Nodes](#blacklist-nodes)
 
 ### Mendapatkan apikey dari pterodactyl
 - Pergi ke `panel admin pterodactyl` dan pergi ke `Application API`
 
-    ![Admin Panel](https://usercontent.catto.pictures/hirzi/d5225df9-7395-491b-a214-dcd110b12308.png)
+    ![Admin Panel](https://usercontent.catto.pictures/hirzi/aabafe57-cbfe-4d7f-9d6d-4a63a7f23d4c.png)
 
 - Klik tombol `Create New`
 
-    ![Application API Page](https://usercontent.catto.pictures/hirzi/5ac33e25-ac37-416a-99a6-46d860a51645.png)
+    ![Application API Page](https://usercontent.catto.pictures/hirzi/f916f0c6-0968-4125-8226-ba4daa1de902.png)
 
 - Set semua permission ke `read` dan untuk description kamu bisa mengisi apa saja
 
-    ![Create Application API](https://usercontent.catto.pictures/hirzi/a0c4a721-e1eb-483f-9a36-0c2aaa213186.png)
+    ![Create Application API](https://usercontent.catto.pictures/hirzi/3e4575cb-4f52-4bd9-9091-36fda20bedad.png)
 
 - Copy apikey-nya.
 
-    ![Application API List](https://usercontent.catto.pictures/hirzi/086111e0-0ffa-48ee-8839-801e0c3678cc.png)
+    ![Application API List](https://usercontent.catto.pictures/hirzi/9142b0b3-0556-4741-840c-6976c3fe3ad4.png)
 
 ### Membuat Discord Bot
 Kalian bisa cek [website ini](https://discordjs.guide/preparations/setting-up-a-bot-application.html)

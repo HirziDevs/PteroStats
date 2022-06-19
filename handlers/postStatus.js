@@ -41,7 +41,6 @@ module.exports = async function postStatus(client, panel, nodes) {
         if (nodes.length !== 0) {
             nodes.forEach((data, i) => {
                 if (!client.config.nodes_resource.blacklist.includes(data.id)) {
-                    blacklist = blacklist + 1
                     const title = data.name + ': ' + String(data.status).replace('true', client.config.status.online).replace('false', client.config.status.offline)
                     let description = '```'
                     switch (client.config.nodes_resource.unit) {
@@ -73,7 +72,8 @@ module.exports = async function postStatus(client, panel, nodes) {
                         text = text + '\n**' + title.replace(':', ':**')
                     }
                 } else {
-                    if (nodes.length - client.config.nodes_resource.blacklist < 1) text = '\nThere is no nodes to display'
+                    blacklist = blacklist + 1
+                    if (nodes.length - client.config.nodes_resource.blacklist.length < 1) text = '\nThere is no nodes to display'
                 }
 
                 if (i + 1 === nodes.length) resolve()
@@ -93,7 +93,7 @@ module.exports = async function postStatus(client, panel, nodes) {
         }
     })
 
-    stats.then(async () => {
+    stats.then(() => {
 
         embed.setDescription(desc + '\n**Nodes Stats [' + Math.floor(nodes.length - blacklist) + ']**' + text)
 

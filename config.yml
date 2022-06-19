@@ -58,8 +58,8 @@ status:
 
 # Nodes Resource
 nodes_resource:
-    enable: false
     blacklist: [] # You can add node id to remove the node from status embed (Example: "blacklist: [1]")
+    enable: false
     servers: true
     location: true
     allocations: true

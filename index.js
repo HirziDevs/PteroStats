@@ -30,23 +30,20 @@ const yaml = require('js-yaml');
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
-// Load Config
 const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'));
 client.config = config
 
-// Read Events Files
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
     const event = require(`./events/${file}`);
     if (event.once) {
-        client.once(event.name, (client) => event.execute(client));
+        client.once(event.name, (...args) => event.execute(...args));
     } else {
-        client.on(event.name, (client) => event.execute(client));
+        client.on(event.name, (...args) => event.execute(...args));
     }
 }
 
-// Login to bot
 if (client.config.token.startsWith('Put')) {
     console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid Discord Bot Token'))
     process.exit()

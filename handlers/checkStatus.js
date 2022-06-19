@@ -3,7 +3,7 @@ const chalk = require('chalk')
 
 const postStatus = require('./postStatus')
 
-module.exports = async function checkStatus(client) {
+module.exports = function checkStatus(client) {
 
     if (client.config.channel.startsWith('Put')) {
         console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid Channel ID'))
@@ -40,7 +40,7 @@ module.exports = async function checkStatus(client) {
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + client.config.panel.key
             }
-        }).then(usr => {
+        }).then((usr) => {
             axios(client.config.panel.url + '/api/application/servers', {
                 method: 'GET',
                 headers: {
@@ -48,14 +48,14 @@ module.exports = async function checkStatus(client) {
                     'Content-Type': 'application/json',
                     Authorization: 'Bearer ' + client.config.panel.key
                 }
-            }).then(async (ser) => {
+            }).then((ser) => {
                 panel.total_users = usr.data.meta.pagination.total
                 panel.total_servers = ser.data.meta.pagination.total
                 panel.status = true
 
                 resolve()
             })
-        }).catch(async (err) => {
+        }).catch((err) => {
             if (err.response) {
                 if (err.response.status === 403) {
                     console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid apikey'))
@@ -79,8 +79,8 @@ module.exports = async function checkStatus(client) {
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + client.config.panel.key
             }
-        }).then(async (res) => {
-            res.data.data.forEach(async (node, i) => {
+        }).then((res) => {
+            res.data.data.forEach((node) => {
                 axios(client.config.panel.url + '/api/application/nodes/' + node.attributes.id + '/configuration', {
                     method: 'GET',
                     headers: {
@@ -88,7 +88,7 @@ module.exports = async function checkStatus(client) {
                         'Content-Type': 'application/json',
                         Authorization: 'Bearer ' + client.config.panel.key
                     }
-                }).then(async (data) => {
+                }).then((data) => {
                     const body = {
                         id: node.attributes.id,
                         name: node.attributes.name,
@@ -111,9 +111,9 @@ module.exports = async function checkStatus(client) {
                                 'Content-Type': 'application/json',
                                 Authorization: 'Bearer ' + data.data.token
                             }
-                        }).then(async (status) => {
+                        }).then((status) => {
                             statsResolve()
-                        }).catch(async (err) => {
+                        }).catch((err) => {
                             body.status = false
                             statsResolve()
                         })
@@ -122,11 +122,11 @@ module.exports = async function checkStatus(client) {
                         nodes.push(body)
                         resolve()
                     })
-                }).catch(async (err) => {
+                }).catch((err) => {
                     resolve()
                 })
             })
-        }).catch(async (err) => {
+        }).catch((err) => {
             resolve()
         })
     })

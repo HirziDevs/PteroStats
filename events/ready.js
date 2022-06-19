@@ -4,7 +4,7 @@ const checkStatus = require('../handlers/checkStatus')
 module.exports = {
     name: 'ready',
     once: true,
-    async execute(client) {
+    execute(client) {
         console.log(chalk.cyan('[PteroStats]') + chalk.green(' Bot is up!'))
         console.log(chalk.cyan('[PteroStats]') + chalk.green(' If you need support you can join our discord server https://discord.gg/zv6maQRah3'))
 
@@ -22,7 +22,7 @@ module.exports = {
 
         checkStatus(client)
 
-        setInterval(async () => {
+        setInterval(() => {
             checkStatus(client)
         }, client.config.refresh * 1000)
     }
