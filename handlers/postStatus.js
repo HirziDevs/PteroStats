@@ -7,11 +7,11 @@ module.exports = async function postStatus(client, panel, nodes) {
     if (!client.config.nodes_resource.blacklist) client.config.nodes_resource.blacklist = []
     if (!Array.isArray(client.config.nodes_resource.blacklist) && Number.isInteger(client.config.nodes_resource.blacklist)) client.config.nodes_resource.blacklist = [client.config.nodes_resource.blacklist]
 
-    if (client.guilds.cache.size < 1) return console.log(chalk.cyan('[PteroStats]') + chalk.red(' This bot is not on any discord servers'))
+    if (client.guilds.cache.size < 1) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! This bot is not on any discord servers'))
 
     const channel = await client.channels.cache.get(client.config.channel)
 
-    if (!channel) return console.log(chalk.cyan('[PteroStats]') + chalk.red(' Invalid Channel ID'))
+    if (!channel) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Channel ID'))
 
     let messages = await channel.messages.fetch({ limit: 10 })
     messages = messages.filter(m => m.author.id === client.user.id).last();
@@ -162,6 +162,6 @@ module.exports = async function postStatus(client, panel, nodes) {
 
         if (!messages) channel.send({ embeds: [embed], components: row })
         else messages.edit({ embeds: [embed], components: row })
-        console.log(chalk.cyan('[PteroStats]') + chalk.green(' Stats posted!'))
+        console.log(chalk.cyan('[PteroStats] ') + chalk.green('Stats posted!'))
     })
 }

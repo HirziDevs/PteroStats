@@ -1,6 +1,6 @@
 <div align="center">
 
-![PteroStats Banner](https://cdn.discordapp.com/attachments/626755594526916629/978478722489393153/20220524_090325.png)
+<img alt="PteroStats Banner" src="https://cdn.discordapp.com/attachments/626755594526916629/978478722489393153/20220524_090325.png" width="400"/>
 
 ## Language / Bahasa
 [[English]](https://github.com/HirziDevs/PteroStats/blob/dev/README.md) | [[Indonesia]](https://github.com/HirziDevs/PteroStats/blob/dev/Indo.md)
@@ -10,34 +10,46 @@
 ## Introduction
 PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and post it to your discord server
 
+## Example
+<img alt="Example" src="https://cdn.discordapp.com/attachments/819757140155564062/988000185022038087/ezgif-4-235d1cbba4.gif" width="250"/>
+
 ## Installation
-- [Getting apikey from pterodactyl](#getting-apikey-from-pterodactyl)
-- [Creating Discord Bot](#creating-discord-bot)
-- [Inviting Discord Bot](#inviting-discord-bot)
-- [Getting Channel ID](#getting-channel-id)
-- [Starting bot](#starting-bot)
+1. [Getting apikey from pterodactyl](#getting-apikey-from-pterodactyl)
+2. [Creating Discord Bot](#creating-discord-bot)
+3. [Inviting Discord Bot](#inviting-discord-bot)
+4. [Getting Channel ID](#getting-channel-id)
+5. [Starting bot](#starting-bot)
+
 - [Using Custom Emoji](#using-custom-emoji)
 - [Blacklist Nodes](#blacklist-nodes)
 
 ### Getting apikey from pterodactyl
-- Go to your `pterodactyl admin page` and go to `Application API`.
+1. Go to your `pterodactyl admin page` and go to `Application API`.
 
-    ![Admin Panel](https://usercontent.catto.pictures/hirzi/aabafe57-cbfe-4d7f-9d6d-4a63a7f23d4c.png)
+    <img alt="Admin Panel" src="https://usercontent.catto.pictures/hirzi/aabafe57-cbfe-4d7f-9d6d-4a63a7f23d4c.png" width="400"/>
 
-- Click on the `Create New` button
+2. Click on the `Create New` button
 
-    ![Application API Page](https://usercontent.catto.pictures/hirzi/f916f0c6-0968-4125-8226-ba4daa1de902.png)
+    <img alt="Application API Page" src="https://usercontent.catto.pictures/hirzi/f916f0c6-0968-4125-8226-ba4daa1de902.png" width="400"/>
 
-- Set all options permission to `read` and for description you can put whatever you want
+3. Set all options permission to `read` and for description you can put whatever you want
 
-    ![Create Application API](https://usercontent.catto.pictures/hirzi/3e4575cb-4f52-4bd9-9091-36fda20bedad.png)
+    <img alt="Create Application API" src="https://usercontent.catto.pictures/hirzi/3e4575cb-4f52-4bd9-9091-36fda20bedad.png" width="400"/>
 
-- Copy the apikey.
+4. Copy the apikey.
 
-    ![Application API List](https://usercontent.catto.pictures/hirzi/9142b0b3-0556-4741-840c-6976c3fe3ad4.png)
+    <img alt="Application API List" src="https://usercontent.catto.pictures/hirzi/9142b0b3-0556-4741-840c-6976c3fe3ad4.png" width="400"/>
+
+5. Paste the panel apikey and panel url at the config
+
+    <img alt="Panel Config" src="https://usercontent.catto.pictures/hirzi/2b9365b8-69d2-4fa0-8eac-3efc8591b765.png" width="400"/>
 
 ### Creating Discord Bot
 Please refer to [this website](https://discordjs.guide/preparations/setting-up-a-bot-application.html)
+
+Paste the bot token at the config
+
+<img alt="Bot Config" src="https://usercontent.catto.pictures/hirzi/4eb4d5ff-6969-4461-b01d-c45888cfc994.png" width="400"/>
 
 ### Inviting Discord Bot
 Please refer to [this website](https://discordjs.guide/preparations/adding-your-bot-to-servers.html)
@@ -45,56 +57,62 @@ Please refer to [this website](https://discordjs.guide/preparations/adding-your-
 ### Getting Channel ID
 1. Enable Developer Feature at your discord settings
 
-    ![Discord User Settings](https://usercontent.catto.pictures/hirzi/c5e825d1-c323-4b19-a11b-e2f004d4906e.png)
+    <img alt="Discord User Settings" src="https://usercontent.catto.pictures/hirzi/36894499-b141-488f-98ed-40245c8f6862.png" width="400"/>
 
 2. Right Click text channel and select `Copy ID`
 
-    ![Right Click Channel](https://usercontent.catto.pictures/hirzi/e5fa4f62-b28f-45fd-a544-429f23899edb.png)
+    <img alt="Right Click Channel" src="https://usercontent.catto.pictures/hirzi/9f8352da-df5b-4587-9594-ced9b11a5507.png" width="250"/>
+
+3. Paste the channel id at the config
+
+    <img alt="Channel Config" src="https://usercontent.catto.pictures/hirzi/b34cdbee-1e24-49f2-8219-efe0344a24f9.png" width="400"/>
 
 ### Starting bot
-- Put discord bot token in `config.yml` at `token line`.
-- Put your pterodactyl `apikey` and `url` in `config.yml` at `panel line`.
-- Copy `channel id` from your discord server and put it in `config.yml` file at `channel line`.
-- Run `npm install` in the root directory of the bot files.
-- Run `node index` and you are done.
+1. Make sure you have done the things above
+2. Run `npm install` in the root directory of the bot files.
+3. Run `node index` and you are done.
 
 if you need help contact me on discord `Hirzi#8701` or join [our discord support server](https://discord.gg/zv6maQRah3)
 
 ### Using Custom Emoji
 1. type `\` in guild that has custom emoji you want
 
-    ![Type \ on the chat](https://usercontent.catto.pictures/hirzi/1f59b255-7c5d-48f2-ab93-5358429cec83.png)
+    <img alt="Type \ on the chat" src="https://usercontent.catto.pictures/hirzi/2e3c821f-92f9-4b5c-863a-e020b2fbc426.png" width="350"/>
 
 2. Select custom emoji you want
 
-    ![Select Custom Emoji](https://usercontent.catto.pictures/hirzi/38098261-7257-4e4d-8945-4ac5c252c952.png)
+    <img alt="Select Custom Emoji" src="https://usercontent.catto.pictures/hirzi/7c071727-2adb-4c8c-91d3-21664948a334.png" width="300"/>
 
 3. Copy the text!
 
-    ![Copy Emoji ID](https://usercontent.catto.pictures/hirzi/33800ccf-9ed5-4d54-9747-2983b23e1755.png)
+    <img alt="Copy Emoji ID" src="https://usercontent.catto.pictures/hirzi/bd0084ac-f11b-413d-8b66-580efc011908.png" width="400"/>
+
+4. Paste the emoji id at the config
+
+    <img alt="Status Config" src="https://usercontent.catto.pictures/hirzi/458ad1d6-019b-4b27-be60-3cbabfa07c06.png" width="400"/>
 
 ### Blacklist Nodes
 1. Select node from node list on admin page
-    
-    ![Nodes List](https://usercontent.catto.pictures/hirzi/5699fdbd-7c3c-4fa5-ae2c-d0ccb39cb69e.png)
+
+    <img alt="Nodes List" src="https://usercontent.catto.pictures/hirzi/5699fdbd-7c3c-4fa5-ae2c-d0ccb39cb69e.png" width="400"/>
 
 2. Check the url and copy the node id
 
-    ![Node Id](https://usercontent.catto.pictures/hirzi/45f855fc-6d96-4b23-a96e-892071189d01.png)
+    <img alt="Node Id" src="https://usercontent.catto.pictures/hirzi/45f855fc-6d96-4b23-a96e-892071189d01.png" width="400"/>
 
-3. Add the id to the blacklist on config
+3. Paste the id to the blacklist on config
 
-    ![Blacklist Config](https://usercontent.catto.pictures/hirzi/9c40da3d-fa01-447e-aa86-7871da9da282.png)
+    <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/cfb479bf-64da-43e5-b0d1-f7c0c78bf068.png" width="400"/>
 
 You can add more than one node in the blacklist
 
-![Blacklist Config](https://usercontent.catto.pictures/hirzi/f2a34ca9-accf-4d31-a246-f9dcc6a2fd75.png)
+<img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/85b6a9b1-8ec9-4395-b5b1-6f85d3f52162.png" width="400"/>
 
-## Admin Apikey Permission
+## Apikey permission
 
-enable `read` on all options, if still didn't work enable `read & write` on all options
+If you having issue with 403 error try to enable `read & write` on all options
 
-![Application API Permission](https://media.discordapp.net/attachments/819757140155564062/876320084992331816/Screenshot_2021-08-15-11-20-05-56.jpg)
+<img alt="Application API Permission" src="https://usercontent.catto.pictures/hirzi/273d5b86-5249-42d0-bfc6-1dcfcae4efe7.png" width="400"/>
 
 ## Links
 
