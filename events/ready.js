@@ -124,8 +124,8 @@ module.exports = client => {
               const diskpercent = '[Disk: ' + Math.floor(node.data.attributes.allocated_resources.disk / node.data.attributes.disk * 100) + '%/100%]'
               const rammega = '[Ram: ' + node.data.attributes.allocated_resources.memory + 'MB/' + node.data.attributes.memory + 'MB]'
               const diskmega = '[Disk: ' + node.data.attributes.allocated_resources.disk + 'MB/' + node.data.attributes.disk + 'MB]'
-              const ramgiga = '[Ram: ' + Math.floor(node.data.attributes.allocated_resources.memory / 1000) + 'GB/' + Math.floor(node.data.attributes.memory / 1000) + 'GB]'
-              const diskgiga = '[Disk: ' + Math.floor(node.data.attributes.allocated_resources.disk / 1000) + 'GB/' + Math.floor(node.data.attributes.disk / 1000) + 'GB]'
+              const ramgiga = '[Ram: ' + Math.floor(node.data.attributes.allocated_resources.memory / 1024) + 'GB/' + Math.floor(node.data.attributes.memory / 1024) + 'GB]'
+              const diskgiga = '[Disk: ' + Math.floor(node.data.attributes.allocated_resources.disk / 1024) + 'GB/' + Math.floor(node.data.attributes.disk / 1024) + 'GB]'
               if (unit === 'mb') {
                 disk = diskmega
                 ram = rammega
