@@ -80,7 +80,7 @@ module.exports = function checkStatus(client) {
                 Authorization: 'Bearer ' + client.config.panel.key
             }
         }).then((res) => {
-            res.data.data.forEach((node) => {
+            res.data.data.forEach((node, i) => {
                 axios(client.config.panel.url + '/api/application/nodes/' + node.attributes.id + '/configuration', {
                     method: 'GET',
                     headers: {
@@ -120,7 +120,7 @@ module.exports = function checkStatus(client) {
                     })
                     stats.then(() => {
                         nodes.push(body)
-                        resolve()
+                        if (i + 1 === res.data.data.length) resolve()
                     })
                 }).catch((err) => {
                     resolve()

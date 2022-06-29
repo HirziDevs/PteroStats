@@ -6,6 +6,7 @@ module.exports = async function postStatus(client, panel, nodes) {
     if (!client.config.nodes_resource) client.config.nodes_resource = client.config.resource
     if (!client.config.nodes_resource.blacklist) client.config.nodes_resource.blacklist = []
     if (!Array.isArray(client.config.nodes_resource.blacklist) && Number.isInteger(client.config.nodes_resource.blacklist)) client.config.nodes_resource.blacklist = [client.config.nodes_resource.blacklist]
+    if (!['mb', 'gb', 'percent'].includes(client.config.nodes_resource.unit)) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Unit at nodes_resource'))
 
     if (client.guilds.cache.size < 1) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! This bot is not on any discord servers'))
 
