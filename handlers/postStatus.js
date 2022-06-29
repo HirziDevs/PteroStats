@@ -1,4 +1,4 @@
-const { MessageEmbed, Formatters, MessageActionRow, MessageButton } = require('discord.js')
+const { MessageEmbed, Formatters, MessageActionRow, MessageButton, MessageAttachment } = require('discord.js')
 const chalk = require('chalk')
 
 module.exports = async function postStatus(client, panel, nodes) {
@@ -6,7 +6,7 @@ module.exports = async function postStatus(client, panel, nodes) {
     if (!client.config.nodes_resource) client.config.nodes_resource = client.config.resource
     if (!client.config.nodes_resource.blacklist) client.config.nodes_resource.blacklist = []
     if (!Array.isArray(client.config.nodes_resource.blacklist) && Number.isInteger(client.config.nodes_resource.blacklist)) client.config.nodes_resource.blacklist = [client.config.nodes_resource.blacklist]
-    if (!['mb', 'gb', 'percent'].includes(client.config.nodes_resource.unit)) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Unit at nodes_resource'))
+    if (!['mb', 'gb', 'percent'].includes(client.config.nodes_resource.unit.toLowerCase())) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Unit at nodes config'))
 
     if (client.guilds.cache.size < 1) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! This bot is not on any discord servers'))
 
@@ -21,7 +21,6 @@ module.exports = async function postStatus(client, panel, nodes) {
         messages = null
     }
 
-    const format = await Formatters.time(new Date(Date.now() + client.config.refresh * 1000), 'R')
     const embed = new MessageEmbed()
 
     let text = ''
@@ -29,7 +28,7 @@ module.exports = async function postStatus(client, panel, nodes) {
     let blacklist = 0
 
     if (client.config.embed.title) embed.setTitle(client.config.embed.title)
-    if (client.config.embed.description) desc = client.config.embed.description.replaceAll('{{time}}', format) + '\n'
+    if (client.config.embed.description) desc = client.config.embed.description + '\n'
     if (client.config.embed.color) embed.setColor(client.config.embed.color)
     if (client.config.embed.footer) embed.setFooter({ text: client.config.embed.footer })
     if (client.config.embed.thumbnail) embed.setThumbnail(client.config.embed.thumbnail)
@@ -44,7 +43,7 @@ module.exports = async function postStatus(client, panel, nodes) {
                 if (!client.config.nodes_resource.blacklist.includes(data.id)) {
                     const title = data.name + ': ' + String(data.status).replace('true', client.config.status.online).replace('false', client.config.status.offline)
                     let description = '```'
-                    switch (client.config.nodes_resource.unit) {
+                    switch (client.config.nodes_resource.unit.toLowerCase()) {
                         case 'gb':
                             description = description +
                                 '\nMemory : ' + Math.floor(data.memory_min / 1000).toLocaleString() + ' GB / ' + Math.floor(data.memory_max / 1000).toLocaleString() + ' GB' +
@@ -94,9 +93,9 @@ module.exports = async function postStatus(client, panel, nodes) {
         }
     })
 
-    stats.then(() => {
-
-        embed.setDescription(desc + '\n**Nodes Stats [' + Math.floor(nodes.length - blacklist) + ']**' + text)
+    stats.then(async () => {
+        const format = await Formatters.time(new Date(Date.now() + client.config.refresh * 1000), 'R')
+        embed.setDescription(desc.replaceAll('{{time}}', format) + '\n**Nodes Stats [' + Math.floor(nodes.length - blacklist) + ']**' + text)
 
         if (client.config.panel_resource.enable) {
             let stats = '**Status:** ' + String(panel.status).replace('true', client.config.status.online).replace('false', client.config.status.offline) + '\n\n'
@@ -107,11 +106,8 @@ module.exports = async function postStatus(client, panel, nodes) {
             embed.addField('Panel Stats', stats)
         }
 
-        if (client.config.embed.field.enable) {
-            embed.addField(client.config.embed.field.title, client.config.embed.field.description.replaceAll('{{time}}', format))
-        }
-
-        embed.setTimestamp()
+        if (client.config.embed.field.enable) embed.addField(client.config.embed.field.title, client.config.embed.field.description.replaceAll('{{time}}', format))
+        if (client.config.embed.timestamp) embed.setTimestamp()
 
         const row = []
 
@@ -157,12 +153,16 @@ module.exports = async function postStatus(client, panel, nodes) {
                         .setURL(client.config.button.btn5.url)
                 )
             }
-
             row.push(button)
         }
+        let content = null
+        const files = []
 
-        if (!messages) channel.send({ embeds: [embed], components: row })
-        else messages.edit({ embeds: [embed], components: row })
+        if (client.config.message.content) content = client.config.message.content
+        if (client.config.message.image) files.push(new MessageAttachment(client.config.message.image))
+
+        if (!messages) channel.send({ content: content, embeds: [embed], components: row, files: files })
+        else messages.edit({ content: content, embeds: [embed], components: row, files: files })
         console.log(chalk.cyan('[PteroStats] ') + chalk.green('Stats posted!'))
     })
 }

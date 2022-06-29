@@ -17,8 +17,12 @@ panel:
     url: 'Put panel url here'
     key: 'Put panel apikey here'
 
-# Embed Configuration
-# set to false if you want to disable embed option
+# Message Configuration
+# set to false if you want to disable option
+message:
+    content: false
+    image: false # If you enable image on message it upload the image first before sending or editing message and it will delay stats
+
 embed:
     title: 'PteroStats'
     color: '5865F2'

@@ -11,14 +11,14 @@ module.exports = {
         if (client.guilds.cache.size < 1) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! This bot is not on any discord servers'))
 
         if (client.config.bot_status.enable) {
-            if (!['PLAYING', 'WATCHING', 'LISTENING', 'COMPETING'].includes(client.config.bot_status.type)) {
+            if (!['PLAYING', 'WATCHING', 'LISTENING', 'COMPETING'].includes(client.config.bot_status.type.toUpperCase())) {
                 console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Status Type!, Can be "WATCHING", "PLAYING", "LISTENING", or "COMPETING"'))
             } else {
-                client.user.setActivity(client.config.bot_status.text, { type: client.config.bot_status.type })
+                client.user.setActivity(client.config.bot_status.text, { type: client.config.bot_status.type.toUpperCase() })
             }
         }
 
-        if (client.config.refresh < 10) console.log('Refresh below 10 seconds is not recommended!')
+        if (client.config.refresh < 10) console.log('Refresh lower than 10 seconds is not recommended!')
 
         checkStatus(client)
 
