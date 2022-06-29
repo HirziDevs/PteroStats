@@ -11,7 +11,7 @@
 PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and post it to your discord server
 
 ## Example
-<img alt="Example" src="https://cdn.discordapp.com/attachments/819757140155564062/988000185022038087/ezgif-4-235d1cbba4.gif" width="250"/>
+<img alt="Example" src="https://cdn.discordapp.com/attachments/988796533430448148/991520721467613224/example.gif" width="200"/>
 
 ## Installation
 1. [Getting apikey from pterodactyl](#getting-apikey-from-pterodactyl)
