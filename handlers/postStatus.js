@@ -27,6 +27,12 @@ module.exports = async function postStatus(client, panel, nodes) {
     let desc = ''
     let blacklist = 0
 
+    let content = null
+    const files = []
+
+    if (client.config.message.content) content = client.config.message.content
+    if (client.config.message.image) files.push(new MessageAttachment(client.config.message.image))
+
     if (client.config.embed.title) embed.setTitle(client.config.embed.title)
     if (client.config.embed.description) desc = client.config.embed.description + '\n'
     if (client.config.embed.color) embed.setColor(client.config.embed.color)
@@ -155,11 +161,6 @@ module.exports = async function postStatus(client, panel, nodes) {
             }
             row.push(button)
         }
-        let content = null
-        const files = []
-
-        if (client.config.message.content) content = client.config.message.content
-        if (client.config.message.image) files.push(new MessageAttachment(client.config.message.image))
 
         if (!messages) channel.send({ content: content, embeds: [embed], components: row, files: files })
         else messages.edit({ content: content, embeds: [embed], components: row, files: files })

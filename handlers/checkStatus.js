@@ -104,6 +104,7 @@ module.exports = function checkStatus(client) {
                     }
 
                     const stats = new Promise((statsResolve, statsReject) => {
+                        let done = false
                         axios(node.attributes.scheme + '://' + node.attributes.fqdn + ':' + node.attributes.daemon_listen + '/api/servers', {
                             method: 'GET',
                             headers: {
@@ -112,15 +113,21 @@ module.exports = function checkStatus(client) {
                                 Authorization: 'Bearer ' + data.data.token
                             }
                         }).then((status) => {
+                            done = true
                             statsResolve()
                         }).catch((err) => {
                             body.status = false
+                            done = true
                             statsResolve()
                         })
+                        setTimeout(() => {
+                            if (!done) body.status = false
+                            statsResolve()
+                        }, 1000)
                     })
                     stats.then(() => {
                         nodes.push(body)
-                        if (i + 1 === res.data.data.length) resolve()
+                        if (nodes.length === res.data.data.length) resolve()
                     })
                 }).catch((err) => {
                     resolve()
@@ -133,6 +140,7 @@ module.exports = function checkStatus(client) {
 
     panelStats.then(() => {
         nodeStats.then(() => {
+            nodes.sort(function (a, b) { return a.id - b.id })
             postStatus(client, panel, nodes)
         })
     })
