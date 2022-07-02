@@ -6,7 +6,7 @@ module.exports = async function postStatus(client, panel, nodes) {
     if (!client.config.nodes_resource) client.config.nodes_resource = client.config.resource
     if (!client.config.nodes_resource.blacklist) client.config.nodes_resource.blacklist = []
     if (!Array.isArray(client.config.nodes_resource.blacklist) && Number.isInteger(client.config.nodes_resource.blacklist)) client.config.nodes_resource.blacklist = [client.config.nodes_resource.blacklist]
-    if (!['mb', 'gb', 'percent'].includes(client.config.nodes_resource.unit.toLowerCase())) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Unit at nodes config'))
+    if (!client.config.message.attachment) client.config.message.attachment = client.config.message.image
 
     if (client.guilds.cache.size < 1) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! This bot is not on any discord servers'))
 
@@ -31,7 +31,7 @@ module.exports = async function postStatus(client, panel, nodes) {
     const files = []
 
     if (client.config.message.content) content = client.config.message.content
-    if (client.config.message.image) files.push(new MessageAttachment(client.config.message.image))
+    if (client.config.message.attachment) files.push(new MessageAttachment(client.config.message.attachment))
 
     if (client.config.embed.title) embed.setTitle(client.config.embed.title)
     if (client.config.embed.description) desc = client.config.embed.description + '\n'
@@ -50,6 +50,11 @@ module.exports = async function postStatus(client, panel, nodes) {
                     const title = data.name + ': ' + String(data.status).replace('true', client.config.status.online).replace('false', client.config.status.offline)
                     let description = '```'
                     switch (client.config.nodes_resource.unit.toLowerCase()) {
+                        case 'tb':
+                            description = description +
+                                '\nMemory : ' + Math.floor(data.memory_min / 1000000).toLocaleString() + ' TB / ' + Math.floor(data.memory_max / 1000000).toLocaleString() + ' TB' +
+                                '\nDisk : ' + Math.floor(data.disk_min / 1000000).toLocaleString() + ' TB / ' + Math.floor(data.disk_max / 1000000).toLocaleString() + ' TB'
+                            break;
                         case 'gb':
                             description = description +
                                 '\nMemory : ' + Math.floor(data.memory_min / 1000).toLocaleString() + ' GB / ' + Math.floor(data.memory_max / 1000).toLocaleString() + ' GB' +

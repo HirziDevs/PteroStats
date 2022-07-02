@@ -21,7 +21,7 @@ panel:
 # set to false if you want to disable option
 message:
     content: false
-    image: false # If you enable image on message it upload the image first before sending or editing message and it will delay stats
+    attachment: false # If you enable attachment on message it upload the attachment first before sending or editing message and it will delay the stats
 
 embed:
     title: 'PteroStats'
@@ -67,7 +67,7 @@ nodes_resource:
     servers: true
     location: true
     allocations: true
-    unit: 'gb' # You can use "gb", "mb", or "percent"
+    unit: 'gb' # You can use "gb", "mb", "tb", or "percent"
 
 # Panel Users and Servers
 panel_resource:

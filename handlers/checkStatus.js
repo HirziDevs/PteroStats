@@ -104,7 +104,6 @@ module.exports = function checkStatus(client) {
                     }
 
                     const stats = new Promise((statsResolve, statsReject) => {
-                        let done = false
                         axios(node.attributes.scheme + '://' + node.attributes.fqdn + ':' + node.attributes.daemon_listen + '/api/servers', {
                             method: 'GET',
                             headers: {
@@ -113,16 +112,14 @@ module.exports = function checkStatus(client) {
                                 Authorization: 'Bearer ' + data.data.token
                             }
                         }).then((status) => {
-                            done = true
-                            statsResolve()
+                            return statsResolve()
                         }).catch((err) => {
                             body.status = false
-                            done = true
-                            statsResolve()
+                            return statsResolve()
                         })
                         setTimeout(() => {
-                            if (!done) body.status = false
-                            statsResolve()
+                            body.status = false
+                            return statsResolve()
                         }, 1000)
                     })
                     stats.then(() => {
