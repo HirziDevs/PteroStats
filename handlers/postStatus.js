@@ -1,4 +1,4 @@
-const { MessageEmbed, Formatters, MessageActionRow, MessageButton, MessageAttachment } = require('discord.js')
+const { EmbedBuilder, time, ActionRowBuilder, ButtonBuilder, AttachmentBuilder, ButtonStyle } = require('discord.js')
 const chalk = require('chalk')
 
 module.exports = async function postStatus(client, panel, nodes) {
@@ -21,7 +21,7 @@ module.exports = async function postStatus(client, panel, nodes) {
         messages = null
     }
 
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
 
     let text = ''
     let desc = ''
@@ -31,7 +31,7 @@ module.exports = async function postStatus(client, panel, nodes) {
     const files = []
 
     if (client.config.message.content) content = client.config.message.content
-    if (client.config.message.attachment) files.push(new MessageAttachment(client.config.message.attachment))
+    if (client.config.message.attachment) files.push(new AttachmentBuilder(client.config.message.attachment))
 
     if (client.config.embed.title) embed.setTitle(client.config.embed.title)
     if (client.config.embed.description) desc = client.config.embed.description + '\n'
@@ -105,8 +105,9 @@ module.exports = async function postStatus(client, panel, nodes) {
     })
 
     stats.then(async () => {
-        const format = await Formatters.time(new Date(Date.now() + client.config.refresh * 1000), 'R')
+        const format = await time(new Date(Date.now() + client.config.refresh * 1000), 'R')
         embed.setDescription(desc.replaceAll('{{time}}', format) + '\n**Nodes Stats [' + Math.floor(nodes.length - blacklist) + ']**' + text)
+        const EmbedFields = []
 
         if (client.config.panel_resource.enable) {
             let stats = '**Status:** ' + String(panel.status).replace('true', client.config.status.online).replace('false', client.config.status.offline) + '\n\n'
@@ -114,53 +115,54 @@ module.exports = async function postStatus(client, panel, nodes) {
             if (client.config.panel_resource.users) stats = stats + 'Users: ' + String(panel.total_users).replace('-1', '`Unknown`') + '\n'
             if (client.config.panel_resource.servers) stats = stats + 'Servers: ' + String(panel.total_servers).replace('-1', '`Unknown`')
 
-            embed.addField('Panel Stats', stats)
+            EmbedFields.push({ name: 'Panel Stats', value: stats })
         }
 
-        if (client.config.embed.field.enable) embed.addField(client.config.embed.field.title, client.config.embed.field.description.replaceAll('{{time}}', format))
+        if (client.config.embed.field.enable) EmbedFields.push({ name: client.config.embed.field.title, value: client.config.embed.field.description.replaceAll('{{time}}', format) })
         if (client.config.embed.timestamp) embed.setTimestamp()
-
+        if (EmbedFields.length > 0) embed.addFields(EmbedFields)
+        
         const row = []
 
         if (client.config.button.enable) {
-            const button = new MessageActionRow
+            const button = new ActionRowBuilder
             if (client.config.button.btn1.label.length !== 0 && client.config.button.btn1.url.length !== 0) {
                 button.addComponents(
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setLabel(client.config.button.btn1.label)
-                        .setStyle('LINK')
+                        .setStyle(ButtonStyle.Link)
                         .setURL(client.config.button.btn1.url)
                 )
             }
             if (client.config.button.btn2.label.length !== 0 && client.config.button.btn2.url.length !== 0) {
                 button.addComponents(
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setLabel(client.config.button.btn2.label)
-                        .setStyle('LINK')
+                        .setStyle(ButtonStyle.Link)
                         .setURL(client.config.button.btn2.url)
                 )
             }
             if (client.config.button.btn3.label.length !== 0 && client.config.button.btn3.url.length !== 0) {
                 button.addComponents(
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setLabel(client.config.button.btn3.label)
-                        .setStyle('LINK')
+                        .setStyle(ButtonStyle.Link)
                         .setURL(client.config.button.btn3.url)
                 )
             }
             if (client.config.button.btn4.label.length !== 0 && client.config.button.btn4.url.length !== 0) {
                 button.addComponents(
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setLabel(client.config.button.btn4.label)
-                        .setStyle('LINK')
+                        .setStyle(ButtonStyle.Link)
                         .setURL(client.config.button.btn4.url)
                 )
             }
             if (client.config.button.btn5.label.length !== 0 && client.config.button.btn5.url.length !== 0) {
                 button.addComponents(
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setLabel(client.config.button.btn5.label)
-                        .setStyle('LINK')
+                        .setStyle(ButtonStyle.Link)
                         .setURL(client.config.button.btn5.url)
                 )
             }

@@ -11,7 +11,13 @@
 PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and post it to your discord server
 
 ## Example
-<img alt="Example" src="https://cdn.discordapp.com/attachments/988796533430448148/991520721467613224/example.gif" width="200"/>
+- Test Panel
+
+    <img alt="Example" src="https://cdn.discordapp.com/attachments/988796533430448148/991520721467613224/example.gif" width="200"/>
+
+- [Calvs Cloud](https://discord.gg/ssCQjhrBJN)
+
+    <img alt="Calvs Cloud" src="https://media.discordapp.net/attachments/819757140155564062/1037330231511498822/unknown.png?width=436&height=499" width="200">
 
 ## Installation
 1. [Getting apikey from pterodactyl](#getting-apikey-from-pterodactyl)

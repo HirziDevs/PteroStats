@@ -7,8 +7,8 @@ if (Number(process.version.split('.')[0]) < 16) {
 }
 if (fs.existsSync('./node_modules')) {
     const check = require('./node_modules/discord.js/package.json')
-    if (Number(check.version.split('.')[0]) !== 13) {
-        console.log('Invalid Discord.JS Version!, Please use Discord.JS 13.x')
+    if (Number(check.version.split('.')[0]) !== 14) {
+        console.log('Invalid Discord.JS Version!, Please use Discord.JS 14.x')
         process.exit()
     }
 } else {
@@ -25,26 +25,30 @@ if (fs.existsSync('./node_modules')) {
     }
 }
 
+const path = require('node:path');
 const chalk = require('chalk');
 const yaml = require('js-yaml');
-const { Client, Intents } = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const { Client, GatewayIntentBits } = require('discord.js');
 
 const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'));
 client.config = config
 
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+const eventsPath = path.join(__dirname, 'events');
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
-    const event = require(`./events/${file}`);
-    if (event.once) {
-        client.once(event.name, (...args) => event.execute(...args));
-    } else {
-        client.on(event.name, (...args) => event.execute(...args));
-    }
+	const filePath = path.join(eventsPath, file);
+	const event = require(filePath);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
+	}
 }
 
-if (client.config.token.startsWith('Put')) {
+if (client.config.token.startsWith('Put') || client.config.token.length < 1) {
     console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid Discord Bot Token'))
     process.exit()
 }
