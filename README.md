@@ -1,124 +1,129 @@
-# PteroStats
+<div align="center">
 
-![Version](https://img.shields.io/github/package-json/v/HirziDevs/PteroStats?style=flat-square)
-![License](https://img.shields.io/github/license/HirziDevs/PteroStats?style=flat-square)
+<img alt="PteroStats Banner" src="https://cdn.discordapp.com/attachments/626755594526916629/978478722489393153/20220524_090325.png" width="400"/>
 
-![PteroStats Banner](https://media.discordapp.net/attachments/796259732683227157/861126504246411264/20210704_130856.jpg)
+## Language / Bahasa
+[[English]](https://github.com/HirziDevs/PteroStats/blob/dev/README.md) | [[Indonesia]](https://github.com/HirziDevs/PteroStats/blob/dev/Indo.md)
+
+</div>
 
 ## Introduction
-
 PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and post it to your discord server
 
-- Written in Javascript, CloudServer is faster and more stable.
-- PteroControl can be used with any server on Pterodactyl, irregardless of whether it's on shared hosting or your own hosted panel
+## Example
+- Test Panel
 
-PteroStats is still **under development** and we welcome contributions. 
+    <img alt="Example" src="https://cdn.discordapp.com/attachments/988796533430448148/991520721467613224/example.gif" width="200"/>
 
-### How it works?
+- [Calvs Cloud](https://discord.gg/ssCQjhrBJN)
 
-PteroStats checks [pterodactyl](https://pterodactyl.io) nodes wings with [axios](https://www.npmjs.com/package/axios) to get nodes wings status, if the api didn't reply that mean the node is having [wings/daemon](https://pterodactyl.io/wings/1.0/installing.html) down and mark the node as offline
-
-### Screenshot
-
-- [**TreeCloud**](https://discord.gg/TCBhPan6SY)
-![TreeCloud PteroStats](https://media.discordapp.net/attachments/819757140155564062/880346867949518848/Screenshot_2021-08-26-14-03-15-50_572064f74bd5f9fa804b05334aa4f912.jpg)
-- [**ItzyStore**](https://discord.gg/PS4Mf6DBzt)
-![ItzyStore PteroStats](https://media.discordapp.net/attachments/796259732683227157/863359897210060820/IMG_20210710_164939.jpg)
-- [**SpaceCloud**](https://discord.gg/28z8CYmPEY)
-![SpaceCloud PteroStats](https://media.discordapp.net/attachments/586738538448420881/866624597171372032/IMG_20210719_171633.jpg)
+    <img alt="Calvs Cloud" src="https://media.discordapp.net/attachments/819757140155564062/1037353043487887410/unknown.png" width="200">
 
 ## Installation
+1. [Getting apikey from pterodactyl](#getting-apikey-from-pterodactyl)
+2. [Creating Discord Bot](#creating-discord-bot)
+3. [Inviting Discord Bot](#inviting-discord-bot)
+4. [Getting Channel ID](#getting-channel-id)
+5. [Starting bot](#starting-bot)
 
-- `fill in the required informations in the config.yml file`
-- `Run npm install in the root directory of the bot files`
-- `Run node index.js and you are done`
+- [Using Custom Emoji](#using-custom-emoji)
+- [Blacklist Nodes](#blacklist-nodes)
 
-if you need help contact me on discord `Hirzi#8701` or join [our discord server here](https://discord.gg/zv6maQRah3)
+### Getting apikey from pterodactyl
+1. Go to your `pterodactyl admin page` and go to `Application API`.
 
-## Admin Apikey Permission
+    <img alt="Admin Panel" src="https://usercontent.catto.pictures/hirzi/aabafe57-cbfe-4d7f-9d6d-4a63a7f23d4c.png" width="400"/>
 
-enable `read` on all options, if still didn't work enable `read & write` on all options
-![Admin Apikey Permission](https://media.discordapp.net/attachments/819757140155564062/876320084992331816/Screenshot_2021-08-15-11-20-05-56.jpg)
+2. Click on the `Create New` button
 
-### Setuping Config
+    <img alt="Application API Page" src="https://usercontent.catto.pictures/hirzi/f916f0c6-0968-4125-8226-ba4daa1de902.png" width="400"/>
 
-You need to put right config to make the bot work at [config.yml](https://github.com/HirziDevs/PteroStats/blob/main/config.yml) file
-```
-# PteroStats config
-# If you need help, join our discord server: https://discord.gg/zv6maQRah3
+3. Set all options permission to `read` and for description you can put whatever you want
 
-# Bot Info's
-token: 'BOT TOKEN' # Put bot token here, check https://discord.dev to create and get bot token
-botstatus:
-  enable: false # Enable Custom Status (MUST BE "true" OR "false")
-  text: 'Hosting Panel' # Bot Status Message
-  type: 'WATCHING' # Bot Status Type. Ex: PLAYING, WATCHING, LISTENING, STREAMING
+    <img alt="Create Application API" src="https://usercontent.catto.pictures/hirzi/3e4575cb-4f52-4bd9-9091-36fda20bedad.png" width="400"/>
 
-# Channel and RefreshTime Configuration
-channel: 'CHANNEL ID' # Put channel id here where the embed will be sended
-refreshtime: 60 # Time when the embed edited/refreshed (MUST BE A SECONDS) (RECOMMENDED MORE THAN 20 SECONDS)
+4. Copy the apikey.
 
-# Panel Info's
-panel:
-  url: 'HOST PANEL LINK' # Put panel url here. Example: https://panel.purenodes.net
-  adminkey: 'ADMIN APIKEY' # Put Admin Apikey here. check https://your.host.url/admin/api (your.host.url is an example link) to get the Admin ApiKey
+    <img alt="Application API List" src="https://usercontent.catto.pictures/hirzi/9142b0b3-0556-4741-840c-6976c3fe3ad4.png" width="400"/>
 
-# Embed Configuration
-embed: 
-  title: 'EMBED TITLE' # Embed Title here. Ex: PureNodes Stats
-  color: 'E5BE11' # Embed Hex color here.
-  description: 
-    enable: false # Enable Embed Description (MUST BE "true" OR "false")
-    text: 'EMBED DESCRIPTION' # Embed Description
-  footer: 
-    enable: true # Enable Embed Footer (MUST BE "true" OR "false")
-    text: 'By Hirzi#8701' # Embed Footer
-  timestamp: true # Enable Embed TimeStamp (MUST BE "true" OR "false")
+5. Paste the panel apikey and panel url at the config
 
-# Status Message Configuration
-status:
-  online: ':green_circle: Online' # Message if the status is Online
-  offline: ':red_circle: Offline' # Message if the status is Offline
-  check: ':orange_circle: Checking' # Message if the status is Checking
+    <img alt="Panel Config" src="https://usercontent.catto.pictures/hirzi/2b9365b8-69d2-4fa0-8eac-3efc8591b765.png" width="400"/>
 
-# Node Resource
-resource:
-  enable: false # Enable resource option ex [Ram: 2gb/5gb] bellow node name (MUST BE "true" OR "false")
-  servers: true # Enable Total server on the node to resource text (MUST BE "true" OR "false")
-  allocations: true # Enable Total Allocation on the node to resource text (MUST BE "true" OR "false")
-  location: true # Enable location short name on the node to resource text (MUST BE "true" OR "false")
-  unit: 'gb' # Must be 'mb', 'gb', or 'percent'
+### Creating Discord Bot
+Please refer to [this website](https://discordjs.guide/preparations/setting-up-a-bot-application.html)
 
-# Developers feature
-debug: false # Enable and Disable debug log to console
-debugaxios: false #Enable and Disable axios error logs
-```
+Paste the bot token at the config
 
-## Other
-### FAQ
+<img alt="Bot Config" src="https://usercontent.catto.pictures/hirzi/4eb4d5ff-6969-4461-b01d-c45888cfc994.png" width="400"/>
 
-Q: Can i use pterodactyl v0.7?
+### Inviting Discord Bot
+Please refer to [this website](https://discordjs.guide/preparations/adding-your-bot-to-servers.html)
 
-A: No, the pterodactyl v0.7 is not supported
+### Getting Channel ID
+1. Enable Developer Feature at your discord settings
 
--
+    <img alt="Discord User Settings" src="https://usercontent.catto.pictures/hirzi/36894499-b141-488f-98ed-40245c8f6862.png" width="400"/>
 
-Q: How much nodes can i add?
+2. Right Click text channel and select `Copy ID`
 
-A: The bot will automatically add nodes from your panel
+    <img alt="Right Click Channel" src="https://usercontent.catto.pictures/hirzi/9f8352da-df5b-4587-9594-ced9b11a5507.png" width="250"/>
 
--
+3. Paste the channel id at the config
 
-Q: How i can get support?
+    <img alt="Channel Config" src="https://usercontent.catto.pictures/hirzi/b34cdbee-1e24-49f2-8219-efe0344a24f9.png" width="400"/>
 
-A: You can join our [discord server](https://discord.gg/zv6maQRah3)
+### Starting bot
+1. Make sure you have done the things above
+2. Run `npm install` in the root directory of the bot files.
+3. Run `node index` and you are done.
 
-### Links
+if you need help contact me on discord `Hirzi#8701` or join [our discord support server](https://discord.gg/zv6maQRah3)
 
-* __[PteroBot Discord](https://discord.gg/zv6maQRah3)__
-* __[Pterodactyl Panel](https://pterodactyl.io)__
-* __[Pterodactyl API](https://dashflo.net/docs/api/pterodactyl/v1)__
+### Using Custom Emoji
+1. type `\` in guild that has custom emoji you want
 
-### Special Thanks to
+    <img alt="Type \ on the chat" src="https://usercontent.catto.pictures/hirzi/2e3c821f-92f9-4b5c-863a-e020b2fbc426.png" width="350"/>
 
-- ItsJustNickDev(from Discord)
+2. Select custom emoji you want
+
+    <img alt="Select Custom Emoji" src="https://usercontent.catto.pictures/hirzi/7c071727-2adb-4c8c-91d3-21664948a334.png" width="300"/>
+
+3. Copy the text!
+
+    <img alt="Copy Emoji ID" src="https://usercontent.catto.pictures/hirzi/bd0084ac-f11b-413d-8b66-580efc011908.png" width="400"/>
+
+4. Paste the emoji id at the config
+
+    <img alt="Status Config" src="https://usercontent.catto.pictures/hirzi/458ad1d6-019b-4b27-be60-3cbabfa07c06.png" width="400"/>
+
+### Blacklist Nodes
+1. Select node from node list on admin page
+
+    <img alt="Nodes List" src="https://usercontent.catto.pictures/hirzi/5699fdbd-7c3c-4fa5-ae2c-d0ccb39cb69e.png" width="400"/>
+
+2. Check the url and copy the node id
+
+    <img alt="Node Id" src="https://usercontent.catto.pictures/hirzi/45f855fc-6d96-4b23-a96e-892071189d01.png" width="400"/>
+
+3. Paste the id to the blacklist on config
+
+    <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/cfb479bf-64da-43e5-b0d1-f7c0c78bf068.png" width="400"/>
+
+You can add more than one node in the blacklist
+
+<img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/85b6a9b1-8ec9-4395-b5b1-6f85d3f52162.png" width="400"/>
+
+## Apikey permission
+
+If you having issue with 403 error try to enable `read & write` on all options
+
+<img alt="Application API Permission" src="https://usercontent.catto.pictures/hirzi/273d5b86-5249-42d0-bfc6-1dcfcae4efe7.png" width="400"/>
+
+## Links
+
+- [Pterodactyl Panel](https://pterodactyl.io)
+- [Pterodactyl Api Documentation](https://dashflo/docs/api/pterodactyl/v1)
+- [Pterodactyl Discord Server](https://discord.gg/pterodactyl)
+- [PteroBot Support Server](https://discord.gg/zv6maQRah3)
+- [PteroBot Support Server (Indonesia)](https://discord.gg/EYaFB7WSg6)

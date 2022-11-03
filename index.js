@@ -1,19 +1,52 @@
-const { Client, Collection } = require('discord.js')
-const fs = require('fs')
-const client = new Client()
-const yaml = require('js-yaml')
-const chalk = require('chalk')
-const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'))
+const fs = require('fs');
+const child = require('child_process');
+
+if (Number(process.version.split('.')[0]) < 16) {
+	console.log('Invalid NodeJS Version!, Please use NodeJS 16.x or upper')
+	process.exit()
+}
+if (fs.existsSync('./node_modules')) {
+	const check = require('./node_modules/discord.js/package.json')
+	if (Number(check.version.split('.')[0]) !== 14) {
+		console.log('Invalid Discord.JS Version!, Please use Discord.JS 14.x')
+		process.exit()
+	}
+} else {
+	console.log('You didn\'t install the required node packages first!')
+	console.log('Please wait... starting to install all required node packages using child process')
+	try {
+		child.execSync('npm i')
+		console.log('Install complete!, please run "node index" command again!')
+		process.exit()
+	} catch (err) {
+		console.log('Err! ', err)
+		console.log('Support Server: https://discord.gg/zv6maQRah3')
+		process.exit()
+	}
+}
+
+const chalk = require('chalk');
+const yaml = require('js-yaml');
+const { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'));
 client.config = config
 
-fs.readdir('./events/', (err, files) => {
-    if (err) return console.error(err)
-    files.forEach(file => {
-        const event = require(`./events/${file}`)
-        const eventName = file.split('.')[0]
-        client.on(eventName, event.bind(null, client))
-    })
-})
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
-if (config.token === 'BOT TOKEN') console.log(chalk.blue('[PteroStats Checker] ') + chalk.red('Invalid Token, Check ') + chalk.green('config.yml') + chalk.red(' file to change token'))
-client.login(config.token)
+for (const file of eventFiles) {
+    const event = require(`./events/${file}`);
+    if (event.once) {
+        client.once(event.name, (...args) => event.execute(...args));
+    } else {
+        client.on(event.name, (...args) => event.execute(...args));
+    }
+}
+
+if (client.config.token.startsWith('Put') || client.config.token.length < 1) {
+	console.log(chalk.cyan('[PteroStats]') + chalk.red(' Err! Invalid Discord Bot Token'))
+	process.exit()
+}
+
+client.login(config.token);
