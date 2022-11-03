@@ -17,7 +17,7 @@ PteroStats adalah bot yang dirancang untuk memeriksa status panel pterodactyl da
 
 - [Calvs Cloud](https://discord.gg/ssCQjhrBJN)
 
-    <img alt="Calvs Cloud" src="https://media.discordapp.net/attachments/819757140155564062/1037330231511498822/unknown.png?width=436&height=499" width="200">
+    <img alt="Calvs Cloud" src="https://media.discordapp.net/attachments/819757140155564062/1037353043487887410/unknown.png" width="200">
 
 ## Instalasi
  1. [Mendapatkan apikey dari pterodactyl](#mendapatkan-apikey-dari-pterodactyl)
