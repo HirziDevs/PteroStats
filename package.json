@@ -4,7 +4,7 @@
 	"description": "PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and post it to your discord server",
 	"license": "MIT",
 	"repository": "HirziDevs/PteroStats",
-	"homepage": "https://pterostats.hirzidevs.net",
+	"homepage": "https://pterostats.hirzidevs.xyz",
 	"bugs": {
 		"email": "hirzidevs@gmail.com",
 		"url": "https://github.com/HirziDevs/PteroStats"

@@ -122,6 +122,8 @@ Jika kamu mengalami error 403 coba aktifkan `read & write` di semua opsi permiss
 
 ## Links
 
+- [PteroStats DiscordJS v13](https://github.com/HirziDevs/PteroStats/tree/3d0512c3323ecf079101104c7ecf3c94d265e298)
+- [PteroStats DiscordJS v12](https://github.com/HirziDevs/PteroStats/tree/bcfa266be64dda11955f0bf9732da086bcea522c)
 - [Pterodactyl Panel](https://pterodactyl.io)
 - [Pterodactyl Api Documentation](https://dashflo/docs/api/pterodactyl/v1)
 - [Pterodactyl Discord Server](https://discord.gg/pterodactyl)
