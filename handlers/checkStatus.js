@@ -11,7 +11,7 @@ module.exports = function checkStatus(client) {
 	} else if (client.config.panel.url.startsWith('Put')) {
 		console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Panel URL'))
 		process.exit()
-	} else if (client.config.panel.key.startsWith('Put')) {
+	} else if (client.config.panel.adminkey.startsWith('Put')) {
 		console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Apikey'))
 		process.exit()
 	} else if (!client.config.panel.url.startsWith('http')) {
