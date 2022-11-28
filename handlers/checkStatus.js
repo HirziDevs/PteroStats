@@ -3,19 +3,19 @@ const chalk = require('chalk')
 
 const postStatus = require('./postStatus')
 
-module.exports = function checkStatus(client) {
+module.exports = function checkStatus({ client }) {
 
 	if (client.config.channel.startsWith('Put')) {
-		console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Channel ID'))
+		console.log(chalk.cyan('[PteroStats] ') + chalk.red('Error! Invalid Channel ID'))
 		process.exit()
 	} else if (client.config.panel.url.startsWith('Put')) {
-		console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Panel URL'))
+		console.log(chalk.cyan('[PteroStats] ') + chalk.red('Error! Invalid Panel URL'))
 		process.exit()
 	} else if (client.config.panel.key.startsWith('Put')) {
-		console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Apikey'))
+		console.log(chalk.cyan('[PteroStats] ') + chalk.red('Error! Invalid Apikey'))
 		process.exit()
 	} else if (!client.config.panel.url.startsWith('http')) {
-		console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Panel URL'))
+		console.log(chalk.cyan('[PteroStats] ') + chalk.red('Error! Invalid Panel URL'))
 		console.log(chalk.cyan('[PteroStats] ') + chalk.red('1. Make sure the panel url is starts with "https://" or "http://"'))
 		process.exit()
 	}
@@ -40,7 +40,7 @@ module.exports = function checkStatus(client) {
 				'Content-Type': 'application/json',
 				Authorization: 'Bearer ' + client.config.panel.key
 			}
-		}).then((usr) => {
+		}).then((users) => {
 			axios(client.config.panel.url + '/api/application/servers', {
 				method: 'GET',
 				headers: {
@@ -48,25 +48,25 @@ module.exports = function checkStatus(client) {
 					'Content-Type': 'application/json',
 					Authorization: 'Bearer ' + client.config.panel.key
 				}
-			}).then((ser) => {
-				panel.total_users = usr.data.meta.pagination.total
-				panel.total_servers = ser.data.meta.pagination.total
+			}).then((servers) => {
+				panel.total_users = users.data.meta.pagination.total
+				panel.total_servers = servers.data.meta.pagination.total
 				panel.status = true
 
 				resolve()
 			})
-		}).catch((err) => {
-			if (err.response) {
-				if (err.response.status === 403) {
-					console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid apikey'))
+		}).catch((error) => {
+			if (error.response) {
+				if (error.response.status === 403) {
+					console.log(chalk.cyan('[PteroStats] ') + chalk.red('Error! Invalid apikey'))
 					console.log(chalk.cyan('[PteroStats] ') + chalk.red('1. Make sure the apikey is from admin page not account page'))
 					console.log(chalk.cyan('[PteroStats] ') + chalk.red('2. Make sure the apikey has read permission on all options'))
 					console.log(chalk.cyan('[PteroStats] ') + chalk.red('3. Make sure the apikey is exist'))
-				} else if (err.response.status === 404) {
-					console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Panel URL'))
+				} else if (error.response.status === 404) {
+					console.log(chalk.cyan('[PteroStats] ') + chalk.red('Error! Invalid Panel URL'))
 					console.log(chalk.cyan('[PteroStats] ') + chalk.red('1. Make sure the panel url is like "https://panel.example.com"'))
-				} else console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! ' + err))
-			} else console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! ' + err))
+				} else console.log(chalk.cyan('[PteroStats] ') + chalk.red('Error! ' + error))
+			} else console.log(chalk.cyan('[PteroStats] ') + chalk.red('Error! ' + error))
 			resolve()
 		})
 	})
@@ -111,9 +111,9 @@ module.exports = function checkStatus(client) {
 								'Content-Type': 'application/json',
 								Authorization: 'Bearer ' + data.data.token
 							}
-						}).then((status) => {
+						}).then(() => {
 							return statsResolve()
-						}).catch((err) => {
+						}).catch(() => {
 							body.status = false
 							return statsResolve()
 						})
@@ -126,19 +126,15 @@ module.exports = function checkStatus(client) {
 						nodes.push(body)
 						if (nodes.length === res.data.data.length) resolve()
 					})
-				}).catch((err) => {
-					resolve()
-				})
+				}).catch(() => resolve())
 			})
-		}).catch((err) => {
-			resolve()
-		})
+		}).catch(() => resolve())
 	})
 
 	panelStats.then(() => {
 		nodeStats.then(() => {
 			nodes.sort(function (a, b) { return a.id - b.id })
-			postStatus(client, panel, nodes)
+			postStatus({ client: client, panel: panel, nodes: nodes })
 		})
 	})
 }

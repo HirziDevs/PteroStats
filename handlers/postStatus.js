@@ -1,38 +1,29 @@
 const { EmbedBuilder, time, ActionRowBuilder, ButtonBuilder, ButtonStyle, AttachmentBuilder } = require('discord.js')
 const chalk = require('chalk')
 
-module.exports = async function postStatus(client, panel, nodes) {
-
-	if (!client.config.nodes_resource) client.config.nodes_resource = client.config.resource
-	if (!client.config.nodes_resource.blacklist) client.config.nodes_resource.blacklist = []
-	if (!Array.isArray(client.config.nodes_resource.blacklist) && Number.isInteger(client.config.nodes_resource.blacklist)) client.config.nodes_resource.blacklist = [client.config.nodes_resource.blacklist]
-	if (!client.config.message.attachment) client.config.message.attachment = client.config.message.image
-
-	if (client.guilds.cache.size < 1) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! This bot is not on any discord servers'))
+module.exports = async function postStatus({ client, panel, nodes }) {
 
 	const channel = await client.channels.cache.get(client.config.channel)
+	if (!channel) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Error! Invalid Channel ID'))
 
-	if (!channel) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Err! Invalid Channel ID'))
+	const files = []
+	const embed = new EmbedBuilder()
+	let messages = await channel.messages.fetch({ limit: 10 }).then(msg => msg.filter(m => m.author.id === client.user.id).last())
+	let text = ''
+	let desc = ''
+	let blacklist = 0
+	let content = null
 
-	let messages = await channel.messages.fetch({ limit: 10 })
-	messages = messages.filter(m => m.author.id === client.user.id).last();
+	if (!client.config.nodes_resource.blacklist) client.config.nodes_resource.blacklist = []
+	if (!Array.isArray(client.config.nodes_resource.blacklist) && Number.isInteger(client.config.nodes_resource.blacklist)) client.config.nodes_resource.blacklist = [client.config.nodes_resource.blacklist]
+	if (client.guilds.cache.size < 1) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Error! This bot is not on any discord servers'))
 	if (messages && messages.embeds.length < 1) {
 		messages.delete()
 		messages = null
 	}
 
-	const embed = new EmbedBuilder()
-
-	let text = ''
-	let desc = ''
-	let blacklist = 0
-
-	let content = null
-	const files = []
-
 	if (client.config.message.content) content = client.config.message.content
 	if (client.config.message.attachment) files.push(new AttachmentBuilder(client.config.message.attachment))
-
 	if (client.config.embed.title) embed.setTitle(client.config.embed.title)
 	if (client.config.embed.description) desc = client.config.embed.description + '\n'
 	if (client.config.embed.color) embed.setColor(client.config.embed.color)

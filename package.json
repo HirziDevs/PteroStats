@@ -7,7 +7,7 @@
 	"homepage": "https://pterostats.hirzidevs.xyz",
 	"bugs": {
 		"email": "hirzidevs@gmail.com",
-		"url": "https://github.com/HirziDevs/PteroStats"
+		"url": "https://github.com/HirziDevs/PteroStats/issues"
 	},
 	"scripts": {
 		"start": "node index.js"
