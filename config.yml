@@ -17,7 +17,7 @@ panel:
     url: 'Put panel url here'
     key: 'Put panel apikey here'
 
-# Message Configuration
+# Message and Embed Configuration
 # leave '' if you want to disable option
 message:
     content: ''
@@ -55,13 +55,13 @@ button:
         url: ''
 
 # Status Message Configuration
-# How to use custom emoji: htttps://github.com/HirziDevs/PteroStats#using-custom-emoji
+# How to use custom emoji: https://github.com/HirziDevs/PteroStats#using-custom-emoji
 status:
     online: ':green_circle: Online'
     offline: ':red_circle: Offline'
 
 # Nodes Settings
-# How to get nodes id: htttps://github.com/HirziDevs/PteroStats#blacklist-nodes
+# How to get nodes id: https://github.com/HirziDevs/PteroStats#blacklist-nodes
 nodes_settings:
     blacklist: [] # You can add node id to remove the node from status embed (Example: "blacklist: [1]")
     enable: false

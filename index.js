@@ -33,7 +33,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.config = yaml.load(fs.readFileSync('./config.yml', 'utf8'));
 
 if (client.config.panel.adminkey || client.config.resource || client.config.message.image) {
-	console.log(chalk.cyan('[PteroStats] ') + chalk.red('You are using old config file, please update your config file at ') + chalk.green('https://github.com/HirziDevs/PteroStats/blob/main/config.yml '))
+	console.log(chalk.cyan('[PteroStats] ') + chalk.red('You are using old config file, please update your config file at ') + chalk.green('https://github.com/HirziDevs/PteroStats/blob/main/config.yml'))
 	process.exit()
 }
 if (client.config.token.startsWith('Put') || !client.config.token.length) {
