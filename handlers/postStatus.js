@@ -14,8 +14,8 @@ module.exports = async function postStatus({ client, panel, nodes }) {
 	let blacklist = 0
 	let content = null
 
-	if (!client.config.nodes_resource.blacklist) client.config.nodes_resource.blacklist = []
-	if (!Array.isArray(client.config.nodes_resource.blacklist) && Number.isInteger(client.config.nodes_resource.blacklist)) client.config.nodes_resource.blacklist = [client.config.nodes_resource.blacklist]
+	if (!client.config.nodes_settings.blacklist) client.config.nodes_settings.blacklist = []
+	if (!Array.isArray(client.config.nodes_settings.blacklist) && Number.isInteger(client.config.nodes_settings.blacklist)) client.config.nodes_settings.blacklist = [client.config.nodes_settings.blacklist]
 	if (client.guilds.cache.size < 1) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Error! This bot is not on any discord servers'))
 	if (messages && messages.embeds.length < 1) {
 		messages.delete()
@@ -37,10 +37,10 @@ module.exports = async function postStatus({ client, panel, nodes }) {
 	const stats = new Promise((resolve, reject) => {
 		if (nodes.length !== 0) {
 			nodes.forEach((data, i) => {
-				if (!client.config.nodes_resource.blacklist.includes(data.id)) {
+				if (!client.config.nodes_settings.blacklist.includes(data.id)) {
 					const title = data.name + ': ' + String(data.status).replace('true', client.config.status.online).replace('false', client.config.status.offline)
 					let description = '```'
-					switch (client.config.nodes_resource.unit.toLowerCase()) {
+					switch (client.config.nodes_settings.unit.toLowerCase()) {
 						case 'tb':
 							description = description +
 								'\nMemory : ' + Math.floor(data.memory_min / (1024 * 1000)).toLocaleString() + ' TB / ' + Math.floor(data.memory_max / (1024 * 1000)).toLocaleString() + ' TB' +
@@ -62,20 +62,20 @@ module.exports = async function postStatus({ client, panel, nodes }) {
 								'\nDisk : ' + data.disk_min.toLocaleString() + ' MB / ' + data.disk_max.toLocaleString() + ' MB'
 					}
 
-					if (client.config.nodes_resource.servers) description = description + '\nServers : ' + data.total_servers.toLocaleString()
-					if (client.config.nodes_resource.location) description = description + '\nLocation : ' + data.location
-					if (client.config.nodes_resource.allocations) description = description + '\nAllocations : ' + data.allocations.toLocaleString()
+					if (client.config.nodes_settings.servers) description = description + '\nServers : ' + data.total_servers.toLocaleString()
+					if (client.config.nodes_settings.location) description = description + '\nLocation : ' + data.location
+					if (client.config.nodes_settings.allocations) description = description + '\nAllocations : ' + data.allocations.toLocaleString()
 
 					description = description + '\n```'
 
-					if (client.config.nodes_resource.enable) {
+					if (client.config.nodes_settings.enable) {
 						text = text + '\n**' + title.replace(':', ':**') + '\n' + description
 					} else {
 						text = text + '\n**' + title.replace(':', ':**')
 					}
 				} else {
 					blacklist = blacklist + 1
-					if (nodes.length - client.config.nodes_resource.blacklist.length < 1) text = '\nThere is no nodes to display'
+					if (nodes.length - client.config.nodes_settings.blacklist.length < 1) text = '\nThere is no nodes to display'
 				}
 
 				if (i + 1 === nodes.length) resolve()
@@ -100,16 +100,16 @@ module.exports = async function postStatus({ client, panel, nodes }) {
 		embed.setDescription(desc.replaceAll('{{time}}', format) + '\n**Nodes Stats [' + Math.floor(nodes.length - blacklist) + ']**' + text)
 		const EmbedFields = []
 
-		if (client.config.panel_resource.enable) {
+		if (client.config.panel_settings.users || client.config.panel_settings.servers) {
 			let stats = '**Status:** ' + String(panel.status).replace('true', client.config.status.online).replace('false', client.config.status.offline) + '\n\n'
 
-			if (client.config.panel_resource.users) stats = stats + 'Users: ' + String(panel.total_users).replace('-1', '`Unknown`') + '\n'
-			if (client.config.panel_resource.servers) stats = stats + 'Servers: ' + String(panel.total_servers).replace('-1', '`Unknown`')
+			if (client.config.panel_settings.users) stats = stats + 'Users: ' + String(panel.total_users).replace('-1', '`Unknown`') + '\n'
+			if (client.config.panel_settings.servers) stats = stats + 'Servers: ' + String(panel.total_servers).replace('-1', '`Unknown`')
 
 			EmbedFields.push({ name: 'Panel Stats', value: stats })
 		}
 
-		if (client.config.embed.field.enable) EmbedFields.push({ name: client.config.embed.field.title, value: client.config.embed.field.description.replaceAll('{{time}}', format) })
+		if (client.config.embed.field.title && client.config.embed.field.description) EmbedFields.push({ name: client.config.embed.field.title, value: client.config.embed.field.description.replaceAll('{{time}}', format) })
 		if (client.config.embed.timestamp) embed.setTimestamp()
 		if (EmbedFields.length > 0) embed.addFields(EmbedFields)
 

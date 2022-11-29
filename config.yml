@@ -3,10 +3,10 @@
 
 # Bot Configuration
 token: 'Put bot token here'
-bot_status:
-    enable: false
+presence:
     text: 'Hosting Panel'
-    type: 'WATCHING' # can be 'WATCHING', 'PLAYING', 'LISTENING', or 'COMPETING'. for 'STREAMING' is not working for now
+    type: 'watching' # can be 'watching', 'playing', 'listening', or 'competing'. for 'streaming' is not working for now
+    status: 'online' # can be 'online', 'idle', 'dnd', or 'invisible'
 
 # Discord Channel and Refresh Time Configuration
 channel: 'Put channel id here'
@@ -18,10 +18,10 @@ panel:
     key: 'Put panel apikey here'
 
 # Message Configuration
-# set to false if you want to disable option
+# leave '' if you want to disable option
 message:
-    content: false
-    attachment: false # If you enable attachment on message it upload the attachment first before sending or editing message and it will delay the stats
+    content: ''
+    attachment: '' # If you enable attachment on message it upload the attachment first before sending or editing message and it will delay the stats
 
 embed:
     title: 'PteroStats'
@@ -29,12 +29,11 @@ embed:
     description: 'Next update {{time}}' # You can use {{time}} to make "in X seconds" time format
     footer: 'By Hirzi#8701'
     timestamp: true
-    thumbnail: false
-    image: false
+    thumbnail: ''
+    image: ''
     field:
-        enable: false
-        title: 'Custom Field'
-        description: 'Custom Field' # You can use {{time}} to make "in X seconds" time format
+        title: ''
+        description: '' # You can use {{time}} to make "in X seconds" time format
 
 # Message Button Configuration
 button:
@@ -56,12 +55,14 @@ button:
         url: ''
 
 # Status Message Configuration
+# How to use custom emoji: htttps://github.com/HirziDevs/PteroStats#using-custom-emoji
 status:
     online: ':green_circle: Online'
     offline: ':red_circle: Offline'
 
-# Nodes Resource
-nodes_resource:
+# Nodes Settings
+# How to get nodes id: htttps://github.com/HirziDevs/PteroStats#blacklist-nodes
+nodes_settings:
     blacklist: [] # You can add node id to remove the node from status embed (Example: "blacklist: [1]")
     enable: false
     servers: true
@@ -69,8 +70,7 @@ nodes_resource:
     allocations: true
     unit: 'gb' # You can use "gb", "mb", "tb", or "percent"
 
-# Panel Users and Servers
-panel_resource:
-    enable: true
+# Panel Users and Servers Settings
+panel_settings:
     servers: true
     users: true
