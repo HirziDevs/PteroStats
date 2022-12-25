@@ -114,11 +114,9 @@ Kamu bisa memasukan lebih dari 1 node untuk di blacklist
 
 <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/85b6a9b1-8ec9-4395-b5b1-6f85d3f52162.png" width="400"/>
 
-## Permission apikey
+## Nodenya online tapi di embed dibilang offline
 
-Jika kamu mengalami error 403 coba aktifkan `read & write` di semua opsi permission
-
-<img alt="Application API Permission" src="https://usercontent.catto.pictures/hirzi/273d5b86-5249-42d0-bfc6-1dcfcae4efe7.png" width="400"/>
+Jika kamu mengalami isu ini, atur `log_error` menjadi true di file config dan beri tahu kami di [Support Server](https://discord.gg/zv6maQRah3)
 
 ## Links
 

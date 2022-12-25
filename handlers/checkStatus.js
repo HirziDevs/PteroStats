@@ -1,9 +1,19 @@
+const { EmbedBuilder } = require('discord.js')
 const axios = require('axios')
 const chalk = require('chalk')
 
 const postStatus = require('./postStatus')
 
 module.exports = function checkStatus({ client }) {
+
+	function Embed({ node }) {
+		return new EmbedBuilder()
+			.setTitle('Node Logging') //if you wanted to change this please change at line 175 too
+			.setDescription('`' + node.name + '` is down!')
+			.setFooter({ text: 'Please see console for more details' })
+			.setTimestamp()
+			.setColor('ED4245')
+	}
 
 	if (client.config.channel.startsWith('Put')) {
 		console.log(chalk.cyan('[PteroStats] ') + chalk.red('Error! Invalid Channel ID'))
@@ -23,6 +33,7 @@ module.exports = function checkStatus({ client }) {
 	if (client.config.panel.url.endsWith('/')) client.config.panel.url = client.config.panel.url.slice(0, -1)
 
 	const nodes = []
+	const embeds = []
 
 	const panel = {
 		status: false,
@@ -113,14 +124,21 @@ module.exports = function checkStatus({ client }) {
 							}
 						}).then(() => {
 							return statsResolve()
-						}).catch(() => {
+						}).catch((error) => {
+							if (client.config.log_error) console.log(chalk.cyan('[PteroStats] ') + chalk.yellow('[Node: ' + node.attributes.name + '] ') + chalk.red(error))
+							embeds.push(Embed({ node: body }))
 							body.status = false
 							return statsResolve()
 						})
 						setTimeout(() => {
-							body.status = false
-							return statsResolve()
-						}, 1000)
+							if (body.status === undefined) {
+								console.log(body.status)
+								if (client.config.log_error) console.log(chalk.cyan('[PteroStats] ') + chalk.yellow('[Node: ' + node.attributes.name + '] ') + chalk.red('Timeout!'))
+								embeds.push(Embed({ node: body }))
+								body.status = false
+								return statsResolve()
+							}
+						}, client.config.timeout * 1000)
 					})
 					stats.then(() => {
 						nodes.push(body)
@@ -132,9 +150,41 @@ module.exports = function checkStatus({ client }) {
 	})
 
 	panelStats.then(() => {
-		nodeStats.then(() => {
+		nodeStats.then(async () => {
 			nodes.sort(function (a, b) { return a.id - b.id })
 			postStatus({ client: client, panel: panel, nodes: nodes })
+
+			// this feature is still in testing
+			if (client.config.mentions.user.length > 0 || client.config.mentions.role.length > 0 && client.config.mentions.channel) {
+				if (Array.isArray(client.config.mentions.user) || Array.isArray(client.config.mentions.role)) {
+					let mentions = ''
+
+					await client.config.mentions.user.forEach((user) => {
+						if (!isNaN(Number(user))) {
+							mentions = mentions + ' <@' + user + '>'
+						}
+					})
+					await client.config.mentions.role.forEach((role) => {
+						if (!isNaN(Number(role))) {
+							mentions = mentions + ' <@&' + role + '>'
+						}
+					})
+
+					const channel = await client.channels.cache.get(client.config.mentions.channel)
+					if (channel) {
+						const messages = await channel.messages.fetch({ limit: 10 }).then(msg => msg.filter(m => m.author.id === client.user.id && m.embeds[0].data.title === 'Node Logging').first())
+						if (messages) messages.embeds.forEach((MsgEmbed) => {
+							embeds.forEach((embed, i) => {
+								if (MsgEmbed.data.description === embed.data.description) embeds.splice(i, 1)
+								nodes.forEach((node) => {
+									if (MsgEmbed.data.description.startsWith('`' + node.name) && node.status === true) messages.delete()
+								})
+							})
+						})
+						if (embeds.length > 0) channel.send({ content: mentions, embeds: embeds })
+					}
+				}
+			}
 		})
 	})
 }

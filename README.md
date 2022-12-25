@@ -114,11 +114,9 @@ You can add more than one node in the blacklist
 
 <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/85b6a9b1-8ec9-4395-b5b1-6f85d3f52162.png" width="400"/>
 
-## Apikey permission
+## The node is online but the embed is read as offline
 
-If you having issue with 403 error try to enable `read & write` on all options
-
-<img alt="Application API Permission" src="https://usercontent.catto.pictures/hirzi/273d5b86-5249-42d0-bfc6-1dcfcae4efe7.png" width="400"/>
+If you having this issue, you can enable `log_error` on the config file and report it to our discord server at [Support Server](https://discord.gg/zv6maQRah3)
 
 ## Links
 

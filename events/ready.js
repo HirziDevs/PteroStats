@@ -8,9 +8,19 @@ module.exports = {
 	execute(client) {
 		console.log(chalk.cyan('[PteroStats] ') + chalk.green('Bot is up!'))
 		console.log(chalk.cyan('[PteroStats] ') + chalk.green('If you need support you can join our discord server https://discord.gg/zv6maQRah3'))
+		console.log(chalk.cyan('[PteroStats] ') + chalk.yellow('If some node is online but the embed is read as offline, please enable ') + chalk.green('log_error') + chalk.yellow(' on config file and report it at https://discord.gg/zv6maQRah3'))
 
 		if (client.guilds.cache.size < 1) return console.log(chalk.cyan('[PteroStats] ') + chalk.red('Error! This bot is not on any discord servers'))
-		if (client.config.refresh < 10) console.log(chalk.cyan('[PteroStats] ') + chalk.red('Refresh lower than 10 seconds is not recommended!'))
+		if (client.config.timeout < 1) {
+			console.log(chalk.cyan('[PteroStats] ') + chalk.red('Timeout cannot be less than 1 seconds!'))
+			client.config.timeout = 1
+		}
+
+		if (client.config.refresh > 1 && client.config.refresh < 10) console.log(chalk.cyan('[PteroStats] ') + chalk.red('Refresh Time below 10 seconds is not recommended!'))
+		else if (client.config.refresh < 1) {
+			console.log(chalk.cyan('[PteroStats] ') + chalk.red('Refresh Time cannot be less than 1 seconds!'))
+			client.config.refresh = 10
+		}
 
 		if (client.config.bot_status || client.config.nodes_resource || client.config.panel_resource) {
 			console.log(chalk.cyan('[PteroStats] ') + chalk.red('You used `bot_status`, `panel_resource` and `nodes_resource` instead of `presence`, `panel_settings` and `nodes_settings` in the config, please update your config file at ') + chalk.green('https://github.com/HirziDevs/PteroStats/blob/main/config.yml ') + chalk.red('before it can no longer be supported'))

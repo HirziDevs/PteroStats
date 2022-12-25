@@ -1,21 +1,10 @@
 const fs = require('fs');
 const child = require('child_process');
-const chalk = require('chalk');
-const yaml = require('js-yaml');
 
-if (Number(process.version.split('.')[0]) < 16) {
-	console.log('Invalid NodeJS Version!, Please use NodeJS 16.x or upper')
-	process.exit()
-}
-if (fs.existsSync('./node_modules')) {
-	const check = require('./node_modules/discord.js/package.json')
-	if (Number(check.version.split('.')[0]) !== 14) {
-		console.log('Invalid Discord.JS Version!, Please use Discord.JS 14.x')
-		process.exit()
-	}
-} else {
+function InstallPackages() {
 	console.log('You didn\'t install the required node packages first!')
 	console.log('Please wait... starting to install all required node packages using child process')
+	console.log('If the bot can\'t install the package please install it manually')
 	try {
 		child.execSync('npm i')
 		console.log('Install complete!, please run "node index" command again!')
@@ -27,6 +16,37 @@ if (fs.existsSync('./node_modules')) {
 	}
 }
 
+if (Number(process.version.split('.')[0]) < 16) {
+	console.log('Invalid NodeJS Version!, Please use NodeJS 16.x or upper')
+	process.exit()
+}
+if (fs.existsSync('./node_modules')) {
+	if (fs.existsSync('./node_modules/discord.js')) {
+		const check = require('./node_modules/discord.js/package.json')
+		if (Number(check.version.split('.')[0]) !== 14) {
+			console.log('Invalid Discord.JS Version!, Please use Discord.JS 14.x')
+			process.exit()
+		}
+	} else InstallPackages()
+	if (fs.existsSync('./node_modules/axios')) {
+		const check = require('./node_modules/axios/package.json')
+		if (Number(check.version.split('.')[1]) > 1) {
+			console.log('Invalid Axios Version!, Please use Axios 1.1.3')
+			process.exit()
+		}
+	} else InstallPackages()
+	if (fs.existsSync('./node_modules/chalk')) {
+		const check = require('./node_modules/chalk/package.json')
+		if (Number(check.version.split('.')[0]) > 4) {
+			console.log('Invalid Chalk Version!, Please use Chalk 4.1.2')
+			process.exit()
+		}
+	} else InstallPackages()
+	if (!fs.existsSync('./node_modules/js-yaml')) InstallPackages()
+} else InstallPackages()
+
+const chalk = require('chalk');
+const yaml = require('js-yaml');
 const { Client, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 

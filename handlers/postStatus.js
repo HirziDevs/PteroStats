@@ -85,10 +85,12 @@ module.exports = async function postStatus({ client, panel, nodes }) {
 				text = '\nThere is no nodes to display'
 				resolve()
 			} else {
-				text = messages.embeds[0].description.replaceAll(client.config.status.online, client.config.status.offline)
-				if (!panel.status && String(String(messages.embeds[0].fields[0].value).split('\n')[2]).split('')[String(String(messages.embeds[0].fields[0].value).split('\n')[2]).length - 1] !== '`') {
-					panel.total_users = String(String(messages.embeds[0].fields[0].value).split('\n')[2]).split('')[String(String(messages.embeds[0].fields[0].value).split('\n')[2]).length - 1]
-					panel.total_servers = String(String(messages.embeds[0].fields[0].value).split('\n')[3]).split('')[String(String(messages.embeds[0].fields[0].value).split('\n')[3]).length - 1]
+				if (messages.embeds.length > 0 && client.config.embed.title && messages.embeds[0].data.title === client.config.embed.title) {
+					text = messages.embeds[0].description.replaceAll(client.config.status.online, client.config.status.offline)
+					if (!panel.status && String(String(messages.embeds[0].fields[0].value).split('\n')[2]).split('')[String(String(messages.embeds[0].fields[0].value).split('\n')[2]).length - 1] !== '`') {
+						panel.total_users = String(String(messages.embeds[0].fields[0].value).split('\n')[2]).split('')[String(String(messages.embeds[0].fields[0].value).split('\n')[2]).length - 1]
+						panel.total_servers = String(String(messages.embeds[0].fields[0].value).split('\n')[3]).split('')[String(String(messages.embeds[0].fields[0].value).split('\n')[3]).length - 1]
+					}
 				}
 				resolve()
 			}
