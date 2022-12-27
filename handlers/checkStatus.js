@@ -105,7 +105,6 @@ module.exports = function checkStatus({ client }) {
 						name: node.attributes.name,
 						location: node.attributes.relationships.location.attributes.short,
 						allocations: node.attributes.relationships.allocations.data.length,
-						status: true,
 						maintenance: node.attributes.maintenance_mode,
 						total_servers: node.attributes.relationships.servers.data.length,
 						memory_min: node.attributes.allocated_resources.memory,
@@ -123,6 +122,7 @@ module.exports = function checkStatus({ client }) {
 								Authorization: 'Bearer ' + data.data.token
 							}
 						}).then(() => {
+							body.status = true
 							return statsResolve()
 						}).catch((error) => {
 							if (client.config.log_error) console.log(chalk.cyan('[PteroStats] ') + chalk.yellow('[Node: ' + node.attributes.name + '] ') + chalk.red(error))
@@ -132,7 +132,6 @@ module.exports = function checkStatus({ client }) {
 						})
 						setTimeout(() => {
 							if (body.status === undefined) {
-								console.log(body.status)
 								if (client.config.log_error) console.log(chalk.cyan('[PteroStats] ') + chalk.yellow('[Node: ' + node.attributes.name + '] ') + chalk.red('Timeout!'))
 								embeds.push(Embed({ node: body }))
 								body.status = false
