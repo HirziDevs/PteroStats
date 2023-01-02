@@ -65,7 +65,7 @@ status:
 # How to get nodes id: https://github.com/HirziDevs/PteroStats#blacklist-nodes
 nodes_settings:
     blacklist: [] # You can add node id to remove the node from status embed (Example: "blacklist: [1]")
-    enable: false
+    details: false # enable nodes details like memory and disk
     servers: true
     location: true
     allocations: true
@@ -73,6 +73,7 @@ nodes_settings:
 
 # Panel Users and Servers Settings
 panel_settings:
+    status: true # enable panel stats under nodes stats
     servers: true
     users: true
 

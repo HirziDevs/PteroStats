@@ -68,7 +68,7 @@ module.exports = async function postStatus({ client, panel, nodes }) {
 
 					description = description + '\n```'
 
-					if (client.config.nodes_settings.enable) {
+					if (client.config.nodes_settings.details) {
 						text = text + '\n**' + title.replace(':', ':**') + '\n' + description
 					} else {
 						text = text + '\n**' + title.replace(':', ':**')
@@ -102,7 +102,7 @@ module.exports = async function postStatus({ client, panel, nodes }) {
 		embed.setDescription(desc.replaceAll('{{time}}', format) + '\n**Nodes Stats [' + Math.floor(nodes.length - blacklist) + ']**' + text)
 		const EmbedFields = []
 
-		if (client.config.panel_settings.users || client.config.panel_settings.servers) {
+		if (client.config.panel_settings.status) {
 			let stats = '**Status:** ' + String(panel.status).replace('true', client.config.status.online).replace('false', client.config.status.offline) + '\n\n'
 
 			if (client.config.panel_settings.users) stats = stats + 'Users: ' + String(panel.total_users).replace('-1', '`Unknown`') + '\n'

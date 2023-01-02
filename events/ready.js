@@ -22,13 +22,6 @@ module.exports = {
 			client.config.refresh = 10
 		}
 
-		if (client.config.bot_status || client.config.nodes_resource || client.config.panel_resource) {
-			console.log(chalk.cyan('[PteroStats] ') + chalk.red('You used `bot_status`, `panel_resource` and `nodes_resource` instead of `presence`, `panel_settings` and `nodes_settings` in the config, please update your config file at ') + chalk.green('https://github.com/HirziDevs/PteroStats/blob/main/config.yml ') + chalk.red('before it can no longer be supported'))
-			client.config.presence = client.config.bot_status
-			client.config.nodes_settings = client.config.nodes_resource
-			client.config.panel_settings = client.config.panel_resource
-		}
-
 		if (client.config.presence.text && client.config.presence.type) {
 			switch (client.config.presence.type.toLowerCase()) {
 				case 'playing':
