@@ -2,7 +2,7 @@
 
 <img alt="PteroStats Banner" src="https://cdn.discordapp.com/attachments/626755594526916629/978478722489393153/20220524_090325.png" width="400"/>
 
-## Language / Bahasa
+## Language / Bahasa / Язык
 [[English]](https://github.com/HirziDevs/PteroStats/blob/main/README.md) | [[Indonesia]](https://github.com/HirziDevs/PteroStats/blob/main/Indo.md) | [[Russian]](https://github.com/HirziDevs/PteroStats/blob/main/Rus.md)
 
 </div>
