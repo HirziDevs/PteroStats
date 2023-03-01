@@ -3,7 +3,7 @@
 <img alt="Баннер PteroStats" src="https://cdn.discordapp.com/attachments/626755594526916629/978478722489393153/20220524_090325.png" width="400"/>
 
 ## Язык / Language / Bahasa
-[[Русский]](/Rus.md) | [[Английский]](/README.md) | [[Индонезийский]](/Indo.md)
+[[Русский]](/RU.md) | [[Английский]](/README.md) | [[Индонезийский]](/IN.md)
 
 </div>
 
