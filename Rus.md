@@ -118,7 +118,7 @@ PteroStats - это бот, предназначенный для проверк
 
 Если у вас возникла эта проблема, вы можете включить `log_error` в конфигурационном файле и сообщить о ней на наш сервер Discord по адресу [Сервер поддержки](https://discord.gg/zv6maQRah3)
 
-## Links
+## Ссылки
 
 - [PteroStats DiscordJS v13](https://github.com/HirziDevs/PteroStats/tree/3d0512c3323ecf079101104c7ecf3c94d265e298)
 - [PteroStats DiscordJS v12](https://github.com/HirziDevs/PteroStats/tree/bcfa266be64dda11955f0bf9732da086bcea522c)
