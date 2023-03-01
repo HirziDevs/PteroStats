@@ -26,8 +26,8 @@ PteroStats - это бот, предназначенный для проверк
 4. [Получение ID канала](#getting-channel-id)
 5. [Запуск бота](#starting-bot)
 
-- [Using Custom Emoji](#using-custom-emoji)
-- [Blacklist Nodes](#blacklist-nodes)
+- [Использование пользовательских эмодзи](#using-custom-emoji)
+- [Черный список узлов](#blacklist-nodes)
 
 ### Получение API ключа от Pterodactyl
 1. Зайдите на свою страницу администратора и перейдите в раздел `Application API`.
@@ -53,49 +53,49 @@ PteroStats - это бот, предназначенный для проверк
 ### Создание Discord бота
 Пожалуйста, обратитесь к [этому сайту](https://discordjs.guide/preparations/setting-up-a-bot-application.html)
 
-Paste the bot token at the config
+Вставьте токен бота в конфигурацию
 
-<img alt="Bot Config" src="https://usercontent.catto.pictures/hirzi/4eb4d5ff-6969-4461-b01d-c45888cfc994.png" width="400"/>
+<img alt="Конфигурация бота" src="https://usercontent.catto.pictures/hirzi/4eb4d5ff-6969-4461-b01d-c45888cfc994.png" width="400"/>
 
-### Inviting Discord Bot
-Please refer to [this website](https://discordjs.guide/preparations/adding-your-bot-to-servers.html)
+### Приглашение бота Discord
+Пожалуйста, обратитесь к [этому сайту](https://discordjs.guide/preparations/adding-your-bot-to-servers.html)
 
-### Getting Channel ID
-1. Enable Developer Feature at your discord settings
+### Получение ID канала
+1. Включите функцию разработчика в настройках Discord
 
-    <img alt="Discord User Settings" src="https://usercontent.catto.pictures/hirzi/36894499-b141-488f-98ed-40245c8f6862.png" width="400"/>
+    <img alt="Настройки пользователя Discord" src="https://usercontent.catto.pictures/hirzi/36894499-b141-488f-98ed-40245c8f6862.png" width="400"/>
 
-2. Right Click text channel and select `Copy ID`
+2. Щелкните правой кнопкой мыши текстовый канал и выберите `Копировать ID`.
 
-    <img alt="Right Click Channel" src="https://usercontent.catto.pictures/hirzi/9f8352da-df5b-4587-9594-ced9b11a5507.png" width="250"/>
+    <img alt="Канал с правой кнопкой мыши" src="https://usercontent.catto.pictures/hirzi/9f8352da-df5b-4587-9594-ced9b11a5507.png" width="250"/>
 
-3. Paste the channel id at the config
+3. Вставьте ID канала в конфигурацию
 
-    <img alt="Channel Config" src="https://usercontent.catto.pictures/hirzi/b34cdbee-1e24-49f2-8219-efe0344a24f9.png" width="400"/>
+    <img alt="Конфигурация канала" src="https://usercontent.catto.pictures/hirzi/b34cdbee-1e24-49f2-8219-efe0344a24f9.png" width="400"/>
 
-### Starting bot
-1. Make sure you have done the things above
-2. Run `npm install` in the root directory of the bot files.
-3. Run `node index` and you are done.
+### Запуск бота
+1. Убедитесь, что вы выполнили все вышеперечисленные действия.
+2. Запустите `npm install` в корневом каталоге файлов бота.
+3. Запустите `node index` и все готово.
 
-if you need help contact me on discord `Hirzi#8701` or join [our discord support server](https://discord.gg/zv6maQRah3)
+Если вам нужна помощь, свяжитесь со мной по Discord `Hirzi#8701` или присоединяйтесь к [нашему серверу поддержки Discord](https://discord.gg/zv6maQRah3)
 
-### Using Custom Emoji
-1. type `\` in guild that has custom emoji you want
+### Использование пользовательских эмодзи
+1. Введите `\` на сервере, в которой есть нужные Вам эмодзи
 
     <img alt="Type \ on the chat" src="https://usercontent.catto.pictures/hirzi/2e3c821f-92f9-4b5c-863a-e020b2fbc426.png" width="350"/>
 
-2. Select custom emoji you want
+2. Выберите нужный Вам пользовательский эмодзи
 
-    <img alt="Select Custom Emoji" src="https://usercontent.catto.pictures/hirzi/7c071727-2adb-4c8c-91d3-21664948a334.png" width="300"/>
+    <img alt="Выберите пользовательские эмодзи" src="https://usercontent.catto.pictures/hirzi/7c071727-2adb-4c8c-91d3-21664948a334.png" width="300"/>
 
-3. Copy the text!
+3. Скопируйте текст!
 
-    <img alt="Copy Emoji ID" src="https://usercontent.catto.pictures/hirzi/bd0084ac-f11b-413d-8b66-580efc011908.png" width="400"/>
+    <img alt="Копирование идентификатора эмодзи" src="https://usercontent.catto.pictures/hirzi/bd0084ac-f11b-413d-8b66-580efc011908.png" width="400"/>
 
-4. Paste the emoji id at the config
+4. Вставьте ID эмодзи в конфигурацию
 
-    <img alt="Status Config" src="https://usercontent.catto.pictures/hirzi/458ad1d6-019b-4b27-be60-3cbabfa07c06.png" width="400"/>
+    <img alt="Конфигурация статуса" src="https://usercontent.catto.pictures/hirzi/458ad1d6-019b-4b27-be60-3cbabfa07c06.png" width="400"/>
 
 ### Черный список нод
 1. Выберите ноду из списка нод на странице администратора
