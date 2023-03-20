@@ -123,7 +123,7 @@ If you having this issue, you can enable `log_error` on the config file and repo
 - [PteroStats DiscordJS v13](https://github.com/HirziDevs/PteroStats/tree/3d0512c3323ecf079101104c7ecf3c94d265e298)
 - [PteroStats DiscordJS v12](https://github.com/HirziDevs/PteroStats/tree/bcfa266be64dda11955f0bf9732da086bcea522c)
 - [Pterodactyl Panel](https://pterodactyl.io)
-- [Pterodactyl Api Documentation](https://dashflo/docs/api/pterodactyl/v1)
+- [Pterodactyl Api Documentation](https://dashflo.net/docs/api/pterodactyl/v1)
 - [Pterodactyl Discord Server](https://discord.gg/pterodactyl)
 - [PteroBot Support Server](https://discord.gg/zv6maQRah3)
 - [PteroBot Support Server (Indonesia)](https://discord.gg/EYaFB7WSg6)
