@@ -1,6 +1,9 @@
 const { EmbedBuilder } = require('discord.js')
 const axios = require('axios')
+const axiosRetry = require("axios-retry")
 const chalk = require('chalk')
+
+axiosRetry(axios, { retries: 5 })
 
 const postStatus = require('./postStatus')
 
