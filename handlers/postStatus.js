@@ -177,7 +177,7 @@ module.exports = async ({ client, panel, nodes }) => {
       } else {
         blacklist = blacklist + 1;
         if (nodes.length - client.config.nodes_settings.blacklist.length < 1) {
-          text = "\nThere is no nodes to display";
+          text = "\nThere are no nodes to display";
         }
       }
     }
