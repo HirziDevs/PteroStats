@@ -5,13 +5,13 @@
 token: "Put bot token here"
 presence:
   text: "Hosting Panel"
-  type: "watching" # can be 'watching', 'playing', 'listening', or 'competing'. for 'streaming' is not working for now
+  type: "watching" # can be 'watching', 'playing', 'listening', or 'competing'. 'streaming' is not working for now
   status: "online" # can be 'online', 'idle', 'dnd', or 'invisible'
 
 # Discord Channel and Refresh Time Configuration
 channel: "Put channel id here"
 refresh: 60 # How much time the bot will refresh the stats
-timeout: 1 # How much time to wait some node to respond to the bot (if you change this, it will add more time to refresh the stats)
+timeout: 1 # How much time to wait for a node to respond to the bot (if you change this, it will add more time to refresh the stats)
 
 # Panel Configuration
 panel:
@@ -19,10 +19,10 @@ panel:
   key: "Put panel apikey here"
 
 # Message and Embed Configuration
-# leave '' if you want to disable option
+# set the option as '' if you want to disable it
 message:
   content: ""
-  attachment: "" # If you enable attachment on message it upload the attachment first before sending or editing message and it will delay the stats
+  attachment: "" # If you enable attachment on message it will upload the attachment first before sending or editing message and will result in delayed stats
 
 embed:
   title: "PteroStats"
@@ -65,11 +65,11 @@ status:
 # How to get nodes id: https://github.com/HirziDevs/PteroStats#blacklist-nodes
 nodes_settings:
   blacklist: [] # You can add node id to remove the node from status embed (Example: "blacklist: [1]")
-  details: false # enable nodes details like memory and disk
+  details: false # enable nodes details i.e memory and disk usage
   servers: true
   location: true
   allocations: true
-  unit: "gb" # You can use "gb", "mb", "tb", or "percent"
+  unit: "gb" # Allowed values- "gb", "mb", "tb", or "percent"
 
 # Panel Users and Servers Settings
 panel_settings:
@@ -77,11 +77,11 @@ panel_settings:
   servers: true
   users: true
 
-# Mentions a User or Role if some nodes are offline (this feature is still in testing, please report if you have a problem)
+# Mentions a User or Role if any node is offline (this feature is still in testing, please report if you have a problem)
 mentions: # to enable atleast put 1 ID on user or role bellow
   user: [] # Put User ID here (Example: "user: ['548867757517570058', '816219634390663230']")
   role: [] # Put Role ID here (Example: "role: ['796083838236622858', '858198863973187585']")
   channel: "" # Put Channel ID here for the logging
 
-# Log error to console if server offline (enable this if you have a problem that you wanted to report)
+# Log error to console if a server offline (enable this when you have a problem that you want to report)
 log_error: false # set to "true" to enable
