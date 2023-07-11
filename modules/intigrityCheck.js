@@ -99,7 +99,7 @@ module.exports = () => {
         } else {
           success = false;
 
-          errorMessage = `Unknown package version- "${package.name}".`;
+          errorMessage = `Unknown package version- "${package.name}@${package.version}".`;
 
           break;
         }
