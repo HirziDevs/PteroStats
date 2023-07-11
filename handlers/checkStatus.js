@@ -10,7 +10,7 @@ axiosRetry(axios, { retries: 5 });
 module.exports = async ({ client }) => {
   function Embed({ node }) {
     return new EmbedBuilder()
-      .setTitle("Node Logging") //if you wanted to change this please change at line 175 too
+      .setTitle("Node Logging") //if you wanted to change this please change at line 244 too
       .setDescription("`" + node.name + "` is down!")
       .setFooter({ text: "Please see console for more details" })
       .setTimestamp()
