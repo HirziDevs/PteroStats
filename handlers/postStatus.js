@@ -118,13 +118,13 @@ module.exports = async ({ client, panel, nodes }) => {
             description =
               description +
               "\nMemory : " +
-              memorySizeConverter(data.memory_min, type) +
+              memorySizeConverter(data.memory_min, client.config.nodes_settings.unit.toLowerCase()) +
               " / " +
-              memorySizeConverter(data.memory_max, type) +
+              memorySizeConverter(data.memory_max, client.config.nodes_settings.unit.toLowerCase()) +
               "\nDisk : " +
-              memorySizeConverter(data.disk_min, type) +
+              memorySizeConverter(data.disk_min, client.config.nodes_settings.unit.toLowerCase()) +
               " / " +
-              memorySizeConverter(data.disk_max, type);
+              memorySizeConverter(data.disk_max, client.config.nodes_settings.unit.toLowerCase());
         }
 
         if (client.config.nodes_settings.servers) {

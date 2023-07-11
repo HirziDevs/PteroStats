@@ -8,13 +8,13 @@ module.exports = (value, type) => {
       if (!type) {
         type = "mb";
       } else {
-        type = type.toLowerCase();
+        type = type?.toLowerCase() || "mb";
 
         if (!SUPPORTED_TYPES.includes(type)) {
           type = "mb";
         }
       }
-      
+
       let result = "";
 
       switch (type) {
