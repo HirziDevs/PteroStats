@@ -7,10 +7,13 @@ const postStatus = require("./postStatus");
 
 axiosRetry(axios, { retries: 5 });
 
+const EMBED_TITLE = "Node Loggin";
+const MENTION_DELETE_TIMEOUT = 1;
+
 module.exports = async ({ client }) => {
   function Embed({ node }) {
     return new EmbedBuilder()
-      .setTitle("Node Logging") //if you wanted to change this please change at line 244 too
+      .setTitle(EMBED_TITLE) //if you wanted to change this please change at line 244 too
       .setDescription("`" + node.name + "` is down!")
       .setFooter({ text: "Please see console for more details" })
       .setTimestamp()
@@ -247,18 +250,18 @@ module.exports = async ({ client }) => {
                       .filter(
                         (m) =>
                           m.author.id === client.user.id &&
-                          m.embeds[0].data.title === "Node Logging"
+                          m.embeds[0].data.title === EMBED_TITLE
                       )
                       .first()
                   );
 
                 if (messages) {
                   for (const MsgEmbed of messages.embeds) {
-                    for (const embed of embeds) {
+                    for (const [index, embed] of embeds.entries()) {
                       if (
                         MsgEmbed.data.description === embed.data.description
                       ) {
-                        embeds.splice(i, 1);//This code is wrong i is not defined
+                        embeds.splice(index, 1);
                       }
 
                       for (const node of nodes) {
@@ -268,7 +271,7 @@ module.exports = async ({ client }) => {
                           ) &&
                           node.status
                         ) {
-                          messages.delete();
+                          await messages.delete();
                         }
                       }
                     }
@@ -276,8 +279,16 @@ module.exports = async ({ client }) => {
                 }
 
                 if (embeds.length > 0) {
-                  channel.send({ content: mentions, embeds: embeds });
+                  await channel.send({ embeds: embeds });
                 }
+
+                await channel.send({ content: mentions }).then(async (msg) => {
+                  setTimeout(async () => {
+                    if (msg) {
+                      await msg.delete();
+                    }
+                  }, MENTION_DELETE_TIMEOUT * 1000);
+                });
               }
             }
           }
