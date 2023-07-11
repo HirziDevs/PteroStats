@@ -24,11 +24,13 @@ module.exports = {
         )
     );
 
-    if (client.guilds.cache.size < 1)
+    if (client.guilds.cache.size < 1) {
       return console.log(
         chalk.cyan("[PteroStats] ") +
           chalk.red("Error! This bot is not on any discord servers")
       );
+    }
+
     if (client.config.timeout < 1) {
       console.log(
         chalk.cyan("[PteroStats] ") +
@@ -37,12 +39,12 @@ module.exports = {
       client.config.timeout = 1;
     }
 
-    if (client.config.refresh > 1 && client.config.refresh < 10)
+    if (client.config.refresh >= 1 && client.config.refresh <= 10) {
       console.log(
         chalk.cyan("[PteroStats] ") +
           chalk.red("Refresh Time below 10 seconds is not recommended!")
       );
-    else if (client.config.refresh < 1) {
+    } else if (client.config.refresh < 1) {
       console.log(
         chalk.cyan("[PteroStats] ") +
           chalk.red("Refresh Time cannot be less than 1 seconds!")
