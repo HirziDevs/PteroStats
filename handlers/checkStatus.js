@@ -252,14 +252,15 @@ module.exports = async ({ client }) => {
                       .first()
                   );
 
-                if (messages)
+                if (messages) {
                   for (const MsgEmbed of messages.embeds) {
                     for (const embed of embeds) {
                       if (
                         MsgEmbed.data.description === embed.data.description
                       ) {
-                        embeds.splice(i, 1);
+                        embeds.splice(i, 1);//This code is wrong i is not defined
                       }
+
                       for (const node of nodes) {
                         if (
                           MsgEmbed.data.description.startsWith(
@@ -272,8 +273,11 @@ module.exports = async ({ client }) => {
                       }
                     }
                   }
-                if (embeds.length > 0)
+                }
+
+                if (embeds.length > 0) {
                   channel.send({ content: mentions, embeds: embeds });
+                }
               }
             }
           }
