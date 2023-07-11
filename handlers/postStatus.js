@@ -106,30 +106,6 @@ module.exports = async ({ client, panel, nodes }) => {
         let description = "```";
 
         switch (client.config.nodes_settings.unit.toLowerCase()) {
-          case "tb":
-            description =
-              description +
-              "\nMemory : " +
-              memorySizeConverter(data.memory_min, "TB") +
-              " / " +
-              memorySizeConverter(data.memory_max, "TB") +
-              "\nDisk : " +
-              memorySizeConverter(data.disk_min, "TB") +
-              " / " +
-              memorySizeConverter(data.disk_max, "TB");
-            break;
-          case "gb":
-            description =
-              description +
-              "\nMemory : " +
-              memorySizeConverter(data.memory_min, "GB") +
-              " / " +
-              memorySizeConverter(data.memory_max, "GB") +
-              "\nDisk : " +
-              memorySizeConverter(data.disk_min, "GB") +
-              " / " +
-              memorySizeConverter(data.disk_max, "GB");
-            break;
           case "percent":
             description =
               description +
@@ -142,13 +118,13 @@ module.exports = async ({ client, panel, nodes }) => {
             description =
               description +
               "\nMemory : " +
-              memorySizeConverter(data.memory_min, "MB") +
+              memorySizeConverter(data.memory_min, type) +
               " / " +
-              memorySizeConverter(data.memory_max, "MB") +
+              memorySizeConverter(data.memory_max, type) +
               "\nDisk : " +
-              memorySizeConverter(data.disk_min, "MB") +
+              memorySizeConverter(data.disk_min, type) +
               " / " +
-              memorySizeConverter(data.disk_max, "MB");
+              memorySizeConverter(data.disk_max, type);
         }
 
         if (client.config.nodes_settings.servers) {
@@ -249,7 +225,10 @@ module.exports = async ({ client, panel, nodes }) => {
     if (client.config.button.enable) {
       const button = new ActionRowBuilder();
 
-      if (client.config.button.btn1.label.length >= 1 && client.config.button.btn1.url.length >= 1) {
+      if (
+        client.config.button.btn1.label.length >= 1 &&
+        client.config.button.btn1.url.length >= 1
+      ) {
         button.addComponents(
           new ButtonBuilder()
             .setLabel(client.config.button.btn1.label)
@@ -258,7 +237,10 @@ module.exports = async ({ client, panel, nodes }) => {
         );
       }
 
-      if (client.config.button.btn2.label.length >= 1 && client.config.button.btn2.url.length >= 1) {
+      if (
+        client.config.button.btn2.label.length >= 1 &&
+        client.config.button.btn2.url.length >= 1
+      ) {
         button.addComponents(
           new ButtonBuilder()
             .setLabel(client.config.button.btn2.label)
@@ -267,7 +249,10 @@ module.exports = async ({ client, panel, nodes }) => {
         );
       }
 
-      if (client.config.button.btn3.label.length >= 1 && client.config.button.btn3.url.length >= 1) {
+      if (
+        client.config.button.btn3.label.length >= 1 &&
+        client.config.button.btn3.url.length >= 1
+      ) {
         button.addComponents(
           new ButtonBuilder()
             .setLabel(client.config.button.btn3.label)
@@ -276,7 +261,10 @@ module.exports = async ({ client, panel, nodes }) => {
         );
       }
 
-      if (client.config.button.btn4.label.length >= 1 && client.config.button.btn4.url.length >= 1) {
+      if (
+        client.config.button.btn4.label.length >= 1 &&
+        client.config.button.btn4.url.length >= 1
+      ) {
         button.addComponents(
           new ButtonBuilder()
             .setLabel(client.config.button.btn4.label)
@@ -285,7 +273,10 @@ module.exports = async ({ client, panel, nodes }) => {
         );
       }
 
-      if (client.config.button.btn5.label.length >= 1 && client.config.button.btn5.url.length >= 1) {
+      if (
+        client.config.button.btn5.label.length >= 1 &&
+        client.config.button.btn5.url.length >= 1
+      ) {
         button.addComponents(
           new ButtonBuilder()
             .setLabel(client.config.button.btn5.label)

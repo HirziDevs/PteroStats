@@ -1,40 +1,41 @@
-const SUPPORTED_TYPES = ["MB", "GB", "TB"];
+const SUPPORTED_TYPES = ["mb", "gb", "tb"];
 
 module.exports = (value, type) => {
-  if (value && type) {
+  if (value) {
     value = parseInt(value);
 
     if (value > 0) {
-      if (SUPPORTED_TYPES.includes(type)) {
-        let result = "";
-
-        switch (type) {
-          case "MB":
-            result =
-              value.toFixed(2).toLocaleString().replace(".00", "") + " MB";
-            break;
-          case "GB":
-            result =
-              (value / 1024).toFixed(2).toLocaleString().replace(".00", "") +
-              " GB";
-            break;
-          case "TB":
-            result =
-              (value / (1024 * 1000))
-                .toFixed(2)
-                .toLocaleString()
-                .replace(".00", "") + " TB";
-            break;
-          default:
-            result =
-              value.toFixed(2).toLocaleString().replace(".00", "") + " MB";
-            break;
-        }
-
-        return result;
+      if (!type) {
+        type = "mb";
       } else {
-        return "INVALID TYPE";
+        type = type.toLowerCase();
+
+        if (!SUPPORTED_TYPES.includes(type)) {
+          type = "mb";
+        }
       }
+      
+      let result = "";
+
+      switch (type) {
+        case "mb":
+          result = value.toFixed(2).toLocaleString().replace(".00", "") + " MB";
+          break;
+        case "gb":
+          result =
+            (value / 1024).toFixed(2).toLocaleString().replace(".00", "") +
+            " GB";
+          break;
+        case "tb":
+          result =
+            (value / (1024 * 1000))
+              .toFixed(2)
+              .toLocaleString()
+              .replace(".00", "") + " TB";
+          break;
+      }
+
+      return result;
     } else {
       return "INVALID VALUE";
     }
