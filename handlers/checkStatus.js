@@ -21,16 +21,19 @@ module.exports = async ({ client }) => {
     console.log(
       chalk.cyan("[PteroStats] ") + chalk.red("Error! Invalid Channel ID")
     );
+
     process.exit();
   } else if (client.config.panel.url.startsWith("Put")) {
     console.log(
       chalk.cyan("[PteroStats] ") + chalk.red("Error! Invalid Panel URL")
     );
+
     process.exit();
   } else if (client.config.panel.key.startsWith("Put")) {
     console.log(
       chalk.cyan("[PteroStats] ") + chalk.red("Error! Invalid Apikey")
     );
+
     process.exit();
   } else if (!client.config.panel.url.startsWith("http")) {
     console.log(
@@ -42,11 +45,13 @@ module.exports = async ({ client }) => {
           '1. Make sure the panel url is starts with "https://" or "http://"'
         )
     );
+
     process.exit();
   }
 
-  if (client.config.panel.url.endsWith("/"))
+  if (client.config.panel.url.endsWith("/")) {
     client.config.panel.url = client.config.panel.url.slice(0, -1);
+  }
 
   const nodes = [];
   const embeds = [];
@@ -174,8 +179,6 @@ module.exports = async ({ client }) => {
                     embeds.push(Embed({ node: body }));
 
                     body.status = false;
-
-                    return statsResolve();
                   }
                 }, client.config.timeout * 1000);
               } catch (error) {
@@ -185,6 +188,7 @@ module.exports = async ({ client }) => {
                       chalk.yellow("[Node: " + node.attributes.name + "] ") +
                       chalk.red(error)
                   );
+
                 embeds.push(Embed({ node: body }));
 
                 body.status = false;
@@ -209,9 +213,9 @@ module.exports = async ({ client }) => {
           await postStatus({ client: client, panel: panel, nodes: nodes });
 
           if (
-            client.config.mentions.user.length > 0 ||
-            (client.config.mentions.role.length > 0 &&
-              client.config.mentions.channel)
+            (client.config.mentions.user.length > 0 ||
+              client.config.mentions.role.length > 0) &&
+            client.config.mentions.channel
           ) {
             if (
               Array.isArray(client.config.mentions.user) ||
@@ -219,20 +223,22 @@ module.exports = async ({ client }) => {
             ) {
               let mentions = "";
 
-              await client.config.mentions.user.forEach((user) => {
+              for (const user of client.config.mentions.user) {
                 if (!isNaN(Number(user))) {
-                  mentions = mentions + " <@" + user + ">";
+                  mentions += " <@" + user + ">";
                 }
-              });
-              await client.config.mentions.role.forEach((role) => {
+              }
+
+              for (const role of client.config.mentions.role) {
                 if (!isNaN(Number(role))) {
-                  mentions = mentions + " <@&" + role + ">";
+                  mentions += " <@&" + role + ">";
                 }
-              });
+              }
 
               const channel = await client.channels.cache.get(
                 client.config.mentions.channel
               );
+
               if (channel) {
                 const messages = await channel.messages
                   .fetch({ limit: 10 })
@@ -245,22 +251,27 @@ module.exports = async ({ client }) => {
                       )
                       .first()
                   );
+
                 if (messages)
-                  messages.embeds.forEach((MsgEmbed) => {
+                  for (const MsgEmbed of messages.embeds) {
                     for (const embed of embeds) {
-                      if (MsgEmbed.data.description === embed.data.description)
+                      if (
+                        MsgEmbed.data.description === embed.data.description
+                      ) {
                         embeds.splice(i, 1);
-                      nodes.forEach((node) => {
+                      }
+                      for (const node of nodes) {
                         if (
                           MsgEmbed.data.description.startsWith(
                             "`" + node.name
                           ) &&
-                          node.status === true
-                        )
+                          node.status
+                        ) {
                           messages.delete();
-                      });
+                        }
+                      }
                     }
-                  });
+                  }
                 if (embeds.length > 0)
                   channel.send({ content: mentions, embeds: embeds });
               }
@@ -332,9 +343,7 @@ module.exports = async ({ client }) => {
             )
         );
       } else {
-        console.log(
-          chalk.cyan("[PteroStats] ") + chalk.red("Error! " + error)
-        );
+        console.log(chalk.cyan("[PteroStats] ") + chalk.red("Error! " + error));
       }
     } else {
       console.log(chalk.cyan("[PteroStats] ") + chalk.red("Error! " + error));
