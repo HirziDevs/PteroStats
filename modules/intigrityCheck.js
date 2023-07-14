@@ -31,10 +31,9 @@ function InstallPackages() {
   console.log("Please wait... starting to install all required node packages.");
 
   let packagesList = "";
-  for (const package of REQUIRED_PACKAGES) {
+  for(const package of REQUIRED_PACKAGES){
     packagesList += `\n- ${package.name}@${package.version}`;
   }
-
   console.log("The following packages will be installed:", packagesList);
 
   console.log(
@@ -42,13 +41,13 @@ function InstallPackages() {
   );
 
   try {
-    packagesList = "";
+    let packagesList = "";
 
     for (const package of REQUIRED_PACKAGES) {
       packagesList += ` ${package.name}@${package.version}`;
     }
 
-    child.execSync(`npm i --force${packagesList}`);
+    child.execSync(`npm i${packagesList}`);
     console.log('Install complete!, please run "node index" command again!');
 
     process.exit();
@@ -91,9 +90,11 @@ module.exports = () => {
           packageFile = JSON.parse(packageFile);
 
           if (packageFile.version !== package.version) {
-            errorMessage = `Unsupported "${package.name}" version!.\nStarting to install the supported version...`;
+            console.log(
+              `Unsupported "${package.name}" version!.\nPlease delete your "node_modules" and "package-lock.json".\nAnd restart the bot.\nPlease make sure to check and remove "npm install" command from your startup params.`
+            );
 
-            break;
+            process.exit();
           } else {
             success = true;
 
