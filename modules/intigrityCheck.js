@@ -29,18 +29,26 @@ const NODE_VERSION = 16;
 function InstallPackages() {
   console.log("Required nodejs packages not found!");
   console.log("Please wait... starting to install all required node packages.");
+
+  let packagesList = "";
+  for (const package of REQUIRED_PACKAGES) {
+    packagesList += `\n- ${package.name}@${package.version}`;
+  }
+
+  console.log("The following packages will be installed:", packagesList);
+
   console.log(
-    "If the bot can't install the packages please install them manually."
+    "If the bot can't install the packages, please install them manually."
   );
 
   try {
-    let packagesList = "";
+    packagesList = "";
 
     for (const package of REQUIRED_PACKAGES) {
       packagesList += ` ${package.name}@${package.version}`;
     }
 
-    child.execSync(`npm i${packagesList}`);
+    child.execSync(`npm i --force${packagesList}`);
     console.log('Install complete!, please run "node index" command again!');
 
     process.exit();
@@ -77,20 +85,15 @@ module.exports = () => {
       );
 
       if (fs.existsSync(packageFilePath)) {
-        let packageFile = fs.readFileSync(packageFilePath, 'utf-8');
+        let packageFile = fs.readFileSync(packageFilePath, "utf-8");
 
         if (packageFile) {
           packageFile = JSON.parse(packageFile);
 
-          if (
-            Number(packageFile.version.split(".")[1]) !==
-            Number(package.version.split(".")[1])
-          ) {
-            console.log(
-              `Unsupported "${package.name}" version!.\nPlease delete your "node_modules" and "package-lock.json".\nAnd restart the bot.\nPlease make sure to check and remove "npm install" command from your startup params.`
-            );
+          if (packageFile.version !== package.version) {
+            errorMessage = `Unsupported "${package.name}" version!.\nStarting to install the supported version...`;
 
-            process.exit();
+            break;
           } else {
             success = true;
 
@@ -99,7 +102,7 @@ module.exports = () => {
         } else {
           success = false;
 
-          errorMessage = `Unknown package version- "${package.name}@${package.version}".`;
+          errorMessage = `Unknown package version- "${package.name}".`;
 
           break;
         }
