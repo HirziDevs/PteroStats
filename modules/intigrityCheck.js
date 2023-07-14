@@ -87,7 +87,7 @@ module.exports = () => {
             Number(package.version.split(".")[1])
           ) {
             console.log(
-              `Unsupported "${package.name}" version!.\nPlease delete your "node_modules" and "package-lock.json".\nAnd restart the bot.`
+              `Unsupported "${package.name}" version!.\nPlease delete your "node_modules" and "package-lock.json".\nAnd restart the bot.\nPlease make sure to check and remove "npm install" command from your startup params.`
             );
 
             process.exit();
