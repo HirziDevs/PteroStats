@@ -13,7 +13,7 @@ const MENTION_DELETE_TIMEOUT = 1;
 module.exports = async ({ client }) => {
   function Embed({ node }) {
     return new EmbedBuilder()
-      .setTitle(EMBED_TITLE) //if you wanted to change this please change at line 244 too
+      .setTitle(EMBED_TITLE)
       .setDescription("`" + node.name + "` is down!")
       .setFooter({ text: "Please see console for more details" })
       .setTimestamp()
