@@ -37,9 +37,9 @@ module.exports = (value, type) => {
 
       return result;
     } else {
-      return "INVALID VALUE";
+      return "0";
     }
   } else {
-    return "ERROR";
+    return "0";
   }
 };
