@@ -14,14 +14,22 @@ PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and pos
     <img alt="Example" src="https://i.imgur.com/fzQANo5.gif" width="200"/>
 
 ## Installation
-1. [Getting API key from pterodactyl](#getting-apikey-from-pterodactyl)
-2. [Creating Discord Bot](#creating-discord-bot)
-3. [Inviting Discord Bot](#inviting-discord-bot)
-4. [Getting Channel ID](#getting-channel-id)
-5. [Starting bot](#starting-bot)
-
-- [Using Custom Emoji](#using-custom-emoji)
-- [Blacklist Nodes](#blacklist-nodes)
+- [Introduction](#introduction)
+- [Example](#example)
+- [Installation](#installation)
+  - [Getting API key from pterodactyl](#getting-api-key-from-pterodactyl)
+  - [Creating Discord Bot](#creating-discord-bot)
+  - [Inviting Discord Bot](#inviting-discord-bot)
+  - [Getting Channel ID](#getting-channel-id)
+  - [Starting bot](#starting-bot)
+  - [Using Custom Emoji](#using-custom-emoji)
+  - [Blacklist Nodes](#blacklist-nodes)
+- [The node is online but the embed is read as offline](#the-node-is-online-but-the-embed-is-read-as-offline)
+- [Docker](#docker)
+  - [Installation](#installation-1)
+  - [Docker Compose](#docker-compose)
+  - [Docker Run](#docker-run)
+- [Links](#links)
 
 ### Getting API key from pterodactyl
 
@@ -115,6 +123,33 @@ You can add more than one node in the blacklist
 ## The node is online but the embed is read as offline
 
 If you having this issue, you can enable `log_error` on the config file and report it to our discord server at [Support Server](https://discord.gg/zv6maQRah3)
+
+## Docker
+
+This is a guide to run the bot using docker (alternative way to run the bot)
+
+### Installation
+
+```bash
+curl -fsSL https://get.docker.com | sh
+```
+
+### Docker Compose
+
+Copy the `docker-compose.yml` file to your server and run `docker compose pull`
+Copy the `config.yml` file at the same directory as the `docker-compose.yml` file and configure it (refer to the [installation](#installation) section)
+
+```bash
+docker compose up -d
+docker compose logs -f pterostats
+```
+
+### Docker Run
+
+```bash
+docker run -d --name pterostats -v $(pwd)/config.yml:/app/config.yml ghcr.io/hirzidevs/pterostats:latest
+docker logs -f pterostats
+```
 
 ## Links
 
