@@ -1,12 +1,10 @@
-FROM node:22.2.0
+FROM node:20
 
 WORKDIR /app
 
-COPY package.json /app/package.json
-# COPY package-lock.json /app/package-lock.json
-
-RUN npm install
-
 COPY . /app
 
-CMD ["npm", "start"]
+# Perform clean install
+RUN node index.js
+
+CMD ["node", "index.js"]
