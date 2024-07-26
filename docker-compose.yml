@@ -1,0 +1,7 @@
+version: '3.3'
+services:
+  pterostats:
+    volumes:
+      - ./config.yml:/app/config.yml
+    container_name: pterostats
+    image: ghcr.io/hirzidevs/pterostats:latest
