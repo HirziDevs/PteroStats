@@ -4,7 +4,9 @@
 
 
 </div>
-### This is a development build! some features may not work.
+
+## This is a development build! some features may not work.
+
 ## Introduction
 PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and post it to your discord server
 
