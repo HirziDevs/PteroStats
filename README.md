@@ -1,26 +1,20 @@
 <div align="center">
 
-<img alt="PteroStats Banner" src="https://cdn.discordapp.com/attachments/626755594526916629/978478722489393153/20220524_090325.png" width="400"/>
+<img alt="PteroStats Banner" src="https://images-ext-2.discordapp.net/external/oRPpwML4JUV0HbsPKtsghvIjS5ZrVwqH2KQ4tevg_Jg/https/repository-images.githubusercontent.com/381250920/e9acc9c2-2fbd-4fb0-8554-9788146d817e" width="400"/>
 
-## Language / Bahasa
-[[English]](https://github.com/HirziDevs/PteroStats/blob/dev/README.md) | [[Indonesia]](https://github.com/HirziDevs/PteroStats/blob/dev/Indo.md)
 
 </div>
-
+### This is a development build! some features may not work.
 ## Introduction
 PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and post it to your discord server
 
 ## Example
 - Test Panel
 
-    <img alt="Example" src="https://cdn.discordapp.com/attachments/988796533430448148/991520721467613224/example.gif" width="200"/>
-
-- [Calvs Cloud](https://discord.gg/ssCQjhrBJN)
-
-    <img alt="Calvs Cloud" src="https://media.discordapp.net/attachments/819757140155564062/1037353043487887410/unknown.png" width="200">
+    <img alt="Example" src="https://i.imgur.com/fzQANo5.gif" width="200"/>
 
 ## Installation
-1. [Getting apikey from pterodactyl](#getting-apikey-from-pterodactyl)
+1. [Getting API key from pterodactyl](#getting-apikey-from-pterodactyl)
 2. [Creating Discord Bot](#creating-discord-bot)
 3. [Inviting Discord Bot](#inviting-discord-bot)
 4. [Getting Channel ID](#getting-channel-id)
@@ -29,24 +23,28 @@ PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and pos
 - [Using Custom Emoji](#using-custom-emoji)
 - [Blacklist Nodes](#blacklist-nodes)
 
-### Getting apikey from pterodactyl
-1. Go to your `pterodactyl admin page` and go to `Application API`.
+### Getting API key from pterodactyl
 
-    <img alt="Admin Panel" src="https://usercontent.catto.pictures/hirzi/aabafe57-cbfe-4d7f-9d6d-4a63a7f23d4c.png" width="400"/>
+> [!WARNING]
+> The use of Application API keys are  **deprecated**, you should use **Client API keys** in the config file
 
-2. Click on the `Create New` button
+1. Go to your `Pterodactyl Panel` and go to `Account Page`.
 
-    <img alt="Application API Page" src="https://usercontent.catto.pictures/hirzi/f916f0c6-0968-4125-8226-ba4daa1de902.png" width="400"/>
+    <img alt="Home" src="https://i.imgur.com/Uu97RJO.png" width="400"/>
 
-3. Set all options permission to `read` and for description you can put whatever you want
+2. Click on the `API Credentials` button
 
-    <img alt="Create Application API" src="https://usercontent.catto.pictures/hirzi/3e4575cb-4f52-4bd9-9091-36fda20bedad.png" width="400"/>
+    <img alt="Account Page" src="https://i.imgur.com/sm4THSu.png" width="400"/>
 
-4. Copy the apikey.
+3. Fill the `Description` and click on the `Create` button
 
-    <img alt="Application API List" src="https://usercontent.catto.pictures/hirzi/9142b0b3-0556-4741-840c-6976c3fe3ad4.png" width="400"/>
+    <img alt="Create Client API Key" src="https://i.imgur.com/Q5E0PY4.png" width="400"/>
 
-5. Paste the panel apikey and panel url at the config
+4. Copy the API key.
+
+    <img alt="API Key" src="https://i.imgur.com/7goShy8.png" width="400"/>
+
+5. Paste the panel API key and panel url at the config
 
     <img alt="Panel Config" src="https://usercontent.catto.pictures/hirzi/2b9365b8-69d2-4fa0-8eac-3efc8591b765.png" width="400"/>
 
@@ -78,10 +76,10 @@ Please refer to [this website](https://discordjs.guide/preparations/adding-your-
 2. Run `npm install` in the root directory of the bot files.
 3. Run `node index` and you are done.
 
-if you need help contact me on discord `Hirzi#8701` or join [our discord support server](https://discord.gg/zv6maQRah3)
+if you need help contact me on discord `@hirzidevs` or join [our discord support server](https://discord.gg/zv6maQRah3)
 
 ### Using Custom Emoji
-1. type `\` in guild that has custom emoji you want
+1. type `\` in server that has custom emoji you want
 
     <img alt="Type \ on the chat" src="https://usercontent.catto.pictures/hirzi/2e3c821f-92f9-4b5c-863a-e020b2fbc426.png" width="350"/>
 
@@ -114,16 +112,15 @@ You can add more than one node in the blacklist
 
 <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/85b6a9b1-8ec9-4395-b5b1-6f85d3f52162.png" width="400"/>
 
-## Apikey permission
+## The node is online but the embed is read as offline
 
-If you having issue with 403 error try to enable `read & write` on all options
-
-<img alt="Application API Permission" src="https://usercontent.catto.pictures/hirzi/273d5b86-5249-42d0-bfc6-1dcfcae4efe7.png" width="400"/>
+If you having this issue, you can enable `log_error` on the config file and report it to our discord server at [Support Server](https://discord.gg/zv6maQRah3)
 
 ## Links
 
+- [PteroStats DiscordJS v13](https://github.com/HirziDevs/PteroStats/tree/3d0512c3323ecf079101104c7ecf3c94d265e298)
+- [PteroStats DiscordJS v12](https://github.com/HirziDevs/PteroStats/tree/bcfa266be64dda11955f0bf9732da086bcea522c)
 - [Pterodactyl Panel](https://pterodactyl.io)
-- [Pterodactyl Api Documentation](https://dashflo/docs/api/pterodactyl/v1)
+- [Pterodactyl API Documentation](https://github.com/devnote-dev/ptero-notes/)
 - [Pterodactyl Discord Server](https://discord.gg/pterodactyl)
 - [PteroBot Support Server](https://discord.gg/zv6maQRah3)
-- [PteroBot Support Server (Indonesia)](https://discord.gg/EYaFB7WSg6)

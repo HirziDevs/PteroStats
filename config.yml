@@ -2,75 +2,85 @@
 # If you need help, join our discord server here: https://discord.gg/zv6maQRah3
 
 # Bot Configuration
-token: 'Put bot token here'
-bot_status:
-    enable: false
-    text: 'Hosting Panel'
-    type: 'WATCHING' # can be 'WATCHING', 'PLAYING', 'LISTENING', or 'COMPETING'. for 'STREAMING' is not working for now
+token: "Put Bot Token Here"
+presence:
+  text: "Hosting Panel"
+  type: "watching" # can be 'watching', 'playing', 'listening', or 'competing'. 'streaming' is not working for now
+  status: "online" # can be 'online', 'idle', 'dnd', or 'invisible'
 
 # Discord Channel and Refresh Time Configuration
-channel: 'Put channel id here'
-refresh: 60
+channel: "Put Channel ID Here"
+refresh: 10 # How much time the bot will refresh the stats
+timeout: 5 # How much time to wait for a node to respond to the bot (if you change this, it will add more time to refresh the stats)
 
 # Panel Configuration
 panel:
-    url: 'Put panel url here'
-    key: 'Put panel apikey here'
+  url: "Put Panel URL Here"
+  key: "Put Panel APIKEY Here"
 
-# Message Configuration
-# set to false if you want to disable option
+# Message and Embed Configuration
+# set the option as '' if you want to disable it
 message:
-    content: false
-    attachment: false # If you enable attachment on message it upload the attachment first before sending or editing message and it will delay the stats
+  content: ""
+  attachment: "" # If you enable attachment on message it will upload the attachment first before sending or editing message and will result in delayed stats
 
 embed:
-    title: 'PteroStats'
-    color: '5865F2'
-    description: 'Next update {{time}}' # You can use {{time}} to make "in X seconds" time format
-    footer: 'By Hirzi#8701'
-    timestamp: true
-    thumbnail: false
-    image: false
-    field:
-        enable: false
-        title: 'Custom Field'
-        description: 'Custom Field' # You can use {{time}} to make "in X seconds" time format
+  title_nodes: "Nodes Stats"
+  title_panel: "Panel Stats"
+  author: "PteroStats"
+  color: "5865F2"
+  description: "Next update {{time}}" # You can use {{time}} to make "in X seconds" time format
+  footer: "By Hirzi#8701"
+  timestamp: true
+  thumbnail: ""
+  image: ""
 
 # Message Button Configuration
 button:
-    enable: true
-    btn1:
-        label: 'PteroStats'
-        url: 'https://github.com/HirziDevs/PteroStats'
-    btn2:
-        label: ''
-        url: ''
-    btn3:
-        label: ''
-        url: ''
-    btn4:
-        label: ''
-        url: ''
-    btn5:
-        label: ''
-        url: ''
+  enable: true
+  btn1:
+    label: "PteroStats"
+    url: "https://github.com/HirziDevs/PteroStats"
+  btn2:
+    label: ""
+    url: ""
+  btn3:
+    label: ""
+    url: ""
+  btn4:
+    label: ""
+    url: ""
+  btn5:
+    label: ""
+    url: ""
 
 # Status Message Configuration
+# How to use custom emoji: https://github.com/HirziDevs/PteroStats#using-custom-emoji
 status:
-    online: ':green_circle: Online'
-    offline: ':red_circle: Offline'
+  online: ":green_circle: Online"
+  offline: ":red_circle: Offline"
 
-# Nodes Resource
-nodes_resource:
-    blacklist: [] # You can add node id to remove the node from status embed (Example: "blacklist: [1]")
-    enable: false
-    servers: true
-    location: true
-    allocations: true
-    unit: 'gb' # You can use "gb", "mb", "tb", or "percent"
+# Nodes Settings
+# How to get nodes id: https://github.com/HirziDevs/PteroStats#blacklist-nodes
+nodes_settings:
+  blacklist: [] # You can add node id to remove the node from status embed (Example: "blacklist: [1]")
+  details: true # enable nodes details i.e memory and disk usage
+  servers: true
+  location: true
+  unit: "mb" # Allowed values- "gb", "mb", "tb", or "%"
+  limit: 100
 
-# Panel Users and Servers
-panel_resource:
-    enable: true
-    servers: true
-    users: true
+# Panel Users and Servers Settings
+panel_settings:
+  status: true # enable panel stats under nodes stats
+  servers: true
+  users: true
+
+# Mentions a User or Role if any node is offline (this feature is still in testing, please report if you have a problem)
+mentions: # to enable atleast put 1 ID on user or role bellow
+  user: [] # Put User ID here (Example: "user: ['548867757517570058', '816219634390663230']")
+  role: [] # Put Role ID here (Example: "role: ['796083838236622858', '858198863973187585']")
+  channel: "" # Put Channel ID here for the logging
+
+# Log error to console if a server offline (enable this when you have a problem that you want to report)
+log_error: false # set to "true" to enable
