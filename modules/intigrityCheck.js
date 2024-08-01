@@ -5,19 +5,19 @@ const path = require("node:path");
 const REQUIRED_PACKAGES = [
   {
     name: "axios",
-    version: "1.6.3",
+    version: "1.7.3",
   },
   {
     name: "axios-retry",
-    version: "3.9.1",
+    version: "4.4.2",
   },
   {
     name: "chalk",
-    version: "4.1.2",
+    version: "5.3.0",
   },
   {
     name: "discord.js",
-    version: "14.14.1",
+    version: "14.15.3",
   },
   {
     name: "js-yaml",
