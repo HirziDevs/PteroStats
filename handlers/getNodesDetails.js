@@ -10,7 +10,7 @@ module.exports = async function getAllNodes() {
             "Authorization": `Bearer ${config.panel.key}`
         },
     })
-        .then((res) => res.data.data.filter((node) => config.nodes_settings.blacklist.includes(node.attributes.id)))
+        .then((res) => res.data.data.filter((node) => !config.nodes_settings.blacklist.includes(node.attributes.id)))
         .catch((error) => {
             if (error.code === "ENOTFOUND") {
                 console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("ENOTFOUND | DNS Error. Ensure your network connection and DNS server are functioning correctly."));
