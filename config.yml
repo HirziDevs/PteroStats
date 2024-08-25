@@ -4,6 +4,7 @@
 # Bot Configuration
 token: "Put Bot Token Here"
 presence:
+  enable: true
   text: "Hosting Panel"
   type: "watching" # can be 'watching', 'playing', 'listening', or 'competing'. 'streaming' is not working for now
   status: "online" # can be 'online', 'idle', 'dnd', or 'invisible'

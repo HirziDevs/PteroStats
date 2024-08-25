@@ -51,33 +51,35 @@ async function startGetStatus() {
 client.once("ready", () => {
     console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.greenBright(`${client.user.tag} is online!`));
 
-    if (config.presence.text && config.presence.type) {
-        switch (config.presence.type.toLowerCase()) {
-            case "playing":
-                config.presence.type = ActivityType.Playing;
-                break;
-            case "listening":
-                config.presence.type = ActivityType.Listening;
-                break;
-            case "competing":
-                config.presence.type = ActivityType.Competing;
-                break;
-            default:
-                config.presence.type = ActivityType.Watching;
+    if (config.presence.enable) {
+        if (config.presence.text && config.presence.type) {
+            switch (config.presence.type.toLowerCase()) {
+                case "playing":
+                    config.presence.type = ActivityType.Playing;
+                    break;
+                case "listening":
+                    config.presence.type = ActivityType.Listening;
+                    break;
+                case "competing":
+                    config.presence.type = ActivityType.Competing;
+                    break;
+                default:
+                    config.presence.type = ActivityType.Watching;
+            }
+
+            client.user.setActivity(config.presence.text, {
+                type: config.presence.type,
+            });
         }
 
-        client.user.setActivity(config.presence.text, {
-            type: config.presence.type,
-        });
-    }
+        if (config.presence.status) {
+            if (!["idle", "online", "dnd", "invisible"].includes(
+                config.presence.status.toLowerCase()
+            ))
+                config.presence.status = "online";
 
-    if (config.presence.status) {
-        if (!["idle", "online", "dnd", "invisible"].includes(
-            config.presence.status.toLowerCase()
-        ))
-            config.presence.status = "online";
-
-        client.user.setStatus(config.presence.status);
+            client.user.setStatus(config.presence.status);
+        }
     }
 
     startGetStatus();
