@@ -1,8 +1,8 @@
 # PteroStats config
 # If you need help, join our discord server here: https://discord.gg/zv6maQRah3
+version: 4 # Do not change this unless you know what you are doing!
 
 # Bot Configuration
-token: "Put Bot Token Here"
 presence:
   enable: true
   text: "Hosting Panel"
@@ -10,14 +10,8 @@ presence:
   status: "online" # can be 'online', 'idle', 'dnd', or 'invisible'
 
 # Discord Channel and Refresh Time Configuration
-channel: "Put Channel ID Here"
 refresh: 10 # How much time the bot will refresh the stats
 timeout: 5 # How much time to wait for a node to respond to the bot (if you change this, it will add more time to refresh the stats)
-
-# Panel Configuration
-panel:
-  url: "Put Panel URL Here"
-  key: "Put Panel APIKEY Here"
 
 # Message and Embed Configuration
 # set the option as '' if you want to disable it
@@ -28,10 +22,10 @@ message:
 embed:
   title_nodes: "Nodes Stats"
   title_panel: "Panel Stats"
-  author: "PteroStats"
+  author: "Hosting Panel"
   color: "5865F2"
   description: "Next update {{time}}" # You can use {{time}} to make "in X seconds" time format
-  footer: "By Hirzi#8701"
+  footer: "By @HirziDevs"
   timestamp: true
   thumbnail: ""
   image: ""
@@ -42,6 +36,8 @@ button:
   row1:
     - label: "Panel"
       url: "https://panel.example.com"
+#    - label: "Dashboard"
+#      url: "https://dash.example.com"
 
 # Status Message Configuration
 # How to use custom emoji: https://github.com/HirziDevs/PteroStats#using-custom-emoji

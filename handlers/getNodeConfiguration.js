@@ -1,11 +1,11 @@
 const config = require("./config.js");
 
 module.exports = async function getNodeConfiguration(id) {
-    return fetch(`${new URL(config.panel.url).origin}/api/application/nodes/${id}/configuration`, {
+    return fetch(`${new URL(process.env?.PanelURL).origin}/api/application/nodes/${id}/configuration`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${config.panel.key}`
+            "Authorization": `Bearer ${process.env?.PanelKEY}`
         },
     })
         .then((res) => res.json())

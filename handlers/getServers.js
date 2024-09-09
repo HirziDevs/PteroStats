@@ -2,12 +2,12 @@ const config = require("./config.js");
 const cliColor = require("cli-color");
 
 module.exports = async function getServers() {
-    console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.yellow("Getting panel servers..."))
-    return fetch(`${new URL(config.panel.url).origin}/api/application/servers`, {
+    console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.yellow("Retrieving panel servers..."))
+    return fetch(`${new URL(process.env?.PanelURL).origin}/api/application/servers`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${config.panel.key}`
+            "Authorization": `Bearer ${process.env?.PanelKEY}`
         },
     })
         .then((res) => res.json())

@@ -3,11 +3,11 @@ const config = require("./config.js");
 const axios = require("axios");
 
 module.exports = async function getAllNodes() {
-    return axios(`${new URL(config.panel.url).origin}/api/application/nodes?include=servers,location,allocations`, {
+    return axios(`${new URL(process.env?.PanelURL).origin}/api/application/nodes?include=servers,location,allocations`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${config.panel.key}`
+            "Authorization": `Bearer ${process.env?.PanelKEY}`
         },
     })
         .then((res) => res.data.data.filter((node) => !config.nodes_settings.blacklist.includes(node.attributes.id)))

@@ -1,10 +1,29 @@
-const { Client, GatewayIntentBits, EmbedBuilder, time, ActivityType } = require("discord.js");
-const config = require("./handlers/config.js");
-const convertUnits = require("./handlers/convertUnits.js");
-const getStats = require("./handlers/getStats.js");
+const { Client, GatewayIntentBits, EmbedBuilder, time, ActivityType, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const cachePath = require('node:path').join(__dirname, "./cache.json");
 const fs = require("node:fs");
 const cliColor = require("cli-color");
+
+console.log(`
+    _${cliColor.blueBright.bold("Pterodactyl & Pelican")}___    ______   ______   
+   /\\  ___\\  /\\__  _\\ /\\  __ \\  /\\__  _\\ /\\  ___\\  
+   \\ \\___  \\ \\/_ \\ \\/ \\ \\ \\_\\ \\ \\/_/\\ \\/ \\ \\___  \\ 
+    \\/\\_____\\   \\ \\_\\  \\ \\_\\ \\_\\   \\ \\_\\  \\/\\_____\\
+     \\/_____/    \\/_/   \\/_/\\/_/    \\/_/   \\/_____/${cliColor.yellowBright.bold("4.0.0-dev")}`);
+
+console.log(
+    ` \nCopyright © 2022 - ${new Date().getFullYear()} HirziDevs & Contributors` +
+    " \n \nDiscord: https://discord.znproject.my.id" +
+    " \n Source: https://github.com/HirziDevs/PteroStats" +
+    " \nLicense: https://github.com/Hirzidevs/PteroStats/blob/main/LICENSE" +
+    " \n \nPteroStats is a Discord Bot that designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server. \n \n"
+);
+
+if (!fs.existsSync(".env")) return require("./handlers/installer.js")()
+
+require("dotenv").config()
+const config = require("./handlers/config.js");
+const convertUnits = require("./handlers/convertUnits.js");
+const getStats = require("./handlers/getStats.js");
 
 console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.greenBright("Starting bot..."));
 console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("You are using development build! some features may not work."));
@@ -141,7 +160,7 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
 
     if (!cache && !panel) {
         embeds[embeds.length - 1].setDescription(
-            embeds[embeds.length - 1].data.description ? embeds[embeds.length - 1].data.description + "\n\nThere are no nodes to display!" : "There are no nodes to display!"
+            embeds[embeds.length - 1].data.description ? embeds[embeds.length - 1].data.description + "\n\nThere are no nodes to be display!" : "There are no nodes to be display!"
         );
     }
 
@@ -159,10 +178,13 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
             )
         )
     }
+
+    try {
+        const channel = await client.channels.fetch(process.env?.DiscordChannel);
         const messages = await channel.messages.fetch({ limit: 10 });
         const botMessage = messages.find(msg => msg.author.id === client.user.id);
 
-        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.greenBright("Panel stats have been posted to the channel!"));
+        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.greenBright(`Panel stats successfuly posted to the "${channel.name}" channel!`));
 
         setTimeout(() => startGetStatus(), config.refresh * 1000);
 
@@ -192,7 +214,7 @@ function DiscordErrorHandler(error) {
 }
 
 try {
-    client.login(config.token);
+    client.login(process.env?.DiscordBotToken);
 } catch {
     console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Discord Error | Invalid Discord Bot Token! Make sure you have the correct token in the config!"));
     process.exit();

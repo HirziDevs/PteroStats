@@ -2,3 +2,4 @@ node_modules/
 config-dev.yml
 package-lock.json
 cache.json
+.env
