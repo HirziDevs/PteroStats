@@ -145,8 +145,20 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
         );
     }
 
-    try {
-        const channel = await client.channels.fetch(config.channel);
+    const components = []
+
+    if (config.button.enable && config.button.row1?.length > 0) {
+        components.push(
+            new ActionRowBuilder().addComponents(
+                config.button.row1.map(button =>
+                    new ButtonBuilder()
+                        .setLabel(button.label)
+                        .setURL(button.url)
+                        .setStyle(ButtonStyle.Link)
+                )
+            )
+        )
+    }
         const messages = await channel.messages.fetch({ limit: 10 });
         const botMessage = messages.find(msg => msg.author.id === client.user.id);
 
@@ -155,9 +167,9 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
         setTimeout(() => startGetStatus(), config.refresh * 1000);
 
         if (botMessage) {
-            await botMessage.edit({ content: config.message.content || null, embeds });
+            await botMessage.edit({ content: config.message.content || null, embeds, components });
         } else {
-            await channel.send({ content: config.message.content || null, embeds });
+            await channel.send({ content: config.message.content || null, embeds, components });
         }
     } catch (error) {
         DiscordErrorHandler(error);

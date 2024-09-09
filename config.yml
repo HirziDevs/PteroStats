@@ -39,21 +39,9 @@ embed:
 # Message Button Configuration
 button:
   enable: true
-  btn1:
-    label: "PteroStats"
-    url: "https://github.com/HirziDevs/PteroStats"
-  btn2:
-    label: ""
-    url: ""
-  btn3:
-    label: ""
-    url: ""
-  btn4:
-    label: ""
-    url: ""
-  btn5:
-    label: ""
-    url: ""
+  row1:
+    - label: "Panel"
+      url: "https://panel.example.com"
 
 # Status Message Configuration
 # How to use custom emoji: https://github.com/HirziDevs/PteroStats#using-custom-emoji
