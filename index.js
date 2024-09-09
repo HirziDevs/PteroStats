@@ -129,7 +129,7 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
     if (config.panel_settings.status) embeds.unshift(panelEmbed);
 
     embeds[0]
-        .setAuthor(config.embed.title ? { name: config.embed.author } : null)
+        .setAuthor(config.embed.author ? { name: config.embed.author } : null)
         .setDescription(
             embeds[0].data.description ? config.embed.description.replace("{{time}}", time(new Date(Date.now() + (config.refresh * 1000) + 1000), "R")) + "\n\n" + embeds[0].data.description : config.embed.description.replace("{{time}}", time(new Date(Date.now() + (config.refresh * 1000) + 1000), "R"))
         );
