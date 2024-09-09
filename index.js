@@ -104,8 +104,8 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
                 value:
                     "```\n" +
                     `Memory: ${convertUnits(node.attributes.allocated_resources.memory, node.attributes.memory, config.nodes_settings.unit)}\n` +
-                    `Disk  : ${convertUnits(node.attributes.allocated_resources.disk, node.attributes.disk, config.nodes_settings.unit)}\n` +
-                    `CPU   : ${Math.floor(node.attributes.cpu / node.attributes.allocated_resources.cpu * 100) || 0}%` +
+                    `Disk  : ${convertUnits(node.attributes.allocated_resources.disk, node.attributes.disk, config.nodes_settings.unit)}` +
+                    (node.attributes?.allocated_resources?.cpu ? `\nCPU   : ${node.attributes?.allocated_resources?.cpu || 0}%` : "") +
                     "```"
             });
         });
