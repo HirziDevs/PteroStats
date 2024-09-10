@@ -200,8 +200,10 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
 }
 
 function DiscordErrorHandler(error) {
-    if (error.code === "ENOTFOUND") {
-        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("ENOTFOUND | DNS Error. Ensure your network connection and DNS server are functioning correctly."));
+     if (error.rawError?.code === 429) {
+        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Error 429 | Your IP has been rate limited by either Discord or your website. If it's a rate limit with Discord, you must wait. If it's a issue with your website, consider whitelisting your server IP."));
+    } else if (error.code === "ENOTFOUND") {
+         console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("ENOTFOUND | DNS Error. Ensure your network connection and DNS server are functioning correctly."));
     } else if (error.rawError?.code === 50001) {
         console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Discord Error | Your discord bot doesn't have access to see/send message/edit message in the channel!"));
     } else if (error.rawError?.errors && Object?.values(error.rawError.errors)[0]._errors[0].code === "MAX_EMBED_SIZE_EXCEEDED") {
