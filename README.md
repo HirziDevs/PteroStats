@@ -1,22 +1,21 @@
 <div align="center">
 
-<img alt="PteroStats Banner" src="https://images-ext-2.discordapp.net/external/oRPpwML4JUV0HbsPKtsghvIjS5ZrVwqH2KQ4tevg_Jg/https/repository-images.githubusercontent.com/381250920/e9acc9c2-2fbd-4fb0-8554-9788146d817e" width="400"/>
+# PteroStats v4
 
+<img alt="PteroStats Banner" src="https://images-ext-2.discordapp.net/external/oRPpwML4JUV0HbsPKtsghvIjS5ZrVwqH2KQ4tevg_Jg/https/repository-images.githubusercontent.com/381250920/e9acc9c2-2fbd-4fb0-8554-9788146d817e" width="400"/>
 
 </div>
 
 ## This is a development build! some features may not work.
 
 ## Introduction
-PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and post it to your discord server
+PteroStats is a Discord Bot that designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server.
 
-## Example
-- Test Panel
-
-    <img alt="Example" src="https://i.imgur.com/fzQANo5.gif" width="200"/>
+## Preview
+<img alt="PteroStats V4 Preview" src="https://github.com/user-attachments/assets/5673b374-ea60-4c08-89a0-03b51cb636a2" width="200"/>
 
 ## Installation
-1. [Getting API key from pterodactyl](#getting-apikey-from-pterodactyl)
+1. [Getting API key](#getting-api-key)
 2. [Creating Discord Bot](#creating-discord-bot)
 3. [Inviting Discord Bot](#inviting-discord-bot)
 4. [Getting Channel ID](#getting-channel-id)
@@ -25,12 +24,12 @@ PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and pos
 - [Using Custom Emoji](#using-custom-emoji)
 - [Blacklist Nodes](#blacklist-nodes)
 
-### Getting API key from pterodactyl
+### Getting API key 
 
 > [!WARNING]
 > The use of Application API keys are  **deprecated**, you should use **Client API keys** in the config file
 
-1. Go to your `Pterodactyl Panel` and go to `Account Page`.
+1. Go to your `Pterodactyl or Pelican Panel` and go to `Account Page`.
 
     <img alt="Home" src="https://i.imgur.com/Uu97RJO.png" width="400"/>
 
@@ -46,16 +45,8 @@ PteroStats is a bot designed to check Pterodactyl Panel and Nodes status and pos
 
     <img alt="API Key" src="https://i.imgur.com/7goShy8.png" width="400"/>
 
-5. Paste the panel API key and panel url at the config
-
-    <img alt="Panel Config" src="https://usercontent.catto.pictures/hirzi/2b9365b8-69d2-4fa0-8eac-3efc8591b765.png" width="400"/>
-
 ### Creating Discord Bot
 Please refer to [this website](https://discordjs.guide/preparations/setting-up-a-bot-application.html)
-
-Paste the bot token at the config
-
-<img alt="Bot Config" src="https://usercontent.catto.pictures/hirzi/4eb4d5ff-6969-4461-b01d-c45888cfc994.png" width="400"/>
 
 ### Inviting Discord Bot
 Please refer to [this website](https://discordjs.guide/preparations/adding-your-bot-to-servers.html)
@@ -69,16 +60,16 @@ Please refer to [this website](https://discordjs.guide/preparations/adding-your-
 
     <img alt="Right Click Channel" src="https://usercontent.catto.pictures/hirzi/9f8352da-df5b-4587-9594-ced9b11a5507.png" width="250"/>
 
-3. Paste the channel id at the config
-
-    <img alt="Channel Config" src="https://usercontent.catto.pictures/hirzi/b34cdbee-1e24-49f2-8219-efe0344a24f9.png" width="400"/>
-
 ### Starting bot
 1. Make sure you have done the things above
 2. Run `npm install` in the root directory of the bot files.
-3. Run `node index` and you are done.
+3. Run `node index` and fill given question to setup the bot.
 
-if you need help contact me on discord `@hirzidevs` or join [our discord support server](https://discord.gg/zv6maQRah3)
+    <img alt="PteroStats V4 Preview" src="https://usercontent.catto.pictures/hirzi/ea764c65-3efe-4fbf-989a-58830bf26f05.png" width="300"/>
+
+4. Run `node index` again to start the bot and you are done. 
+
+if you need help contact me on [our discord support server](https://discord.gg/zv6maQRah3)
 
 ### Using Custom Emoji
 1. type `\` in server that has custom emoji you want
@@ -122,7 +113,9 @@ If you having this issue, you can enable `log_error` on the config file and repo
 
 - [PteroStats DiscordJS v13](https://github.com/HirziDevs/PteroStats/tree/3d0512c3323ecf079101104c7ecf3c94d265e298)
 - [PteroStats DiscordJS v12](https://github.com/HirziDevs/PteroStats/tree/bcfa266be64dda11955f0bf9732da086bcea522c)
+- [Pelican Panel](https://pelican.dev)
 - [Pterodactyl Panel](https://pterodactyl.io)
+- [Pelican API Documentation](https://demo.pelican.dev/docs/api)
 - [Pterodactyl API Documentation](https://github.com/devnote-dev/ptero-notes/)
 - [Pterodactyl Discord Server](https://discord.gg/pterodactyl)
-- [PteroBot Support Server](https://discord.gg/zv6maQRah3)
+- [Support Server](https://discord.gg/zv6maQRah3)
