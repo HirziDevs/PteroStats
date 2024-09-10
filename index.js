@@ -202,6 +202,8 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
 function DiscordErrorHandler(error) {
      if (error.rawError?.code === 429) {
         console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Error 429 | Your IP has been rate limited by either Discord or your website. If it's a rate limit with Discord, you must wait. If it's a issue with your website, consider whitelisting your server IP."));
+    } else if (error.rawError?.code === 403) {
+        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("FORBIDDEN | The channel ID you provided is incorrect. Please double check you have the right ID. If you're not sure, read our documentation: https://github.com/lezetho/--PteroStats?tab=readme-ov-file#getting-channel-id"));
     } else if (error.code === "ENOTFOUND") {
          console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("ENOTFOUND | DNS Error. Ensure your network connection and DNS server are functioning correctly."));
     } else if (error.rawError?.code === 50001) {
