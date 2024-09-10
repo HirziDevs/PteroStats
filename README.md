@@ -6,7 +6,8 @@
 
 </div>
 
-## This is a development build! some features may not work.
+> [!WARNING]
+> This is a development build! Some features may not work.
 
 ## Introduction
 PteroStats is a Discord Bot that designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server.
@@ -37,20 +38,20 @@ PteroStats is a Discord Bot that designed to check Pterodactyl or Pelican Panel 
 
 If you need help, contact me on [our Discord support server](https://discord.gg/zv6maQRah3).
 
-### Getting Panel API key 
+### Getting Panel API Key 
 
 > [!WARNING]
-> The use of Application API keys are  **deprecated**, you should use **Client API keys**.
+> The use of Application API keys is **deprecated**; you should use **Client API keys**.
 
-1. Go to your `Pterodactyl or Pelican Panel` and go to `Account Page`.
+1. Go to your `Pterodactyl` or `Pelican Panel` and navigate to the `Account Page`.
 
     <img alt="Home" src="https://i.imgur.com/Uu97RJO.png" width="400"/>
 
-2. Click on the `API Credentials` button
+2. Click on the `API Credentials` button.
 
     <img alt="Account Page" src="https://i.imgur.com/sm4THSu.png" width="400"/>
 
-3. Fill the `Description` and click on the `Create` button
+3. Fill in the `Description` and click the `Create` button.
 
     <img alt="Create Client API Key" src="https://i.imgur.com/Q5E0PY4.png" width="400"/>
 
@@ -59,20 +60,22 @@ If you need help, contact me on [our Discord support server](https://discord.gg/
     <img alt="API Key" src="https://i.imgur.com/7goShy8.png" width="400"/>
 
 ### Getting Channel ID
-1. Enable Developer Feature at your discord settings
+
+1. Enable Developer Mode in your Discord settings.
 
     <img alt="Discord User Settings" src="https://usercontent.catto.pictures/hirzi/36894499-b141-488f-98ed-40245c8f6862.png" width="400"/>
 
-2. Right Click text channel and select `Copy ID`
+2. Right-click the text channel and select `Copy ID`.
 
     <img alt="Right Click Channel" src="https://usercontent.catto.pictures/hirzi/9f8352da-df5b-4587-9594-ced9b11a5507.png" width="250"/>
 
 ### Using Custom Emoji
-1. type `\` in server that has custom emoji you want
+
+1. Type `\` in the server that has the custom emoji you want.
 
     <img alt="Type \ on the chat" src="https://usercontent.catto.pictures/hirzi/2e3c821f-92f9-4b5c-863a-e020b2fbc426.png" width="350"/>
 
-2. Select custom emoji you want
+2. Select the custom emoji you want.
 
     <img alt="Select Custom Emoji" src="https://usercontent.catto.pictures/hirzi/7c071727-2adb-4c8c-91d3-21664948a334.png" width="300"/>
 
@@ -80,24 +83,25 @@ If you need help, contact me on [our Discord support server](https://discord.gg/
 
     <img alt="Copy Emoji ID" src="https://usercontent.catto.pictures/hirzi/bd0084ac-f11b-413d-8b66-580efc011908.png" width="400"/>
 
-4. Paste the emoji id at the config
+4. Paste the emoji ID into the config.
 
     <img alt="Status Config" src="https://usercontent.catto.pictures/hirzi/458ad1d6-019b-4b27-be60-3cbabfa07c06.png" width="400"/>
 
 ### Blacklist Nodes
-1. Select node from node list on admin page
+
+1. Select a node from the node list on the admin page.
 
     <img alt="Nodes List" src="https://usercontent.catto.pictures/hirzi/5699fdbd-7c3c-4fa5-ae2c-d0ccb39cb69e.png" width="400"/>
 
-2. Check the url and copy the node id
+2. Check the URL and copy the node ID.
 
-    <img alt="Node Id" src="https://usercontent.catto.pictures/hirzi/45f855fc-6d96-4b23-a96e-892071189d01.png" width="400"/>
+    <img alt="Node ID" src="https://usercontent.catto.pictures/hirzi/45f855fc-6d96-4b23-a96e-892071189d01.png" width="400"/>
 
-3. Paste the id to the blacklist on config
+3. Paste the ID into the blacklist in the config.
 
     <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/cfb479bf-64da-43e5-b0d1-f7c0c78bf068.png" width="400"/>
 
-You can add more than one node in the blacklist
+You can add more than one node to the blacklist.
 
 <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/85b6a9b1-8ec9-4395-b5b1-6f85d3f52162.png" width="400"/>
 
