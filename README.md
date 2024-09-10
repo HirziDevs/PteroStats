@@ -12,22 +12,35 @@
 PteroStats is a Discord Bot that designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server.
 
 ## Preview
-<img alt="PteroStats V4 Preview" src="https://github.com/user-attachments/assets/5673b374-ea60-4c08-89a0-03b51cb636a2" width="200"/>
+<img alt="PteroStats V4 Preview" src="https://github.com/user-attachments/assets/5673b374-ea60-4c08-89a0-03b51cb636a2" width="300"/>
 
 ## Installation
-1. [Getting API key](#getting-api-key)
-2. [Creating Discord Bot](#creating-discord-bot)
-3. [Inviting Discord Bot](#inviting-discord-bot)
-4. [Getting Channel ID](#getting-channel-id)
-5. [Starting bot](#starting-bot)
-
+- [Starting the App](#starting-the-app)
+- [Getting an Panel API key](#getting-panel-api-key)
+- [Getting a Channel ID](#getting-channel-id)
 - [Using Custom Emoji](#using-custom-emoji)
 - [Blacklist Nodes](#blacklist-nodes)
+- [Reporting a Bug](#reporting-a-bug) 
 
-### Getting API key 
+### Starting the App
+1. [Create your Discord App](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
+2. [Invite your Discord App to your Discord server](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
+3. Run `npm install` in the root directory of the app files.
+4. Run `node index` and answer the provided questions to set up the app.
+
+    <img alt="PteroStats V4 Preview" src="https://usercontent.catto.pictures/hirzi/ea764c65-3efe-4fbf-989a-58830bf26f05.png" width="300"/>
+
+    - [Getting Panel API Key](#getting-panel-api-key)
+    - [Getting a Channel ID](#getting-channel-id)
+
+5. Run `node index` again to start the app, and you're done!
+
+If you need help, contact me on [our Discord support server](https://discord.gg/zv6maQRah3).
+
+### Getting Panel API key 
 
 > [!WARNING]
-> The use of Application API keys are  **deprecated**, you should use **Client API keys** in the config file
+> The use of Application API keys are  **deprecated**, you should use **Client API keys**.
 
 1. Go to your `Pterodactyl or Pelican Panel` and go to `Account Page`.
 
@@ -45,12 +58,6 @@ PteroStats is a Discord Bot that designed to check Pterodactyl or Pelican Panel 
 
     <img alt="API Key" src="https://i.imgur.com/7goShy8.png" width="400"/>
 
-### Creating Discord Bot
-Please refer to [this website](https://discordjs.guide/preparations/setting-up-a-bot-application.html)
-
-### Inviting Discord Bot
-Please refer to [this website](https://discordjs.guide/preparations/adding-your-bot-to-servers.html)
-
 ### Getting Channel ID
 1. Enable Developer Feature at your discord settings
 
@@ -59,17 +66,6 @@ Please refer to [this website](https://discordjs.guide/preparations/adding-your-
 2. Right Click text channel and select `Copy ID`
 
     <img alt="Right Click Channel" src="https://usercontent.catto.pictures/hirzi/9f8352da-df5b-4587-9594-ced9b11a5507.png" width="250"/>
-
-### Starting bot
-1. Make sure you have done the things above
-2. Run `npm install` in the root directory of the bot files.
-3. Run `node index` and fill given question to setup the bot.
-
-    <img alt="PteroStats V4 Preview" src="https://usercontent.catto.pictures/hirzi/ea764c65-3efe-4fbf-989a-58830bf26f05.png" width="300"/>
-
-4. Run `node index` again to start the bot and you are done. 
-
-if you need help contact me on [our discord support server](https://discord.gg/zv6maQRah3)
 
 ### Using Custom Emoji
 1. type `\` in server that has custom emoji you want
@@ -105,9 +101,9 @@ You can add more than one node in the blacklist
 
 <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/85b6a9b1-8ec9-4395-b5b1-6f85d3f52162.png" width="400"/>
 
-## The node is online but the embed is read as offline
+## Reporting a Bug
 
-If you having this issue, you can enable `log_error` on the config file and report it to our discord server at [Support Server](https://discord.gg/zv6maQRah3)
+Enable `log_error` in the `config.yml` file and check the console for the error message. After that, report it to our Discord server at [Support Server](https://discord.gg/zv6maQRah3).
 
 ## Links
 
@@ -118,4 +114,5 @@ If you having this issue, you can enable `log_error` on the config file and repo
 - [Pelican API Documentation](https://demo.pelican.dev/docs/api)
 - [Pterodactyl API Documentation](https://github.com/devnote-dev/ptero-notes/)
 - [Pterodactyl Discord Server](https://discord.gg/pterodactyl)
+- [Pelican Discord Server](https://discord.gg/pelican-panel) 
 - [Support Server](https://discord.gg/zv6maQRah3)
