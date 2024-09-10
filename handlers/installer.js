@@ -55,18 +55,10 @@ module.exports = function Installer() {
                 }
             });
         } else {
-            console.log(" \n====================================================")
-            console.log("Thank you! Here are the details you've provided:");
-            console.log(`Panel Name         : ${cliColor.cyanBright(answers[0])}`);
-            console.log(`Panel URL          : ${cliColor.cyanBright(answers[1])}`);
-            console.log(`Panel API Key      : ${cliColor.cyanBright(answers[2])}`);
-            console.log(`Discord Bot Token  : ${cliColor.cyanBright(answers[3])}`);
-            console.log(`Discord Channel ID : ${cliColor.cyanBright(answers[4])}`);
-            console.log("====================================================\n \n")
 
             fs.writeFileSync(".env", `PanelURL=${answers[1]}\nPanelKEY=${answers[2]}\nDiscordBotToken=${answers[3]}\nDiscordChannel=${answers[4]}`, "utf8")
-
             fs.writeFileSync("config.yml", fs.readFileSync("./config.yml", "utf8").replaceAll("Hosting Panel", answers[0]).replaceAll("https://panel.example.com", answers[1]), "utf-8")
+            console.log(cliColor.green(` \nConfiguration saved in ${cliColor.blueBright(".env")} and ${cliColor.blueBright("config.yml")}.\n `));
 
             console.log(cliColor.cyanBright("Please restart the bot to continue."))
             readline.close();
