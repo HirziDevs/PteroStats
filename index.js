@@ -2,20 +2,21 @@ const { Client, GatewayIntentBits, EmbedBuilder, time, ActivityType, ActionRowBu
 const cachePath = require('node:path').join(__dirname, "./cache.json");
 const fs = require("node:fs");
 const cliColor = require("cli-color");
+const package = require("./package.json")
 
 console.log(`
-    _${cliColor.blueBright.bold("Pterodactyl & Pelican")}___    ______   ______   
-   /\\  ___\\  /\\__  _\\ /\\  __ \\  /\\__  _\\ /\\  ___\\  
-   \\ \\___  \\ \\/_ \\ \\/ \\ \\ \\_\\ \\ \\/_/\\ \\/ \\ \\___  \\ 
-    \\/\\_____\\   \\ \\_\\  \\ \\_\\ \\_\\   \\ \\_\\  \\/\\_____\\
-     \\/_____/    \\/_/   \\/_/\\/_/    \\/_/   \\/_____/${cliColor.yellowBright.bold("4.0.0-dev")}`);
+    _${cliColor.blueBright.bold(`${cliColor.underline("Ptero")}dact${cliColor.underline("yl & P")}eli${cliColor.underline("can")}`)}___    ______   ______   
+       /\\  ___\\  /\\__  _\\ /\\  __ \\  /\\__  _\\ /\\  ___\\  
+          \\ \\___  \\ \\/_ \\ \\/ \\ \\ \\_\\ \\ \\/_/\\ \\/ \\ \\___  \\ 
+              \\/\\_____\\   \\ \\_\\  \\ \\_\\ \\_\\   \\ \\_\\  \\/\\_____\\
+                   \\/_____/    \\/_/   \\/_/\\/_/    \\/_/   \\/_____/${cliColor.yellowBright.bold(`${package.version}-dev`)}`);
 
 console.log(
     ` \nCopyright © 2022 - ${new Date().getFullYear()} HirziDevs & Contributors` +
     " \n \nDiscord: https://discord.znproject.my.id" +
     " \n Source: https://github.com/HirziDevs/PteroStats" +
     " \nLicense: https://github.com/Hirzidevs/PteroStats/blob/main/LICENSE" +
-    " \n \nPteroStats is a Discord Bot that designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server. \n \n"
+    ` \n \n${package.description}\n `
 );
 
 if (!fs.existsSync(".env")) return require("./handlers/installer.js")()
@@ -25,8 +26,8 @@ const config = require("./handlers/config.js");
 const convertUnits = require("./handlers/convertUnits.js");
 const getStats = require("./handlers/getStats.js");
 
-console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.greenBright("Starting bot..."));
-console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("You are using development build! some features may not work."));
+console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.green("Starting bot..."));
+console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("You are using a development build! Some features may not work as intended."));
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds]
@@ -42,7 +43,7 @@ async function startGetStatus() {
             users: results.users,
         });
     } catch {
-        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Panel is offline"));
+        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Panel is currently offline."));
 
         fs.readFile(cachePath, (err, data) => {
             if (err) {
@@ -68,7 +69,7 @@ async function startGetStatus() {
 }
 
 client.once("ready", () => {
-    console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.greenBright(`${client.user.tag} is online!`));
+    console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.green(`${cliColor.blueBright(client.user.tag)} is online!`));
 
     if (config.presence.enable) {
         if (config.presence.text && config.presence.type) {
@@ -184,7 +185,7 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
         const messages = await channel.messages.fetch({ limit: 10 });
         const botMessage = messages.find(msg => msg.author.id === client.user.id);
 
-        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.greenBright(`Panel stats successfuly posted to the "${channel.name}" channel!`));
+        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.green(`Panel stats successfully posted to the ${cliColor.blueBright(channel.name)} channel!`));
 
         setTimeout(() => startGetStatus(), config.refresh * 1000);
 

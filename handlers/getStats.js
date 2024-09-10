@@ -14,13 +14,13 @@ module.exports = async function getStats() {
     if (!nodesStats) throw new Error("Failed to get nodes attributes");
 
     const statusPromises = nodesStats.slice(0, config.nodes_settings.limit).map(async (node) => {
-        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.yellow(`Fetching "${node.attributes.name}" configuration...`))
+        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.yellow(`Fetching ${cliColor.blueBright(node.attributes.name)} configuration...`))
         const nodeConfig = await getNodeConfiguration(node.attributes.id);
-        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.yellow(`Checking "${node.attributes.name}" wings status...`))
+        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.yellow(`Checking ${cliColor.blueBright(node.attributes.name)} wings status...`))
         const nodeStatus = await promiseTimeout(getWingsStatus(node, nodeConfig.token), config.timeout * 1000);
 
         if (!nodeStatus)
-            console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright(`Node "${node.attributes.name}" is currently offline`))
+            console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright(`Node ${cliColor.blueBright(node.attributes.name)} is currently offline.`))
         return {
             attributes: {
                 name: node.attributes.name,
