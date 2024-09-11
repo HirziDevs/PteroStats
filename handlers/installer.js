@@ -38,13 +38,13 @@ module.exports = function Installer() {
                 let isValid = true;
 
                 if (index === 1 && !isValidURL(answer)) {
-                    console.log(cliColor.redBright("Invalid URL. Please enter a valid URL."));
+                    console.log(cliColor.redBright('❌ Invalid Panel URL. Please enter a valid URL. Example Correct URL: "https://panel.example.com"'));
                     isValid = false;
                 } else if (index === 2 && !/^(plcn_|ptlc_|peli_|ptla_)/.test(answer)) {
-                    console.log(cliColor.redBright("Invalid API key. It must start with 'plcn_' or 'ptlc_'."));
+                    console.log(cliColor.redBright("❌ Invalid Panel API key. It must start with 'plcn_' or 'ptlc_'."));
                     isValid = false;
                 } else if (index === 4 && !/^\d+$/.test(answer)) {
-                    console.log(cliColor.redBright("Invalid Channel ID. It must be a number."));
+                    console.log(cliColor.redBright("❌ Invalid Channel ID. It must be a number."));
                     isValid = false;
                 }
 
