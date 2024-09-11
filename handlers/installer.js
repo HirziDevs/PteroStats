@@ -1,9 +1,11 @@
+const axios = require("axios")
+const cliColor = require("cli-color")
+const { Client, GatewayIntentBits } = require("discord.js")
+const fs = require("fs")
 const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
 });
-const fs = require("fs")
-const cliColor = require("cli-color")
 
 const questions = [
     "Please enter your panel name: ",
@@ -25,7 +27,8 @@ const isValidURL = (url) => {
 };
 
 module.exports = function Installer() {
-    console.log("Welcome! Please fill this question to start PteroStats.");
+    console.log(cliColor.cyanBright("Welcome to PteroStats!"))
+    console.log(cliColor.yellow("Please fill in the following credentials to set up the app.\n "));
 
     const askQuestion = (index) => {
         if (index < questions.length) {
@@ -55,13 +58,70 @@ module.exports = function Installer() {
                 }
             });
         } else {
+            axios(`${new URL(answers[1]).origin}/api/application/nodes?include=servers,location,allocations`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${answers[2]}`
+                },
+            }).then(() => {
+                console.log(" \n" + cliColor.green("✓ Valid Panel Credentials."));
+                const client = new Client({
+                    intents: [GatewayIntentBits.Guilds]
+                })
 
-            fs.writeFileSync(".env", `PanelURL=${answers[1]}\nPanelKEY=${answers[2]}\nDiscordBotToken=${answers[3]}\nDiscordChannel=${answers[4]}`, "utf8")
-            fs.writeFileSync("config.yml", fs.readFileSync("./config.yml", "utf8").replaceAll("Hosting Panel", answers[0]).replaceAll("https://panel.example.com", answers[1]), "utf-8")
-            console.log(cliColor.green(` \nConfiguration saved in ${cliColor.blueBright(".env")} and ${cliColor.blueBright("config.yml")}.\n `));
+                client.login(answers[3]).then(async () => {
+                    console.log(cliColor.green("✓ Valid Discord Bot"));
+                    client.channels.fetch(answers[4]).then(() => {
+                        console.log(cliColor.green("✓ Valid Discord Channel"));
+                        fs.writeFileSync(".env", `PanelURL=${answers[1]}\nPanelKEY=${answers[2]}\nDiscordBotToken=${answers[3]}\nDiscordChannel=${answers[4]}`, "utf8")
+                        fs.writeFileSync("config.yml", fs.readFileSync("./config.yml", "utf8").replaceAll("Hosting Panel", answers[0]).replaceAll("https://panel.example.com", answers[1]), "utf-8")
+                        console.log(" \n" + cliColor.green(`Configuration saved in ${cliColor.blueBright(".env")} and ${cliColor.blueBright("config.yml")}.\n `));
 
-            console.log(cliColor.cyanBright("Please restart the bot to continue."))
-            readline.close();
+                        console.log(cliColor.cyanBright("Please restart the app to continue."));
+                        process.exit()
+                    }).catch(() => {
+                        console.log(cliColor.redBright("❌ Invalid Channel ID."));
+                        console.log(" \n" + cliColor.redBright("Please run the installer again and fill in the correct credentials."));
+                        process.exit()
+                    })
+                }).catch(() => {
+                    console.log(cliColor.redBright("❌ Invalid Discord Bot Token."));
+                    console.log(" \n" + cliColor.redBright("Please run the installer again and fill in the correct credentials."));
+                    process.exit()
+                })
+            }).catch((error) => {
+                console.log(" \n" + cliColor.redBright("❌ Invalid Panel Credentials."));
+                if (error.code === "ENOTFOUND") {
+                    console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("ENOTFOUND | DNS Error. Ensure your network connection and DNS server are functioning correctly."));
+                } else if (error.code === "ECONNREFUSED") {
+                    console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("ECONNREFUSED | Connection refused. Ensure the panel is running and reachable."));
+                } else if (error.code === "ETIMEDOUT") {
+                    console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("ETIMEDOUT | Connection timed out. The panel took too long to respond."));
+                } else if (error.code === "ECONNRESET") {
+                    console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("ECONNRESET | Connection reset by peer. The panel closed the connection unexpectedly."));
+                } else if (error.code === "EHOSTUNREACH") {
+                    console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("EHOSTUNREACH | Host unreachable. The panel is down or not reachable."));
+                } else if (error.response) {
+                    if (error.response.status === 401) {
+                        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("401 | Unauthorized. Invalid Application Key or API Key doesn't have permission to perform this action."));
+                    } else if (error.response.status === 403) {
+                        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("403 | Forbidden. Invalid Application Key or API Key doesn't have permission to perform this action."));
+                    } else if (error.response.status === 404) {
+                        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("404 | Not Found. Invalid Panel URL or the Panel doesn't exist."));
+                    } else if (error.response.status === 429) {
+                        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("429 | Too Many Requests. You have sent too many requests in a given amount of time."));
+                    } else if ([500, 502, 503, 504].includes(error.response.status)) {
+                        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("500 | Internal Server Error. This is an error with your panel, PteroStats is not the cause."));
+                    } else {
+                        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright(`${error.response.status} | Unexpected error: ${error.response.statusText}`));
+                    }
+                } else {
+                    console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright(`Unexpected error: ${error.message}`));
+                }
+                console.log(" \n" + cliColor.redBright("Please run the installer again and fill in the correct credentials."));
+                process.exit()
+            })
         }
     };
 
