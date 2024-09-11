@@ -6,14 +6,16 @@
 
 </div>
 
-> [!WARNING]
-> This is a development build! Some features may not work.
-
 ## Introduction
+> [!WARNING]
+> This is a development build! Some features may not work as intended.
+
 PteroStats is a Discord Bot that designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server.
 
 ## Preview
-<img alt="PteroStats V4 Preview" src="https://github.com/user-attachments/assets/5673b374-ea60-4c08-89a0-03b51cb636a2" width="300"/>
+<img alt="PteroStats GIF Preview" src="https://usercontent.catto.pictures/hirzi/ad6e36cc-b582-460b-ab4e-b5e1dacd8b02.gif" width="300"/>
+
+<img alt="PteroStats Image Preview" src="https://usercontent.catto.pictures/hirzi/335cba23-36e4-4ab4-a7c6-cc1f128c8273.png" width="300"/>
 
 ## Installation
 - [Starting the App](#starting-the-app)
@@ -26,22 +28,26 @@ PteroStats is a Discord Bot that designed to check Pterodactyl or Pelican Panel 
 ### Starting the App
 1. [Create your Discord App](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
 2. [Invite your Discord App to your Discord server](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
-3. Run `npm install` in the root directory of the app files.
-4. Run `node index` and answer the provided questions to set up the app.
+3. [Download the repository](https://github.com/HirziDevs/PteroStats/archive/refs/heads/dev.zip) and extract it.
+4. Run `npm install` in the root directory of the app files.
+5. Run `node index` and answer the provided questions to set up the app.
 
-    <img alt="PteroStats V4 Preview" src="https://usercontent.catto.pictures/hirzi/ea764c65-3efe-4fbf-989a-58830bf26f05.png" width="300"/>
+    <img alt="Installer" src="https://usercontent.catto.pictures/hirzi/94742130-baaf-40b4-b046-06eb9c7fdb8c.png" width="300"/>
 
     - [Getting Panel API Key](#getting-panel-api-key)
     - [Getting a Channel ID](#getting-channel-id)
 
-5. Run `node index` again to start the app, and you're done!
+6. Run `node index` again to start the app, and you're done!
 
-If you need help, contact me on [our Discord support server](https://discord.gg/zv6maQRah3).
+    <img alt="Console Logging" src="https://usercontent.catto.pictures/hirzi/5fa377e2-d357-456e-aaf5-ae80e06b33ca.png" width="300"/>
 
 ### Getting Panel API Key 
 
 > [!WARNING]
 > The use of Application API keys is **deprecated**; you should use **Client API keys**.
+
+> [!TIP]
+> Make sure the owner of the Client API key has access to the administrator panel.
 
 1. Go to your `Pterodactyl` or `Pelican Panel` and navigate to the `Account Page`.
 
@@ -85,7 +91,7 @@ If you need help, contact me on [our Discord support server](https://discord.gg/
 
 4. Paste the emoji ID into the config.
 
-    <img alt="Status Config" src="https://usercontent.catto.pictures/hirzi/458ad1d6-019b-4b27-be60-3cbabfa07c06.png" width="400"/>
+    <img alt="Status Config" src="https://usercontent.catto.pictures/hirzi/369cf7af-ae32-4193-9b09-195ba6f71f62.png" width="400"/>
 
 ### Blacklist Nodes
 
@@ -99,11 +105,11 @@ If you need help, contact me on [our Discord support server](https://discord.gg/
 
 3. Paste the ID into the blacklist in the config.
 
-    <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/cfb479bf-64da-43e5-b0d1-f7c0c78bf068.png" width="400"/>
+    <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/3a66a55b-6ffe-4535-b192-866deab2c4ae.png" width="400"/>
 
 You can add more than one node to the blacklist.
 
-<img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/85b6a9b1-8ec9-4395-b5b1-6f85d3f52162.png" width="400"/>
+<img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/649eda44-625f-47e7-be0e-04c34a9aaa48.png" width="400"/>
 
 ## Reporting a Bug
 
@@ -111,12 +117,6 @@ Enable `log_error` in the `config.yml` file and check the console for the error 
 
 ## Links
 
-- [PteroStats DiscordJS v13](https://github.com/HirziDevs/PteroStats/tree/3d0512c3323ecf079101104c7ecf3c94d265e298)
-- [PteroStats DiscordJS v12](https://github.com/HirziDevs/PteroStats/tree/bcfa266be64dda11955f0bf9732da086bcea522c)
-- [Pelican Panel](https://pelican.dev)
-- [Pterodactyl Panel](https://pterodactyl.io)
-- [Pelican API Documentation](https://demo.pelican.dev/docs/api)
-- [Pterodactyl API Documentation](https://github.com/devnote-dev/ptero-notes/)
 - [Pterodactyl Discord Server](https://discord.gg/pterodactyl)
 - [Pelican Discord Server](https://discord.gg/pelican-panel) 
 - [Support Server](https://discord.gg/zv6maQRah3)
