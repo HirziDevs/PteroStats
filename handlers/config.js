@@ -1,4 +1,3 @@
-
 const fs = require("node:fs");
 const yaml = require("js-yaml");
 const cliColor = require("cli-color");
@@ -26,4 +25,4 @@ if (config.version !== 5) {
 
 console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.yellow("Configuration loaded"))
 
-module.exports = configconfig
+module.exports = config
