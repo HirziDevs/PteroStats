@@ -19,11 +19,11 @@ try {
     process.exit();
 }
 
-if (config.version !== 4) {
+if (config.version !== 5) {
     console.error('Config Error | Invalid config version! The config has been updated, please get the new config from https://github.com/HirziDevs/PteroStats/blob/dev/config.yml');
     process.exit();
 }
 
 console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.yellow("Configuration loaded"))
 
-module.exports = config
+module.exports = configconfig
