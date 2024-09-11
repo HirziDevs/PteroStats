@@ -69,7 +69,7 @@ nodes_settings:
   details: true # enable nodes details i.e memory and disk usage
   servers: true
   location: true
-  unit: "mb" # Allowed values- "gb", "mb", "tb", or "%"
+  unit: "mb" # Allowed values: "byte" or "percentage"
   limit: 100
 
 # Panel Users and Servers Settings

@@ -17,7 +17,8 @@
         "cli-color": "2.0.4",
         "discord.js": "14.16.1",
         "dotenv": "16.4.5",
-        "js-yaml": "4.1.0"
+        "js-yaml": "4.1.0",
+        "prettier-bytes": "1.0.4"
     },
     "engines": {
         "node": ">=18"
