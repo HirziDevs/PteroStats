@@ -35,7 +35,7 @@ embed:
     image: ""
   nodes:
     author:
-      name: "ZN Panel"
+      name: "Hosting Panel"
       icon: ""
     title: "Nodes Stats"
     description: ""
@@ -76,12 +76,6 @@ panel_settings:
   status: true # enable panel stats under nodes stats
   servers: true
   users: true
-
-# Mentions a User or Role if any node is offline (this feature is still in testing, please report if you have a problem)
-mentions: # to enable atleast put 1 ID on user or role bellow
-  user: [] # Put User ID here (Example: "user: ['548867757517570058', '816219634390663230']")
-  role: [] # Put Role ID here (Example: "role: ['796083838236622858', '858198863973187585']")
-  channel: "" # Put Channel ID here for the logging
 
 # Log error to console if a server offline (enable this when you have a problem that you want to report)
 log_error: false # set to "true" to enable
