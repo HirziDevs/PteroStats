@@ -1,6 +1,6 @@
 # PteroStats config
 # If you need help, join our discord server here: https://discord.gg/zv6maQRah3
-version: 4 # Do not change this unless you know what you are doing!
+version: 5 # Do not change this unless you know what you are doing!
 
 # Bot Configuration
 presence:
@@ -20,15 +20,32 @@ message:
   attachment: "" # If you enable attachment on message it will upload the attachment first before sending or editing message and will result in delayed stats
 
 embed:
-  title_nodes: "Nodes Stats"
-  title_panel: "Panel Stats"
-  author: "Hosting Panel"
-  color: "5865F2"
-  description: "Next update {{time}}" # You can use {{time}} to make "in X seconds" time format
-  footer: "By @HirziDevs"
-  timestamp: true
-  thumbnail: ""
-  image: ""
+  panel:
+    author:
+      name: "Hosting Panel"
+      icon: ""
+    title: "Panel Stats"
+    description: "Next update {{time}}"
+    timestamp: false
+    color: "5865F2"
+    footer:
+      text: ""
+      icon: ""
+    thumbnail: ""
+    image: ""
+  nodes:
+    author:
+      name: "ZN Panel"
+      icon: ""
+    title: "Nodes Stats"
+    description: ""
+    timestamp: true
+    color: "5865F2"
+    footer:
+      text: "By @HirziDevs"
+      icon: ""
+    thumbnail: ""
+    image: ""
 
 # Message Button Configuration
 button:

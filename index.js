@@ -6,10 +6,10 @@ const package = require("./package.json")
 
 console.log(`
     _${cliColor.blueBright.bold(`${cliColor.underline("Ptero")}dact${cliColor.underline("yl & P")}eli${cliColor.underline("can")}`)}___    ______   ______   
-   /\\  ___\\  /\\__  _\\ /\\  __ \\  /\\__  _\\ /\\  ___\\  
-   \\ \\___  \\ \\/_ \\ \\/ \\ \\ \\_\\ \\ \\/_/\\ \\/ \\ \\___  \\ 
-    \\/\\_____\\   \\ \\_\\  \\ \\_\\ \\_\\   \\ \\_\\  \\/\\_____\\
-     \\/_____/    \\/_/   \\/_/\\/_/    \\/_/   \\/_____/${cliColor.yellowBright.bold(`${package.version}-dev`)}`);
+       /\\  ___\\  /\\__  _\\ /\\  __ \\  /\\__  _\\ /\\  ___\\  
+          \\ \\___  \\ \\/_ \\ \\/ \\ \\ \\_\\ \\ \\/_/\\ \\/ \\ \\___  \\ 
+              \\/\\_____\\   \\ \\_\\  \\ \\_\\ \\_\\   \\ \\_\\  \\/\\_____\\
+                   \\/_____/    \\/_/   \\/_/\\/_/    \\/_/   \\/_____/${cliColor.yellowBright.bold(`${package.version}-dev`)}`);
 
 console.log(
     ` \nCopyright © 2022 - ${new Date().getFullYear()} HirziDevs & Contributors` +
@@ -26,7 +26,7 @@ const config = require("./handlers/config.js");
 const convertUnits = require("./handlers/convertUnits.js");
 const getStats = require("./handlers/getStats.js");
 
-console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.green("Starting bot..."));
+console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.green("Starting app..."));
 console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("You are using a development build! Some features may not work as intended."));
 
 const client = new Client({
@@ -107,15 +107,21 @@ client.once("ready", () => {
 
 async function createMessage({ cache, panel, nodes, servers, users }) {
     let embed = new EmbedBuilder()
-        .setTitle(config.embed.title_nodes)
-        .setColor(config.embed.color);
+        .setAuthor({
+            name: config.embed.nodes.author.name || null,
+            iconURL: config.embed.nodes.author.icon || null
+        })
+        .setTitle(config.embed.nodes.title || null)
+        .setColor(config.embed.nodes.color || null)
+        .setURL(config.embed.nodes.url || null)
+        .setThumbnail(config.embed.nodes.thumbnail || null)
 
     let embeds = [embed];
 
     if (config.nodes_settings.details) {
         nodes.forEach((node, index) => {
             if (index % 25 === 0 && index !== 0) {
-                embed = new EmbedBuilder().setColor(config.embed.color);
+                embed = new EmbedBuilder().setColor(config.embed.nodes.color);
                 if (embeds.length < 9) embeds.push(embed);
             }
 
@@ -134,8 +140,27 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
     }
 
     let panelEmbed = new EmbedBuilder()
-        .setColor(config.embed.color)
-        .setTitle(config.embed.title_panel)
+        .setAuthor({
+            name: config.embed.panel.author.name || null,
+            iconURL: config.embed.panel.author.icon || null
+        })
+        .setColor(config.embed.panel.color || null)
+        .setTitle(config.embed.panel.title || null)
+        .setURL(config.embed.panel.url || null)
+        .setTimestamp(config.embed.panel.timestamp ? new Date() : null)
+        .setFooter({
+            text: config.embed.panel.footer.text || null,
+            iconURL: config.embed.panel.footer.icon || null
+        })
+        .setThumbnail(config.embed.panel.thumbnail || null)
+        .setImage(config.embed.panel.image || null)
+        .setDescription(
+            config.embed.panel.description
+                .replace(
+                    "{{time}}",
+                    time(new Date(Date.now() + (config.refresh * 1000) + 1000), "R")
+                ) || null
+        )
         .addFields({
             name: `Panel - ${panel ? config.status.online : config.status.offline}`,
             value:
@@ -148,16 +173,13 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
 
     if (config.panel_settings.status) embeds.unshift(panelEmbed);
 
-    embeds[0]
-        .setAuthor(config.embed.author ? { name: config.embed.author } : null)
-        .setDescription(
-            embeds[0].data.description ? config.embed.description.replace("{{time}}", time(new Date(Date.now() + (config.refresh * 1000) + 1000), "R")) + "\n\n" + embeds[0].data.description : config.embed.description.replace("{{time}}", time(new Date(Date.now() + (config.refresh * 1000) + 1000), "R"))
-        );
-
     embeds[embeds.length - 1]
-        .setFooter(config.embed.footer ? { text: config.embed.footer } : null);
-
-    if (config.embed.timestamp) embeds[embeds.length - 1].setTimestamp();
+        .setTimestamp(config.embed.nodes.timestamp ? new Date() : null)
+        .setFooter({
+            text: config.embed.nodes.footer.text || null,
+            iconURL: config.embed.nodes.footer.icon || null
+        })
+        .setImage(config.embed.nodes.image || null)
 
     if (!cache && !panel) {
         embeds[embeds.length - 1].setDescription(
@@ -200,12 +222,12 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
 }
 
 function DiscordErrorHandler(error) {
-     if (error.rawError?.code === 429) {
+    if (error.rawError?.code === 429) {
         console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Error 429 | Your IP has been rate limited by either Discord or your website. If it's a rate limit with Discord, you must wait. If it's a issue with your website, consider whitelisting your server IP."));
     } else if (error.rawError?.code === 403) {
-        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("FORBIDDEN | The channel ID you provided is incorrect. Please double check you have the right ID. If you're not sure, read our documentation: https://github.com/lezetho/--PteroStats?tab=readme-ov-file#getting-channel-id"));
+        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("FORBIDDEN | The channel ID you provided is incorrect. Please double check you have the right ID. If you're not sure, read our documentation: https://github.com/HirziDevs/PteroStats#getting-channel-id"));
     } else if (error.code === "ENOTFOUND") {
-         console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("ENOTFOUND | DNS Error. Ensure your network connection and DNS server are functioning correctly."));
+        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("ENOTFOUND | DNS Error. Ensure your network connection and DNS server are functioning correctly."));
     } else if (error.rawError?.code === 50001) {
         console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Discord Error | Your discord bot doesn't have access to see/send message/edit message in the channel!"));
     } else if (error.rawError?.errors && Object?.values(error.rawError.errors)[0]._errors[0].code === "MAX_EMBED_SIZE_EXCEEDED") {
