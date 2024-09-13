@@ -1,28 +1,40 @@
 const config = require("./config.js");
 const fs = require("node:fs");
-const getNodesDetails = require("./getNodesDetails.js");
-const getNodeConfiguration = require("./getNodeConfiguration.js");
-const getWingsStatus = require("./getWingsStatus.js");
-const getServers = require("./getServers.js");
-const getUsers = require("./getUsers.js");
-const promiseTimeout = require("./promiseTimeout.js");
 const cliColor = require("cli-color");
 
 module.exports = async function getStats() {
+    let cache = (() => {
+        try {
+            return JSON.parse(fs.readFileSync(require('node:path').join(__dirname, "../cache.json")))
+        } catch {
+            return false
+        }
+    })()
+
     console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.yellow("Retrieving panel nodes..."))
-    const nodesStats = await getNodesDetails();
+    const nodesStats = await require("./getNodesDetails.js")();
     if (!nodesStats) throw new Error("Failed to get nodes attributes");
 
     const statusPromises = nodesStats.slice(0, config.nodes_settings.limit).map(async (node) => {
         console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.yellow(`Fetching ${cliColor.blueBright(node.attributes.name)} configuration...`))
-        const nodeConfig = await getNodeConfiguration(node.attributes.id);
+        const nodeConfig = await require("./getNodeConfiguration.js")(node.attributes.id);
         console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.yellow(`Checking ${cliColor.blueBright(node.attributes.name)} wings status...`))
-        const nodeStatus = await promiseTimeout(getWingsStatus(node, nodeConfig.token), config.timeout * 1000);
+        const nodeStatus = await require("./promiseTimeout.js")(require("./getWingsStatus.js")(node, nodeConfig.token), config.timeout * 1000);
 
-        if (!nodeStatus)
+        let nodeUptime = cache ? (() => {
+            return cache.nodes.find((n) => n.attributes.id === node.attributes.id)?.uptime || Date.now()
+        })() : Date.now()
+
+        if (!nodeUptime && nodeStatus) nodeUptime = Date.now()
+
+        if (!nodeStatus) {
+            nodeUptime = false
             console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright(`Node ${cliColor.blueBright(node.attributes.name)} is currently offline.`))
+        }
+
         return {
             attributes: {
+                id: node.attributes.id,
                 name: node.attributes.name,
                 memory: node.attributes.memory,
                 disk: node.attributes.disk,
@@ -33,13 +45,17 @@ module.exports = async function getStats() {
                     servers: node.attributes.relationships.servers.data.length
                 }
             },
+            uptime: nodeUptime,
             status: nodeStatus
         };
     });
 
     const data = {
-        servers: await getServers(),
-        users: await getUsers(),
+        uptime: cache ? (() => {
+            return cache.uptime || Date.now()
+        })() : Date.now(),
+        servers: await require("./getServers.js")(),
+        users: await require("./getUsers.js")(),
         nodes: await Promise.all(statusPromises),
         timestamp: Date.now()
     }

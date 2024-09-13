@@ -2,7 +2,6 @@ require("dotenv").config()
 const { Client, GatewayIntentBits, EmbedBuilder, time, ActivityType, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const fs = require("node:fs");
 const cliColor = require("cli-color");
-const cachePath = require('node:path').join(__dirname, "../cache.json");
 const config = require("./config.js");
 const convertUnits = require("./convertUnits.js");
 const getStats = require("./getStats.js");
@@ -20,6 +19,7 @@ module.exports = function App() {
             const results = await getStats();
             createMessage({
                 panel: true,
+                uptime: results.uptime,
                 nodes: results.nodes,
                 servers: results.servers,
                 users: results.users,
@@ -27,7 +27,7 @@ module.exports = function App() {
         } catch {
             console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Panel is currently offline."));
 
-            fs.readFile(cachePath, (err, data) => {
+            fs.readFile(require('node:path').join(__dirname, "../cache.json"), (err, data) => {
                 if (err) {
                     createMessage({ cache: false, panel: false });
                     return console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Last cache was not found!"));
@@ -35,6 +35,8 @@ module.exports = function App() {
 
                 try {
                     const results = JSON.parse(data);
+                    results.uptime = false
+                    fs.writeFileSync("cache.json", JSON.stringify(results, null, 2), "utf8");
                     createMessage({
                         cache: true,
                         panel: false,
@@ -87,7 +89,7 @@ module.exports = function App() {
         startGetStatus();
     });
 
-    async function createMessage({ cache, panel, nodes, servers, users }) {
+    async function createMessage({ cache, panel, uptime, nodes, servers, users }) {
         let embed = new EmbedBuilder()
             .setAuthor({
                 name: config.embed.nodes.author.name || null,
@@ -116,6 +118,7 @@ module.exports = function App() {
                         `Disk   : ${convertUnits(node.attributes.allocated_resources.disk, node.attributes.disk, config.nodes_settings.unit)}` +
                         (node.attributes?.allocated_resources?.cpu ? `\nCPU    : ${node.attributes?.allocated_resources?.cpu || 0}%` : "") +
                         (config.nodes_settings.servers ? `\nServers: ${node.attributes.relationships.servers}${config.nodes_settings.allocations_as_max_servers ? ` / ${node.attributes.relationships.allocations}` : ""}` : "") +
+                        (config.nodes_settings.uptime ? `\nUptime : ${node.uptime ? require("./UptimeFormatter.js")(Date.now() - node.uptime) : "N/A"}` : "") +
                         "```"
                 });
             });
@@ -152,6 +155,7 @@ module.exports = function App() {
                     `Nodes  : ${nodes.length}\n` +
                     (config.panel_settings.servers ? `Servers: ${servers || "Unknown"}\n` : "") +
                     (config.panel_settings.users ? `Users  : ${users || "Unknown"}\n` : "") +
+                    (config.panel_settings.uptime ? `Uptime : ${uptime ? require("./UptimeFormatter.js")(Date.now() - uptime) : "N/A"}\n` : "") +
                     "```"
             });
 
@@ -209,22 +213,27 @@ module.exports = function App() {
     }
 
     function DiscordErrorHandler(error) {
-        if (error.rawError?.code === 429) {
-            console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Error 429 | Your IP has been rate limited by either Discord or your website. If it's a rate limit with Discord, you must wait. If it's a issue with your website, consider whitelisting your server IP."));
-        } else if (error.rawError?.code === 403) {
-            console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("FORBIDDEN | The channel ID you provided is incorrect. Please double check you have the right ID. If you're not sure, read our documentation: https://github.com/HirziDevs/PteroStats#getting-channel-id"));
-        } else if (error.code === "ENOTFOUND") {
-            console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("ENOTFOUND | DNS Error. Ensure your network connection and DNS server are functioning correctly."));
-        } else if (error.rawError?.code === 50001) {
-            console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Discord Error | Your discord bot doesn't have access to see/send message/edit message in the channel!"));
-        } else if (error.rawError?.errors && Object?.values(error.rawError.errors)[0]._errors[0].code === "MAX_EMBED_SIZE_EXCEEDED") {
-            console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Discord Error | Embed message limit exceeded! Please limit or decrease the nodes that need to be shown in the config!"));
-        } else if (error.rawError?.errors && Object?.values(error.rawError.errors)[0]._errors[0].code) {
-            console.log(Object.values(error.rawError.errors)[0]._errors[0].message);
-        } else {
-            console.error(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Discord Error"), error);
+        try {
+            if (error.rawError?.code === 429) {
+                console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Error 429 | Your IP has been rate limited by either Discord or your website. If it's a rate limit with Discord, you must wait. If it's a issue with your website, consider whitelisting your server IP."));
+            } else if (error.rawError?.code === 403) {
+                console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("FORBIDDEN | The channel ID you provided is incorrect. Please double check you have the right ID. If you're not sure, read our documentation: https://github.com/HirziDevs/PteroStats#getting-channel-id"));
+            } else if (error.code === "ENOTFOUND") {
+                console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("ENOTFOUND | DNS Error. Ensure your network connection and DNS server are functioning correctly."));
+            } else if (error.rawError?.code === 50001) {
+                console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Discord Error | Your discord bot doesn't have access to see/send message/edit message in the channel!"));
+            } else if (error.rawError?.errors && Object?.values(error.rawError.errors)[0]?._errors[0]?.code === "MAX_EMBED_SIZE_EXCEEDED") {
+                console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Discord Error | Embed message limit exceeded! Please limit or decrease the nodes that need to be shown in the config!"));
+            } else if (error.rawError?.errors && Object?.values(error.rawError.errors)[0]?._errors[0]?.code) {
+                console.log(Object.values(error.rawError.errors)[0]._errors[0].message);
+            } else {
+                console.error(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Discord Error"), error);
+            }
+            process.exit();
+        } catch (err) {
+            console.log(error)
+            process.exit();
         }
-        process.exit();
     }
 
     try {

@@ -76,10 +76,12 @@ nodes_settings:
   servers: false # Show server details (true/false).
   allocations_as_max_servers: false # Show allocations as max servers (true/false).
   unit: "byte" # Unit for node usage, Available types: "byte" or "percentage".
+  uptime: true # Enable or disable node uptime (true/false).
   limit: 100 # Node limit for usage statistics display.
 
 # Panel Users and Servers Settings
 panel_settings:
+  uptime: true # Enable or disable node uptime (true/false).
   status: true # Display panel stats under node stats (true/false).
   servers: true # Display servers count (true/false).
   users: true # Display users count (true/false).
