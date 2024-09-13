@@ -1,6 +1,6 @@
 <div align="center">
 
-# PteroStats v4
+# PteroStats
 
 <img alt="PteroStats Banner" src="https://images-ext-2.discordapp.net/external/oRPpwML4JUV0HbsPKtsghvIjS5ZrVwqH2KQ4tevg_Jg/https/repository-images.githubusercontent.com/381250920/e9acc9c2-2fbd-4fb0-8554-9788146d817e" width="400"/>
 
@@ -10,9 +10,9 @@
 PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server.
 
 ## Preview
-<img alt="PteroStats Image Preview" src="https://usercontent.catto.pictures/hirzi/335cba23-36e4-4ab4-a7c6-cc1f128c8273.png" width="300"/>
+<img alt="PteroStats Image Preview" src="https://usercontent.catto.pictures/hirzi/e6f6fe6a-8c0e-4c7a-8b73-d4af752324f4.png" width="300"/>
 
-<img alt="PteroStats Image Preview" src="https://usercontent.catto.pictures/hirzi/8ce3aac6-5c46-4626-bd14-af994b602f8e.png" width="300"/>
+<img alt="PteroStats Console Preview" src="https://usercontent.catto.pictures/hirzi/8ce3aac6-5c46-4626-bd14-af994b602f8e.png" width="300"/>
 
 <img alt="PteroStats GIF Preview" src="https://usercontent.catto.pictures/hirzi/ad6e36cc-b582-460b-ab4e-b5e1dacd8b02.gif" width="300"/>
 
@@ -33,7 +33,7 @@ PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Pa
 4. Run `npm install` in the root directory of the app/bot files.
 5. Run `node index` and answer the provided questions to set up the app/bot.
 
-    <img alt="Setup" src="https://usercontent.catto.pictures/hirzi/705c58ad-f895-4af4-8c5c-c05183f924c5.png" width="300"/>
+    <img alt="Setup" src="https://usercontent.catto.pictures/hirzi/b8645828-591d-4d52-b6d8-51f8df60440c.png" width="300"/>
 
     - [Getting Panel API Key](#getting-panel-api-key)
     - [Getting a Channel ID](#getting-channel-id)
@@ -43,6 +43,9 @@ PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Pa
     <img alt="Console Logging" src="https://usercontent.catto.pictures/hirzi/8ce3aac6-5c46-4626-bd14-af994b602f8e.png" width="300"/>
 
 ### Changing Env Configuration
+> [!TIP]
+> You can change other configuration at the `config.yml` file.
+
 1. Run `node setup` in the root directory of the app/bot files.
 2. Enter `2` to change configuration.
 
