@@ -1,6 +1,6 @@
 # PteroStats Configuration File
 # Need help? Join our Discord server: https://discord.znproject.my.id
-version: 8 # Warning: Do not change this unless you know what you are doing!
+version: 9 # Warning: Do not change this unless you know what you are doing!
 
 # App Presence Configuration
 presence:
@@ -22,7 +22,7 @@ message:
 embed:
   panel:
     author:
-      name: "Hosting Panel"
+      name: "Hosting Panel" # Author name for the panel embed.
       icon: "" # Icon URL for the author of the panel embed.
     title: "Panel Stats" # Title of the panel stats embed.
     description: "Next update {{time}}" # Description for the panel. {{time}} will display the next refresh time.
@@ -36,17 +36,17 @@ embed:
 
   nodes:
     author:
-      name: ""
+      name: "" # Author name for the nodes embed.
       icon: "" # Icon URL for the author of the nodes embed.
-    title: "Nodes Stats" # Title for the node stats embed.
-    description: "" # Description for the node stats embed. Can be left empty.
+    title: "Nodes Stats" # Title for the nodes stats embed.
+    description: "" # Description for the nodes stats embed. Can be left empty.
     timestamp: true # Include a timestamp in the nodes embed (true/false).
     color: "5865F2" # Embed color in hex format.
     footer:
-      text: "By @HirziDevs" # Footer text for node stats.
+      text: "By @HirziDevs" # Footer text for nodes stats.
       icon: "" # Footer icon URL.
-    thumbnail: "" # Thumbnail URL for the node stats embed.
-    image: "" # Image URL for the node stats embed.
+    thumbnail: "" # Thumbnail URL for the nodes stats embed.
+    image: "" # Image URL for the nodes stats embed.
 
 # Message Button Configuration
 button:

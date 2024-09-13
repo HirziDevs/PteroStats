@@ -33,7 +33,7 @@ console.log(cliColor.yellowBright(
 readline.question('> ', async (answer) => {
     readline.close();
 
-    switch(answer) {
+    switch (answer) {
         case '2':
             require('./handlers/setup.js')();
             break;
