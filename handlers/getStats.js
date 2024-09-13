@@ -39,6 +39,7 @@ module.exports = async function getStats() {
                 memory: node.attributes.memory,
                 disk: node.attributes.disk,
                 cpu: node.attributes.cpu,
+                fqdn: node.attributes.fqdn,
                 allocated_resources: node.attributes.allocated_resources,
                 relationships: {
                     allocations: node.attributes.relationships.allocations.data.length,

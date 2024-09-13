@@ -23,7 +23,8 @@ module.exports = function App() {
                 servers: results.servers,
                 users: results.users,
             });
-        } catch {
+        } catch (error) {
+            if (config.log_error) console.error(error)
             console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Panel is currently offline."));
 
             fs.readFile(require('node:path').join(__dirname, "../cache.json"), (err, data) => {
@@ -113,6 +114,7 @@ module.exports = function App() {
                     name: `${node.attributes.name} - ${node.status ? config.status.online : config.status.offline}`,
                     value:
                         "```\n" +
+                        (config.nodes_settings.host ? `Host   : ${node.attributes.fqdn}\n` : "") +
                         `Memory : ${convertUnits(node.attributes.allocated_resources.memory, node.attributes.memory, config.nodes_settings.unit)}\n` +
                         `Disk   : ${convertUnits(node.attributes.allocated_resources.disk, node.attributes.disk, config.nodes_settings.unit)}` +
                         (node.attributes?.allocated_resources?.cpu ? `\nCPU    : ${node.attributes?.allocated_resources?.cpu || 0}%` : "") +
@@ -151,6 +153,7 @@ module.exports = function App() {
                 name: `Panel - ${panel ? config.status.online : config.status.offline}`,
                 value:
                     "```\n" +
+                    (config.panel_settings.host ? `Host   : ${new URL(process.env.PanelURL).host}\n` : "") +
                     `Nodes  : ${nodes.length}\n` +
                     (config.panel_settings.servers ? `Servers: ${servers || "Unknown"}\n` : "") +
                     (config.panel_settings.users ? `Users  : ${users || "Unknown"}\n` : "") +
@@ -230,7 +233,7 @@ module.exports = function App() {
             }
             process.exit();
         } catch (err) {
-            console.log(error)
+            console.error(error)
             process.exit();
         }
     }
