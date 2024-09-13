@@ -1,11 +1,11 @@
 # PteroStats Configuration File
 # Need help? Join our Discord server: https://discord.gg/zv6maQRah3
-version: 5 # Warning: Do not change this unless you know what you are doing!
+version: 6 # Warning: Do not change this unless you know what you are doing!
 
-# Bot Presence Configuration
+# App Presence Configuration
 presence:
-  enable: true
-  text: "Hosting Panel" # The status text shown by the bot.
+  enable: true # Enable or disable app presence.
+  text: "Hosting Panel" # The status text shown by the app.
   type: "watching" # Available types: 'watching', 'playing', 'listening', 'competing'. (Note: 'streaming' is currently unsupported)
   status: "online" # Available types: 'online', 'idle', 'dnd', or 'invisible'
 
