@@ -88,6 +88,21 @@ panel_settings:
   servers: true # Display servers count (true/false).
   users: true # Display users count (true/false).
 
+# Notifier Configuration
+notifier:
+  enable: false # Enable or disable notifier.
+  webhook: "" # Discord Webhook URL for the notifier.
+  embed:
+    author:
+      name: "" # Author name for the notifier embed.
+      icon: "" # Icon URL for the author of the notifier embed.
+    timestamp: true # Include a timestamp in the notifier embed (true/false).
+    footer:
+      text: "PteroStats Notifier" # Footer text for notifier stats.
+      icon: "" # Footer icon URL.
+    thumbnail: "" # Thumbnail URL for the notifier stats embed.
+    image: "" # Image URL for the notifier stats embed.
+
 # Error Logging Configuration
 # Enable logging to console if servers go offline, useful for debugging.
 log_error: false # Set to true to enable error logging.

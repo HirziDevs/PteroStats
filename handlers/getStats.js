@@ -1,6 +1,8 @@
 const config = require("./config.js");
 const fs = require("node:fs");
 const cliColor = require("cli-color");
+const webhook = require("./webhook.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = async function getStats() {
     let cache = (() => {
@@ -29,7 +31,22 @@ module.exports = async function getStats() {
 
         if (!nodeStatus) {
             nodeUptime = false
+            if (cache && cache.nodes.find((n) => n.attributes.id === node.attributes.id)?.status)
+                webhook(
+                    new EmbedBuilder()
+                        .setTitle("Node Offline")
+                        .setColor("ED4245")
+                        .setDescription(`Node \`${node.attributes.name}\` is currently offline`)
+                )
             console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright(`Node ${cliColor.blueBright(node.attributes.name)} is currently offline.`))
+        } else {
+            if (cache && !cache.nodes.find((n) => n.attributes.id === node.attributes.id)?.status)
+                webhook(
+                    new EmbedBuilder()
+                        .setTitle("Node Online")
+                        .setColor("57F287")
+                        .setDescription(`Node \`${node.attributes.name}\` is back online`)
+                )
         }
 
         return {
@@ -58,6 +75,7 @@ module.exports = async function getStats() {
         servers: await require("./getServers.js")(),
         users: await require("./getUsers.js")(),
         nodes: await Promise.all(statusPromises),
+        isPanelDown: !cache.uptime,
         timestamp: Date.now()
     }
 

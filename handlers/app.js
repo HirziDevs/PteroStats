@@ -5,6 +5,7 @@ const cliColor = require("cli-color");
 const config = require("./config.js");
 const convertUnits = require("./convertUnits.js");
 const getStats = require("./getStats.js");
+const webhook = require("./webhook.js");
 
 module.exports = function App() {
     console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.green("Starting app..."));
@@ -16,6 +17,12 @@ module.exports = function App() {
     async function startGetStatus() {
         try {
             const results = await getStats();
+            if (results.isPanelDown) webhook(
+                new EmbedBuilder()
+                    .setTitle("Panel Online")
+                    .setColor("57F287")
+                    .setDescription(`Panel is back online`)
+            )
             createMessage({
                 panel: true,
                 uptime: results.uptime,
@@ -35,6 +42,12 @@ module.exports = function App() {
 
                 try {
                     const results = JSON.parse(data);
+                    if (results.uptime) webhook(
+                        new EmbedBuilder()
+                            .setTitle("Panel Offline")
+                            .setColor("ED4245")
+                            .setDescription(`Panel is currently offline`)
+                    )
                     results.uptime = false
                     fs.writeFileSync("cache.json", JSON.stringify(results, null, 2), "utf8");
                     createMessage({
