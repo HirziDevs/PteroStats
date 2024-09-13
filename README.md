@@ -13,12 +13,12 @@
 PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server.
 
 ## Preview
-<img alt="PteroStats GIF Preview" src="https://usercontent.catto.pictures/hirzi/ad6e36cc-b582-460b-ab4e-b5e1dacd8b02.gif" width="300"/>
-
 <img alt="PteroStats Image Preview" src="https://usercontent.catto.pictures/hirzi/335cba23-36e4-4ab4-a7c6-cc1f128c8273.png" width="300"/>
 
+<img alt="PteroStats GIF Preview" src="https://usercontent.catto.pictures/hirzi/ad6e36cc-b582-460b-ab4e-b5e1dacd8b02.gif" width="300"/>
+
 ## Guide
-- [Starting the App/Bot](#starting-the-app--bot)
+- [Starting the App/Bot](#starting-the-appbot)
 - [Changing Env Configuration](#changing-env-configuration)
 - [Getting an Panel API key](#getting-panel-api-key)
 - [Getting a Channel ID](#getting-channel-id)
@@ -30,7 +30,7 @@ PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Pa
 2. [Invite your Discord App/Bot to your Discord server](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
 3. Download this repository by:
     - [Downloading this repository](https://github.com/HirziDevs/PteroStats/archive/refs/heads/dev.zip) and extract it.
-    - Using Git: Run `git clone - b dev https://github.com/HirziDevs/PteroStats.git .` in the command line.
+    - Using Git: Run `git clone -b dev https://github.com/HirziDevs/PteroStats.git .` in the command line.
 4. Run `npm install` in the root directory of the app/bot files.
 5. Run `node index` and answer the provided questions to set up the app/bot.
 
