@@ -68,7 +68,8 @@ status:
 nodes_settings:
   blacklist: [] # Add node IDs to exclude them from the status embed (e.g., blacklist: [1]).
   details: true # Show node details such as memory and disk usage (true/false).
-  servers: true # Show server details (true/false).
+  servers: false # Show server details (true/false).
+  allocations_as_max_servers: false # Show allocations as max servers (true/false).
   unit: "byte" # Unit for node usage, Available types: "byte" or "percentage".
   limit: 100 # Node limit for usage statistics display.
 

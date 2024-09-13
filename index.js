@@ -130,9 +130,10 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
                 name: `${node.attributes.name} - ${node.status ? config.status.online : config.status.offline}`,
                 value:
                     "```\n" +
-                    `Memory: ${convertUnits(node.attributes.allocated_resources.memory, node.attributes.memory, config.nodes_settings.unit)}\n` +
-                    `Disk  : ${convertUnits(node.attributes.allocated_resources.disk, node.attributes.disk, config.nodes_settings.unit)}` +
-                    (node.attributes?.allocated_resources?.cpu ? `\nCPU   : ${node.attributes?.allocated_resources?.cpu || 0}%` : "") +
+                    `Memory : ${convertUnits(node.attributes.allocated_resources.memory, node.attributes.memory, config.nodes_settings.unit)}\n` +
+                    `Disk   : ${convertUnits(node.attributes.allocated_resources.disk, node.attributes.disk, config.nodes_settings.unit)}` +
+                    (node.attributes?.allocated_resources?.cpu ? `\nCPU    : ${node.attributes?.allocated_resources?.cpu || 0}%` : "") +
+                    (config.nodes_settings.servers ? `\nServers: ${node.attributes.relationships.servers}${config.nodes_settings.allocations_as_max_servers ? ` / ${node.attributes.relationships.allocations}` : ""}` : "") +
                     "```"
             });
         });
