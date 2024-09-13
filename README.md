@@ -28,8 +28,8 @@ PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Pa
 1. [Create your Discord App/Bot](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
 2. [Invite your Discord App/Bot to your Discord server](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
 3. Download this repository:
-    - [Downloading this repository](https://github.com/HirziDevs/PteroStats/archive/refs/heads/dev.zip) and extract it.
-    - Using Git: Run `git clone -b dev https://github.com/HirziDevs/PteroStats.git` in the command line.
+    - [Downloading this repository](https://github.com/HirziDevs/PteroStats/archive/refs/heads/main.zip) and extract it.
+    - Using Git: Run `git clone https://github.com/HirziDevs/PteroStats.git` in the command line.
 4. Run `npm install` in the root directory of the app/bot files.
 5. Run `node index` and answer the provided questions to set up the app/bot.
 
