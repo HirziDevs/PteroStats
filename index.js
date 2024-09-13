@@ -18,6 +18,6 @@ console.log(
     ` \n \n${package.description}\n `
 );
 
-if (!fs.existsSync(".env")) return require("./handlers/installer.js")();
+if (!fs.existsSync(".env")) return require("./handlers/setup.js")();
 
 require("./handlers/app.js")();

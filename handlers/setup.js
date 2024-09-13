@@ -26,7 +26,7 @@ const isValidURL = (url) => {
     }
 };
 
-module.exports = function Installer() {
+module.exports = function Setup() {
     console.log(cliColor.cyanBright("Welcome to PteroStats!"))
     console.log(cliColor.yellow("Please fill in the following credentials to set up the app.\n "));
 
@@ -81,12 +81,12 @@ module.exports = function Installer() {
                         require("./app.js")()
                     }).catch(() => {
                         console.log(cliColor.redBright("❌ Invalid Channel ID."));
-                        console.log(" \n" + cliColor.redBright("Please run the installer again and fill in the correct credentials."));
+                        console.log(" \n" + cliColor.redBright("Please run the setup again and fill in the correct credentials."));
                         process.exit()
                     })
                 }).catch(() => {
                     console.log(cliColor.redBright("❌ Invalid Discord Bot Token."));
-                    console.log(" \n" + cliColor.redBright("Please run the installer again and fill in the correct credentials."));
+                    console.log(" \n" + cliColor.redBright("Please run the setup again and fill in the correct credentials."));
                     process.exit()
                 })
             }).catch((error) => {
@@ -118,7 +118,7 @@ module.exports = function Installer() {
                 } else {
                     console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright(`Unexpected error: ${error.message}`));
                 }
-                console.log(" \n" + cliColor.redBright("Please run the installer again and fill in the correct credentials."));
+                console.log(" \n" + cliColor.redBright("Please run the setup again and fill in the correct credentials."));
                 process.exit()
             })
         }

@@ -34,7 +34,7 @@ PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Pa
 4. Run `npm install` in the root directory of the app/bot files.
 5. Run `node index` and answer the provided questions to set up the app/bot.
 
-    <img alt="Installer" src="https://usercontent.catto.pictures/hirzi/94742130-baaf-40b4-b046-06eb9c7fdb8c.png" width="300"/>
+    <img alt="Setup" src="https://usercontent.catto.pictures/hirzi/94742130-baaf-40b4-b046-06eb9c7fdb8c.png" width="300"/>
 
     - [Getting Panel API Key](#getting-panel-api-key)
     - [Getting a Channel ID](#getting-channel-id)
@@ -44,7 +44,7 @@ PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Pa
     <img alt="Console Logging" src="https://usercontent.catto.pictures/hirzi/5fa377e2-d357-456e-aaf5-ae80e06b33ca.png" width="300"/>
 
 ### Changing Env Configuration
-1. Run `node config` in the root directory of the app/bot files.
+1. Run `node setup` in the root directory of the app/bot files.
 2. Enter `2` to change configuration.
 
     <img alt="Change Configuration" src="https://usercontent.catto.pictures/hirzi/46105719-b87b-4ea4-a8af-36994ebea062.png" width="300"/>

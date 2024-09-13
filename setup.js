@@ -22,7 +22,7 @@ console.log(
     ` \n \n${package.description}\n `
 );
 
-if (!fs.existsSync(".env")) return require("./handlers/installer.js")();
+if (!fs.existsSync(".env")) return require("./handlers/setup.js")();
 
 console.log(cliColor.yellowBright(
     "Configuration is already set. Please select one of the following options:\n \n" +
@@ -35,7 +35,7 @@ readline.question('> ', async (answer) => {
 
     switch(answer) {
         case '2':
-            require('./handlers/installer.js')();
+            require('./handlers/setup.js')();
             break;
         case '1':
             require('./handlers/app.js')();
