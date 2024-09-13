@@ -112,6 +112,7 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
             name: config.embed.nodes.author.name || null,
             iconURL: config.embed.nodes.author.icon || null
         })
+        .setDescription(config.embed.nodes.description || null)
         .setTitle(config.embed.nodes.title || null)
         .setColor(config.embed.nodes.color || null)
         .setURL(config.embed.nodes.url || null)
@@ -138,7 +139,7 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
             });
         });
     } else {
-        embeds[0].setDescription(nodes.map(node => `**${node.attributes.name}** - ${node.status ? config.status.online : config.status.offline}`).join("\n"));
+        embeds[0].setDescription((embed.data.description ? (embed.data.description + "\n\n") : "") + nodes.map(node => `**${node.attributes.name}** - ${node.status ? config.status.online : config.status.offline}`).join("\n"));
     }
 
     let panelEmbed = new EmbedBuilder()
