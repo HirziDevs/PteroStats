@@ -15,20 +15,20 @@ console.log(
 );
 
 console.log(
-    ` \nCopyright © 2022 - ${new Date().getFullYear()} HirziDevs & Contributors` +
-    " \n \nDiscord: https://discord.znproject.my.id" +
+    ` \nCopyright © 2022 - ${new Date().getFullYear()} HirziDevs & Contributors\n ` +
+    " \nDiscord: https://discord.znproject.my.id" +
     " \n Source: https://github.com/HirziDevs/PteroStats" +
     " \nLicense: https://github.com/Hirzidevs/PteroStats/blob/main/LICENSE" +
     ` \n \n${package.description}\n `
 );
 
-if (!fs.existsSync(".env")) return require("./handlers/installer.js")()
+if (!fs.existsSync(".env")) return require("./handlers/installer.js")();
 
 console.log(cliColor.yellowBright(
-    "Configuration is already set. Please select one of the following options:\n\n" +
+    "Configuration is already set. Please select one of the following options:\n \n" +
     `${cliColor.cyanBright("1")} ${cliColor.blueBright("»")} Start the App\n` +
     `${cliColor.cyanBright("2")} ${cliColor.blueBright("»")} Change configuration\n `
-))
+));
 
 readline.question('> ', async (answer) => {
     readline.close();

@@ -10,39 +10,49 @@
 > [!WARNING]
 > This is a development build! Some features may not work as intended.
 
-PteroStats is a Discord Bot that designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server.
+PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server.
 
 ## Preview
 <img alt="PteroStats GIF Preview" src="https://usercontent.catto.pictures/hirzi/ad6e36cc-b582-460b-ab4e-b5e1dacd8b02.gif" width="300"/>
 
 <img alt="PteroStats Image Preview" src="https://usercontent.catto.pictures/hirzi/335cba23-36e4-4ab4-a7c6-cc1f128c8273.png" width="300"/>
 
-## Installation
-- [Starting the App](#starting-the-app)
+## Guide
+- [Starting the App/Bot](#starting-the-app--bot)
+- [Changing Env Configuration](#changing-env-configuration)
 - [Getting an Panel API key](#getting-panel-api-key)
 - [Getting a Channel ID](#getting-channel-id)
 - [Using Custom Emoji](#using-custom-emoji)
 - [Blacklist Nodes](#blacklist-nodes)
-- [Reporting a Bug](#reporting-a-bug) 
 
-### Starting the App
-1. [Create your Discord App](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
-2. [Invite your Discord App to your Discord server](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
-3. [Download the repository](https://github.com/HirziDevs/PteroStats/archive/refs/heads/dev.zip) and extract it.
-4. Run `npm install` in the root directory of the app files.
-5. Run `node index` and answer the provided questions to set up the app.
+### Starting the App/Bot
+1. [Create your Discord App/Bot](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
+2. [Invite your Discord App/Bot to your Discord server](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
+3. Download this repository by:
+    - [Downloading this repository](https://github.com/HirziDevs/PteroStats/archive/refs/heads/dev.zip) and extract it.
+    - Using Git: Run `git clone - b dev https://github.com/HirziDevs/PteroStats.git .` in the command line.
+4. Run `npm install` in the root directory of the app/bot files.
+5. Run `node index` and answer the provided questions to set up the app/bot.
 
     <img alt="Installer" src="https://usercontent.catto.pictures/hirzi/94742130-baaf-40b4-b046-06eb9c7fdb8c.png" width="300"/>
 
     - [Getting Panel API Key](#getting-panel-api-key)
     - [Getting a Channel ID](#getting-channel-id)
 
-6. Run `node index` again to start the app, and you're done!
+6. Run `node index` if you want to start the app/bot again, and you're done!
 
     <img alt="Console Logging" src="https://usercontent.catto.pictures/hirzi/5fa377e2-d357-456e-aaf5-ae80e06b33ca.png" width="300"/>
 
-### Getting Panel API Key 
+### Changing Env Configuration
+1. Run `node config` in the root directory of the app/bot files.
+2. Enter `2` to change configuration.
 
+    <img alt="Change Configuration" src="https://usercontent.catto.pictures/hirzi/46105719-b87b-4ea4-a8af-36994ebea062.png" width="300"/>
+
+3. Answer the provided question to set up the app/bot.
+4. Run `node index` if you want ti start the app/bot again, and you're done!
+
+### Getting Panel API Key 
 > [!WARNING]
 > The use of Application API keys is **deprecated**; you should use **Client API keys**.
 
@@ -66,7 +76,6 @@ PteroStats is a Discord Bot that designed to check Pterodactyl or Pelican Panel 
     <img alt="API Key" src="https://i.imgur.com/7goShy8.png" width="400"/>
 
 ### Getting Channel ID
-
 1. Enable Developer Mode in your Discord settings.
 
     <img alt="Discord User Settings" src="https://usercontent.catto.pictures/hirzi/36894499-b141-488f-98ed-40245c8f6862.png" width="400"/>
@@ -76,7 +85,6 @@ PteroStats is a Discord Bot that designed to check Pterodactyl or Pelican Panel 
     <img alt="Right Click Channel" src="https://usercontent.catto.pictures/hirzi/9f8352da-df5b-4587-9594-ced9b11a5507.png" width="250"/>
 
 ### Using Custom Emoji
-
 1. Type `\` in the server that has the custom emoji you want.
 
     <img alt="Type \ on the chat" src="https://usercontent.catto.pictures/hirzi/2e3c821f-92f9-4b5c-863a-e020b2fbc426.png" width="350"/>
@@ -94,7 +102,6 @@ PteroStats is a Discord Bot that designed to check Pterodactyl or Pelican Panel 
     <img alt="Status Config" src="https://usercontent.catto.pictures/hirzi/369cf7af-ae32-4193-9b09-195ba6f71f62.png" width="400"/>
 
 ### Blacklist Nodes
-
 1. Select a node from the node list on the admin page.
 
     <img alt="Nodes List" src="https://usercontent.catto.pictures/hirzi/5699fdbd-7c3c-4fa5-ae2c-d0ccb39cb69e.png" width="400"/>
@@ -112,11 +119,9 @@ You can add more than one node to the blacklist.
 <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/649eda44-625f-47e7-be0e-04c34a9aaa48.png" width="400"/>
 
 ## Reporting a Bug
-
-Enable `log_error` in the `config.yml` file and check the console for the error message. After that, report it to our Discord server at [Support Server](https://discord.gg/zv6maQRah3).
+Enable `log_error` in the `config.yml` file and check the console for the error message. After that, report it to our Discord server at [Support Server](https://discord.znproject.my.id).
 
 ## Links
-
 - [Pterodactyl Discord Server](https://discord.gg/pterodactyl)
 - [Pelican Discord Server](https://discord.gg/pelican-panel) 
-- [Support Server](https://discord.gg/zv6maQRah3)
+- [Support Server](https://discord.znproject.my.id)
