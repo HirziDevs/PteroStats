@@ -7,9 +7,6 @@
 </div>
 
 ## Introduction
-> [!WARNING]
-> This is a development build! Some features may not work as intended.
-
 PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server.
 
 ## Preview

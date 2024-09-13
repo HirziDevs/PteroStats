@@ -8,7 +8,6 @@ const getStats = require("./getStats.js");
 
 module.exports = function App() {
     console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.green("Starting app..."));
-    console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("You are using a development build! Some features may not work as intended."));
 
     const client = new Client({
         intents: [GatewayIntentBits.Guilds]
