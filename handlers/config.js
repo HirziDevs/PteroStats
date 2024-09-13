@@ -18,7 +18,7 @@ try {
     process.exit();
 }
 
-if (config.version !== 7) {
+if (config.version !== 8) {
     console.error('Config Error | Invalid config version! The config has been updated, please get the new config from https://github.com/HirziDevs/PteroStats/blob/dev/config.yml');
     process.exit();
 }
