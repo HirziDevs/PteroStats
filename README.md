@@ -121,7 +121,8 @@ PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Pa
 
     <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/bfae6a04-8dad-4db1-b3d8-05e6db691516.png" width="400"/>
 
-You can add more than one node to the blacklist.
+> [!TIP]
+> You can add more than one node to the blacklist.
 
 <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/7b5d6c7f-54d9-40ea-b5a6-9192325ba2a0.png" width="400"/>
 
@@ -130,7 +131,7 @@ Get a notification on Discord when your panel or specific nodes are currently do
 
 <img alt="Notifier Preview" src="https://usercontent.catto.pictures/hirzi/a2b8e36f-7448-4849-a14a-b1eb4ec8fb26.png" width="250"/>
 
-### Enabling Notifier
+#### Enabling Notifier
 Open `config.yml` and set `enable` at the notifier configuration to `true`
 
 <img alt="Notifier Config" src="https://usercontent.catto.pictures/hirzi/b4c3f1d0-e053-402c-8401-4de44926fce6.png" width="300"/>
@@ -157,7 +158,6 @@ Open `config.yml` and set `enable` at the notifier configuration to `true`
 > You can change the webhook icon and username on the webhook settings.
 
 <img alt="Notifier Config" src="https://usercontent.catto.pictures/hirzi/2a4f7aba-9377-4722-bf19-3b7f0cc32772.png" width="300"/>
-
 
 ## Reporting a Bug
 Enable `log_error` in the `config.yml` file and check the console for the error message. After that, report it to our Discord server at [Support Server](https://discord.znproject.my.id).
