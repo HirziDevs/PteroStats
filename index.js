@@ -191,17 +191,20 @@ async function createMessage({ cache, panel, nodes, servers, users }) {
 
     const components = []
 
-    if (config.button.enable && config.button.row1?.length > 0) {
-        components.push(
-            new ActionRowBuilder().addComponents(
-                config.button.row1.map(button =>
-                    new ButtonBuilder()
-                        .setLabel(button.label)
-                        .setURL(button.url)
-                        .setStyle(ButtonStyle.Link)
-                )
-            )
-        )
+    if (config.button.enable) {
+        for (const row of ["row1", "row2", "row3", "row4", "row5"]) {
+            if (config.button[row] && config.button[row].length > 0 && config.button[row].label && config.button[row].url)
+                components.push(
+                    new ActionRowBuilder().addComponents(
+                        config.button[row].slice(0, 5).map(button =>
+                            new ButtonBuilder()
+                                .setLabel(button.label)
+                                .setURL(button.url)
+                                .setStyle(ButtonStyle.Link)
+                        )
+                    )
+                );
+        }
     }
 
     try {

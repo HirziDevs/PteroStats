@@ -52,10 +52,15 @@ embed:
 button:
   enable: true # Enable or disable buttons in messages.
   row1:
-    - label: "Panel"
+    - label: "Panel" # Label for the first button.
       url: "https://panel.example.com" # URL for the first button.
-#    - label: "Dashboard" # Uncomment to add a second button.
-#      url: "https://dash.example.com" # URL for the second button.
+#    - label: "Dashboard" # Remove "#" at the start of the line to use this button
+#      url: "https://dash.example.com" # Remove "#" at the start of the line to use this button
+#  row2: # Remove "#" at the start of the line to use this row
+#    - label: "Backup Panel"
+#      url: "https://panel2.example.com"
+#    - label: "Backup Dashboard"
+#      url: "https://dash2.example.com"
 
 # Status Message Configuration
 # For details on using custom emojis, visit: https://github.com/HirziDevs/PteroStats#using-custom-emoji
