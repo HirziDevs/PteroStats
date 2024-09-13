@@ -15,6 +15,8 @@ PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Pa
 ## Preview
 <img alt="PteroStats Image Preview" src="https://usercontent.catto.pictures/hirzi/335cba23-36e4-4ab4-a7c6-cc1f128c8273.png" width="300"/>
 
+<img alt="PteroStats Image Preview" src="https://usercontent.catto.pictures/hirzi/8ce3aac6-5c46-4626-bd14-af994b602f8e.png" width="300"/>
+
 <img alt="PteroStats GIF Preview" src="https://usercontent.catto.pictures/hirzi/ad6e36cc-b582-460b-ab4e-b5e1dacd8b02.gif" width="300"/>
 
 ## Guide
@@ -28,29 +30,29 @@ PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Pa
 ### Starting the App/Bot
 1. [Create your Discord App/Bot](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
 2. [Invite your Discord App/Bot to your Discord server](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
-3. Download this repository by:
+3. Download this repository:
     - [Downloading this repository](https://github.com/HirziDevs/PteroStats/archive/refs/heads/dev.zip) and extract it.
-    - Using Git: Run `git clone -b dev https://github.com/HirziDevs/PteroStats.git .` in the command line.
+    - Using Git: Run `git clone -b dev https://github.com/HirziDevs/PteroStats.git` in the command line.
 4. Run `npm install` in the root directory of the app/bot files.
 5. Run `node index` and answer the provided questions to set up the app/bot.
 
-    <img alt="Setup" src="https://usercontent.catto.pictures/hirzi/94742130-baaf-40b4-b046-06eb9c7fdb8c.png" width="300"/>
+    <img alt="Setup" src="https://usercontent.catto.pictures/hirzi/705c58ad-f895-4af4-8c5c-c05183f924c5.png" width="300"/>
 
     - [Getting Panel API Key](#getting-panel-api-key)
     - [Getting a Channel ID](#getting-channel-id)
 
 6. Run `node index` if you want to start the app/bot again, and you're done!
 
-    <img alt="Console Logging" src="https://usercontent.catto.pictures/hirzi/5fa377e2-d357-456e-aaf5-ae80e06b33ca.png" width="300"/>
+    <img alt="Console Logging" src="https://usercontent.catto.pictures/hirzi/8ce3aac6-5c46-4626-bd14-af994b602f8e.png" width="300"/>
 
 ### Changing Env Configuration
 1. Run `node setup` in the root directory of the app/bot files.
 2. Enter `2` to change configuration.
 
-    <img alt="Change Configuration" src="https://usercontent.catto.pictures/hirzi/46105719-b87b-4ea4-a8af-36994ebea062.png" width="300"/>
+    <img alt="Change Configuration" src="https://usercontent.catto.pictures/hirzi/f61ebf43-3df8-4b86-93ac-166e2de1edcd.png" width="300"/>
 
 3. Answer the provided question to set up the app/bot.
-4. Run `node index` if you want ti start the app/bot again, and you're done!
+4. Run `node index` if you want to start the app/bot again, and you're done!
 
 ### Getting Panel API Key 
 > [!WARNING]
@@ -59,21 +61,21 @@ PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Pa
 > [!TIP]
 > Make sure the owner of the Client API key has access to the administrator panel.
 
-1. Go to your `Pterodactyl` or `Pelican Panel` and navigate to the `Account Page`.
+1. Go to your `Pterodactyl` or `Pelican` Panel and navigate to the `Account Page`.
 
-    <img alt="Home" src="https://i.imgur.com/Uu97RJO.png" width="400"/>
+    <img alt="Home" src="https://usercontent.catto.pictures/hirzi/6d3e4c63-c5e8-4d94-9d78-07bb937b1dbd.png" width="400"/>
 
 2. Click on the `API Credentials` button.
 
-    <img alt="Account Page" src="https://i.imgur.com/sm4THSu.png" width="400"/>
+    <img alt="Account Page" src="https://usercontent.catto.pictures/hirzi/0a2327ee-243a-4dd1-86f4-549f1ab8a91c.png" width="400"/>
 
 3. Fill in the `Description` and click the `Create` button.
 
-    <img alt="Create Client API Key" src="https://i.imgur.com/Q5E0PY4.png" width="400"/>
+    <img alt="Create Client API Key" src="https://usercontent.catto.pictures/hirzi/7fcf5b7e-0087-4cf2-9e57-fed01292fd10.png" width="400"/>
 
 4. Copy the API key.
 
-    <img alt="API Key" src="https://i.imgur.com/7goShy8.png" width="400"/>
+    <img alt="API Key" src="https://usercontent.catto.pictures/hirzi/267cf48a-7229-4bb6-8c77-7d0c0884f6ba.png" width="400"/>
 
 ### Getting Channel ID
 1. Enable Developer Mode in your Discord settings.
@@ -104,19 +106,23 @@ PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Pa
 ### Blacklist Nodes
 1. Select a node from the node list on the admin page.
 
-    <img alt="Nodes List" src="https://usercontent.catto.pictures/hirzi/5699fdbd-7c3c-4fa5-ae2c-d0ccb39cb69e.png" width="400"/>
+    <img alt="Pterodactyl Nodes List" src="https://usercontent.catto.pictures/hirzi/5699fdbd-7c3c-4fa5-ae2c-d0ccb39cb69e.png" width="400"/>
+
+    <img alt="Pelican Nodes List" src="https://usercontent.catto.pictures/hirzi/5994fbf0-03ac-4196-9bb5-e945401f204e.png" width="400"/>
 
 2. Check the URL and copy the node ID.
 
-    <img alt="Node ID" src="https://usercontent.catto.pictures/hirzi/45f855fc-6d96-4b23-a96e-892071189d01.png" width="400"/>
+    <img alt="Pterodactyl Node ID" src="https://usercontent.catto.pictures/hirzi/45f855fc-6d96-4b23-a96e-892071189d01.png" width="400"/>
+
+    <img alt="Pelican Node ID" src="https://usercontent.catto.pictures/hirzi/0ff8d9fc-6125-4fbb-8e19-ff8743cd365c.png" width="400"/>
 
 3. Paste the ID into the blacklist in the config.
 
-    <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/3a66a55b-6ffe-4535-b192-866deab2c4ae.png" width="400"/>
+    <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/bfae6a04-8dad-4db1-b3d8-05e6db691516.png" width="400"/>
 
 You can add more than one node to the blacklist.
 
-<img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/649eda44-625f-47e7-be0e-04c34a9aaa48.png" width="400"/>
+<img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/7b5d6c7f-54d9-40ea-b5a6-9192325ba2a0.png" width="400"/>
 
 ## Reporting a Bug
 Enable `log_error` in the `config.yml` file and check the console for the error message. After that, report it to our Discord server at [Support Server](https://discord.znproject.my.id).
