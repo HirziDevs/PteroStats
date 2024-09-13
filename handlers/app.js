@@ -175,10 +175,10 @@ module.exports = function App() {
 
         if (config.button.enable) {
             for (const row of ["row1", "row2", "row3", "row4", "row5"]) {
-                if (config.button[row] && config.button[row].length > 0 && config.button[row].label && config.button[row].url)
-                    components.push(
+                if (config.button[row] && config.button[row].length > 0)
+                    if (config.button[row].slice(0, 5).filter(button => button.label && button.url).length > 0) components.push(
                         new ActionRowBuilder().addComponents(
-                            config.button[row].slice(0, 5).map(button =>
+                            config.button[row].slice(0, 5).filter(button => button.label && button.url).map(button =>
                                 new ButtonBuilder()
                                     .setLabel(button.label)
                                     .setURL(button.url)
