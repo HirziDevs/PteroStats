@@ -78,8 +78,7 @@ module.exports = function Installer() {
                         fs.writeFileSync("config.yml", fs.readFileSync("./config.yml", "utf8").replaceAll("Hosting Panel", answers[0]).replaceAll("https://panel.example.com", answers[1]), "utf-8")
                         console.log(" \n" + cliColor.green(`Configuration saved in ${cliColor.blueBright(".env")} and ${cliColor.blueBright("config.yml")}.\n `));
 
-                        console.log(cliColor.cyanBright("Please restart the app to continue."));
-                        process.exit()
+                        require("./app.js")()
                     }).catch(() => {
                         console.log(cliColor.redBright("❌ Invalid Channel ID."));
                         console.log(" \n" + cliColor.redBright("Please run the installer again and fill in the correct credentials."));
