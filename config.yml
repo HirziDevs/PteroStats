@@ -10,13 +10,13 @@ presence:
   status: "online" # Available types: 'online', 'idle', 'dnd', or 'invisible'
 
 # Discord Channel and Refresh Timing Configuration
-refresh: 10 # Interval in seconds for refreshing the bot's stats.
+refresh: 10 # Interval in seconds for refreshing the panel's stats.
 timeout: 5 # Timeout in seconds for node responses. Adjusting this will affect the overall refresh time.
 
 # Message and Embed Configuration
 # To disable an option, leave the value as an empty string: ''
 message:
-  content: "" # Custom content for bot messages. Set to '' to disable.
+  content: "" # Custom content for app messages. Set to '' to disable.
   attachment: "" # Attachments will delay stats refresh since they are uploaded first.
 
 embed:
@@ -36,7 +36,7 @@ embed:
 
   nodes:
     author:
-      name: "Hosting Panel"
+      name: ""
       icon: "" # Icon URL for the author of the nodes embed.
     title: "Nodes Stats" # Title for the node stats embed.
     description: "" # Description for the node stats embed. Can be left empty.
