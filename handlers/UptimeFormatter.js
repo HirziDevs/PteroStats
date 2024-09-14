@@ -1,4 +1,4 @@
-module.exports = function UptimeFormatter(time) {
+module.exports = function uptimeFormatter(time) {
     let text = []
     const days = Math.floor(time / 86400000);
     const hours = Math.floor(time / 3600000) % 24;

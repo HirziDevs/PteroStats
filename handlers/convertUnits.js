@@ -1,15 +1,15 @@
 const prettyBytes = require('prettier-bytes');
 
-module.exports = function convertUnits(value1, value2, unit) {
+module.exports = function convertUnits(value, max, unit) {
     unit = unit.toUpperCase();
     switch (unit) {
         case 'PERCENTAGE':
         case 'PERCENT':
-            const percentage = Math.floor((value1 / value2) * 100);
+            const percentage = Math.floor((value / max) * 100);
             return `${!percentage ? 0 : percentage}%`;
         case 'BYTE':
-            return `${prettyBytes(value1 * 1000000)} / ${value2 === 0 ? "Unlimited" : prettyBytes(value2 * 1000000)}`;
+            return `${prettyBytes(value * 1000000)} / ${max === 0 ? "Unlimited" : prettyBytes(max * 1000000)}`;
         default:
-            return `${value1.toLocaleString()} ${unit}/${value2 === 0 ? "Unlimited" : `${value2.toLocaleString()} ${unit}`}`;
+            return `${value.toLocaleString()} ${unit}/${max === 0 ? "Unlimited" : `${max.toLocaleString()} ${unit}`}`;
     }
 }

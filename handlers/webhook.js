@@ -1,5 +1,5 @@
 const { WebhookClient, EmbedBuilder } = require("discord.js")
-const config = require("./config")
+const config = require("./configuration")
 const cliColor = require("cli-color")
 
 module.exports = function Webhook(embed) {

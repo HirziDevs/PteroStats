@@ -1,7 +1,7 @@
 {
     "name": "pterostats",
     "version": "4.0.0",
-    "description": "PteroStats is a Discord App/Bot that designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server.",
+    "description": "PteroStats is a Discord App/Bot designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server.",
     "license": "MIT",
     "repository": "HirziDevs/PteroStats",
     "homepage": "https://pterostats.znproject.my.id",

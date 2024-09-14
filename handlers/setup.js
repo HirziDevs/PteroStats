@@ -2,6 +2,7 @@ const axios = require("axios")
 const cliColor = require("cli-color")
 const { Client, GatewayIntentBits } = require("discord.js")
 const fs = require("fs")
+const application = require("./application.js");
 const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
@@ -14,6 +15,14 @@ const questions = [
     "Please enter your bot token: ",
     "Please enter your channel ID: "
 ];
+
+const Question = {
+    panelName: 0,
+    panelUrl: 1,
+    panelApiKey: 2,
+    botToken: 3,
+    channelId: 4,
+}
 
 const answers = [];
 
@@ -37,18 +46,18 @@ module.exports = function Setup() {
             readline.question('> ', answer => {
                 let isValid = true;
 
-                if (index === 1 && !isValidURL(answer)) {
+                if (index === Question.panelUrl && !isValidURL(answer)) {
                     console.log(cliColor.redBright('❌ Invalid Panel URL. Please enter a valid URL. Example Correct URL: "https://panel.example.com"'));
                     isValid = false;
-                } else if (index === 2 && !/^(plcn_|ptlc_|peli_|ptla_)/.test(answer)) {
+                } else if (index === Question.panelApiKey && !/^(plcn_|ptlc_|peli_|ptla_)/.test(answer)) {
                     console.log(cliColor.redBright("❌ Invalid Panel API key. It must start with 'plcn_' or 'ptlc_'."));
                     isValid = false;
-                } else if (index === 4 && !/^\d+$/.test(answer)) {
+                } else if (index === Question.channelId && !/^\d+$/.test(answer)) {
                     console.log(cliColor.redBright("❌ Invalid Channel ID. It must be a number."));
                     isValid = false;
                 }
 
-                if (index === 2 && /^(peli_|ptla_)/.test(answer)) console.log(cliColor.yellow("The use of Application API keys are deprecated, you should use Client API keys"));
+                if (index === Question.panelApiKey && /^(peli_|ptla_)/.test(answer)) console.log(cliColor.yellow("The use of Application API keys are deprecated, you should use Client API keys"));
 
                 if (isValid) {
                     answers.push(isValidURL(answer) ? new URL(answer).origin : answer);
@@ -58,11 +67,11 @@ module.exports = function Setup() {
                 }
             });
         } else {
-            axios(`${new URL(answers[1]).origin}/api/application/nodes?include=servers,location,allocations`, {
+            axios(`${new URL(answers[Question.panelUrl]).origin}/api/application/nodes?include=servers,location,allocations`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${answers[2]}`
+                    "Authorization": `Bearer ${answers[Question.panelApiKey]}`
                 },
             }).then(() => {
                 console.log(" \n" + cliColor.green("✓ Valid Panel Credentials."));
@@ -70,15 +79,15 @@ module.exports = function Setup() {
                     intents: [GatewayIntentBits.Guilds]
                 })
 
-                client.login(answers[3]).then(async () => {
+                client.login(answers[Question.botToken]).then(async () => {
                     console.log(cliColor.green("✓ Valid Discord Bot"));
-                    client.channels.fetch(answers[4]).then(() => {
+                    client.channels.fetch(answers[Question.channelId]).then(() => {
                         console.log(cliColor.green("✓ Valid Discord Channel"));
-                        fs.writeFileSync(".env", `PanelURL=${answers[1]}\nPanelKEY=${answers[2]}\nDiscordBotToken=${answers[3]}\nDiscordChannel=${answers[4]}`, "utf8")
+                        fs.writeFileSync(".env", `PanelURL=${answers[Question.panelUrl]}\nPanelKEY=${answers[Question.panelApiKey]}\nDiscordBotToken=${answers[Question.botToken]}\nDiscordChannel=${answers[Question.channelId]}`, "utf8")
                         fs.writeFileSync("config.yml", fs.readFileSync("./config.yml", "utf8").replaceAll("Hosting Panel", answers[0]).replaceAll("https://panel.example.com", answers[1]), "utf-8")
                         console.log(" \n" + cliColor.green(`Configuration saved in ${cliColor.blueBright(".env")} and ${cliColor.blueBright("config.yml")}.\n `));
 
-                        require("./app.js")()
+                        application()
                     }).catch(() => {
                         console.log(cliColor.redBright("❌ Invalid Channel ID."));
                         console.log(" \n" + cliColor.redBright("Please run the setup again and fill in the correct credentials."));

@@ -1,4 +1,4 @@
-const config = require("./config.js");
+const config = require("./configuration.js");
 
 module.exports = async function getNodeConfiguration(id) {
     return fetch(`${new URL(process.env?.PanelURL).origin}/api/application/nodes/${id}/configuration`, {

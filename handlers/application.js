@@ -1,11 +1,13 @@
-require("dotenv").config()
+require("dotenv").config();
 const { Client, GatewayIntentBits, EmbedBuilder, time, ActivityType, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const fs = require("node:fs");
 const cliColor = require("cli-color");
-const config = require("./config.js");
+const path = require("node:path");
+const config = require("./configuration.js");
 const convertUnits = require("./convertUnits.js");
 const getStats = require("./getStats.js");
 const webhook = require("./webhook.js");
+const uptimeFormatter = require("./uptimeFormatter.js");
 
 module.exports = function App() {
     console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.green("Starting app..."));
@@ -34,7 +36,7 @@ module.exports = function App() {
             if (config.log_error) console.error(error)
             console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Panel is currently offline."));
 
-            fs.readFile(require('node:path').join(__dirname, "../cache.json"), (err, data) => {
+            fs.readFile(path.join(__dirname, "../cache.json"), (err, data) => {
                 if (err) {
                     createMessage({ cache: false, panel: false });
                     return console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Last cache was not found!"));
@@ -47,8 +49,8 @@ module.exports = function App() {
                             .setTitle("Panel Offline")
                             .setColor("ED4245")
                             .setDescription(`Panel is currently offline`)
-                    )
-                    results.uptime = false
+                    );
+                    results.uptime = false;
                     fs.writeFileSync("cache.json", JSON.stringify(results, null, 2), "utf8");
                     createMessage({
                         cache: true,
@@ -132,7 +134,7 @@ module.exports = function App() {
                         `Disk   : ${convertUnits(node.attributes.allocated_resources.disk, node.attributes.disk, config.nodes_settings.unit)}` +
                         (node.attributes?.allocated_resources?.cpu ? `\nCPU    : ${node.attributes?.allocated_resources?.cpu || 0}%` : "") +
                         (config.nodes_settings.servers ? `\nServers: ${node.attributes.relationships.servers}${config.nodes_settings.allocations_as_max_servers ? ` / ${node.attributes.relationships.allocations}` : ""}` : "") +
-                        (config.nodes_settings.uptime ? `\nUptime : ${node.uptime ? require("./UptimeFormatter.js")(Date.now() - node.uptime) : "N/A"}` : "") +
+                        (config.nodes_settings.uptime ? `\nUptime : ${node.uptime ? uptimeFormatter(Date.now() - node.uptime) : "N/A"}` : "") +
                         "```"
                 });
             });
@@ -170,7 +172,7 @@ module.exports = function App() {
                     `Nodes  : ${nodes.length}\n` +
                     (config.panel_settings.servers ? `Servers: ${servers || "Unknown"}\n` : "") +
                     (config.panel_settings.users ? `Users  : ${users || "Unknown"}\n` : "") +
-                    (config.panel_settings.uptime ? `Uptime : ${uptime ? require("./UptimeFormatter.js")(Date.now() - uptime) : "N/A"}\n` : "") +
+                    (config.panel_settings.uptime ? `Uptime : ${uptime ? uptimeFormatter(Date.now() - uptime) : "N/A"}\n` : "") +
                     "```"
             });
 
@@ -194,10 +196,12 @@ module.exports = function App() {
 
         if (config.button.enable) {
             for (const row of ["row1", "row2", "row3", "row4", "row5"]) {
-                if (config.button[row] && config.button[row].length > 0)
-                    if (config.button[row].slice(0, 5).filter(button => button.label && button.url).length > 0) components.push(
+                const buttons = config.button[row]?.slice(0, 5).filter(button => button.label && button.url);
+
+                if (buttons && buttons.length > 0) {
+                    components.push(
                         new ActionRowBuilder().addComponents(
-                            config.button[row].slice(0, 5).filter(button => button.label && button.url).map(button =>
+                            buttons.map(button =>
                                 new ButtonBuilder()
                                     .setLabel(button.label)
                                     .setURL(button.url)
@@ -205,6 +209,7 @@ module.exports = function App() {
                             )
                         )
                     );
+                }
             }
         }
 
@@ -223,16 +228,16 @@ module.exports = function App() {
                 await channel.send({ content: config.message.content || null, embeds, components });
             }
         } catch (error) {
-            DiscordErrorHandler(error);
+            handleDiscordError(error);
         }
     }
 
-    function DiscordErrorHandler(error) {
+    function handleDiscordError(error) {
         try {
             if (error.rawError?.code === 429) {
                 console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Error 429 | Your IP has been rate limited by either Discord or your website. If it's a rate limit with Discord, you must wait. If it's a issue with your website, consider whitelisting your server IP."));
             } else if (error.rawError?.code === 403) {
-                console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("FORBIDDEN | The channel ID you provided is incorrect. Please double check you have the right ID. If you're not sure, read our documentation: https://github.com/HirziDevs/PteroStats#getting-channel-id"));
+                console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("FORBIDDEN | The channel ID you provided is incorrect. Please double check you have the right ID. If you're not sure, read our documentation: \n>>https://github.com/HirziDevs/PteroStats#getting-channel-id<<"));
             } else if (error.code === "ENOTFOUND") {
                 console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("ENOTFOUND | DNS Error. Ensure your network connection and DNS server are functioning correctly."));
             } else if (error.rawError?.code === 50001) {

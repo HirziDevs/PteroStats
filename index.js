@@ -1,6 +1,8 @@
 const fs = require("node:fs");
 const cliColor = require("cli-color");
 const package = require("./package.json");
+const setup = require("./handlers/setup.js");
+const application = require("./handlers/application.js");
 
 console.log(
     `    _${cliColor.blueBright.bold(`${cliColor.underline("Ptero")}dact${cliColor.underline("yl & P")}eli${cliColor.underline("can")}`)}___    ______   ______   \n` +
@@ -18,6 +20,6 @@ console.log(
     ` \n \n${package.description}\n `
 );
 
-if (!fs.existsSync(".env")) return require("./handlers/setup.js")();
+if (!fs.existsSync(".env")) return setup();
 
-require("./handlers/app.js")();
+application();
