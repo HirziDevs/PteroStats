@@ -3,6 +3,10 @@ const cliColor = require("cli-color");
 const package = require("./package.json");
 const setup = require("./handlers/setup.js");
 const application = require("./handlers/application.js");
+const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
 console.log(
     `    _${cliColor.blueBright.bold(`${cliColor.underline("Ptero")}dact${cliColor.underline("yl & P")}eli${cliColor.underline("can")}`)}___    ______   ______   \n` +
@@ -22,4 +26,23 @@ console.log(
 
 if (!fs.existsSync(".env")) return setup();
 
-application();
+console.log(cliColor.yellowBright(
+    "Configuration is already set. Please select one of the following options:\n \n" +
+    `${cliColor.cyanBright("1")} ${cliColor.blueBright("»")} Start the App\n` +
+    `${cliColor.cyanBright("2")} ${cliColor.blueBright("»")} Change configuration\n `
+));
+
+readline.question('> ', async (answer) => {
+    readline.close();
+
+    switch (answer) {
+        case '2':
+            setup();
+            break;
+        case '1':
+            application();
+            break;
+        default:
+            console.log(cliColor.redBright('Invalid input. Please type either 1 or 2.'));
+    }
+});
