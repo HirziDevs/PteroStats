@@ -1,8 +1,6 @@
 const fs = require("node:fs");
 const cliColor = require("cli-color");
 const package = require("./package.json");
-const setup = require("./handlers/setup.js");
-const application = require("./handlers/application.js");
 const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
@@ -24,7 +22,7 @@ console.log(
     ` \n \n${package.description}\n `
 );
 
-if (!fs.existsSync(".env")) return setup();
+if (!fs.existsSync(".env")) return require("./handlers/setup.js")();
 
 console.log(cliColor.yellowBright(
     "Configuration is already set. Please select one of the following options:\n \n" +
@@ -37,10 +35,10 @@ readline.question('> ', async (answer) => {
 
     switch (answer) {
         case '2':
-            setup();
+            require("./handlers/setup.js")();
             break;
         case '1':
-            application();
+            require("./handlers/application.js")();
             break;
         default:
             console.log(cliColor.redBright('Invalid input. Please type either 1 or 2.'));
