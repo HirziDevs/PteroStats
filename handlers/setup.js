@@ -1,7 +1,7 @@
-const axios = require("axios")
-const cliColor = require("cli-color")
-const { Client, GatewayIntentBits } = require("discord.js")
-const fs = require("fs")
+const axios = require("axios");
+const cliColor = require("cli-color");
+const { Client, GatewayIntentBits } = require("discord.js");
+const fs = require("node:fs");
 const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
@@ -82,8 +82,26 @@ module.exports = function Setup() {
                     console.log(cliColor.green("✓ Valid Discord Bot"));
                     client.channels.fetch(answers[Question.channelId]).then(() => {
                         console.log(cliColor.green("✓ Valid Discord Channel"));
-                        fs.writeFileSync(".env", `PanelURL=${answers[Question.panelUrl]}\nPanelKEY=${answers[Question.panelApiKey]}\nDiscordBotToken=${answers[Question.botToken]}\nDiscordChannel=${answers[Question.channelId]}`, "utf8")
-                        fs.writeFileSync("config.yml", fs.readFileSync("./config.yml", "utf8").replaceAll("Hosting Panel", answers[0]).replaceAll("https://panel.example.com", answers[1]), "utf-8")
+
+                        fs.writeFileSync(".setup-complete", "If you want to re-run the setup process, you can delete this file.", "utf8");
+
+                        fs.writeFileSync(
+                            ".env",
+                            `PanelURL=${answers[Question.panelUrl]}\n` +
+                            `PanelKEY=${answers[Question.panelApiKey]}\n` +
+                            `DiscordBotToken=${answers[Question.botToken]}\n` +
+                            `DiscordChannel=${answers[Question.channelId]}`,
+                            "utf8"
+                        );
+
+                        fs.writeFileSync(
+                            "config.yml",
+                            fs.readFileSync("./config.yml", "utf8")
+                                .replaceAll("Hosting Panel", answers[0])
+                                .replaceAll("https://panel.example.com", answers[1]),
+                            "utf-8"
+                        );
+
                         console.log(" \n" + cliColor.green(`Configuration saved in ${cliColor.blueBright(".env")} and ${cliColor.blueBright("config.yml")}.\n `));
 
                         require("./application.js")()
