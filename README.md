@@ -18,13 +18,13 @@ PteroStats is a Discord App/Bot designed to check Pterodactyl or Pelican Panel s
 
 ## Guide
 - [Starting the App/Bot](#starting-the-appbot)
-- [Changing Env Configuration](https://github.com/HirziDevs/PteroStats/blob/main/docs/changing-env-configuration.md)
-- [Getting an Panel API key](https://github.com/HirziDevs/PteroStats/blob/main/docs/getting-panel-api-key.md)
-- [Getting a Channel ID](https://github.com/HirziDevs/PteroStats/blob/main/docs/getting-channel-id.md)
-- [Using Custom Emoji](https://github.com/HirziDevs/PteroStats/blob/main/docs/using-custom-emoji.md)
-- [Blacklist Nodes](https://github.com/HirziDevs/PteroStats/blob/main/docs/blacklist-specific-nodes.md)
-- [Notifier](https://github.com/HirziDevs/PteroStats/blob/main/docs/notifier.md)
-- [Docker](https://github.com/HirziDevs/PteroStats/blob/main/docs/docker.md)
+- [Changing Env Configuration](https://github.com/HirziDevs/PteroStats/blob/main/guide/changing-env-configuration.md)
+- [Getting an Panel API key](https://github.com/HirziDevs/PteroStats/blob/main/guide/getting-panel-api-key.md)
+- [Getting a Channel ID](https://github.com/HirziDevs/PteroStats/blob/main/guide/getting-channel-id.md)
+- [Using Custom Emoji](https://github.com/HirziDevs/PteroStats/blob/main/guide/using-custom-emoji.md)
+- [Blacklist Nodes](https://github.com/HirziDevs/PteroStats/blob/main/guide/blacklist-specific-nodes.md)
+- [Notifier](https://github.com/HirziDevs/PteroStats/blob/main/guide/notifier.md)
+- [Docker](https://github.com/HirziDevs/PteroStats/blob/main/guide/docker.md)
 
 ### Starting the App/Bot
 1. [Create your Discord App/Bot](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
@@ -37,8 +37,8 @@ PteroStats is a Discord App/Bot designed to check Pterodactyl or Pelican Panel s
 
     <img alt="Setup" src="https://usercontent.catto.pictures/hirzi/b8645828-591d-4d52-b6d8-51f8df60440c.png" width="300"/>
 
-    - [Getting an Panel API key](https://github.com/HirziDevs/PteroStats/blob/main/docs/getting-panel-api-key.md)
-    - [Getting a Channel ID](https://github.com/HirziDevs/PteroStats/blob/main/docs/getting-channel-id.md)
+    - [Getting an Panel API key](https://github.com/HirziDevs/PteroStats/blob/main/guide/getting-panel-api-key.md)
+    - [Getting a Channel ID](https://github.com/HirziDevs/PteroStats/blob/main/guide/getting-channel-id.md)
 
 6. Run `node index` if you want to start the app/bot again, and you're done!
 
