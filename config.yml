@@ -1,87 +1,108 @@
-# PteroStats config
-# If you need help, join our discord server here: https://discord.gg/zv6maQRah3
+# PteroStats Configuration File
+# Need help? Join our Discord server: https://discord.znproject.my.id
+version: 9 # Warning: Do not change this unless you know what you are doing!
 
-# Bot Configuration
-token: "Put bot token here"
+# App Presence Configuration
 presence:
-  text: "Hosting Panel"
-  type: "watching" # can be 'watching', 'playing', 'listening', or 'competing'. 'streaming' is not working for now
-  status: "online" # can be 'online', 'idle', 'dnd', or 'invisible'
+  enable: true # Enable or disable app presence.
+  text: "Hosting Panel" # The status text shown by the app.
+  type: "watching" # Available types: 'watching', 'playing', 'listening', 'competing'. (Note: 'streaming' is currently unsupported)
+  status: "online" # Available types: 'online', 'idle', 'dnd', or 'invisible'
 
-# Discord Channel and Refresh Time Configuration
-channel: "Put channel id here"
-refresh: 60 # How much time the bot will refresh the stats
-timeout: 1 # How much time to wait for a node to respond to the bot (if you change this, it will add more time to refresh the stats)
-
-# Panel Configuration
-panel:
-  url: "Put panel url here"
-  key: "Put panel apikey here"
+# Discord Channel and Refresh Timing Configuration
+refresh: 10 # Interval in seconds for refreshing the panel's stats.
+timeout: 5 # Timeout in seconds for node responses. Adjusting this will affect the overall refresh time.
 
 # Message and Embed Configuration
-# set the option as '' if you want to disable it
+# To disable an option, leave the value as an empty string: ''
 message:
-  content: ""
-  attachment: "" # If you enable attachment on message it will upload the attachment first before sending or editing message and will result in delayed stats
+  content: "" # Custom content for app messages. Set to '' to disable.
+  attachment: "" # Attachments will delay stats refresh since they are uploaded first.
 
 embed:
-  title: "PteroStats"
-  color: "5865F2"
-  description: "Next update {{time}}" # You can use {{time}} to make "in X seconds" time format
-  footer: "By Hirzi#8701"
-  timestamp: true
-  thumbnail: ""
-  image: ""
-  field:
-    title: ""
-    description: "" # You can use {{time}} to make "in X seconds" time format
+  panel:
+    author:
+      name: "Hosting Panel" # Author name for the panel embed.
+      icon: "" # Icon URL for the author of the panel embed.
+    title: "Panel Stats" # Title of the panel stats embed.
+    description: "Next update {{time}}" # Description for the panel. {{time}} will display the next refresh time.
+    timestamp: false # Show the timestamp in the embed (true/false).
+    color: "5865F2" # Embed color in hex format.
+    footer:
+      text: "" # Footer text. Set to '' to disable.
+      icon: "" # Footer icon URL.
+    thumbnail: "" # Thumbnail URL for the embed.
+    image: "" # Image URL for the embed.
+
+  nodes:
+    author:
+      name: "" # Author name for the nodes embed.
+      icon: "" # Icon URL for the author of the nodes embed.
+    title: "Nodes Stats" # Title for the nodes stats embed.
+    description: "" # Description for the nodes stats embed. Can be left empty.
+    timestamp: true # Include a timestamp in the nodes embed (true/false).
+    color: "5865F2" # Embed color in hex format.
+    footer:
+      text: "By @HirziDevs" # Footer text for nodes stats.
+      icon: "" # Footer icon URL.
+    thumbnail: "" # Thumbnail URL for the nodes stats embed.
+    image: "" # Image URL for the nodes stats embed.
 
 # Message Button Configuration
 button:
-  enable: true
-  btn1:
-    label: "PteroStats"
-    url: "https://github.com/HirziDevs/PteroStats"
-  btn2:
-    label: ""
-    url: ""
-  btn3:
-    label: ""
-    url: ""
-  btn4:
-    label: ""
-    url: ""
-  btn5:
-    label: ""
-    url: ""
+  enable: true # Enable or disable buttons in messages.
+  row1:
+    - label: "Panel" # Label for the first button.
+      url: "https://panel.example.com" # URL for the first button.
+#    - label: "Dashboard" # Remove "#" at the start of the line to use this button
+#      url: "https://dash.example.com" # Remove "#" at the start of the line to use this button
+#  row2: # Remove "#" at the start of the line to use this row
+#    - label: "Backup Panel"
+#      url: "https://panel2.example.com"
+#    - label: "Backup Dashboard"
+#      url: "https://dash2.example.com"
 
 # Status Message Configuration
-# How to use custom emoji: https://github.com/HirziDevs/PteroStats#using-custom-emoji
+# For details on using custom emojis, visit: https://github.com/HirziDevs/PteroStats#using-custom-emoji
 status:
-  online: ":green_circle: Online"
-  offline: ":red_circle: Offline"
+  online: ":green_circle: Online" # Status message for when a node is online.
+  offline: ":red_circle: Offline" # Status message for when a node is offline.
 
-# Nodes Settings
-# How to get nodes id: https://github.com/HirziDevs/PteroStats#blacklist-nodes
+# Node Settings
+# Instructions for retrieving node IDs: https://github.com/HirziDevs/PteroStats#blacklist-nodes
 nodes_settings:
-  blacklist: [] # You can add node id to remove the node from status embed (Example: "blacklist: [1]")
-  details: false # enable nodes details i.e memory and disk usage
-  servers: true
-  location: true
-  allocations: true
-  unit: "gb" # Allowed values- "gb", "mb", "tb", or "percent"
+  blacklist: [] # Add node IDs to exclude them from the status embed (e.g., blacklist: [1]).
+  details: true # Show node details such as memory and disk usage (true/false).
+  servers: false # Show server details (true/false).
+  allocations_as_max_servers: false # Show allocations as max servers (true/false).
+  host: false # Show node host (true/false).
+  unit: "byte" # Unit for node usage, Available types: "byte" or "percentage".
+  uptime: true # Enable or disable node uptime (true/false).
+  limit: 100 # Node limit for usage statistics display.
 
 # Panel Users and Servers Settings
 panel_settings:
-  status: true # enable panel stats under nodes stats
-  servers: true
-  users: true
+  status: true # Display panel stats above node stats (true/false).
+  host: false # Show panel host (true/false).
+  uptime: true # Enable or disable node uptime (true/false).
+  servers: true # Display servers count (true/false).
+  users: true # Display users count (true/false).
 
-# Mentions a User or Role if any node is offline (this feature is still in testing, please report if you have a problem)
-mentions: # to enable atleast put 1 ID on user or role bellow
-  user: [] # Put User ID here (Example: "user: ['548867757517570058', '816219634390663230']")
-  role: [] # Put Role ID here (Example: "role: ['796083838236622858', '858198863973187585']")
-  channel: "" # Put Channel ID here for the logging
+# Notifier Configuration
+notifier:
+  enable: false # Enable or disable notifier.
+  webhook: "" # Discord Webhook URL for the notifier.
+  embed:
+    author:
+      name: "" # Author name for the notifier embed.
+      icon: "" # Icon URL for the author of the notifier embed.
+    timestamp: true # Include a timestamp in the notifier embed (true/false).
+    footer:
+      text: "PteroStats Notifier" # Footer text for notifier stats.
+      icon: "" # Footer icon URL.
+    thumbnail: "" # Thumbnail URL for the notifier stats embed.
+    image: "" # Image URL for the notifier stats embed.
 
-# Log error to console if a server offline (enable this when you have a problem that you want to report)
-log_error: false # set to "true" to enable
+# Error Logging Configuration
+# Enable logging to console if servers go offline, useful for debugging.
+log_error: false # Set to true to enable error logging.
