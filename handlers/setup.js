@@ -2,7 +2,6 @@ const axios = require("axios")
 const cliColor = require("cli-color")
 const { Client, GatewayIntentBits } = require("discord.js")
 const fs = require("fs")
-const application = require("./application.js");
 const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
@@ -87,7 +86,7 @@ module.exports = function Setup() {
                         fs.writeFileSync("config.yml", fs.readFileSync("./config.yml", "utf8").replaceAll("Hosting Panel", answers[0]).replaceAll("https://panel.example.com", answers[1]), "utf-8")
                         console.log(" \n" + cliColor.green(`Configuration saved in ${cliColor.blueBright(".env")} and ${cliColor.blueBright("config.yml")}.\n `));
 
-                        application()
+                        require("./application.js")()
                     }).catch(() => {
                         console.log(cliColor.redBright("❌ Invalid Channel ID."));
                         console.log(" \n" + cliColor.redBright("Please run the setup again and fill in the correct credentials."));
