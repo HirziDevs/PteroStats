@@ -1,7 +1,13 @@
 version: '3.3'
 services:
   pterostats:
-    volumes:
-      - ./config.yml:/app/config.yml
     container_name: pterostats
     image: ghcr.io/hirzidevs/pterostats:latest
+    restart: always
+    volumes:
+      - ./config.yml:/app/config.yml
+    environment:
+      - PanelURL=<PANEL_URL>
+      - PanelKEY=<PANEL_KEY>
+      - DiscordBotToken=<DISCORD_BOT_TOKEN>
+      - DiscordChannel=<DISCORD_CHANNEL_ID>

@@ -24,8 +24,8 @@ PteroStats is a Discord App/Bot designed to check Pterodactyl or Pelican Panel s
 - [Using Custom Emoji](#using-custom-emoji)
 - [Blacklist Nodes](#blacklist-nodes)
 - [Notifier](#notifier)
-- - [Docker](#docker)
-  - [Installation](#installation-1)
+- [Docker](#docker)
+  - [Installation](#installation)
   - [Docker Compose](#docker-compose)
   - [Docker Run](#docker-run)
 
@@ -179,7 +179,8 @@ curl -fsSL https://get.docker.com | sh
 ### Docker Compose
 
 Copy the `docker-compose.yml` file to your server and run `docker compose pull`
-Copy the `config.yml` file at the same directory as the `docker-compose.yml` file and configure it (refer to the [installation](#installation) section)
+Copy the `config.yml` file at the same directory as the `docker-compose.yml` file and configure it
+Fill the environment variables in the `docker-compose.yml` file and run the bot using `docker compose up -d`
 
 ```bash
 docker compose up -d
@@ -189,7 +190,7 @@ docker compose logs -f pterostats
 ### Docker Run
 
 ```bash
-docker run -d --name pterostats -v $(pwd)/config.yml:/app/config.yml ghcr.io/hirzidevs/pterostats:latest
+docker run -d --name pterostats -e PanelURL=<PanelURL> -e PanelKEY=<PanelKEY> -e DiscordBotToken=<DISCORD_BOT_TOKEN> -e DiscordChannel=<DISCORD_CHANNEL_ID> -v $(pwd)/config.yml:/app/config.yml ghcr.io/hirzidevs/pterostats:latest
 docker logs -f pterostats
 ```
 
