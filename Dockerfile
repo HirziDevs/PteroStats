@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY . /app
 
-# Perform clean install
-RUN node index.js
+RUN npm install
 
 CMD ["node", "index.js"]
