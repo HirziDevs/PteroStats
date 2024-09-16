@@ -24,6 +24,10 @@ PteroStats is a Discord App/Bot designed to check Pterodactyl or Pelican Panel s
 - [Using Custom Emoji](#using-custom-emoji)
 - [Blacklist Nodes](#blacklist-nodes)
 - [Notifier](#notifier)
+- - [Docker](#docker)
+  - [Installation](#installation-1)
+  - [Docker Compose](#docker-compose)
+  - [Docker Run](#docker-run)
 
 ### Starting the App/Bot
 1. [Create your Discord App/Bot](https://discordjs.guide/preparations/adding-your-bot-to-servers.html).
@@ -126,10 +130,13 @@ PteroStats is a Discord App/Bot designed to check Pterodactyl or Pelican Panel s
 
 <img alt="Blacklist Config" src="https://usercontent.catto.pictures/hirzi/7b5d6c7f-54d9-40ea-b5a6-9192325ba2a0.png" width="400"/>
 
+## Links
+=======
 ### Notifier
 Get a notification on Discord when your panel or specific nodes are currently down.
 
 <img alt="Notifier Preview" src="https://usercontent.catto.pictures/hirzi/a2b8e36f-7448-4849-a14a-b1eb4ec8fb26.png" width="250"/>
+
 
 #### Enabling Notifier
 Open `config.yml` and set `enable` at the notifier configuration to `true`
@@ -158,6 +165,33 @@ Open `config.yml` and set `enable` at the notifier configuration to `true`
 > You can change the webhook icon and username on the webhook settings.
 
 <img alt="Notifier Config" src="https://usercontent.catto.pictures/hirzi/2a4f7aba-9377-4722-bf19-3b7f0cc32772.png" width="300"/>
+
+## Docker
+
+This is a guide to run the bot using docker (alternative way to run the bot)
+
+### Installation
+
+```bash
+curl -fsSL https://get.docker.com | sh
+```
+
+### Docker Compose
+
+Copy the `docker-compose.yml` file to your server and run `docker compose pull`
+Copy the `config.yml` file at the same directory as the `docker-compose.yml` file and configure it (refer to the [installation](#installation) section)
+
+```bash
+docker compose up -d
+docker compose logs -f pterostats
+```
+
+### Docker Run
+
+```bash
+docker run -d --name pterostats -v $(pwd)/config.yml:/app/config.yml ghcr.io/hirzidevs/pterostats:latest
+docker logs -f pterostats
+```
 
 ## Reporting a Bug
 Enable `log_error` in the `config.yml` file and check the console for the error message. After that, report it to our Discord server at [Support Server](https://discord.znproject.my.id).
