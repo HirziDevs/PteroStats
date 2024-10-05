@@ -1,6 +1,6 @@
-const fs = require("node:fs");
-const yaml = require("js-yaml");
 const cliColor = require("cli-color");
+const yaml = require("js-yaml");
+const fs = require("node:fs");
 
 console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.yellow("Loading configuration..."));
 

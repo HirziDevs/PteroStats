@@ -1,4 +1,3 @@
-const config = require("./configuration.js");
 const cliColor = require("cli-color");
 
 module.exports = async function getUsers() {

@@ -1,11 +1,11 @@
-const axios = require("axios");
-const cliColor = require("cli-color");
 const { Client, GatewayIntentBits } = require("discord.js");
-const fs = require("node:fs");
 const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
 });
+const cliColor = require("cli-color");
+const axios = require("axios");
+const fs = require("node:fs");
 
 const questions = [
     "Please enter your panel name: ",

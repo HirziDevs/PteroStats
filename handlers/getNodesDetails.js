@@ -1,5 +1,5 @@
-const cliColor = require("cli-color");
 const config = require("./configuration.js");
+const cliColor = require("cli-color");
 const axios = require("axios");
 
 module.exports = async function getAllNodes() {
