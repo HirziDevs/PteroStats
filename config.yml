@@ -2,21 +2,21 @@
 # Need help? Join our Discord server: https://discord.znproject.my.id
 version: 9 # Warning: Do not change this unless you know what you are doing!
 
-# App Presence Configuration
+# App/Bot Presence Configuration
 presence:
-  enable: true # Enable or disable app presence.
+  enable: true # Enable or disable app presence (true/false).
   text: "Hosting Panel" # The status text shown by the app.
   type: "watching" # Available types: 'watching', 'playing', 'listening', 'competing'. (Note: 'streaming' is currently unsupported)
   status: "online" # Available types: 'online', 'idle', 'dnd', or 'invisible'
 
 # Discord Channel and Refresh Timing Configuration
 refresh: 10 # Interval in seconds for refreshing the panel's stats.
-timeout: 5 # Timeout in seconds for node responses. Adjusting this will affect the overall refresh time.
+timeout: 5 # Timeout in seconds for panel and node responses. Adjusting this will affect the overall refresh time.
 
 # Message and Embed Configuration
 # To disable an option, leave the value as an empty string: ''
 message:
-  content: "" # Custom content for app messages. Set to '' to disable.
+  content: "" # Custom content for app messages.
   attachment: "" # Attachments will delay stats refresh since they are uploaded first.
 
 embed:
@@ -63,22 +63,22 @@ button:
 #      url: "https://dash2.example.com"
 
 # Status Message Configuration
-# For details on using custom emojis, visit: https://github.com/HirziDevs/PteroStats#using-custom-emoji
+# How to use Custom Emoji: https://github.com/HirziDevs/PteroStats/blob/main/guide/custom-emoji.md
 status:
   online: ":green_circle: Online" # Status message for when a node is online.
   offline: ":red_circle: Offline" # Status message for when a node is offline.
 
 # Node Settings
-# Instructions for retrieving node IDs: https://github.com/HirziDevs/PteroStats#blacklist-nodes
+# How to get Node ID: https://github.com/HirziDevs/PteroStats/blob/main/guide/blacklist-nodes.md
 nodes_settings:
   blacklist: [] # Add node IDs to exclude them from the status embed (e.g., blacklist: [1]).
   details: true # Show node details such as memory and disk usage (true/false).
   servers: false # Show server details (true/false).
   allocations_as_max_servers: false # Show allocations as max servers (true/false).
   host: false # Show node host (true/false).
-  unit: "byte" # Unit for node usage, Available types: "byte" or "percentage".
-  uptime: true # Enable or disable node uptime (true/false).
-  limit: 100 # Node limit for usage statistics display.
+  unit: "byte" # Resource Unit, Available types: "byte" or "percentage".
+  uptime: true # Show node uptime (true/false).
+  limit: 100 # Change how much node can will be displayed.
 
 # Panel Users and Servers Settings
 panel_settings:
@@ -89,6 +89,7 @@ panel_settings:
   users: true # Display users count (true/false).
 
 # Notifier Configuration
+# How to use notifier: https://github.com/HirziDevs/PteroStats/blob/main/guide/notifier.md
 notifier:
   enable: false # Enable or disable notifier.
   webhook: "" # Discord Webhook URL for the notifier.
@@ -105,4 +106,4 @@ notifier:
 
 # Error Logging Configuration
 # Enable logging to console if servers go offline, useful for debugging.
-log_error: false # Set to true to enable error logging.
+log_error: false # Set to true to enable error logging (true/false).
