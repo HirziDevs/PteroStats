@@ -7,6 +7,11 @@ const cliColor = require("cli-color");
 const axios = require("axios");
 const fs = require("node:fs");
 
+/* 
+    NOTE:
+    Do not put your credentials here!
+*/
+
 const questions = [
     "Please enter your panel name: ",
     "Please enter your panel URL: ",
