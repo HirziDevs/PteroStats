@@ -26,6 +26,16 @@ console.log(
     ` \n \n${package.description}\n `
 );
 
+axios.get("https://raw.githubusercontent.com/HirziDevs/PteroStats/refs/heads/main/package.json").then(response => {
+    if (response.data && response.data.version !== package.version) console.log(
+        cliColor.yellowBright(`+============================================================+\n`) +
+        `              Update available: ${package.version} → ${cliColor.green(response.data.version)}\n` +
+        `  Download at ${cliColor.blueBright("https://ps.znproject.my.id/download")} to update.\n` +
+        cliColor.redBright(`   Make sure to backup ${cliColor.blueBright("config.yml")} and ${cliColor.blueBright(".env")} before updating.\n`) +
+        cliColor.yellowBright(`+============================================================+`)
+    )
+}).catch(error => console.log(`${cliColor.cyanBright("[PteroStats]")} ${cliColor.redBright("Failed to check for updates.")}`));
+
 if (!fs.existsSync(".env") || !fs.existsSync(".setup-complete")) return require("./handlers/setup.js")();
 
 process.on('uncaughtException', (error) => errorLogging(error))
