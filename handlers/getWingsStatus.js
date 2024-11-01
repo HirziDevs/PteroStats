@@ -1,3 +1,4 @@
+const errorLogging = require("./errorLogging.js");
 const config = require("./configuration.js");
 
 module.exports = async function getWingsStatus(node, nodeToken) {
@@ -12,6 +13,7 @@ module.exports = async function getWingsStatus(node, nodeToken) {
         .then(() => true)
         .catch((error) => {
             if (config.log_error) console.error(error);
+            errorLogging(error, true)
             return false
         })
 }

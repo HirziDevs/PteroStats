@@ -10,11 +10,9 @@
 PteroStats is a Discord App/Bot designed to check Pterodactyl or Pelican Panel stats and post it to your Discord server.
 
 ## Preview
-<div style="display: flex; justify-content: center; align-items: center;">
-    <img alt="PteroStats Setup Preview" src="https://usercontent.catto.pictures/hirzi/b8645828-591d-4d52-b6d8-51f8df60440c.png" width="300" style="margin-right: 20px;"/>
-    <img alt="PteroStats Image Preview" src="https://usercontent.catto.pictures/hirzi/e6f6fe6a-8c0e-4c7a-8b73-d4af752324f4.png" width="300" style="margin-right: 20px;"/>
-    <img alt="PteroStats Console Preview" src="https://usercontent.catto.pictures/hirzi/8ce3aac6-5c46-4626-bd14-af994b602f8e.png" width="300"/>
-</div>
+<img alt="PteroStats Setup Preview" src="https://usercontent.catto.pictures/hirzi/b8645828-591d-4d52-b6d8-51f8df60440c.png" width="300" style="margin-right: 20px;"/>
+<img alt="PteroStats Image Preview" src="https://usercontent.catto.pictures/hirzi/e6f6fe6a-8c0e-4c7a-8b73-d4af752324f4.png" width="300" style="margin-right: 20px;"/>
+<img alt="PteroStats Console Preview" src="https://usercontent.catto.pictures/hirzi/8ce3aac6-5c46-4626-bd14-af994b602f8e.png" width="300"/>
 
 ## Guide
 - [Starting the App/Bot](#starting-the-appbot)
@@ -37,15 +35,15 @@ PteroStats is a Discord App/Bot designed to check Pterodactyl or Pelican Panel s
 
     <img alt="Setup" src="https://usercontent.catto.pictures/hirzi/b8645828-591d-4d52-b6d8-51f8df60440c.png" width="300"/>
 
-    - [Getting an Panel API key](https://github.com/HirziDevs/PteroStats/blob/main/guide/panel-api-key.md)
-    - [Getting a Channel ID](https://github.com/HirziDevs/PteroStats/blob/main/guide/channel-id.md)
+    - [How to get Panel API key](https://github.com/HirziDevs/PteroStats/blob/main/guide/panel-api-key.md)
+    - [How to get Channel ID](https://github.com/HirziDevs/PteroStats/blob/main/guide/channel-id.md)
 
 6. Run `node index.js` if you want to start the app/bot again, and you're done!
 
     <img alt="Console Logging" src="https://usercontent.catto.pictures/hirzi/8ce3aac6-5c46-4626-bd14-af994b602f8e.png" width="300"/>
 
 ## Reporting a Bug
-Enable `log_error` in the `config.yml` file and check the console for the error message. After that, report it to our Discord server at [Support Server](https://discord.znproject.my.id).
+Enable `log_error` in the `config.yml` file and check the console for the error message. Please also send the `logs.txt` file created by the bot, which contains information that will help with the bug report. After that, report it to our Discord server at [Support Server](https://discord.znproject.my.id).
 
 ## Links
 ### Support Server

@@ -52,7 +52,7 @@ module.exports = function Application() {
     try {
         client.login(process.env?.DiscordBotToken);
     } catch {
-        console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Discord Error | Invalid Discord Bot Token! Make sure you have the correct token in the config!"));
+        console.error(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Discord Error | Invalid Discord Bot Token! Make sure you have the correct token in the config!"));
         process.exit();
     }
 }

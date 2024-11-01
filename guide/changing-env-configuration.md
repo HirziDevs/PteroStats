@@ -7,8 +7,8 @@
 
     <img alt="Setup" src="https://usercontent.catto.pictures/hirzi/b8645828-591d-4d52-b6d8-51f8df60440c.png" width="300"/>
 
-    - [Getting an Panel API key](https://github.com/HirziDevs/PteroStats/blob/main/guide/panel-api-key.md)
-    - [Getting a Channel ID](https://github.com/HirziDevs/PteroStats/blob/main/guide/channel-id.md)
+    - [How to get Panel API key](https://github.com/HirziDevs/PteroStats/blob/main/guide/panel-api-key.md)
+    - [How to get Channel ID](https://github.com/HirziDevs/PteroStats/blob/main/guide/channel-id.md)
 
 3. Run `node index.js` if you want to start the app/bot again, and you're done!
 

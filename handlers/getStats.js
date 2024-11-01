@@ -3,7 +3,8 @@ const getNodeConfiguration = require("./getNodeConfiguration.js");
 const getNodesDetails = require("./getNodesDetails.js");
 const getWingsStatus = require("./getWingsStatus.js");
 const promiseTimeout = require("./promiseTimeout.js");
-const sendMessage = require("./sendMessage.js")
+const errorLogging = require("./errorLogging.js");
+const sendMessage = require("./sendMessage.js");
 const getServers = require("./getServers.js");
 const config = require("./configuration.js");
 const getUsers = require("./getUsers.js");
@@ -103,6 +104,7 @@ module.exports = async function getStats(client) {
         return sendMessage(data);
     } catch (error) {
         if (config.log_error) console.error(error)
+        errorLogging(error)
         console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Panel is currently offline."));
 
         return fs.readFile(path.join(__dirname, "../cache.json"), (err, data) => {
