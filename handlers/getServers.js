@@ -11,5 +11,5 @@ module.exports = async function getServers() {
         },
     })
         .then((res) => res.json())
-        .then((data) => data.data.length)
+        .then((data) => data.meta.pagination.total)
 }

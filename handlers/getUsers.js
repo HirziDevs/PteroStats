@@ -10,5 +10,5 @@ module.exports = async function getUsers() {
         },
     })
         .then((res) => res.json())
-        .then((data) => data.data.length)
+        .then((data) => data.meta.pagination.total)
 }
