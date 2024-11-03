@@ -1,4 +1,5 @@
 ## Channel ID
+
 1. Enable Developer Mode in your Discord settings.
 
     <img alt="Discord User Settings" src="https://usercontent.catto.pictures/hirzi/36894499-b141-488f-98ed-40245c8f6862.png" width="400"/>

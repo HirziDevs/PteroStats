@@ -1,4 +1,5 @@
 ## Custom Emoji
+
 1. Type `\` in the server that has the custom emoji you want.
 
     <img alt="Type \ on the chat" src="https://usercontent.catto.pictures/hirzi/2e3c821f-92f9-4b5c-863a-e020b2fbc426.png" width="350"/>

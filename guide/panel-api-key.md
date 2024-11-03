@@ -1,4 +1,5 @@
 ## Panel API Key 
+
 > [!WARNING]
 > The use of Application API keys is **deprecated**; you should use **Client API keys**.
 

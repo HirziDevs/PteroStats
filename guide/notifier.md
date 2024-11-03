@@ -1,15 +1,18 @@
-## Notifier
+## Notifier (Discord Webhook)
+
 Get a notification on Discord when your panel or specific nodes are currently down.
 
 <img alt="Notifier Preview" src="https://usercontent.catto.pictures/hirzi/a2b8e36f-7448-4849-a14a-b1eb4ec8fb26.png" width="250"/>
 
 
 ### Enabling Notifier
+
 Open `config.yml` and set `enable` at the notifier configuration to `true`
 
 <img alt="Notifier Config" src="https://usercontent.catto.pictures/hirzi/b4c3f1d0-e053-402c-8401-4de44926fce6.png" width="300"/>
 
 ### Getting Discord Webhook URL
+
 1. Go to the channel settings of the channel you want to set for the notifier.
 
     <img alt="Notifier Config" src="https://usercontent.catto.pictures/hirzi/7d7712b9-d9ac-4650-83ac-21dc3f20c3fe.png" width="300"/>
