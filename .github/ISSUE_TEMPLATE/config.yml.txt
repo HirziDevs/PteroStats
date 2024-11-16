@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Feature Request
+    url: https://discord.znproject.my.id
+    about: Suggest a new feature or improvement for the bot.
+  - name: Installation Help
+    url: https://discord.znproject.my.id
+    about: Please visit our Discord for help with your installation.
+  - name: General Question
+    url: https://discord.znproject.my.id
+    about: Please visit our Discord for general questions about the bot.

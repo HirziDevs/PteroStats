@@ -1,0 +1,67 @@
+name: Bug Report
+description: Something isn’t working as expected with the bot.
+body:
+- type: markdown
+  attributes:
+    value: |
+      Use this form to report issues with the functionality of the bot. For help with installation or troubleshooting dependencies, please visit our Discord Server.
+
+- type: textarea
+  attributes:
+    label: Current Behavior
+    description: Provide a clear and concise description of the issue you’re experiencing.
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: Expected Behavior
+    description: Describe what you expected to happen.
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: Steps to Reproduce
+    description: Provide detailed steps to reproduce the issue. Incomplete or unclear steps may result in the issue being closed.
+  validations:
+    required: true
+
+- type: input
+  id: bot-version
+  attributes:
+    label: Bot Version
+    description: Specify the version of the bot you are using (e.g., "v4.1.0"). Avoid using "latest."
+  validations:
+    required: true
+
+- type: dropdown
+  id: installation-method
+  attributes:
+    label: Installation Method
+    description: Select the method you used to install the bot from the options below.
+    options:
+      - Manual
+      - Egg
+      - Docker
+  validations:
+    required: true
+
+- type: textarea
+  id: bot-logs
+  attributes:
+    label: Error Logs
+    description: |
+      Paste the error logs from your `logs.txt` file.
+  validations:
+    required: false
+
+- type: checkboxes
+  attributes:
+    label: Is there an existing issue for this?
+    description: Please [search here](https://github.com/hirzidevs/pterostats/issues) to see if an issue already exists for your problem.
+    options:
+    - label: I have searched the existing issues before opening this issue.
+      required: true
+    - label: I have checked in the Discord server and believe this is a bug with the bot, and not a configuration issue with my specific system.
+      required: true
