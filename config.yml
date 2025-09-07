@@ -5,8 +5,8 @@ version: 9 # Warning: Do not change this unless you know what you are doing!
 # App/Bot Presence Configuration
 presence:
   enable: true # Enable or disable app presence (true/false).
-  text: "Hosting Panel" # The status text shown by the app.
-  type: "watching" # Available types: 'watching', 'playing', 'listening', 'competing'. (Note: 'streaming' is currently unsupported)
+  text: "BetterHost" # The status text shown by the app.
+  type: "playing" # Available types: 'watching', 'playing', 'listening', 'competing'. (Note: 'streaming' is currently unsupported)
   status: "online" # Available types: 'online', 'idle', 'dnd', or 'invisible'
 
 # Discord Channel and Refresh Timing Configuration
@@ -22,7 +22,7 @@ message:
 embed:
   panel:
     author:
-      name: "Hosting Panel" # Author name for the panel embed.
+      name: "BetterHost Panels" # Author name for the panel embed.
       icon: "" # Icon URL for the author of the panel embed.
     title: "Panel Stats" # Title of the panel stats embed.
     description: "Next update {{time}}" # Description for the panel. {{time}} will display the next refresh time.
@@ -43,8 +43,8 @@ embed:
     timestamp: true # Include a timestamp in the nodes embed (true/false).
     color: "5865F2" # Embed color in hex format.
     footer:
-      text: "By @HirziDevs" # Footer text for nodes stats.
-      icon: "" # Footer icon URL.
+      text: "BetterHost™" # Footer text for nodes stats.
+      icon: "https://cdn.discordapp.com/attachments/1358762346448683209/1414241008241082468/image-2.png?ex=68beda13&is=68bd8893&hm=98f94a39e9e456c1773b02a128b799bf17c9e5a98211cbd902082ac7d64c1760&" # Footer icon URL.
     thumbnail: "" # Thumbnail URL for the nodes stats embed.
     image: "" # Image URL for the nodes stats embed.
 
@@ -53,7 +53,7 @@ button:
   enable: true # Enable or disable buttons in messages.
   row1:
     - label: "Panel" # Label for the first button.
-      url: "https://panel.example.com" # URL for the first button.
+      url: "https://youtu.be/dQw4w9WgXcQ?si=zfLnILp2hQT9c2mN" # URL for the first button.
 #    - label: "Dashboard" # Remove "#" at the start of the line to use this button
 #      url: "https://dash.example.com" # Remove "#" at the start of the line to use this button
 #  row2: # Remove "#" at the start of the line to use this row
