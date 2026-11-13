@@ -13,7 +13,31 @@ const cliColor = require("cli-color");
 const path = require('node:path');
 const fs = require("node:fs");
 
+let refreshTimer;
+let refreshInProgress = false;
+
+function scheduleNextRefresh(client) {
+    if (refreshTimer) clearTimeout(refreshTimer);
+
+    refreshTimer = setTimeout(() => {
+        refreshTimer = null;
+        module.exports(client).catch(error => {
+            if (config.log_error) console.error(error);
+            errorLogging(error);
+        });
+    }, config.refresh * 1000);
+}
+
 module.exports = async function getStats(client) {
+    if (refreshInProgress) return;
+
+    if (refreshTimer) {
+        clearTimeout(refreshTimer);
+        refreshTimer = null;
+    }
+
+    refreshInProgress = true;
+
     try {
         let cache = (() => {
             try {
@@ -85,7 +109,7 @@ module.exports = async function getStats(client) {
             servers: await getServers(),
             users: await getUsers(),
             nodes: await Promise.all(statusPromises),
-            isPanelDown: !cache.uptime,
+            isPanelDown: !cache?.uptime,
             timestamp: Date.now()
         }
 
@@ -101,38 +125,39 @@ module.exports = async function getStats(client) {
         data.client = client
         data.panel = true
 
-        return sendMessage(data);
+        return await sendMessage(data);
     } catch (error) {
         if (config.log_error) console.error(error)
         errorLogging(error)
         console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Panel is currently offline."));
 
-        return fs.readFile(path.join(__dirname, "../cache.json"), (err, data) => {
-            if (err) {
-                sendMessage({ client, cache: false, panel: false });
-                return console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Last cache was not found!"));
-            }
-
-            try {
-                const results = JSON.parse(data);
-                if (results.uptime) webhook(
-                    new EmbedBuilder()
-                        .setTitle("Panel Offline")
-                        .setColor("ED4245")
-                        .setDescription(`Panel is currently offline`)
-                );
-                results.uptime = false;
-                fs.writeFileSync("cache.json", JSON.stringify(results, null, 2), "utf8");
-
-                results.client = client
-                results.panel = false
-                results.cache = true
-                return sendMessage(results);
-            } catch {
+        let results;
+        try {
+            results = JSON.parse(await fs.promises.readFile(path.join(__dirname, "../cache.json"), "utf8"));
+        } catch (cacheError) {
+            if (cacheError.code === "ENOENT") {
+                console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Last cache was not found!"));
+            } else {
                 console.log(cliColor.cyanBright("[PteroStats] ") + cliColor.redBright("Something went wrong with cache data..."));
-
-                return sendMessage({ client, cache: false, panel: false });
             }
-        });
+            return await sendMessage({ client, cache: false, panel: false });
+        }
+
+        if (results.uptime) webhook(
+            new EmbedBuilder()
+                .setTitle("Panel Offline")
+                .setColor("ED4245")
+                .setDescription(`Panel is currently offline`)
+        );
+        results.uptime = false;
+        fs.writeFileSync("cache.json", JSON.stringify(results, null, 2), "utf8");
+
+        results.client = client
+        results.panel = false
+        results.cache = true
+        return await sendMessage(results);
+    } finally {
+        refreshInProgress = false;
+        scheduleNextRefresh(client);
     }
 }
